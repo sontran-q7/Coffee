@@ -4,7 +4,9 @@
  */
 package com.app.coffee.dashboard;
 
+import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,26 +31,321 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gradientPanel1 = new com.app.coffee.design.GradientPanel();
+        Sidebar = new com.app.coffee.design.GradientPanel();
+        SignoutButton = new javax.swing.JButton();
+        HomeButton = new javax.swing.JLabel();
+        MenuButton = new javax.swing.JLabel();
+        BillButton = new javax.swing.JLabel();
+        ProductButton = new javax.swing.JLabel();
+        EmployeeButton = new javax.swing.JLabel();
+        Header = new javax.swing.JPanel();
+        SearchField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        StaffLabel = new javax.swing.JLabel();
+        ShiftLabel = new javax.swing.JLabel();
+        StaffField = new javax.swing.JTextField();
+        ShiftField = new javax.swing.JTextField();
+        DislayPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout gradientPanel1Layout = new javax.swing.GroupLayout(gradientPanel1);
-        gradientPanel1.setLayout(gradientPanel1Layout);
-        gradientPanel1Layout.setHorizontalGroup(
-            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+        Sidebar.setEndColor(new java.awt.Color(102, 102, 102));
+        Sidebar.setStartColor(new java.awt.Color(0, 0, 0));
+
+        SignoutButton.setBackground(new java.awt.Color(255, 153, 0));
+        SignoutButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SignoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        SignoutButton.setText("Sign out");
+        SignoutButton.setPreferredSize(new java.awt.Dimension(120, 40));
+        SignoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignoutButtonActionPerformed(evt);
+            }
+        });
+
+        HomeButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        HomeButton.setForeground(new java.awt.Color(255, 255, 255));
+        HomeButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        HomeButton.setText("Home");
+        HomeButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        HomeButton.setVerifyInputWhenFocusTarget(false);
+        HomeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HomeButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                HomeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                HomeButtonMouseExited(evt);
+            }
+        });
+
+        MenuButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        MenuButton.setForeground(new java.awt.Color(255, 255, 255));
+        MenuButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MenuButton.setText("Menu");
+        MenuButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        MenuButton.setVerifyInputWhenFocusTarget(false);
+        MenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MenuButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MenuButtonMouseExited(evt);
+            }
+        });
+
+        BillButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        BillButton.setForeground(new java.awt.Color(255, 255, 255));
+        BillButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BillButton.setText("Bill");
+        BillButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        BillButton.setVerifyInputWhenFocusTarget(false);
+        BillButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BillButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BillButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BillButtonMouseExited(evt);
+            }
+        });
+
+        ProductButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        ProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        ProductButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ProductButton.setText("Product");
+        ProductButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        ProductButton.setVerifyInputWhenFocusTarget(false);
+        ProductButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseExited(evt);
+            }
+        });
+
+        EmployeeButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        EmployeeButton.setForeground(new java.awt.Color(255, 255, 255));
+        EmployeeButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        EmployeeButton.setText("Employee");
+        EmployeeButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        EmployeeButton.setVerifyInputWhenFocusTarget(false);
+        EmployeeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EmployeeButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                EmployeeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                EmployeeButtonMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SidebarLayout = new javax.swing.GroupLayout(Sidebar);
+        Sidebar.setLayout(SidebarLayout);
+        SidebarLayout.setHorizontalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(SignoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addComponent(HomeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BillButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EmployeeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        gradientPanel1Layout.setVerticalGroup(
-            gradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 860, Short.MAX_VALUE)
+        SidebarLayout.setVerticalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(HomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(MenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(EmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(SignoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
         );
 
-        getContentPane().add(gradientPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 860));
+        getContentPane().add(Sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 860));
+
+        Header.setBackground(new java.awt.Color(255, 255, 255));
+        Header.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
+        Header.setPreferredSize(new java.awt.Dimension(1350, 100));
+
+        SearchField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        SearchField.setForeground(new java.awt.Color(102, 102, 102));
+        SearchField.setText(" Search...");
+        SearchField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
+        SearchField.setPreferredSize(new java.awt.Dimension(240, 40));
+        SearchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchFieldActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(255, 102, 0));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Search");
+
+        StaffLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        StaffLabel.setForeground(new java.awt.Color(255, 102, 0));
+        StaffLabel.setText("Staff : ");
+
+        ShiftLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ShiftLabel.setForeground(new java.awt.Color(255, 102, 0));
+        ShiftLabel.setText("Shift : ");
+
+        StaffField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        StaffField.setForeground(new java.awt.Color(102, 102, 102));
+        StaffField.setText("Sontran@gmail.com");
+        StaffField.setBorder(null);
+
+        ShiftField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ShiftField.setForeground(new java.awt.Color(102, 102, 102));
+        ShiftField.setText("02");
+        ShiftField.setBorder(null);
+
+        javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
+        Header.setLayout(HeaderLayout);
+        HeaderLayout.setHorizontalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(StaffLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ShiftLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ShiftField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
+        );
+        HeaderLayout.setVerticalGroup(
+            HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderLayout.createSequentialGroup()
+                .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HeaderLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SearchField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(HeaderLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(StaffLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ShiftLabel)
+                            .addComponent(ShiftField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1360, -1));
+
+        DislayPanel.setBackground(new java.awt.Color(255, 255, 255));
+        DislayPanel.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(DislayPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 1350, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SignoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignoutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SignoutButtonActionPerformed
+
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
+        
+    }//GEN-LAST:event_SearchFieldActionPerformed
+
+    private void HomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseClicked
+        JOptionPane.showMessageDialog(this, "Label clicked!");
+    }//GEN-LAST:event_HomeButtonMouseClicked
+
+    private void HomeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseEntered
+       HomeButton.setForeground(new Color(255,153,0));
+    }//GEN-LAST:event_HomeButtonMouseEntered
+
+    private void HomeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseExited
+        HomeButton.setForeground(Color.white);
+    }//GEN-LAST:event_HomeButtonMouseExited
+
+    private void MenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuButtonMouseClicked
+
+    private void MenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseEntered
+        MenuButton.setForeground(new Color(255,153,0));
+    }//GEN-LAST:event_MenuButtonMouseEntered
+
+    private void MenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseExited
+         MenuButton.setForeground(Color.white);
+    }//GEN-LAST:event_MenuButtonMouseExited
+
+    private void BillButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BillButtonMouseClicked
+
+    private void BillButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseEntered
+        BillButton.setForeground(new Color(255,153,0));
+    }//GEN-LAST:event_BillButtonMouseEntered
+
+    private void BillButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseExited
+         BillButton.setForeground(Color.white);
+    }//GEN-LAST:event_BillButtonMouseExited
+
+    private void ProductButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductButtonMouseClicked
+
+    private void ProductButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseEntered
+        ProductButton.setForeground(new Color(255,153,0));
+    }//GEN-LAST:event_ProductButtonMouseEntered
+
+    private void ProductButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseExited
+         ProductButton.setForeground(Color.white);
+    }//GEN-LAST:event_ProductButtonMouseExited
+
+    private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmployeeButtonMouseClicked
+
+    private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
+       EmployeeButton.setForeground(new Color(255,153,0));
+    }//GEN-LAST:event_EmployeeButtonMouseEntered
+
+    private void EmployeeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseExited
+         EmployeeButton.setForeground(Color.white);
+    }//GEN-LAST:event_EmployeeButtonMouseExited
 
         private void setFullScreen() {
         // Kiểm tra xem phương thức có được gọi không
@@ -93,6 +390,20 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.app.coffee.design.GradientPanel gradientPanel1;
+    private javax.swing.JLabel BillButton;
+    private javax.swing.JPanel DislayPanel;
+    private javax.swing.JLabel EmployeeButton;
+    private javax.swing.JPanel Header;
+    private javax.swing.JLabel HomeButton;
+    private javax.swing.JLabel MenuButton;
+    private javax.swing.JLabel ProductButton;
+    private javax.swing.JTextField SearchField;
+    private javax.swing.JTextField ShiftField;
+    private javax.swing.JLabel ShiftLabel;
+    private com.app.coffee.design.GradientPanel Sidebar;
+    private javax.swing.JButton SignoutButton;
+    private javax.swing.JTextField StaffField;
+    private javax.swing.JLabel StaffLabel;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
