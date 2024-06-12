@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Coffee.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\DashboardPage.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\EmployeeManager.java
@@ -12,3 +13,21 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\Grad
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\demo.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\FormAdd.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\Dashboard.java
+=======
+D:\Desktop\Coffee\src\main\java\com\app\coffee\bill\test.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Coffee.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\UserController.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Database\AdminAccountManager.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\dashboard\Dashboard.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\LoginForm.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\UsersModel.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\bill\main.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Login\CustomDialog.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\employee\test.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\dashboard\DashboardPage.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\menu\test.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Database\Connection.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\product\test.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\design\GradientPanel.java
+D:\Desktop\Coffee\src\main\java\com\app\coffee\Login\Login.java
+>>>>>>> Login
