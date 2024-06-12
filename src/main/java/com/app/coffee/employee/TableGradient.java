@@ -54,7 +54,7 @@ public class TableGradient extends DefaultTableCellRenderer{
             g2.setPaint(new GradientPaint(x, 0, color1, width, 0, color2));
             g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
         } else if (row % 2 == 0) {
-            g2.setPaint(new GradientPaint(x, 0, Color.decode("#ffffff"), width, 0, Color.decode("#434343")));
+            g2.setPaint(new GradientPaint(x, 0, Color.decode("#ffffff"), width, 0, Color.decode("#FF6600")));
             g2.fill(new Rectangle2D.Double(0, 0, getWidth(), getHeight()));
         }
         g2.dispose();

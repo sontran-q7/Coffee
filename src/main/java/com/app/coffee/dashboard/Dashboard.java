@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.app.coffee.dashboard;
-
+import com.app.coffee.employee.*;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -346,7 +348,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductButtonMouseExited
 
     private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
-        // TODO add your handling code here:
+       showPanel("employee");
     }//GEN-LAST:event_EmployeeButtonMouseClicked
 
     private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
@@ -360,10 +362,10 @@ public class Dashboard extends javax.swing.JFrame {
     // setup Panel của các package khác 
   private void loadPanels() {
         DashboardPage dashboardPage = new DashboardPage();
-        
+        EmployeeManager employeeManager = new EmployeeManager();
 
         DislayPanel.add(dashboardPage, "dashboard");
-       
+        DislayPanel.add(employeeManager, "employee"); 
     }
    private void showPanel(String panelName) {
         ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);
@@ -423,6 +425,9 @@ public class Dashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
+        //FlatMacDarkLaf.setup();
+        FlatIntelliJLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dashboard().setVisible(true);
