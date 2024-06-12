@@ -4,9 +4,17 @@
  */
 package com.app.coffee.dashboard;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  *
@@ -17,10 +25,11 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
-    //ASDSAD SADSADSAD
     public Dashboard() {
         setFullScreen();
         initComponents();
+        loadPanels();
+       // startClock();
     }
 
     /**
@@ -54,7 +63,7 @@ public class Dashboard extends javax.swing.JFrame {
         Sidebar.setEndColor(new java.awt.Color(102, 102, 102));
         Sidebar.setStartColor(new java.awt.Color(0, 0, 0));
 
-        SignoutButton.setBackground(new java.awt.Color(255, 153, 0));
+        SignoutButton.setBackground(new java.awt.Color(255, 102, 0));
         SignoutButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         SignoutButton.setForeground(new java.awt.Color(255, 255, 255));
         SignoutButton.setText("Sign out");
@@ -274,7 +283,7 @@ public class Dashboard extends javax.swing.JFrame {
         getContentPane().add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1360, -1));
 
         DislayPanel.setBackground(new java.awt.Color(255, 255, 255));
-        DislayPanel.setLayout(new java.awt.BorderLayout());
+        DislayPanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(DislayPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 1350, 760));
 
         pack();
@@ -289,7 +298,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void HomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseClicked
-        JOptionPane.showMessageDialog(this, "Label clicked!");
+        showPanel("dashboard");
     }//GEN-LAST:event_HomeButtonMouseClicked
 
     private void HomeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseEntered
@@ -348,16 +357,46 @@ public class Dashboard extends javax.swing.JFrame {
          EmployeeButton.setForeground(Color.white);
     }//GEN-LAST:event_EmployeeButtonMouseExited
 
-        private void setFullScreen() {
-        // Kiểm tra xem phương thức có được gọi không
-        System.out.println("setFullScreen() method called");
-        // Thiết lập JFrame ở chế độ toàn màn hình
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        // Vô hiệu hóa khả năng thay đổi kích thước của JFrame
-        setResizable(false);
-        // Loại bỏ khả năng thu nhỏ cửa sổ bằng cách đặt undecorated
-        setUndecorated(true);
+    // setup Panel của các package khác 
+  private void loadPanels() {
+        DashboardPage dashboardPage = new DashboardPage();
+        
+
+        DislayPanel.add(dashboardPage, "dashboard");
+       
     }
+   private void showPanel(String panelName) {
+        ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);
+    }
+    
+    private void setFullScreen() {
+    // Kiểm tra xem phương thức có được gọi không
+    System.out.println("setFullScreen() method called");
+    // Thiết lập JFrame ở chế độ toàn màn hình
+    setExtendedState(JFrame.MAXIMIZED_BOTH);
+    // Vô hiệu hóa khả năng thay đổi kích thước của JFrame
+    setResizable(false);
+    // Loại bỏ khả năng thu nhỏ cửa sổ bằng cách đặt undecorated
+    setUndecorated(true);
+}
+//        // chỉnh day time
+//     private void startClock() {
+//        // Định dạng ngày giờ
+//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        // Tạo Timer để cập nhật mỗi giây
+//        Timer timer = new Timer(1000, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Lấy thời gian hiện tại
+//                Date now = new Date();
+//                // Định dạng và đặt vào timeLabel
+//                timeLabel.setText(sdf.format(now));
+//            }
+//        });
+//        // Bắt đầu Timer
+//        timer.start();
+//    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -380,6 +419,7 @@ public class Dashboard extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -1,5 +1,6 @@
 com\app\coffee\dashboard\Dashboard$6.class
 com\app\coffee\dashboard\Dashboard$1.class
+com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\dashboard\Dashboard$8.class
 com\app\coffee\dashboard\Dashboard$4.class
 com\app\coffee\employee\FormAdd.class
@@ -19,6 +20,7 @@ com\app\coffee\dashboard\Dashboard.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\employee\FormAdd$1.class
 com\app\coffee\employee\StaffSchedule.class
+com\app\coffee\dashboard\DashboardPage$1.class
 com\app\coffee\employee\test.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\dashboard\Dashboard$7.class
