@@ -1,4 +1,5 @@
 com\app\coffee\dashboard\Dashboard$6.class
+com\app\coffee\design\TableGradient.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\Login\LoginAccount\LoginForm$1.class
 com\app\coffee\product\test.class
@@ -27,7 +28,6 @@ com\app\coffee\employee\FormAdd.class
 com\app\coffee\employee\EmployeeManager.class
 com\app\coffee\Coffee.class
 com\app\coffee\Database\Connection.class
-com\app\coffee\employee\TableGradient.class
 com\app\coffee\dashboard\Dashboard$5.class
 com\app\coffee\Login\LoginAccount\LoginForm$2.class
 com\app\coffee\dashboard\Dashboard.class

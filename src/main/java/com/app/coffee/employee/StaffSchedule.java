@@ -4,6 +4,7 @@
  */
 package com.app.coffee.employee;
 
+import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;

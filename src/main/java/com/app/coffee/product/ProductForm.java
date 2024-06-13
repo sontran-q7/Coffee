@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.product;
+import com.app.coffee.design.TableGradient;
+import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.*;
 import java.util.Vector;
 import javax.swing.*;
@@ -23,38 +25,35 @@ public class ProductForm extends javax.swing.JPanel {
     public ProductForm() {
         initComponents();
           
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-        {
-            @Override
-             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
-                Font font = c.getFont(); // Lấy font hiện tại
-                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
-                c.setFont(font);
-                return c;
-            }
-        };        
-        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-        JTableHeader tableHeader1 = jTable1.getTableHeader();
-        JTableHeader tableHeader2 = jTable2.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
-        tableHeader2.setDefaultRenderer(headerRenderer);
-
+        setDefTable();
+    }
+    
+    private void setDefTable() {
+        //cateogry
+        jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
+        tableCategory.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
+        tableCategory.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverBackground:null;"
+                + "pressedBackground:null;"
+                + "separatorColor:$TableHeader.background");
+        scrollCategory.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:3,0,3,0,$Table.background,10,10");
+        scrollCategory.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverTrackColor:null");
         
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
-
-        for (int i = 0; i < jTable1.getColumnCount(); i++) {
-            jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        jTable1.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
-        
-        for (int i = 0; i < jTable2.getColumnCount(); i++) {
-            jTable2.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        jTable2.setRowHeight(30);
+        // product
+        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
+        tableProduct.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
+        tableProduct.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverBackground:null;"
+                + "pressedBackground:null;"
+                + "separatorColor:$TableHeader.background");
+        scrollProduct.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:3,0,3,0,$Table.background,10,10");
+        scrollProduct.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverTrackColor:null");
     }
     
     
@@ -74,27 +73,27 @@ public class ProductForm extends javax.swing.JPanel {
         addCategoryButton = new javax.swing.JButton();
         editCategoryButton = new javax.swing.JButton();
         deleteCategoryButton = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        scrollCategory = new javax.swing.JScrollPane();
+        tableCategory = new javax.swing.JTable();
         table2Panel = new javax.swing.JPanel();
         ProductPanel = new javax.swing.JPanel();
         productLabel = new javax.swing.JLabel();
         addProductButton = new javax.swing.JButton();
         editProductButton = new javax.swing.JButton();
         deleteProductButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-
-        setLayout(new java.awt.GridLayout(2, 0));
+        jPanel2 = new javax.swing.JPanel();
+        scrollProduct = new javax.swing.JScrollPane();
+        tableProduct = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         table1Panel.setBackground(new java.awt.Color(255, 255, 255));
-        table1Panel.setLayout(new java.awt.BorderLayout());
 
-        CategoryPanel.setBackground(new java.awt.Color(204, 255, 255));
+        CategoryPanel.setBackground(new java.awt.Color(255, 255, 255));
         CategoryPanel.setPreferredSize(new java.awt.Dimension(1000, 45));
 
         categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        categoryLabel.setText("Category Table");
+        categoryLabel.setText("Category");
 
         addCategoryButton.setBackground(new java.awt.Color(51, 255, 0));
         addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -124,81 +123,78 @@ public class ProductForm extends javax.swing.JPanel {
         CategoryPanelLayout.setHorizontalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
+                .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(addCategoryButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(deleteCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         CategoryPanelLayout.setVerticalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(deleteCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(categoryLabel)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanelLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        table1Panel.add(CategoryPanel, java.awt.BorderLayout.PAGE_START);
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+        scrollCategory.setBackground(new java.awt.Color(255, 255, 255));
+        scrollCategory.setBorder(null);
+        scrollCategory.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(204, 255, 204));
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableCategory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tableCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "2", "1"},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Category", "Description"
             }
         ));
-        jTable1.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
+        tableCategory.setGridColor(new java.awt.Color(0, 0, 0));
+        tableCategory.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tableCategory.setShowGrid(true);
+        tableCategory.getTableHeader().setReorderingAllowed(false);
+        scrollCategory.setViewportView(tableCategory);
+        if (tableCategory.getColumnModel().getColumnCount() > 0) {
+            tableCategory.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        table1Panel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel1.add(scrollCategory, java.awt.BorderLayout.CENTER);
 
-        add(table1Panel);
+        javax.swing.GroupLayout table1PanelLayout = new javax.swing.GroupLayout(table1Panel);
+        table1Panel.setLayout(table1PanelLayout);
+        table1PanelLayout.setHorizontalGroup(
+            table1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table1PanelLayout.createSequentialGroup()
+                .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        table1PanelLayout.setVerticalGroup(
+            table1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(table1PanelLayout.createSequentialGroup()
+                .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+        );
 
-        table2Panel.setLayout(new java.awt.BorderLayout());
-
-        ProductPanel.setBackground(new java.awt.Color(204, 255, 255));
+        ProductPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         productLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        productLabel.setText("Product Table");
+        productLabel.setText("Product ");
 
         addProductButton.setBackground(new java.awt.Color(51, 255, 0));
         addProductButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addProductButton.setText("Add+");
-        addProductButton.setPreferredSize(new java.awt.Dimension(72, 45));
         addProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addProductButtonActionPerformed(evt);
@@ -224,98 +220,113 @@ public class ProductForm extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout ProductPanelLayout = new javax.swing.GroupLayout(ProductPanel);
-        ProductPanel.setLayout(ProductPanelLayout);
-        ProductPanelLayout.setHorizontalGroup(
-            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
-                .addComponent(addProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        ProductPanelLayout.setVerticalGroup(
-            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(addProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(deleteProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        table2Panel.add(ProductPanel, java.awt.BorderLayout.PAGE_START);
-
-        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setBorder(null);
-        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
-
-        jTable2.setBackground(new java.awt.Color(204, 255, 204));
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "image", null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Image", "Category", "Product", "Size", "Price"
             }
         ));
-        jTable2.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable2.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        jTable2.setShowGrid(true);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setMaxWidth(50);
-        }
+        tableProduct.getTableHeader().setReorderingAllowed(false);
+        scrollProduct.setViewportView(tableProduct);
 
-        table2Panel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jPanel2.add(scrollProduct, java.awt.BorderLayout.CENTER);
 
-        add(table2Panel);
+        javax.swing.GroupLayout ProductPanelLayout = new javax.swing.GroupLayout(ProductPanel);
+        ProductPanel.setLayout(ProductPanelLayout);
+        ProductPanelLayout.setHorizontalGroup(
+            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProductPanelLayout.createSequentialGroup()
+                .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addProductButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+        );
+        ProductPanelLayout.setVerticalGroup(
+            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProductPanelLayout.createSequentialGroup()
+                .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ProductPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addProductButton)
+                            .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(productLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout table2PanelLayout = new javax.swing.GroupLayout(table2Panel);
+        table2Panel.setLayout(table2PanelLayout);
+        table2PanelLayout.setHorizontalGroup(
+            table2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ProductPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        table2PanelLayout.setVerticalGroup(
+            table2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ProductPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Table Category & Product");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(table1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(table2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(table1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(table2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void editProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editProductButtonActionPerformed
 
     private void editCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCategoryButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editCategoryButtonActionPerformed
 
-    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteProductButtonActionPerformed
-
-    private void addProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addProductButtonActionPerformed
-
     private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
         NewCategoryPage newCategory = new NewCategoryPage();
         newCategory.setVisible(true);
     }//GEN-LAST:event_addCategoryButtonActionPerformed
+
+    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteProductButtonActionPerformed
+
+    private void editProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editProductButtonActionPerformed
+
+    private void addProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addProductButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -328,12 +339,15 @@ public class ProductForm extends javax.swing.JPanel {
     private javax.swing.JButton deleteProductButton;
     private javax.swing.JButton editCategoryButton;
     private javax.swing.JButton editProductButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel productLabel;
+    private javax.swing.JScrollPane scrollCategory;
+    private javax.swing.JScrollPane scrollProduct;
     private javax.swing.JPanel table1Panel;
     private javax.swing.JPanel table2Panel;
+    private javax.swing.JTable tableCategory;
+    private javax.swing.JTable tableProduct;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,9 @@
  */
 package com.app.coffee.bill;
 
+import com.app.coffee.design.TableGradient;
+import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,6 +24,21 @@ public class Bill extends javax.swing.JPanel {
     public Bill() {
         initComponents();
         
+        setDefTable();
+    }
+    
+    private void setDefTable() {
+        table.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
+        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:4,4,4,4,$TableHeader.bottomSeparatorColor,,10");
+        table.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverBackground:null;"
+                + "pressedBackground:null;"
+                + "separatorColor:$TableHeader.background");
+        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+                + "border:9,0,9,0,$Table.background,10,10");
+        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+                + "hoverTrackColor:null");
     }
 
     /**
@@ -32,8 +50,6 @@ public class Bill extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
@@ -41,57 +57,13 @@ public class Bill extends javax.swing.JPanel {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        scroll = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
         setPreferredSize(new java.awt.Dimension(1340, 750));
-
-        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
-        jTable1.setForeground(new java.awt.Color(243, 114, 44));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID Bill", "ID Products", "Quantity", "Total", "User Oder", "Shift", "Datetime", "Status"
-            }
-        ));
-        jTable1.setGridColor(new java.awt.Color(243, 114, 44));
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
@@ -171,15 +143,37 @@ public class Bill extends javax.swing.JPanel {
                 .addGap(28, 28, 28))
         );
 
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
+        table.setForeground(new java.awt.Color(243, 114, 44));
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Bill", "ID Products", "Quantity", "Total", "User Oder", "Shift", "Datetime", "Status"
+            }
+        ));
+        table.setGridColor(new java.awt.Color(243, 114, 44));
+        table.setShowGrid(true);
+        table.getTableHeader().setReorderingAllowed(false);
+        scroll.setViewportView(table);
+
+        jPanel2.add(scroll, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -187,8 +181,8 @@ public class Bill extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -209,8 +203,9 @@ public class Bill extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane scroll;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

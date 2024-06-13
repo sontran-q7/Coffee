@@ -5,6 +5,7 @@
 package com.app.coffee.dashboard;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
+import com.app.coffee.product.*;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import java.awt.CardLayout;
@@ -337,7 +338,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_BillButtonMouseExited
 
     private void ProductButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseClicked
-        // TODO add your handling code here:
+        showPanel("product");
     }//GEN-LAST:event_ProductButtonMouseClicked
 
     private void ProductButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseEntered
@@ -365,9 +366,12 @@ public class Dashboard extends javax.swing.JFrame {
         DashboardPage dashboardPage = new DashboardPage();
         EmployeeManager employeeManager = new EmployeeManager();
         Bill bill = new Bill();
+        ProductForm product = new ProductForm();
+        
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
-        DislayPanel.add(bill, "bill"); 
+        DislayPanel.add(bill, "bill");
+        DislayPanel.add(product, "product"); 
     }
    private void showPanel(String panelName) {
         ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);
