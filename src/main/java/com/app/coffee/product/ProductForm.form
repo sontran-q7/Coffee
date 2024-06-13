@@ -251,12 +251,19 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="ProductPanel" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProductPanel" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="ProductPanel" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ProductPanel" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -281,7 +288,7 @@
                       <Component id="deleteProductButton" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel2" alignment="0" pref="557" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="545" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -377,13 +384,31 @@
                     <Component class="javax.swing.JTable" name="tableProduct">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="0">
-                            <Column editable="true" title="ID" type="java.lang.Object"/>
-                            <Column editable="true" title="Image" type="java.lang.Object"/>
-                            <Column editable="true" title="Category" type="java.lang.Object"/>
-                            <Column editable="true" title="Product" type="java.lang.Object"/>
-                            <Column editable="true" title="Size" type="java.lang.Object"/>
-                            <Column editable="true" title="Price" type="java.lang.Object"/>
+                          <Table columnCount="6" rowCount="2">
+                            <Column editable="true" title="ID" type="java.lang.Object">
+                              <Data value="01"/>
+                              <Data value="null"/>
+                            </Column>
+                            <Column editable="true" title="Image" type="java.lang.Object">
+                              <Data value="image"/>
+                              <Data value="null"/>
+                            </Column>
+                            <Column editable="true" title="Category" type="java.lang.Object">
+                              <Data value="Coffee"/>
+                              <Data value="null"/>
+                            </Column>
+                            <Column editable="true" title="Product" type="java.lang.Object">
+                              <Data value="Coffee s&#x1eef;a"/>
+                              <Data value="null"/>
+                            </Column>
+                            <Column editable="true" title="Size" type="java.lang.Object">
+                              <Data value="S"/>
+                              <Data value="null"/>
+                            </Column>
+                            <Column editable="true" title="Price" type="java.lang.Object">
+                              <Data value="13.00"/>
+                              <Data value="null"/>
+                            </Column>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -7,6 +7,7 @@ com\app\coffee\dashboard\DashboardPage.class
 com\app\coffee\dashboard\Dashboard$3.class
 com\app\coffee\menu\test.class
 com\app\coffee\Login\LoginAccount\LoginForm.class
+com\app\coffee\Login\LoginAccount\LoginForm$4.class
 com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\demo$1.class
 com\app\coffee\employee\demo.class
@@ -33,5 +34,4 @@ com\app\coffee\Login\LoginAccount\LoginForm$2.class
 com\app\coffee\dashboard\Dashboard.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\employee\FormAdd$1.class
-com\app\coffee\employee\test.class
 com\app\coffee\dashboard\Dashboard$2.class
