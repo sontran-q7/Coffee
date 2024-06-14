@@ -5,6 +5,7 @@
 package com.app.coffee.Login.LoginAccount;
 
 
+import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.Database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,13 +30,13 @@ public class UserController {
                 if (rs.next()) {
                     int id = rs.getInt("id");
                     String userName = rs.getString("userName");
-                    int gender = rs.getInt("gender");
+                    String gender = rs.getString("gender");
                     int phone = rs.getInt("phone");
                     String image = rs.getString("image");
                     String password = rs.getString("password");
                     String option = rs.getString("option");
-                    
-                    user = new UsersModel(id, userName, gender, phone, image, email, password, option);
+                    boolean status = rs.getBoolean("status");
+                    user = new UsersModel(id, userName, gender, phone, image, email, password, option, status);
                 }
             }
         } catch (SQLException e) {

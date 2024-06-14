@@ -70,12 +70,12 @@ public class ProductForm extends javax.swing.JPanel {
         table1Panel = new javax.swing.JPanel();
         CategoryPanel = new javax.swing.JPanel();
         categoryLabel = new javax.swing.JLabel();
-        addCategoryButton = new javax.swing.JButton();
-        editCategoryButton = new javax.swing.JButton();
-        deleteCategoryButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         scrollCategory = new javax.swing.JScrollPane();
         tableCategory = new javax.swing.JTable();
+        deleteCategoryButton = new javax.swing.JButton();
+        editCategoryButton = new javax.swing.JButton();
+        addCategoryButton = new javax.swing.JButton();
         table2Panel = new javax.swing.JPanel();
         ProductPanel = new javax.swing.JPanel();
         productLabel = new javax.swing.JLabel();
@@ -90,6 +90,7 @@ public class ProductForm extends javax.swing.JPanel {
 
         table1Panel.setBackground(new java.awt.Color(255, 255, 255));
         table1Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
+        table1Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         CategoryPanel.setBackground(new java.awt.Color(255, 255, 255));
         CategoryPanel.setPreferredSize(new java.awt.Dimension(1000, 45));
@@ -98,56 +99,22 @@ public class ProductForm extends javax.swing.JPanel {
         categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         categoryLabel.setText("Category");
 
-        addCategoryButton.setBackground(new java.awt.Color(51, 255, 0));
-        addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        addCategoryButton.setText("Add+");
-        addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCategoryButtonActionPerformed(evt);
-            }
-        });
-
-        editCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        editCategoryButton.setText("Edit");
-        editCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
-        editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCategoryButtonActionPerformed(evt);
-            }
-        });
-
-        deleteCategoryButton.setBackground(new java.awt.Color(255, 51, 51));
-        deleteCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        deleteCategoryButton.setText("Delete");
-        deleteCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
-
         javax.swing.GroupLayout CategoryPanelLayout = new javax.swing.GroupLayout(CategoryPanel);
         CategoryPanel.setLayout(CategoryPanelLayout);
         CategoryPanelLayout.setHorizontalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CategoryPanelLayout.createSequentialGroup()
                 .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(addCategoryButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         CategoryPanelLayout.setVerticalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CategoryPanelLayout.createSequentialGroup()
-                        .addContainerGap(10, Short.MAX_VALUE)
-                        .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addCategoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        table1Panel.add(CategoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 220, -1));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -175,22 +142,33 @@ public class ProductForm extends javax.swing.JPanel {
 
         jPanel1.add(scrollCategory, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout table1PanelLayout = new javax.swing.GroupLayout(table1Panel);
-        table1Panel.setLayout(table1PanelLayout);
-        table1PanelLayout.setHorizontalGroup(
-            table1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(table1PanelLayout.createSequentialGroup()
-                .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        table1PanelLayout.setVerticalGroup(
-            table1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(table1PanelLayout.createSequentialGroup()
-                .addComponent(CategoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-        );
+        table1Panel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 75, 447, 437));
+
+        deleteCategoryButton.setBackground(new java.awt.Color(255, 51, 51));
+        deleteCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        deleteCategoryButton.setText("Delete");
+        deleteCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
+        table1Panel.add(deleteCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 80, 29));
+
+        editCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editCategoryButton.setText("Edit");
+        editCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
+        editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editCategoryButtonActionPerformed(evt);
+            }
+        });
+        table1Panel.add(editCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 29));
+
+        addCategoryButton.setBackground(new java.awt.Color(51, 255, 0));
+        addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addCategoryButton.setText("Add+");
+        addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCategoryButtonActionPerformed(evt);
+            }
+        });
+        table1Panel.add(addCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
 
         ProductPanel.setBackground(new java.awt.Color(255, 255, 255));
         ProductPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
@@ -256,7 +234,7 @@ public class ProductForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
         );
         ProductPanelLayout.setVerticalGroup(
             ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,8 +247,8 @@ public class ProductForm extends javax.swing.JPanel {
                             .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(productLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout table2PanelLayout = new javax.swing.GroupLayout(table2Panel);
