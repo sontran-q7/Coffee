@@ -4,6 +4,7 @@
  */
 package com.app.coffee.Database;
 
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -34,7 +35,9 @@ public class Connection {
          
         if(connection != null){
             AdminAccountManager.createAdminAccount();
-            System.out.println("success");   
+         
+            System.out.println("success"); 
+            
         }else{
             System.out.println("false");
         }

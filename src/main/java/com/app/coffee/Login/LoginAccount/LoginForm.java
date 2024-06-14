@@ -6,6 +6,7 @@ package com.app.coffee.Login.LoginAccount;
 
 
 import static com.app.coffee.Database.AdminAccountManager.hashPassword;
+import com.app.coffee.dashboard.Dashboard;
 import java.awt.Color;
 import com.app.coffee.Login.CustomDialog;
 import java.security.NoSuchAlgorithmException;
@@ -241,6 +242,8 @@ public class LoginForm extends javax.swing.JFrame {
     
         if (user != null && checkPassword(enteredPassword, user.getPassWord())) {
             System.out.println("success");
+            new Dashboard().setVisible(true);
+            
         } else {
             JLabel message = new JLabel("Email and password don't exist");
             message.setForeground(Color.RED);

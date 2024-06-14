@@ -19,6 +19,7 @@ public class UsersModel {
         this.email = email;
         this.password = password;
         this.option = option;
+        
     }
        
         public int getId(){
