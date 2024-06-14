@@ -5,7 +5,9 @@
 package com.app.coffee.Login.LoginAccount;
 
 
+import com.app.coffee.Backend.Model.UsersModel;
 import static com.app.coffee.Database.AdminAccountManager.hashPassword;
+import com.app.coffee.Database.PasswordUtils;
 import java.awt.Color;
 import com.app.coffee.Login.CustomDialog;
 import java.security.NoSuchAlgorithmException;
@@ -33,75 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(true);
         
-//        virtualKeyboard = new VirtualKeyboard();
-//        JPanel virtualKeyboardPanel = new JPanel();
-//        virtualKeyboardPanel.add(virtualKeyboard);
-//        virtualKeyboardPanel.setSize(1000, 1000);
-//        
-//       
-//        
-//        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                virtualKeyboard.setCurrentTextField(jTextField1);
-//                displayVirtualKeyboard();
-//            }
-//        });
-//
-//        jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                virtualKeyboard.setCurrentPasswordField(jPasswordField1);
-//                displayVirtualKeyboard();
-//            }
-//        });
-   
-
-//    JPanel1Layout.applyLayout(jPanel1, virtualKeyboardPanel);
-        
-//        jButton1.addActionListener(new java.awt.event.ActionListener() {
-//        @Override
-//        public void actionPerformed(java.awt.event.ActionEvent evt) {
-//            jButton1ActionPerformed(evt);
-//        }
-//    });
-        
-//       virtualKeyboard.addActionListener(new ActionListener() {
-//        public void actionPerformed(ActionEvent e) {
-//            if (currentTextField != null) {
-//                currentTextField.replaceSelection(e.getActionCommand());
-//            }
-//        }
-//    });        
-    }
-    
-//   private void displayVirtualKeyboard() {
-//     
-//    if (keyboardFrame == null) {
-//        keyboardFrame = new JFrame();
-//        keyboardFrame.getContentPane().add(virtualKeyboard);
-//        keyboardFrame.pack();
-//    }
-//    
-//    int x = this.getX();
-//    int y = this.getY() + this.getHeight();
-//
-//    // Đặt vị trí của bàn phím ảo ngay dưới LoginForm
-//    keyboardFrame.setLocation(x, y);
-//    
-//    if (currentTextField != null) {
-//        // Lưu vị trí con trỏ chuột hiện tại trong trường nhập liệu
-//        int caretPosition = currentTextField.getCaretPosition();
-//        
-//        // Hiển thị bàn phím ảo
-//        keyboardFrame.setVisible(true);
-//        
-//        // Đặt lại vị trí con trỏ chuột vào sau khi hiển thị bàn phím ảo
-//        currentTextField.setCaretPosition(caretPosition);
-//    }
-//    
-//    
-//}
-
-
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -234,26 +168,15 @@ public class LoginForm extends javax.swing.JFrame {
     String enteredPassword = new String(jPasswordField1.getPassword());
     user = userController.getUserByEmail(enteredEmail);
     
-        if (user != null && checkPassword(enteredPassword, user.getPassWord())) {
-            System.out.println("success");
+        if (user != null && PasswordUtils.checkPassword(enteredPassword, user.getPassword())) {
+            System.out.println("Success");
         } else {
             JLabel message = new JLabel("Email and password don't exist");
             message.setForeground(Color.RED);
-            new CustomDialog(this, " Error", "Email and password don't exist! ");
+            new CustomDialog(this, "Error", "Email and password don't exist!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    
- 
-    private boolean checkPassword(String enteredPassword, String hashedPasswordFromDB) {
-    try {
-        String hashedEnteredPassword = hashPassword(enteredPassword);
-        return hashedEnteredPassword.equals(hashedPasswordFromDB);
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-        return false;
-    }
-}   
    
            
     /**

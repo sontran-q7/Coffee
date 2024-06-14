@@ -55,10 +55,14 @@ public class AdminAccountManager {
             String adminPassword = "admin";
             String hashedPassword = hashPassword(adminPassword); 
             try (java.sql.Connection conn = DriverManager.getConnection(url, user, password);
-                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (email, password, option) VALUES (?, ?, ?)")) {
-                stmt.setString(1, "admin");
-                stmt.setString(2, hashedPassword); 
-                stmt.setString(3, "Admin");
+                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO users (userName,gender,phone,image,email, password, option) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                stmt.setString(1, "null");
+                stmt.setString(2, "null");
+                stmt.setInt(3, 0);
+                stmt.setString(4, "null");
+                stmt.setString(5, "admin");
+                stmt.setString(6, hashedPassword); 
+                stmt.setString(7, "Admin");
                 int rowsInserted = stmt.executeUpdate();
                 if (rowsInserted > 0) {
                     System.out.println("A new admin account was created successfully!");
