@@ -3,14 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.product;
-import com.app.coffee.design.TableGradient;
-import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.*;
-import java.util.Vector;
+import java.util.List;
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.table.*;
-import jdk.jfr.Category;
+//import com.app.coffee.product.*;
 
 
 /**
@@ -18,46 +15,46 @@ import jdk.jfr.Category;
  * @author Acer
  */
 public class ProductForm extends javax.swing.JPanel {
-
     /**
      * Creates new form ProductForm
      */
     public ProductForm() {
         initComponents();
-          
-        setDefTable();
-    }
-    
-    private void setDefTable() {
-        //cateogry
-        jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
-        tableCategory.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
-        tableCategory.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverBackground:null;"
-                + "pressedBackground:null;"
-                + "separatorColor:$TableHeader.background");
-        scrollCategory.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:3,0,3,0,$Table.background,10,10");
-        scrollCategory.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverTrackColor:null");
-        
-        // product
-        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
-        tableProduct.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
-        tableProduct.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverBackground:null;"
-                + "pressedBackground:null;"
-                + "separatorColor:$TableHeader.background");
-        scrollProduct.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:3,0,3,0,$Table.background,10,10");
-        scrollProduct.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverTrackColor:null");
-    }
-    
-    
+        displayCategories();
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+        {
+            @Override
+             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
+                Font font = c.getFont(); // Lấy font hiện tại
+                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
+                c.setFont(font);
+                return c;
+            }
+        };        
+        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
+        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+        JTableHeader tableHeader1 = TableCate.getTableHeader();
+        JTableHeader tableHeader2 = TableProd.getTableHeader();
+        tableHeader1.setDefaultRenderer(headerRenderer);
+        tableHeader2.setDefaultRenderer(headerRenderer);
 
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
+
+        for (int i = 0; i < TableCate.getColumnCount(); i++) {
+            TableCate.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        TableCate.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
+        
+        for (int i = 0; i < TableProd.getColumnCount(); i++) {
+            TableProd.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        TableProd.setRowHeight(30);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,292 +67,329 @@ public class ProductForm extends javax.swing.JPanel {
         table1Panel = new javax.swing.JPanel();
         CategoryPanel = new javax.swing.JPanel();
         categoryLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        scrollCategory = new javax.swing.JScrollPane();
-        tableCategory = new javax.swing.JTable();
-        deleteCategoryButton = new javax.swing.JButton();
+        AddCategoryButton = new javax.swing.JButton();
         editCategoryButton = new javax.swing.JButton();
-        addCategoryButton = new javax.swing.JButton();
+        deleteCategoryButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableCate = new javax.swing.JTable();
         table2Panel = new javax.swing.JPanel();
         ProductPanel = new javax.swing.JPanel();
         productLabel = new javax.swing.JLabel();
-        addProductButton = new javax.swing.JButton();
+        AddProductButton = new javax.swing.JButton();
         editProductButton = new javax.swing.JButton();
         deleteProductButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        scrollProduct = new javax.swing.JScrollPane();
-        tableProduct = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TableProd = new javax.swing.JTable();
+
+        setLayout(new java.awt.GridLayout(2, 0));
 
         table1Panel.setBackground(new java.awt.Color(255, 255, 255));
-        table1Panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
-        table1Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        table1Panel.setLayout(new java.awt.BorderLayout());
 
-        CategoryPanel.setBackground(new java.awt.Color(255, 255, 255));
-        CategoryPanel.setPreferredSize(new java.awt.Dimension(1000, 45));
+        CategoryPanel.setBackground(new java.awt.Color(204, 255, 255));
+        CategoryPanel.setPreferredSize(new java.awt.Dimension(1000, 50));
 
         categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        categoryLabel.setText("Category");
+        categoryLabel.setText("Category Table");
+
+        AddCategoryButton.setBackground(new java.awt.Color(51, 255, 0));
+        AddCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AddCategoryButton.setText("Add");
+        AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddCategoryButtonActionPerformed(evt);
+            }
+        });
+
+        editCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editCategoryButton.setText("Edit");
+        editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editCategoryButtonActionPerformed(evt);
+            }
+        });
+
+        deleteCategoryButton1.setBackground(new java.awt.Color(255, 51, 0));
+        deleteCategoryButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        deleteCategoryButton1.setText("Delete");
+        deleteCategoryButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCategoryButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CategoryPanelLayout = new javax.swing.GroupLayout(CategoryPanel);
         CategoryPanel.setLayout(CategoryPanelLayout);
         CategoryPanelLayout.setHorizontalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 548, Short.MAX_VALUE)
+                .addComponent(AddCategoryButton)
+                .addGap(18, 18, 18)
+                .addComponent(editCategoryButton)
+                .addGap(18, 18, 18)
+                .addComponent(deleteCategoryButton1))
         );
         CategoryPanelLayout.setVerticalGroup(
             CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CategoryPanelLayout.createSequentialGroup()
-                .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(CategoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(AddCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteCategoryButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editCategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        table1Panel.add(CategoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 220, -1));
+        table1Panel.add(CategoryPanel, java.awt.BorderLayout.PAGE_START);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        scrollCategory.setBackground(new java.awt.Color(255, 255, 255));
-        scrollCategory.setBorder(null);
-        scrollCategory.setForeground(new java.awt.Color(255, 255, 255));
-
-        tableCategory.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tableCategory.setModel(new javax.swing.table.DefaultTableModel(
+        TableCate.setBackground(new java.awt.Color(204, 255, 204));
+        TableCate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TableCate.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
                 "ID", "Category", "Description"
             }
         ));
-        tableCategory.setGridColor(new java.awt.Color(0, 0, 0));
-        tableCategory.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tableCategory.setShowGrid(true);
-        tableCategory.getTableHeader().setReorderingAllowed(false);
-        scrollCategory.setViewportView(tableCategory);
-        if (tableCategory.getColumnModel().getColumnCount() > 0) {
-            tableCategory.getColumnModel().getColumn(0).setMaxWidth(50);
+        TableCate.setGridColor(new java.awt.Color(0, 0, 0));
+        TableCate.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        TableCate.setShowGrid(true);
+        jScrollPane1.setViewportView(TableCate);
+        if (TableCate.getColumnModel().getColumnCount() > 0) {
+            TableCate.getColumnModel().getColumn(0).setMaxWidth(50);
         }
 
-        jPanel1.add(scrollCategory, java.awt.BorderLayout.CENTER);
+        table1Panel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        table1Panel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 75, 447, 437));
+        add(table1Panel);
 
-        deleteCategoryButton.setBackground(new java.awt.Color(255, 51, 51));
-        deleteCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        deleteCategoryButton.setText("Delete");
-        deleteCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
-        table1Panel.add(deleteCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 80, 29));
+        table2Panel.setLayout(new java.awt.BorderLayout());
 
-        editCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        editCategoryButton.setText("Edit");
-        editCategoryButton.setPreferredSize(new java.awt.Dimension(72, 45));
-        editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCategoryButtonActionPerformed(evt);
-            }
-        });
-        table1Panel.add(editCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 29));
-
-        addCategoryButton.setBackground(new java.awt.Color(51, 255, 0));
-        addCategoryButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        addCategoryButton.setText("Add+");
-        addCategoryButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCategoryButtonActionPerformed(evt);
-            }
-        });
-        table1Panel.add(addCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
-
-        ProductPanel.setBackground(new java.awt.Color(255, 255, 255));
-        ProductPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0), 2));
+        ProductPanel.setBackground(new java.awt.Color(204, 255, 255));
+        ProductPanel.setPreferredSize(new java.awt.Dimension(1000, 50));
 
         productLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        productLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        productLabel.setText("Product ");
+        productLabel.setText("Product Table");
 
-        addProductButton.setBackground(new java.awt.Color(51, 255, 0));
-        addProductButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        addProductButton.setText("Add+");
-        addProductButton.addActionListener(new java.awt.event.ActionListener() {
+        AddProductButton.setBackground(new java.awt.Color(51, 255, 51));
+        AddProductButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        AddProductButton.setText("Add+");
+        AddProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addProductButtonActionPerformed(evt);
+                AddProductButtonActionPerformed(evt);
             }
         });
 
         editProductButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editProductButton.setText("Edit");
-        editProductButton.setPreferredSize(new java.awt.Dimension(72, 45));
         editProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editProductButtonActionPerformed(evt);
             }
         });
 
-        deleteProductButton.setBackground(new java.awt.Color(255, 51, 51));
+        deleteProductButton.setBackground(new java.awt.Color(255, 51, 0));
         deleteProductButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         deleteProductButton.setText("Delete");
-        deleteProductButton.setPreferredSize(new java.awt.Dimension(72, 45));
         deleteProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteProductButtonActionPerformed(evt);
             }
         });
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        javax.swing.GroupLayout ProductPanelLayout = new javax.swing.GroupLayout(ProductPanel);
+        ProductPanel.setLayout(ProductPanelLayout);
+        ProductPanelLayout.setHorizontalGroup(
+            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProductPanelLayout.createSequentialGroup()
+                .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 548, Short.MAX_VALUE)
+                .addComponent(AddProductButton)
+                .addGap(18, 18, 18)
+                .addComponent(editProductButton)
+                .addGap(18, 18, 18)
+                .addComponent(deleteProductButton))
+        );
+        ProductPanelLayout.setVerticalGroup(
+            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(AddProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(productLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-        tableProduct.setModel(new javax.swing.table.DefaultTableModel(
+        table2Panel.add(ProductPanel, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+
+        TableProd.setBackground(new java.awt.Color(204, 255, 204));
+        TableProd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TableProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"01", "image", "Coffee", "Coffee sữa", "S", "13.00"},
+                {null, "image", null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
                 "ID", "Image", "Category", "Product", "Size", "Price"
             }
         ));
-        tableProduct.getTableHeader().setReorderingAllowed(false);
-        scrollProduct.setViewportView(tableProduct);
+        TableProd.setGridColor(new java.awt.Color(0, 0, 0));
+        TableProd.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        TableProd.setShowGrid(true);
+        jScrollPane2.setViewportView(TableProd);
+        if (TableProd.getColumnModel().getColumnCount() > 0) {
+            TableProd.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
-        jPanel2.add(scrollProduct, java.awt.BorderLayout.CENTER);
+        table2Panel.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout ProductPanelLayout = new javax.swing.GroupLayout(ProductPanel);
-        ProductPanel.setLayout(ProductPanelLayout);
-        ProductPanelLayout.setHorizontalGroup(
-            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addComponent(productLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addProductButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-        );
-        ProductPanelLayout.setVerticalGroup(
-            ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProductPanelLayout.createSequentialGroup()
-                .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ProductPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(ProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addProductButton)
-                            .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(productLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        javax.swing.GroupLayout table2PanelLayout = new javax.swing.GroupLayout(table2Panel);
-        table2Panel.setLayout(table2PanelLayout);
-        table2PanelLayout.setHorizontalGroup(
-            table2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(table2PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ProductPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        table2PanelLayout.setVerticalGroup(
-            table2PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ProductPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jPanel3.setBackground(new java.awt.Color(255, 102, 0));
-        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Table Category & Product");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(table1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(table2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(table1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(table2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        add(table2Panel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
+        InputCategoryForm newCategory = new InputCategoryForm(this); // Pass the reference to ProductForm
+        newCategory.setVisible(true);
+    }//GEN-LAST:event_AddCategoryButtonActionPerformed
+
     private void editCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCategoryButtonActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = TableCate.getSelectedRow(); // Lấy hàng được chọn trong bảng
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            // Lấy thông tin của category từ bảng
+            String ID = TableCate.getValueAt(selectedRow, 0).toString();
+            String category = TableCate.getValueAt(selectedRow, 1).toString();
+            String description = TableCate.getValueAt(selectedRow, 2).toString();
+
+            // Hiển thị một cửa sổ hoặc dialog cho phép người dùng chỉnh sửa thông tin
+            EditCategoryForm editCategory = new EditCategoryForm(ID, category, description, this);
+            editCategory.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_editCategoryButtonActionPerformed
 
-    private void addCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoryButtonActionPerformed
-        NewCategoryPage newCategory = new NewCategoryPage();
-        newCategory.setVisible(true);
-    }//GEN-LAST:event_addCategoryButtonActionPerformed
+    private void deleteCategoryButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCategoryButton1ActionPerformed
+        int selectedRow = TableCate.getSelectedRow(); // Lấy hàng được chọn trong bảng
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
+                String categoryID = TableCate.getValueAt(selectedRow, 0).toString(); // Lấy ID của category
+                CategoryDao categoryDao = new CategoryDao();
+                if (categoryDao.deleteCategory(categoryID)) { // Xóa category từ database
+                    DefaultTableModel model = (DefaultTableModel) TableCate.getModel();
+                    model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteCategoryButton1ActionPerformed
 
-    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
+    private void AddProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteProductButtonActionPerformed
+    }//GEN-LAST:event_AddProductButtonActionPerformed
 
     private void editProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editProductButtonActionPerformed
 
-    private void addProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductButtonActionPerformed
+    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addProductButtonActionPerformed
-
+    }//GEN-LAST:event_deleteProductButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton AddCategoryButton;
+    public javax.swing.JButton AddProductButton;
     private javax.swing.JPanel CategoryPanel;
     private javax.swing.JPanel ProductPanel;
-    public javax.swing.JButton addCategoryButton;
-    private javax.swing.JButton addProductButton;
+    public javax.swing.JTable TableCate;
+    private javax.swing.JTable TableProd;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JButton deleteCategoryButton;
-    private javax.swing.JButton deleteProductButton;
-    private javax.swing.JButton editCategoryButton;
-    private javax.swing.JButton editProductButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    public javax.swing.JButton deleteCategoryButton1;
+    public javax.swing.JButton deleteProductButton;
+    public javax.swing.JButton editCategoryButton;
+    public javax.swing.JButton editProductButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel productLabel;
-    private javax.swing.JScrollPane scrollCategory;
-    private javax.swing.JScrollPane scrollProduct;
     private javax.swing.JPanel table1Panel;
     private javax.swing.JPanel table2Panel;
-    private javax.swing.JTable tableCategory;
-    private javax.swing.JTable tableProduct;
     // End of variables declaration//GEN-END:variables
+  
+    public void updateCategoryTable() {
+    // Lấy danh sách các categories từ database
+    CategoryDao categoryDao = new CategoryDao();
+    List<Category> categories = categoryDao.getAllCategories();
+    // Tạo một DefaultTableModel để cập nhật dữ liệu vào bảng TableCate
+    DefaultTableModel model = (DefaultTableModel) TableCate.getModel();
+    // Xóa tất cả các dòng hiện có trong bảng
+    model.setRowCount(0);
+    // Duyệt qua danh sách categories và thêm chúng vào bảng
+        for (Category category : categories) {
+            model.addRow(new Object[]{category.getID(), category.getCategory(), category.getDescription()});
+        }
+    }
+    
+    public void displayCategories() {
+        // Lấy danh sách các categories từ database
+        CategoryDao categoryDao = new CategoryDao();
+        List<Category> categories = categoryDao.getAllCategories();
+        // Tạo một DefaultTableModel để cập nhật dữ liệu vào bảng TableCate
+        DefaultTableModel model = (DefaultTableModel) TableCate.getModel();
+        // Xóa tất cả các dòng hiện có trong bảng
+        model.setRowCount(0);
+        // Duyệt qua danh sách categories và thêm chúng vào bảng
+        for (Category category : categories) {
+            model.addRow(new Object[]{category.getID(), category.getCategory(), category.getDescription()});
+        }
+    }
 }
