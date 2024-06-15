@@ -59,21 +59,25 @@ public class InputCategoryForm extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(2, 2));
 
-        headerPanel.setBackground(new java.awt.Color(204, 255, 204));
+        headerPanel.setBackground(new java.awt.Color(255, 51, 0));
 
+        jLabel1.setBackground(new java.awt.Color(255, 51, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Category");
+        jLabel1.setText("Create Category");
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(headerPanelLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(headerPanel, java.awt.BorderLayout.PAGE_START);
@@ -85,16 +89,22 @@ public class InputCategoryForm extends javax.swing.JDialog {
         idLabel.setText("ID :");
         FormPanel.add(idLabel);
 
-        txtId.setBackground(new java.awt.Color(204, 204, 204));
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         FormPanel.add(txtId);
 
         categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         categoryLabel.setText("Category :");
+        categoryLabel.setPreferredSize(new java.awt.Dimension(30, 20));
         FormPanel.add(categoryLabel);
 
         txtCategory.setBackground(new java.awt.Color(204, 204, 204));
         txtCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoryActionPerformed(evt);
+            }
+        });
         FormPanel.add(txtCategory);
 
         descriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -171,6 +181,10 @@ public class InputCategoryForm extends javax.swing.JDialog {
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void txtCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoryActionPerformed
 
     /**
      * @param args the command line arguments
