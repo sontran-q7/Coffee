@@ -187,7 +187,7 @@ public class DashboardPage extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel9.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jPanel9.add(jScrollPane2, java.awt.BorderLayout.LINE_END);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
