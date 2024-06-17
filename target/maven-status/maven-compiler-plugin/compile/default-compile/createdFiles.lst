@@ -4,6 +4,7 @@ com\app\coffee\Login\LoginAccount\LoginForm$1.class
 com\app\coffee\dashboard\Dashboard$3.class
 com\app\coffee\Backend\DAO\UserDAO.class
 com\app\coffee\dashboard\DashboardPage$1.class
+com\app\coffee\product\InputCategoryForm$4.class
 com\app\coffee\dashboard\Dashboard$1.class
 com\app\coffee\Login\LoginAccount\LoginForm$3.class
 com\app\coffee\dashboard\Dashboard$8.class
@@ -19,6 +20,7 @@ com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\dashboard\DashboardPage.class
 com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\demo$1.class
+com\app\coffee\product\InputCategoryForm$3.class
 com\app\coffee\employee\demo.class
 com\app\coffee\Database\PasswordUtils.class
 com\app\coffee\employee\StaffSchedule.class

@@ -34,7 +34,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         userController = new UserController();
         setLocationRelativeTo(null);
-        setResizable(true);
+                setResizable(true);
         
 }
     /**
@@ -172,6 +172,7 @@ public class LoginForm extends javax.swing.JFrame {
         if (user != null && PasswordUtils.checkPassword(enteredPassword, user.getPassword())) {
             System.out.println("Success");
            showDashboard();
+           dispose();
         } else {
             JLabel message = new JLabel("Email and password don't exist");
             message.setForeground(Color.RED);
@@ -189,6 +190,8 @@ public class LoginForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new LoginForm().setVisible(true);
+                
+
             }
         });
     }

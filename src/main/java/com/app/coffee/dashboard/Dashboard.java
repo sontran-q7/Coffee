@@ -6,6 +6,7 @@ package com.app.coffee.dashboard;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
 import com.app.coffee.product.*;
+import  com.app.coffee.menu.*;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import java.awt.CardLayout;
@@ -316,7 +317,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_HomeButtonMouseExited
 
     private void MenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseClicked
-        // TODO add your handling code here:
+        showPanel("menu");
     }//GEN-LAST:event_MenuButtonMouseClicked
 
     private void MenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseEntered
@@ -369,11 +370,12 @@ public class Dashboard extends javax.swing.JFrame {
         EmployeeManager employeeManager = new EmployeeManager();
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
-        
+        MenuPanel menu = new MenuPanel();
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product"); 
+        DislayPanel.add(menu,"menu");
     }
    private void showPanel(String panelName) {
         ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);

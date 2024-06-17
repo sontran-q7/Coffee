@@ -47,7 +47,8 @@ public class FormAdd extends JPanel{
 
         // Create the top panel with the title
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(15, 195, 50));  
+        topPanel.setBackground(new Color(255,51,0));  
+        topPanel.setForeground(Color.WHITE);
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         topPanel.add(titleLabel, BorderLayout.CENTER);
@@ -140,8 +141,9 @@ public class FormAdd extends JPanel{
 
     private void initAddComponents() {
         btnAction = new JButton("Register");
-        btnAction.setBackground(new Color(142, 142, 250));
+        btnAction.setBackground(new Color(255,51,0));
         btnAction.setForeground(Color.WHITE);
+        btnAction.setSize(140,40);
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
