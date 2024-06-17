@@ -11,7 +11,7 @@ import javax.swing.JFrame;
  *
  * @author Admin
  */
-public class main {
+public class Member {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Create User");
         
