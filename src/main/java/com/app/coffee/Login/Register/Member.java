@@ -11,10 +11,9 @@ import javax.swing.JFrame;
  *
  * @author Admin
  */
-public class main {
+public class Member {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Create User");
-        
+        JFrame frame = new JFrame("Create User");  
         ListUsers Test = new ListUsers();
         frame.getContentPane().add(Test);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
