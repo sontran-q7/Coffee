@@ -90,19 +90,6 @@ public class UserDAO implements DAOInterface<UsersModel>{
 
     
     public int Delete(int userId) {
-         try {
-        Connection conn = ConnectionCoffee.getConnection();
-        String sql = "DELETE FROM users WHERE id=?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, userId);
-        int results = ps.executeUpdate();
-        ps.close();
-        ConnectionCoffee.closeConnection(conn);
-        
-        return results;
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
     return 0;
     }
 
