@@ -10,6 +10,7 @@ com\app\coffee\Login\LoginAccount\LoginForm$3.class
 com\app\coffee\dashboard\Dashboard$8.class
 com\app\coffee\employee\FormAdd.class
 com\app\coffee\Backend\Model\UsersModel.class
+com\app\coffee\Login\Register\EditUserForm$6.class
 com\app\coffee\Coffee.class
 com\app\coffee\Login\LoginAccount\LoginForm$2.class
 com\app\coffee\dashboard\Dashboard.class

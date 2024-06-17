@@ -32,7 +32,7 @@ public class MenuPanel extends javax.swing.JPanel {
         MenuCategoryJPanel = new javax.swing.JPanel();
         SelectMenuText = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        SearchMenu_Button = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         AllMenuButton = new javax.swing.JButton();
@@ -167,7 +167,6 @@ public class MenuPanel extends javax.swing.JPanel {
         jTextField3 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel32 = new javax.swing.JLabel();
@@ -180,6 +179,8 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -227,28 +228,29 @@ public class MenuPanel extends javax.swing.JPanel {
                 SelectMenuTextActionPerformed(evt);
             }
         });
-        MenuCategoryJPanel.add(SelectMenuText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 116, 50));
+        MenuCategoryJPanel.add(SelectMenuText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 116, 50));
 
         jTextField4.setText("Search Product");
         MenuCategoryJPanel.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 320, 30));
 
-        jButton6.setBackground(new java.awt.Color(255, 102, 0));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Search");
-        MenuCategoryJPanel.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 80, 30));
+        SearchMenu_Button.setBackground(new java.awt.Color(255, 102, 0));
+        SearchMenu_Button.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SearchMenu_Button.setForeground(new java.awt.Color(255, 255, 255));
+        SearchMenu_Button.setText("Search");
+        MenuCategoryJPanel.add(SearchMenu_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 30, 80, 30));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Category");
         jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 132, 40));
 
-        AllMenuButton.setBackground(new java.awt.Color(255, 102, 0));
+        AllMenuButton.setBackground(new java.awt.Color(102, 102, 102));
         AllMenuButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         AllMenuButton.setForeground(new java.awt.Color(255, 255, 255));
         AllMenuButton.setText("ALL Menu");
@@ -259,7 +261,7 @@ public class MenuPanel extends javax.swing.JPanel {
         });
         jPanel6.add(AllMenuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 111, 40));
 
-        CoffeButton.setBackground(new java.awt.Color(255, 102, 0));
+        CoffeButton.setBackground(new java.awt.Color(102, 102, 102));
         CoffeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CoffeButton.setForeground(new java.awt.Color(255, 255, 255));
         CoffeButton.setText("Coffe");
@@ -270,19 +272,24 @@ public class MenuPanel extends javax.swing.JPanel {
         });
         jPanel6.add(CoffeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 111, 40));
 
-        TeaButton.setBackground(new java.awt.Color(255, 102, 0));
+        TeaButton.setBackground(new java.awt.Color(102, 102, 102));
         TeaButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TeaButton.setForeground(new java.awt.Color(255, 255, 255));
         TeaButton.setText("Tea");
+        TeaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TeaButtonActionPerformed(evt);
+            }
+        });
         jPanel6.add(TeaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 111, 40));
 
-        JuiceButton.setBackground(new java.awt.Color(255, 102, 0));
+        JuiceButton.setBackground(new java.awt.Color(102, 102, 102));
         JuiceButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         JuiceButton.setForeground(new java.awt.Color(255, 255, 255));
         JuiceButton.setText("Juice");
         jPanel6.add(JuiceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 111, 40));
 
-        SoftDrintButton.setBackground(new java.awt.Color(255, 102, 0));
+        SoftDrintButton.setBackground(new java.awt.Color(102, 102, 102));
         SoftDrintButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         SoftDrintButton.setForeground(new java.awt.Color(255, 255, 255));
         SoftDrintButton.setText("Soft Drint");
@@ -960,19 +967,18 @@ public class MenuPanel extends javax.swing.JPanel {
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
-                .addGroup(FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(MenuCategoryJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 5, Short.MAX_VALUE))
+            .addComponent(MenuCategoryJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         FullDishJPanelLayout.setVerticalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MenuCategoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MenuCategoryJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -987,22 +993,17 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 70, 31));
         jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 270, 30));
 
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 580, 320, 40));
-
         jButton1.setBackground(new java.awt.Color(51, 255, 0));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Pay");
+        jButton1.setText("Print Bill");
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 640, 140, 50));
 
         jButton3.setBackground(new java.awt.Color(255, 0, 0));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Cancel Order ");
-        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 140, 50));
+        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 140, 50));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel32.setText("Note :");
@@ -1053,16 +1054,18 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel4.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 70, 80, -1));
         jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 62, 90, 30));
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 576, 340, 50));
+
         add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 700));
     }// </editor-fold>//GEN-END:initComponents
 
     private void CoffeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoffeButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CoffeButtonActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
 
     private void AllMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllMenuButtonActionPerformed
         // TODO add your handling code here:
@@ -1148,6 +1151,10 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox54ActionPerformed
 
+    private void TeaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TeaButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TeaButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AllMenuButton;
@@ -1168,6 +1175,7 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton PlusButton6;
     private javax.swing.JButton PlusButton7;
     private javax.swing.JButton PlusButton8;
+    private javax.swing.JButton SearchMenu_Button;
     private javax.swing.JTextField SelectMenuText;
     private javax.swing.JButton SoftDrintButton;
     private javax.swing.JButton TeaButton;
@@ -1176,7 +1184,6 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -1296,9 +1303,10 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
