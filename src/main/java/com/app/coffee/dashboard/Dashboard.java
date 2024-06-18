@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.app.coffee.dashboard;
+import com.app.coffee.Login.*;
+import com.app.coffee.Login.Register.ListUsers;
+import com.app.coffee.Login.Register.Member;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
 import com.app.coffee.product.*;
@@ -353,7 +356,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductButtonMouseExited
 
     private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
-       showPanel("employee");
+       showPanel("member");
     }//GEN-LAST:event_EmployeeButtonMouseClicked
 
     private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
@@ -371,8 +374,10 @@ public class Dashboard extends javax.swing.JFrame {
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
         MenuPanel menu = new MenuPanel();
+        ListUsers user = new ListUsers();
         DislayPanel.add(dashboardPage, "dashboard");
-        DislayPanel.add(employeeManager, "employee"); 
+        //DislayPanel.add(employeeManager, "employee"); 
+        DislayPanel.add(user,"member");
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product"); 
         DislayPanel.add(menu,"menu");
