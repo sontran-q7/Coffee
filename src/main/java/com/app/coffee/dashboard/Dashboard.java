@@ -75,6 +75,7 @@ public class Dashboard extends javax.swing.JFrame {
         SignoutButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         SignoutButton.setForeground(new java.awt.Color(255, 255, 255));
         SignoutButton.setText("Sign out");
+        SignoutButton.setBorder(null);
         SignoutButton.setPreferredSize(new java.awt.Dimension(120, 40));
         SignoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
