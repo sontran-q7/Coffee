@@ -21,6 +21,7 @@ public class ProductForm extends javax.swing.JPanel {
     public ProductForm() {
         initComponents();
         displayCategories();
+        displayProducts();
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
         {
             @Override
@@ -254,16 +255,13 @@ public class ProductForm extends javax.swing.JPanel {
         TableProduct.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TableProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "", null, null, null, null},
-                {"23", null, null, null, null, null},
-                {"3", null, null, null, null, null},
-                {"4", null, null, null, null, null},
-                {"5", null, null, null, null, null},
-                {"6", null, null, null, null, null},
-                {"7", null, null, null, null, null},
-                {"8", null, null, null, null, null},
-                {"9", null, null, null, null, null},
-                {"46", null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -279,7 +277,7 @@ public class ProductForm extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Image", "Category", "Product", "Size", "Price"
+                "ID", "Image", "Category_id", "Product", "Size", "Price"
             }
         ));
         TableProduct.setGridColor(new java.awt.Color(0, 0, 0));
@@ -319,13 +317,102 @@ public class ProductForm extends javax.swing.JPanel {
 
     private void deleteCategoryButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCategoryButton1ActionPerformed
         int selectedRow = ProductTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
+                DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+                String ID= model.getValueAt(selectedRow, 0).toString(); // Lấy ID của category từ model của bảng
+                
+                
+                CategoryDao categoryDao = new CategoryDao();
+                ProductDao productDao = new ProductDao();
+
+                // Kiểm tra xem danh mục có sản phẩm liên quan không
+                if (productDao.hasProductsForCategory(ID)) {
+                    int option2 = JOptionPane.showConfirmDialog(this, "Có thể có sản phẩm liên quan đến danh mục này. Bạn có muốn xóa danh mục và các sản phẩm liên quan không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+                    if (option2 == JOptionPane.YES_OPTION) {
+                        // Xóa sản phẩm của danh mục này trước
+                        if (productDao.deleteProductsForCategory(ID)) {
+                            // Sau khi xóa thành công sản phẩm, tiến hành xóa danh mục
+                            if (categoryDao.deleteCategory(ID)) {
+                                model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+                                JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Xóa sản phẩm không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    // Không có sản phẩm liên quan, chỉ cần xóa danh mục
+                    if (categoryDao.deleteCategory(ID)) {
+                        model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+                        JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+
+//        int selectedRow = ProductTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+//        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+//            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+//            if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
+//                String ID = ProductTable.getValueAt(selectedRow, 0).toString(); // Lấy ID của category
+//                CategoryDao categoryDao = new CategoryDao();
+//                if (categoryDao.deleteCategory(ID)) { // Xóa category từ database
+//                    DefaultTableModel model = (DefaultTableModel) TableProduct.getModel();
+//                    model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+//        }
+    }//GEN-LAST:event_deleteCategoryButton1ActionPerformed
+
+    private void AddProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductButtonActionPerformed
+        InputProductForm newProduct = new InputProductForm(this); // Pass the reference to ProductForm
+        newProduct.setVisible(true);
+    }//GEN-LAST:event_AddProductButtonActionPerformed
+
+    private void editProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductButtonActionPerformed
+        int selectedRow = TableProduct.getSelectedRow(); // Lấy hàng được chọn trong bảng
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            // Lấy thông tin của category từ bảng
+            String ID = TableProduct.getValueAt(selectedRow, 0).toString();
+            String image = TableProduct.getValueAt(selectedRow, 1).toString();
+            String category = TableProduct.getValueAt(selectedRow, 2).toString();
+            String product = TableProduct.getValueAt(selectedRow, 3).toString();
+            String size = TableProduct.getValueAt(selectedRow, 4).toString();
+            String price = TableProduct.getValueAt(selectedRow, 5).toString();
+            
+
+            // Hiển thị một cửa sổ hoặc dialog cho phép người dùng chỉnh sửa thông tin
+            EditProductForm editProduct = new EditProductForm(ID, image, category, product, size, price , this);
+            editProduct.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_editProductButtonActionPerformed
+
+    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
+        int selectedRow = TableProduct.getSelectedRow(); // Lấy hàng được chọn trong bảng
         if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
             int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
-                String categoryID = ProductTable.getValueAt(selectedRow, 0).toString(); // Lấy ID của category
-                CategoryDao categoryDao = new CategoryDao();
-                if (categoryDao.deleteCategory(categoryID)) { // Xóa category từ database
-                    DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+                String ID = TableProduct.getValueAt(selectedRow, 0).toString(); // Lấy ID của category
+                ProductDao productDao = new ProductDao();
+                if (productDao.deleteProduct(ID)) { // Xóa category từ database
+                    DefaultTableModel model = (DefaultTableModel) TableProduct.getModel();
                     model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
                 } else {
                     JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -334,18 +421,6 @@ public class ProductForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_deleteCategoryButton1ActionPerformed
-
-    private void AddProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddProductButtonActionPerformed
-
-    private void editProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editProductButtonActionPerformed
-
-    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_deleteProductButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -394,5 +469,44 @@ public class ProductForm extends javax.swing.JPanel {
         for (Category category : categories) {
             model.addRow(new Object[]{category.getID(), category.getCategory(), category.getDescription()});
         }
+    }
+    
+    public void updateProductTable() {
+        // Lấy danh sách các products từ database
+        ProductDao productDao = new ProductDao();
+        List<Product> products = productDao.getAllProducts();
+        // Tạo một DefaultTableModel để cập nhật dữ liệu vào bảng TableProd
+        DefaultTableModel model = (DefaultTableModel) TableProduct.getModel();
+        // Xóa tất cả các dòng hiện có trong bảng
+        model.setRowCount(0);
+        // Duyệt qua danh sách products và thêm chúng vào bảng
+       for (Product product : products) {
+            model.addRow(new Object[]{product.getID(), product.getImage(), product.getCategory(),
+                                      product.getProduct(),product.getSize(),product.getPrice()});
+        }
+    }
+    
+    
+    public void displayProducts() {
+        // Lấy danh sách các products từ database
+        ProductDao productDao = new ProductDao();
+        List<Product> products = productDao.getAllProducts();
+
+        // Tạo một DefaultTableModel để cập nhật dữ liệu vào bảng TableProd
+        DefaultTableModel model = (DefaultTableModel) TableProduct.getModel();
+        // Xóa tất cả các dòng hiện có trong bảng
+        model.setRowCount(0);
+
+        // Duyệt qua danh sách products và thêm chúng vào bảng
+        for (Product product : products) {
+            model.addRow(new Object[]{product.getID(), product.getImage(), product.getCategory(),
+                                      product.getProduct(), product.getSize(), product.getPrice()});
+        }
+    }
+
+    public void updateImageTable(String imagePath) {
+        // Assuming you have a JTable named imageTable in ProductForm
+        DefaultTableModel model = (DefaultTableModel) TableProduct.getModel();
+        model.addRow(new Object[]{imagePath});
     }
 }

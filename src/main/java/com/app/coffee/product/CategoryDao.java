@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class CategoryDao {
 
     private Component parentComponent;
+    private ProductForm productForm;
     
     // add category
     public void insertCat(String ID, String category, String description) {
@@ -48,7 +49,7 @@ public class CategoryDao {
             productForm.updateCategoryTable();
         } catch (SQLException e) {
             // Xử lý các lỗi SQL
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(parentComponent, "Lỗi khi thêm sản phẩm");
         }
     }
     
@@ -68,7 +69,7 @@ public class CategoryDao {
                 categories.add(c);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(parentComponent, "Error!! " + e.getMessage());
         }
         return categories;
     }
@@ -125,21 +126,23 @@ public class CategoryDao {
     }
     // delete category
     public boolean deleteCategory(String categoryID) {
-        try {
-            Connection con = DatabaseConnection.getJDBConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM category WHERE ID = ?");
-            ps.setString(1, categoryID);
-            int rowsDeleted = ps.executeUpdate();
-            con.close();
-            if (rowsDeleted > 0) {
-                return true;
-            } else {
-                // Xử lý trường hợp không có hàng nào được xóa
-                System.out.println("Không có dữ liệu nào được xóa.");
+        ProductDao productDao = new ProductDao();
+        if (productDao.deleteProductsForCategory(categoryID)) {
+            String sql = "DELETE FROM category WHERE id = ?";
+
+            try (Connection con = DatabaseConnection.getJDBConnection();
+                 PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+                pstmt.setString(1, categoryID);
+
+                int rowsDeleted = pstmt.executeUpdate();
+                return rowsDeleted > 0;
+
+            } catch (SQLException e) {
+                e.printStackTrace();
                 return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
             return false;
         }
     }

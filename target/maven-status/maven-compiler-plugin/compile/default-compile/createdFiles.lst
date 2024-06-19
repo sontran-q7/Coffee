@@ -7,6 +7,7 @@ com\app\coffee\Login\LoginAccount\LoginForm$1.class
 com\app\coffee\menu\MenuPanel.class
 com\app\coffee\menu\MenuPanel$1.class
 com\app\coffee\dashboard\Dashboard$3.class
+<<<<<<< Updated upstream
 com\app\coffee\menu\MenuPanel$4.class
 com\app\coffee\product\CreateProduct$3.class
 com\app\coffee\menu\MenuPanel$14.class
@@ -27,6 +28,15 @@ com\app\coffee\Login\Register\ListUsers$7.class
 com\app\coffee\product\InputCategoryForm$4.class
 com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\Login\CustomDialog.class
+=======
+com\app\coffee\product\InputProductForm$1.class
+com\app\coffee\product\InputProductForm$4.class
+com\app\coffee\Login\Register\RegisterForm.class
+com\app\coffee\Backend\DAO\UserDAO.class
+com\app\coffee\product\EditProductForm$2.class
+com\app\coffee\dashboard\DashboardPage$1.class
+com\app\coffee\product\EditProductForm.class
+>>>>>>> Stashed changes
 com\app\coffee\Login\Register\ListUsers$11.class
 com\app\coffee\product\InputCategoryForm$2.class
 com\app\coffee\Login\Register\Member.class
@@ -47,13 +57,19 @@ com\app\coffee\menu\MenuPanel$7.class
 com\app\coffee\Login\LoginAccount\LoginForm$2.class
 com\app\coffee\dashboard\Dashboard.class
 com\app\coffee\employee\FormAdd$1.class
+<<<<<<< Updated upstream
 com\app\coffee\product\EditCategoryForm$1.class
 com\app\coffee\product\ProductForm.class
 com\app\coffee\menu\MenuPanel$13.class
 com\app\coffee\product\CreateProduct.class
+=======
+com\app\coffee\product\ProductDao.class
+com\app\coffee\product\InputProductForm$5.class
+>>>>>>> Stashed changes
 com\app\coffee\dashboard\Dashboard$2.class
 com\app\coffee\menu\MenuPanel$8.class
 com\app\coffee\Backend\DAO\DAOInterface.class
+com\app\coffee\product\EditProductForm$3.class
 com\app\coffee\Login\Register\ListUsers$10.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\menu\MenuPanel$20.class
@@ -64,10 +80,16 @@ com\app\coffee\Login\Register\ListUsers$3.class
 com\app\coffee\Login\Register\ListUsers$6.class
 com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\demo$1.class
+<<<<<<< Updated upstream
 com\app\coffee\product\ProductForm$5.class
 com\app\coffee\product\InputCategoryForm$3.class
 com\app\coffee\menu\MenuPanel$18.class
 com\app\coffee\menu\MenuPanel$2.class
+=======
+com\app\coffee\product\Product.class
+com\app\coffee\Login\Register\EditUserForm$3.class
+com\app\coffee\product\InputProductForm$3.class
+>>>>>>> Stashed changes
 com\app\coffee\employee\demo.class
 com\app\coffee\Database\PasswordUtils.class
 com\app\coffee\product\CreateProduct$2.class
@@ -80,6 +102,7 @@ com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\dashboard\Dashboard$7.class
 com\app\coffee\bill\Bill.class
 com\app\coffee\Database\AdminAccountManager.class
+<<<<<<< Updated upstream
 com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
 com\app\coffee\menu\MenuPanel$22.class
@@ -87,15 +110,25 @@ com\app\coffee\Login\Register\ListUsers.class
 com\app\coffee\menu\NewClass$2.class
 com\app\coffee\product\CreateProduct$1.class
 com\app\coffee\product\ProductForm$3.class
+=======
+com\app\coffee\product\EditCategoryForm$3.class
+com\app\coffee\Login\Register\RegisterForm$4.class
+com\app\coffee\product\EditProductForm$1.class
+>>>>>>> Stashed changes
 com\app\coffee\dashboard\Dashboard$4.class
+com\app\coffee\product\InputProductForm$2.class
 com\app\coffee\Backend\Connect\ConnectionCoffee.class
 com\app\coffee\menu\MenuPanel$15.class
 com\app\coffee\employee\EmployeeManager.class
 com\app\coffee\Login\Register\ListUsers$8.class
+<<<<<<< Updated upstream
 com\app\coffee\menu\NewClass.class
 com\app\coffee\Login\Register\ListUsers$1.class
 com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\menu\MenuPanel$21.class
+=======
+com\app\coffee\product\InputProductForm.class
+>>>>>>> Stashed changes
 com\app\coffee\Database\Connection.class
 com\app\coffee\menu\MenuPanel$9.class
 com\app\coffee\Login\Register\ListUsers$9.class

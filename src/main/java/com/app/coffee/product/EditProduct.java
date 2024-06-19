@@ -43,8 +43,6 @@ public class EditProduct extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         CategoryComboBox = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(460, 580));
@@ -126,18 +124,6 @@ public class EditProduct extends javax.swing.JPanel {
 
         CategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(CategoryComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 250, 30));
-
-        jButton1.setBackground(new java.awt.Color(0, 255, 0));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Save");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 500, 140, 40));
-
-        jButton2.setBackground(new java.awt.Color(255, 0, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cancel");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 140, 40));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -145,8 +131,6 @@ public class EditProduct extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> CategoryComboBox;
     private javax.swing.JTextField IdProductField;
     private javax.swing.JTextField ProductField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;

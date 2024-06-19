@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * @author Admin
  */
 public class AdminAccountManager {
-    private static final String url = "jdbc:mysql://localhost:3306/ap";
+    private static final String url = "jdbc:mysql://localhost:3306/coffehouse";
     private static final String user = "root";
     private static final String password = "";
 

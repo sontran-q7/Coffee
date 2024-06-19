@@ -19,7 +19,8 @@ public class InputCategoryForm extends javax.swing.JDialog {
     
     private void setScreen() {
         setDefaultLookAndFeelDecorated(true);
-        setSize(500,300);
+        setMinimumSize(new java.awt.Dimension(400, 460));
+        setPreferredSize(new java.awt.Dimension(400, 460));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
@@ -43,180 +44,207 @@ public class InputCategoryForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        FormPanel = new javax.swing.JPanel();
-        idLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        categoryLabel = new javax.swing.JLabel();
         txtCategory = new javax.swing.JTextField();
-        descriptionLabel = new javax.swing.JLabel();
         txtDescription = new javax.swing.JTextField();
-        btnPanel = new javax.swing.JPanel();
-        BtnAddCategory = new javax.swing.JButton();
-        btnReturn = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout(2, 2));
 
-        headerPanel.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 460));
 
-        jLabel1.setBackground(new java.awt.Color(255, 153, 0));
+        headerPanel.setBackground(new java.awt.Color(255, 51, 0));
+        headerPanel.setPreferredSize(new java.awt.Dimension(285, 80));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Create Category");
+        jLabel1.setText("Add Category");
+        jLabel1.setPreferredSize(new java.awt.Dimension(154, 32));
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(headerPanelLayout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headerPanelLayout.setVerticalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        getContentPane().add(headerPanel, java.awt.BorderLayout.PAGE_START);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("ID:");
+        jLabel2.setMaximumSize(new java.awt.Dimension(64, 22));
+        jLabel2.setMinimumSize(new java.awt.Dimension(64, 22));
+        jLabel2.setPreferredSize(new java.awt.Dimension(64, 22));
 
-        FormPanel.setBackground(new java.awt.Color(255, 255, 255));
-        FormPanel.setLayout(new java.awt.GridLayout(3, 2, -250, 10));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Category:");
+        jLabel3.setPreferredSize(new java.awt.Dimension(66, 22));
 
-        idLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        idLabel.setText("ID :");
-        FormPanel.add(idLabel);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Description :");
 
-        txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        txtId.setPreferredSize(new java.awt.Dimension(30, 22));
-        txtId.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(0, 255, 0));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
-        FormPanel.add(txtId);
 
-        categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        categoryLabel.setText("Category :");
-        categoryLabel.setPreferredSize(new java.awt.Dimension(30, 20));
-        FormPanel.add(categoryLabel);
-
-        txtCategory.setBackground(new java.awt.Color(204, 204, 204));
-        txtCategory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCategory.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoryActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
-        FormPanel.add(txtCategory);
 
-        descriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        descriptionLabel.setText("Description :");
-        FormPanel.add(descriptionLabel);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 68, Short.MAX_VALUE))
+        );
 
-        txtDescription.setBackground(new java.awt.Color(204, 204, 204));
-        txtDescription.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        FormPanel.add(txtDescription);
-
-        getContentPane().add(FormPanel, java.awt.BorderLayout.CENTER);
-
-        btnPanel.setBackground(new java.awt.Color(255, 255, 255));
-        btnPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 100, 20));
-
-        BtnAddCategory.setBackground(new java.awt.Color(0, 255, 0));
-        BtnAddCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BtnAddCategory.setForeground(new java.awt.Color(255, 255, 255));
-        BtnAddCategory.setText("Add+");
-        BtnAddCategory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAddCategoryActionPerformed(evt);
-            }
-        });
-        btnPanel.add(BtnAddCategory);
-
-        btnReturn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnReturn.setText("Return");
-        btnReturn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturnActionPerformed(evt);
-            }
-        });
-        btnPanel.add(btnReturn);
-
-        getContentPane().add(btnPanel, java.awt.BorderLayout.SOUTH);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnAddCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddCategoryActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String ID = "", category = "", description = "";
-        
+
         ID = txtId.getText();
         category = txtCategory.getText();
         description = txtDescription.getText();
         boolean isOk = true;
-        
+
         if (ID.isEmpty() || category.isEmpty() || description.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đủ thông tin.");
+            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập đủ thông tin.");
             return;
         }
         if (txtId.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập ID.");
+            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập ID.");
             return; // Trả về ngay lập tức nếu không có ID được nhập
         }
         if (txtCategory.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập Category.");
+            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập Category.");
             return; // Trả về ngay lập tức nếu không có ID được nhập
         }
         if (txtDescription.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập Description.");
+            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập Description.");
             return; // Trả về ngay lập tức nếu không có ID được nhập
         }
-        
+
         CategoryDao categoryDao = new CategoryDao();
         categoryDao.insertCat(ID, category, description);
         if (productForm != null) {
             productForm.updateCategoryTable();
             productForm.displayCategories();
         }
-    }//GEN-LAST:event_BtnAddCategoryActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnReturnActionPerformed
-
-    private void txtCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoryActionPerformed
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAddCategory;
-    private javax.swing.JPanel FormPanel;
-    private javax.swing.JPanel btnPanel;
-    private javax.swing.JButton btnReturn;
-    private javax.swing.JLabel categoryLabel;
-    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
-    protected javax.swing.JTextField txtCategory;
-    protected javax.swing.JTextField txtDescription;
-    public javax.swing.JTextField txtId;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCategory;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 
 }
