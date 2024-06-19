@@ -4,36 +4,53 @@
  */
 package com.app.coffee.Backend.Model;
 
+import java.util.List;
+
 /**
  *
  * @author Admin
  */
 
 public class UsersModel {
-	private int id;
-        private String userName;
-        private String gender;
-        private int phone;   
-        private String image;
-        private String email;
+	private int account_id;
+        private String username;
         private String password;
-        private String option;
-        private boolean status;
+        private int phone;  
+        private Role role;
+        private int status;
+        private String email;
         
-        public UsersModel(int id, String userName, String gender, int phone, String image, String email, String password, String option, boolean status) {
-        this.id = id;
-        this.userName = userName;
-        this.gender = gender;
-        this.phone = phone;
-        this.image = image;
-        this.email = email;
+
+        
+        public UsersModel(int account_id, String username, String password, int phone,Role role, int status, String email) {
+        this.account_id = account_id;
+        this.username = username;
         this.password = password;
-        this.option = option;
+        this.phone = phone;
+        this.role = role;
         this.status = status;
+        this.email = email;
+        
+    }
+
+    public UsersModel(int aInt, String string, String string0, int aInt0, String string1, int aInt1) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public UsersModel() {
+        this.account_id = 0;
+        this.username = "";
+        this.password = "";
+        this.phone = 0;
+        this.role = null;
+        this.status = 0;
+        this.email = "";
     }
        
-        public int getId(){
-        return id;
+    
+       
+        public int getAccount_id(){
+        return account_id;
         }
         public String getEmail(){
             return email;
@@ -46,56 +63,50 @@ public class UsersModel {
             return phone;
         }
         public String getUserName(){
-            return userName;
-        }
-        public String getImage(){
-            return image;
-        }
-        
-        public String getOption(){
-            return option;
-        }
-        public String getGender(){
-            return gender;
-        }
-        public boolean getStatus(){
+            return username;
+        }     
+        public int getStatus(){
             return status;
         }
         
-        public void setId(int id){
-            this.id = id;
+        public void setAccount_id(int account_id){
+            this.account_id = account_id;
         }
-        public void setUserName(String userName){
-            this.userName = userName;
+        public void setUserName(String username){
+            this.username = username;
         }
-        public void setGender(String gender){
-            this.gender = gender;
+
+        public void setRole(Role role) {
+            this.role = role;
         }
+
+        public Role getRole() {
+            return role;
+        }
+
         public void setPhone(int phone){
             this.phone = phone;
         }
-        public void setImage(String image){
-            this.image = image;
-        }
+
         public void setEmail(String email){
             this.email = email;
         }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
         public void setPassWord(String password){
             this.password = password;
         }
-        public void setOption(String option){
-            this.option = option;
-        }
-        
-         public void setStatus(boolean status){
-            this.status = status;
-        }
-        
-        public UsersModel() {
-    // Implement logic here if needed
-}
-    public String toString() {
-        return "userName=" + userName + ", gender=" + gender + ", phone=" + phone + ", image=" + image + ", option=" + option ;
-    }
-        
+
+       
+      
 }

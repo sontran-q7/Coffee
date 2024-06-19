@@ -4,14 +4,22 @@
  */
 package com.app.coffee.Login.Register;
 
+//import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.DAO.UserDAO;
+import com.app.coffee.Backend.DAO.UserDAO.RoleDAO;
+import com.app.coffee.Backend.Model.Role;
 import com.app.coffee.Backend.Model.UsersModel;
+import com.app.coffee.Backend.Service.UserService;
 import com.app.coffee.Login.CustomDialog;
 import com.app.coffee.bill.*;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -27,11 +35,18 @@ import javax.swing.table.JTableHeader;
  */
 public class ListUsers extends javax.swing.JPanel {
     private int currentUserId;
+    private boolean isInfoDisplayed = false;
+    private int role_id;
+    private List<Role> roles;
+    private Object rolesList;
+    private Object ArrayList;
+    private Object Role;
     /**
      * Creates new form test
      */
     public ListUsers() {
         initComponents();
+        roles = RoleDAO.getAllRoles();
         RefreshList();
         
     }
@@ -45,81 +60,101 @@ public class ListUsers extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TableListUser = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         EditButton = new javax.swing.JButton();
-        CreateButton = new javax.swing.JButton();
         GetList = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableListUser = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
         userNameField = new javax.swing.JTextField();
-        label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        label4 = new java.awt.Label();
         label5 = new java.awt.Label();
         label6 = new java.awt.Label();
         label7 = new java.awt.Label();
-        ImageField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         phoneField = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         label8 = new java.awt.Label();
-        Confirm = new javax.swing.JPasswordField();
+        confirmPasswordField = new javax.swing.JPasswordField();
         passwordField = new javax.swing.JPasswordField();
         addRegister = new javax.swing.JButton();
+        CreateButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
         setPreferredSize(new java.awt.Dimension(1340, 750));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
+        jPanel1.setForeground(new java.awt.Color(243, 114, 44));
+
+        EditButton.setBackground(new java.awt.Color(243, 114, 44));
+        EditButton.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        EditButton.setForeground(new java.awt.Color(255, 255, 255));
+        EditButton.setLabel("Show Edit");
+        EditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditButtonActionPerformed(evt);
+            }
+        });
+
+        GetList.setBackground(new java.awt.Color(243, 114, 44));
+        GetList.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        GetList.setForeground(new java.awt.Color(255, 255, 255));
+        GetList.setText("Delete");
+        GetList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteteButton(evt);
+            }
+        });
+
         TableListUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
         TableListUser.setForeground(new java.awt.Color(243, 114, 44));
         TableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID ", "User name", "Gender", "Phone", "Image", "Email", "Option", "Edit/Delete"
+                "ID_Account", "User name", "Phone", "Roles", "Email", "Edit/Delete"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -128,6 +163,7 @@ public class ListUsers extends javax.swing.JPanel {
         });
         TableListUser.setToolTipText("");
         TableListUser.setGridColor(new java.awt.Color(243, 114, 44));
+        TableListUser.setRowHeight(30);
         TableListUser.setShowGrid(true);
         TableListUser.getTableHeader().setReorderingAllowed(false);
         TableListUser.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -146,63 +182,30 @@ public class ListUsers extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TableListUser);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
-        jPanel1.setForeground(new java.awt.Color(243, 114, 44));
-
-        EditButton.setBackground(new java.awt.Color(243, 114, 44));
-        EditButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        EditButton.setForeground(new java.awt.Color(255, 255, 255));
-        EditButton.setText("Edit User");
-        EditButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditButtonActionPerformed(evt);
-            }
-        });
-
-        CreateButton.setBackground(new java.awt.Color(243, 114, 44));
-        CreateButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        CreateButton.setForeground(new java.awt.Color(255, 255, 255));
-        CreateButton.setText("Create User");
-        CreateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OnClickCreateButton(evt);
-            }
-        });
-
-        GetList.setBackground(new java.awt.Color(243, 114, 44));
-        GetList.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        GetList.setForeground(new java.awt.Color(255, 255, 255));
-        GetList.setText("Delete");
-        GetList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteteButton(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(CreateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(EditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(GetList, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(576, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(GetList)
+                .addGap(20, 20, 20))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(GetList, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GetList, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -211,6 +214,7 @@ public class ListUsers extends javax.swing.JPanel {
         label1.setForeground(new java.awt.Color(243, 114, 44));
         label1.setText("User Name: ");
 
+        userNameField.setText("  ");
         userNameField.setToolTipText("");
         userNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,17 +222,9 @@ public class ListUsers extends javax.swing.JPanel {
             }
         });
 
-        label2.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        label2.setForeground(new java.awt.Color(243, 114, 44));
-        label2.setText("Gender:");
-
         label3.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         label3.setForeground(new java.awt.Color(243, 114, 44));
         label3.setText("Phone:");
-
-        label4.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
-        label4.setForeground(new java.awt.Color(243, 114, 44));
-        label4.setText("Image:");
 
         label5.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         label5.setForeground(new java.awt.Color(243, 114, 44));
@@ -240,7 +236,7 @@ public class ListUsers extends javax.swing.JPanel {
 
         label7.setFont(new java.awt.Font("Dialog", 3, 18)); // NOI18N
         label7.setForeground(new java.awt.Color(243, 114, 44));
-        label7.setText("Option");
+        label7.setText("Roles");
 
         emailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,20 +244,10 @@ public class ListUsers extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(243, 114, 44));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "Female" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jComboBox2.setBackground(new java.awt.Color(243, 114, 44));
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sales agent" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Manager", "Staff" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -285,7 +271,7 @@ public class ListUsers extends javax.swing.JPanel {
         addRegister.setBackground(new java.awt.Color(243, 114, 44));
         addRegister.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         addRegister.setForeground(new java.awt.Color(255, 255, 255));
-        addRegister.setText("Save");
+        addRegister.setLabel("Edit");
         addRegister.setMaximumSize(new java.awt.Dimension(99, 32));
         addRegister.setMinimumSize(new java.awt.Dimension(99, 32));
         addRegister.addActionListener(new java.awt.event.ActionListener() {
@@ -294,54 +280,60 @@ public class ListUsers extends javax.swing.JPanel {
             }
         });
 
+        CreateButton.setBackground(new java.awt.Color(243, 114, 44));
+        CreateButton.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        CreateButton.setForeground(new java.awt.Color(255, 255, 255));
+        CreateButton.setText("Create User");
+        CreateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CreateButtonMouseClicked(evt);
+            }
+        });
+        CreateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OnClickCreateButton(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(11, 11, 11))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                            .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Confirm, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passwordField)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ImageField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(16, 16, 16))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(162, 162, 162))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(CreateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(addRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,36 +341,29 @@ public class ListUsers extends javax.swing.JPanel {
                     .addComponent(userNameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ImageField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addRegister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CreateButton))
+                .addGap(99, 99, 99))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -386,25 +371,40 @@ public class ListUsers extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public ArrayList<Role> fetchRolesFromDatabase() {
+    ArrayList<Role> roles = new ArrayList<>();
+
+    return roles;
+}
+
+    public Role[] getRolesArray() {
+        ArrayList<Role> roles = fetchRolesFromDatabase();
+        return roles.toArray(new Role[0]);
+    }
+    
+    
+    
+    
     private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
     
-        int selectedRow = TableListUser.getSelectedRow();
+    int selectedRow = TableListUser.getSelectedRow();
     if (selectedRow == -1) {
         CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Please select a user to edit.");
         return;
@@ -418,84 +418,45 @@ public class ListUsers extends javax.swing.JPanel {
         return;
     }
     userNameField.setText(user.getUserName());
-    jComboBox1.setSelectedItem(user.getGender());
     phoneField.setText(String.valueOf(user.getPhone()));
-    ImageField.setText(user.getImage());
-    emailField.setText(user.getEmail());
-    jComboBox2.setSelectedItem(user.getOption());
     currentUserId = userId;
+    isInfoDisplayed = true;
     }//GEN-LAST:event_EditButtonActionPerformed
    
     private void OnClickCreateButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OnClickCreateButton
-        String userName = userNameField.getText().trim();
-        String gender = (String) jComboBox1.getSelectedItem();
-        String image = ImageField.getText().trim();
-        String email = emailField.getText().trim();
-        String password = new String(passwordField.getPassword()).trim();
-        String confirmPassword = new String(Confirm.getPassword()).trim();
-        String option = (String) jComboBox2.getSelectedItem();
-        int Gender = -1;
-        int phone;
-
-        if (userName.isEmpty()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "User_Name can't be empty!!");
-            return;
-        }
-        try {
-            String phoneText = phoneField.getText().trim();        
-            phone = Integer.parseInt(phoneField.getText().trim());
-        } catch (NumberFormatException e) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Invalid phone number. Please enter a valid number");
-            return;
-        }
-
-        if (email.isEmpty()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Email can't be empty!!");
-            return;
-        }
-
-        Pattern emailPattern = Pattern.compile("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$");
-        Matcher emailMatcher = emailPattern.matcher(email);
-        if (!emailMatcher.matches()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Email Invalid!!");
-            return;
-        }
-
-        if (password.isEmpty()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Password can't be empty!!");
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Passwords do not match!!");
-            return;
-        }
-        UserDAO userDAO1 = new UserDAO();
-        if (userDAO1.checkEmailExists(email)) {
-        CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Email already exists. Please use a different email.");
+    String userName = userNameField.getText().trim();       
+    String email = emailField.getText().trim();
+    String password = new String(passwordField.getPassword()).trim();
+    String confirmPassword = new String(confirmPasswordField.getPassword()).trim(); 
+    String roleName = (String) jComboBox2.getSelectedItem();
+    Role selectedRole = findRoleByName(roleName, roles);
+    String phoneText = String.valueOf(phoneField.getText().trim());
+    int phone;
+    try {
+        phone = Integer.parseInt(phoneField.getText().trim());
+    } catch (NumberFormatException e) {
+        CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Invalid phone number. Please enter a valid number");
         return;
     }
-        boolean status = false;
-        UsersModel newUser = new UsersModel(0, userName, gender, phone, image, email, password, option, status);
 
-        UserDAO userDao = UserDAO.getInstance();
-        int result = userDao.Create(newUser);
-
+    UserService userService = new UserService();
+    try {
+        int result = userService.create(userName, email, password, confirmPassword, String.valueOf(phone), selectedRole);
         if (result > 0) {
-
             CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Success", "Create user successfully!");
-            userNameField.setText("");
-            jComboBox1.setSelectedIndex(0);
-            ImageField.setText("");
+            userNameField.setText("");          
             phoneField.setText("");
             emailField.setText("");
             passwordField.setText("");
-            Confirm.setText("");
+            confirmPasswordField.setText(""); 
             jComboBox2.setSelectedIndex(0);
             RefreshList();
         } else {
             JOptionPane.showMessageDialog(this, "Error Create user!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (IllegalArgumentException e) {
+        CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", e.getMessage());
+    }
     }//GEN-LAST:event_OnClickCreateButton
 
     private void ListUsers(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ListUsers
@@ -541,12 +502,8 @@ public class ListUsers extends javax.swing.JPanel {
     }//GEN-LAST:event_passwordFieldActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
@@ -557,151 +514,126 @@ public class ListUsers extends javax.swing.JPanel {
     }//GEN-LAST:event_userNameFieldActionPerformed
 
     private void Editbutton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editbutton
-    String userName = userNameField.getText().trim();
-    String gender = (String) jComboBox1.getSelectedItem();
-    
-    String image = ImageField.getText().trim();
-    String email = emailField.getText().trim();
-    String password = new String(passwordField.getPassword()).trim();
-    String confirmPassword = new String(Confirm.getPassword()).trim();
-    String option = (String) jComboBox2.getSelectedItem();
 
-    int phone;
-        
-        if (userName.isEmpty()) {
-             CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "User_Name can't be empty!!");
-            return;
-        }
-        
-        try {
-            
-            String phoneText = phoneField.getText().trim();
-            
-            if (phoneText.length() != 10) {
-                CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Please enter a phone number with exactly 10 characters!");
-                return; 
-            }
-            phone = Integer.parseInt(phoneField.getText().trim());
-            
-        } catch (NumberFormatException e) {
-
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Invalid phone number. Please enter a valid number");
-            return; 
-        }
-        
-
-        if (email.isEmpty()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Email can't be empty!!");
-            return;
-        }
-
-        Pattern emailPattern = Pattern.compile("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$");
-        Matcher emailMatcher = emailPattern.matcher(email);
-        if (!emailMatcher.matches()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Email Invalid!!");
-            return;
-        }
-
-        if (password.isEmpty()) {
-            CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Password can't be empty!!");
-            return;
-        }
-        
-        if (!password.equals(confirmPassword)) {
-        CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Error", "Passwords do not match!!");
+        UserService userService = new UserService();
+        String userName = userNameField.getText().trim();
+        String email = emailField.getText().trim();
+        String password = new String(passwordField.getPassword()).trim();
+        String confirmPassword = new String(confirmPasswordField.getPassword()).trim();
+        String roleName = (String) jComboBox2.getSelectedItem();
+        Role selectedRole = findRoleByName(roleName, roles); // Implement findRoleByName method
+        if (selectedRole == null) {
+        // Xử lý khi không tìm thấy vai trò
+        JOptionPane.showMessageDialog(this, "Role not found!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
+    }
+        String phoneText = String.valueOf(phoneField.getText().trim());
+        int phone;
+        try {
+            phone = Integer.parseInt(phoneText);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid phone number. Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    UserDAO userDAO = new UserDAO();
-    
-    // Tạo đối tượng UsersModel để lưu thông tin người dùng đã chỉnh sửa
-    UsersModel updatedUser = new UsersModel();
-    updatedUser.setId(currentUserId); // Lấy ID của người dùng cần chỉnh sửa từ biến toàn cục currentUserId
-    updatedUser.setUserName(userName);
-    updatedUser.setGender(gender);
-    updatedUser.setPhone(phone);
-    updatedUser.setImage(image);
-    updatedUser.setEmail(email);
-    updatedUser.setPassWord(password);
-    updatedUser.setOption(option);
 
-    // Gọi DAO để cập nhật thông tin người dùng vào database
-    
-    int result = userDAO.Update(updatedUser);
-    if (result > 0) {
-        CustomDialog dialog = new CustomDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Success", "User editor successfully!");
-           
+        boolean updated = userService.updateUser(currentUserId, userName, password, String.valueOf(phone), email, selectedRole);
+
+        if (updated) {
+            // Clear fields or reset form as needed
             userNameField.setText("");
-            jComboBox1.setSelectedIndex(0); 
-            ImageField.setText("");
             phoneField.setText("");
             emailField.setText("");
             passwordField.setText("");
-            Confirm.setText("");
+            confirmPasswordField.setText("");
             jComboBox2.setSelectedIndex(0);
             RefreshList();
-    } else {
-        JOptionPane.showMessageDialog(null, "Failed to update user!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        }
     }//GEN-LAST:event_Editbutton
+
+    private void CreateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CreateButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CreateButtonMouseClicked
     
     public void GetList() {
     UserDAO userdao = new UserDAO();
-        ArrayList<UsersModel> listUser = userdao.selectAll();
-        DefaultTableModel table =  (DefaultTableModel) TableListUser.getModel();
-        table.setRowCount(0);
-        for (UsersModel user : listUser) {
-            Object[] row = {
-                user.getId(),
+    ArrayList<UsersModel> listUser = userdao.selectAll();
 
-                user.getUserName() != null ? user.getUserName() : "",
-                user.getGender() != null ? user.getGender() : "" ,
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
-                user.getImage() != null ? user.getImage() : "",
-                user.getEmail() != null ? user.getEmail() : "",
-                user.getOption() != null ? user.getOption() : ""
-            };
-            table.addRow(row);
+    Collections.sort(listUser, new Comparator<UsersModel>() {
+        @Override
+        public int compare(UsersModel u1, UsersModel u2) {
+            return u1.getAccount_id() - u2.getAccount_id();
         }
+    });
+
+    DefaultTableModel table = (DefaultTableModel) TableListUser.getModel();
+    table.setRowCount(0);
+
+    for (UsersModel user : listUser) {
+        Object[] row = {
+            user.getAccount_id(),
+            user.getUserName() != null ? user.getUserName() : "",
+            user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+            user.getRole() != null ? user.getRole().getName() : "", 
+            user.getEmail() != null ? user.getEmail() : ""        
+        };
+        table.addRow(row);
+    }
+}
+
+public void RefreshList() {
+    UserDAO userdao = new UserDAO();
+    ArrayList<UsersModel> listUser = userdao.selectAll();
+
+  
+    Collections.sort(listUser, new Comparator<UsersModel>() {
+        @Override
+        public int compare(UsersModel u1, UsersModel u2) {
+            return u1.getAccount_id() - u2.getAccount_id();
+        }
+    });
+
+    DefaultTableModel table = (DefaultTableModel) TableListUser.getModel();
+    table.setRowCount(0);
+
+    for (UsersModel user : listUser) {
+        Object[] row = {
+            user.getAccount_id(),
+            user.getUserName() != null ? user.getUserName() : "",
+            user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+            user.getRole() != null ? user.getRole().getName() : "", 
+            user.getEmail() != null ? user.getEmail() : ""            
+        };
+        table.addRow(row);
+    }
+}
+    
+    public static Role findRoleByName(String roleName, List<Role> roles) {
+    if (roleName == null || roleName.isEmpty()) {
+        return null; 
     }
     
-    public void RefreshList() {
-        UserDAO userdao = new UserDAO();
-        ArrayList<UsersModel> listUser = userdao.selectAll();
-        DefaultTableModel table = (DefaultTableModel) TableListUser.getModel();
-        table.setRowCount(0); 
-        for (UsersModel user : listUser) {
-            Object[] row = {
-                user.getId(),
-                user.getUserName() != null ? user.getUserName() : "",
-                user.getGender() != null ? user.getGender() : "",
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
-                user.getImage() != null ? user.getImage() : "",
-                user.getEmail() != null ? user.getEmail() : "",
-                user.getOption() != null ? user.getOption() : ""
-            };
-            table.addRow(row);
+    for (Role role : roles) {
+        if (role.getName().equals(roleName)) {
+            return role;
         }
     }
-
+    return null;
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Confirm;
     private javax.swing.JButton CreateButton;
     private javax.swing.JButton EditButton;
     private javax.swing.JButton GetList;
-    private javax.swing.JTextField ImageField;
     private javax.swing.JTable TableListUser;
     private javax.swing.JButton addRegister;
+    private javax.swing.JPasswordField confirmPasswordField;
     private javax.swing.JTextField emailField;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
-    private java.awt.Label label2;
     private java.awt.Label label3;
-    private java.awt.Label label4;
     private java.awt.Label label5;
     private java.awt.Label label6;
     private java.awt.Label label7;
@@ -710,4 +642,10 @@ public class ListUsers extends javax.swing.JPanel {
     private javax.swing.JTextField phoneField;
     private javax.swing.JTextField userNameField;
     // End of variables declaration//GEN-END:variables
+
+    private Role findRoleByName(String roleName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+  
 }

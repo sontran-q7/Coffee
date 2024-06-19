@@ -5,6 +5,7 @@
 package com.app.coffee.Login.LoginAccount;
 
 
+import com.app.coffee.Backend.Model.Role;
 import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.Database.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ import java.sql.SQLException;
 public class UserController {
     public UsersModel getUserByEmail(String email) {
         UsersModel user = null;
-        String sql = "SELECT * FROM users WHERE email = ?";
+        String sql = "SELECT * FROM account WHERE email = ?";
        
         try (
             java.sql.Connection conn = Connection.getJDBConnection();
@@ -28,15 +29,14 @@ public class UserController {
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    int id = rs.getInt("id");
-                    String userName = rs.getString("userName");
-                    String gender = rs.getString("gender");
-                    int phone = rs.getInt("phone");
-                    String image = rs.getString("image");
+                    int account_id = rs.getInt("account_id");
+                    String username = rs.getString("username");
                     String password = rs.getString("password");
-                    String option = rs.getString("option");
-                    boolean status = rs.getBoolean("status");
-                    user = new UsersModel(id, userName, gender, phone, image, email, password, option, status);
+                    int phone = rs.getInt("phone");
+                    int role_id = rs.getInt("role_id");
+                    int status = rs.getInt("status");
+                    Role role = new Role(role_id, "Admin");
+                    user = new UsersModel(account_id, username, password, phone, role, status, email);
                 }
             }
         } catch (SQLException e) {
