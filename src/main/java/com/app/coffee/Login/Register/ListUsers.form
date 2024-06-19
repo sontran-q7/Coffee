@@ -219,14 +219,15 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="label8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="label7" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="emailField" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="passwordField" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="confirmPasswordField" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="jComboBox2" min="-2" pref="155" max="-2" attributes="0"/>
+                                      <Component id="phoneField" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="userNameField" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="label6" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
@@ -255,7 +256,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -264,40 +265,23 @@
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="label3" min="-2" max="-2" attributes="0"/>
+                      <Component id="phoneField" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="phoneField" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="label5" min="-2" max="-2" attributes="0"/>
+                      <Component id="emailField" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label4" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="ImageField" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label5" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="emailField" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="label6" min="-2" max="-2" attributes="0"/>
                       <Component id="passwordField" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="label7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="Confirm" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="label8" min="-2" max="-2" attributes="0"/>
+                      <Component id="confirmPasswordField" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               </Group>
@@ -318,22 +302,12 @@
         </Component>
         <Component class="javax.swing.JTextField" name="userNameField">
           <Properties>
+            <Property name="text" type="java.lang.String" value="  "/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userNameFieldActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="java.awt.Label" name="label2">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="18" style="3"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2c" green="72" red="f3" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Gender:"/>
-          </Properties>
         </Component>
         <Component class="java.awt.Label" name="label3">
           <Properties>
@@ -344,17 +318,6 @@
               <Color blue="2c" green="72" red="f3" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Phone:"/>
-          </Properties>
-        </Component>
-        <Component class="java.awt.Label" name="label4">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="18" style="3"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2c" green="72" red="f3" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Image:"/>
           </Properties>
         </Component>
         <Component class="java.awt.Label" name="label5">
@@ -387,10 +350,8 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="2c" green="72" red="f3" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Option"/>
+            <Property name="text" type="java.lang.String" value="Roles"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="ImageField">
         </Component>
         <Component class="javax.swing.JTextField" name="emailField">
           <Events>
@@ -398,31 +359,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="phoneField">
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="2c" green="72" red="f3" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="3"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="male"/>
-                <StringItem index="1" value="Female"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox2">
           <Properties>
@@ -436,8 +372,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Sales agent"/>
+              <StringArray count="2">
+                <StringItem index="0" value="Manager"/>
+                <StringItem index="1" value="Staff"/>
               </StringArray>
             </Property>
           </Properties>
@@ -445,6 +382,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ListUsers_jComboBox2"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -470,7 +408,7 @@
             <Property name="text" type="java.lang.String" value="Confirm Password:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="Confirm">
+        <Component class="javax.swing.JPasswordField" name="confirmPasswordField">
         </Component>
         <Component class="javax.swing.JPasswordField" name="passwordField">
           <Events>
