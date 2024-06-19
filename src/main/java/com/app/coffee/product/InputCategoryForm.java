@@ -204,19 +204,7 @@ public class InputCategoryForm extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(productForm, "Vui lòng nhập đủ thông tin.");
             return;
         }
-        if (txtId.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập ID.");
-            return; // Trả về ngay lập tức nếu không có ID được nhập
-        }
-        if (txtCategory.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập Category.");
-            return; // Trả về ngay lập tức nếu không có ID được nhập
-        }
-        if (txtDescription.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(productForm, "Vui lòng nhập Description.");
-            return; // Trả về ngay lập tức nếu không có ID được nhập
-        }
-
+        
         CategoryDao categoryDao = new CategoryDao();
         categoryDao.insertCat(ID, category, description);
         if (productForm != null) {

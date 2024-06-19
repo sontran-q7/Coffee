@@ -11,11 +11,13 @@ public class Category {
     private String ID;
     private String category;
     private String description;
+    private String status;
 
-    public Category(String ID, String category, String description) {
+    public Category(String ID, String category, String description, String status) {
         this.ID = ID;
         this.category = category;
         this.description = description;
+        this.status = status;
     }
 
     public String getID() {
@@ -31,8 +33,14 @@ public class Category {
         return description;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
-        return "Category{" + "ID=" + ID + ", category=" + category + ", description=" + description + '}';
+        return "Category{" + "ID=" + ID + ", category=" + category + ", description=" + description + ", status=" + status + '}';
     }
+    
+
 }

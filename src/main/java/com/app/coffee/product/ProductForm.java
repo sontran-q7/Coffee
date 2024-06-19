@@ -27,33 +27,38 @@ public class ProductForm extends javax.swing.JPanel {
             @Override
              public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
+//                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
                 Font font = c.getFont(); // Lấy font hiện tại
-                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
+                font = font.deriveFont(Font.BOLD, 20f); // Đặt font là đậm, kích thước
                 c.setFont(font);
                 return c;
             }
         };        
-        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
         // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-        JTableHeader tableHeader1 = ProductTable.getTableHeader();
-        JTableHeader tableHeader2 = TableProduct.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
-        tableHeader2.setDefaultRenderer(headerRenderer);
+        JTableHeader productTable = ProductTable.getTableHeader();
+        JTableHeader tableProduct = TableProduct.getTableHeader();
+        productTable.setDefaultRenderer(headerRenderer);
+        tableProduct.setDefaultRenderer(headerRenderer);
 
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
-
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+        // Áp dụng cho ProductTable
         for (int i = 0; i < ProductTable.getColumnCount(); i++) {
             ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        ProductTable.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
-        
-        for (int i = 0; i < TableProduct.getColumnCount(); i++) {
-            TableProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        TableProduct.setRowHeight(30);
+
+
+//        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
+//            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
+//        ProductTable.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
+//        
+//        for (int i = 0; i < TableProduct.getColumnCount(); i++) {
+//            TableProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
+//        TableProduct.setRowHeight(30);
         
     }
     /**
