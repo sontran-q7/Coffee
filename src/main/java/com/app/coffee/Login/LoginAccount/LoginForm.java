@@ -170,7 +170,7 @@ public class LoginForm extends javax.swing.JFrame {
            dispose();
 
 //            System.out.println("Success");
-           
+            new Dashboard().setVisible(true);
 
         } else {
             JLabel message = new JLabel("Email and password don't exist");

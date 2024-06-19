@@ -144,13 +144,32 @@ public class UserDAO implements DAOInterface<UsersModel> {
     
     }
 
-    
-    public int Delete(int userId) {
-
-    return 0;
+    public UsersModel selectById(int userId) {
+    UsersModel user = null;
+    String sql = "SELECT * FROM account WHERE account_id = ?";
+    try (Connection conn = ConnectionCoffee.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, userId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            user = new UsersModel(
+                rs.getInt("account_id"),
+                rs.getString("username"),
+                rs.getString("password"),
+                rs.getInt("phone"),
+                new Role(rs.getInt("role_id"), "role_name"), 
+                rs.getInt("status"),
+                rs.getString("email")
+            );
+        }
+        rs.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-
-    public int DeleteByStatus(int userId) {
+    return user;
+}
+    
+     public int DeleteByStatus(int userId) {
     try (Connection conn = ConnectionCoffee.getConnection();
          PreparedStatement ps = conn.prepareStatement("DELETE FROM account WHERE account_id =?")) {
         
