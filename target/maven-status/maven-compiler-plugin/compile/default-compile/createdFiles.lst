@@ -12,7 +12,6 @@ com\app\coffee\product\InputProductForm$1.class
 com\app\coffee\product\Category.class
 com\app\coffee\product\InputProductForm$4.class
 com\app\coffee\menu\MenuPanel$17.class
-com\app\coffee\product\ProductForm$7.class
 com\app\coffee\menu\NewClass$1.class
 com\app\coffee\product\CategoryDao.class
 com\app\coffee\menu\MenuPanel$11.class
@@ -22,6 +21,7 @@ com\app\coffee\product\InputCategoryForm$1.class
 com\app\coffee\product\EditProductForm$2.class
 com\app\coffee\Login\Register\ListUsers$4.class
 com\app\coffee\product\ProductForm$4.class
+com\app\coffee\Login\Register\ListUsers$14.class
 com\app\coffee\dashboard\DashboardPage$1.class
 com\app\coffee\Login\Register\ListUsers$7.class
 com\app\coffee\Login\LoginAccount\UserController.class

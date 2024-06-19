@@ -22,39 +22,39 @@ public class ProductForm extends javax.swing.JPanel {
         initComponents();
         displayCategories();
         displayProducts();
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-        {
-            @Override
-             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
-                Font font = c.getFont(); // Lấy font hiện tại
-                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
-                c.setFont(font);
-                return c;
-            }
-        };        
-        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-        JTableHeader tableHeader1 = ProductTable.getTableHeader();
-        JTableHeader tableHeader2 = TableProduct.getTableHeader();
-        tableHeader1.setDefaultRenderer(headerRenderer);
-        tableHeader2.setDefaultRenderer(headerRenderer);
-
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
-
-        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
-            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        ProductTable.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
-        
-        for (int i = 0; i < TableProduct.getColumnCount(); i++) {
-            TableProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        TableProduct.setRowHeight(30);
-        
+//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+//        {
+//            @Override
+//             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
+//                Font font = c.getFont(); // Lấy font hiện tại
+//                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
+//                c.setFont(font);
+//                return c;
+//            }
+//        };        
+//        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
+//        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+//        JTableHeader tableHeader1 = ProductTable.getTableHeader();
+//        JTableHeader tableHeader2 = TableProduct.getTableHeader();
+//        tableHeader1.setDefaultRenderer(headerRenderer);
+//        tableHeader2.setDefaultRenderer(headerRenderer);
+//
+//        
+//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+//        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
+//
+//        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
+//            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
+//        ProductTable.setRowHeight(30); // Đặt chiều cao của các hàng trong bảng jTable1
+//        
+//        for (int i = 0; i < TableProduct.getColumnCount(); i++) {
+//            TableProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
+//        TableProduct.setRowHeight(30);
+//        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,7 +141,7 @@ public class ProductForm extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        ProductTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        ProductTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -159,14 +159,17 @@ public class ProductForm extends javax.swing.JPanel {
                 "ID", "Category", "Description"
             }
         ));
-        ProductTable.setGridColor(new java.awt.Color(255, 255, 255));
+        ProductTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ProductTable.setGridColor(new java.awt.Color(153, 153, 153));
         ProductTable.setRowHeight(30);
-        ProductTable.setSelectionBackground(new java.awt.Color(255, 102, 0));
+        ProductTable.setSelectionBackground(new java.awt.Color(153, 153, 153));
         ProductTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         ProductTable.setShowGrid(false);
+        ProductTable.setShowVerticalLines(true);
         jScrollPane1.setViewportView(ProductTable);
         if (ProductTable.getColumnModel().getColumnCount() > 0) {
-            ProductTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            ProductTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            ProductTable.getColumnModel().getColumn(0).setMaxWidth(200);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -252,11 +255,9 @@ public class ProductForm extends javax.swing.JPanel {
         jScrollPane2.setBorder(null);
         jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        TableProduct.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TableProduct.setFont(TableProduct.getFont().deriveFont((float)18));
         TableProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -280,14 +281,20 @@ public class ProductForm extends javax.swing.JPanel {
                 "ID", "Image", "Category_id", "Product", "Size", "Price"
             }
         ));
-        TableProduct.setGridColor(new java.awt.Color(0, 0, 0));
+        TableProduct.setGridColor(new java.awt.Color(153, 153, 153));
         TableProduct.setRowHeight(30);
+        TableProduct.setSelectionBackground(new java.awt.Color(204, 204, 204));
         TableProduct.setSelectionForeground(new java.awt.Color(255, 255, 255));
         TableProduct.setShowGrid(false);
+        TableProduct.setShowVerticalLines(true);
+        TableProduct.setUpdateSelectionOnSort(false);
+        TableProduct.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(TableProduct);
         if (TableProduct.getColumnModel().getColumnCount() > 0) {
-            TableProduct.getColumnModel().getColumn(0).setMaxWidth(50);
+            TableProduct.getColumnModel().getColumn(0).setPreferredWidth(100);
+            TableProduct.getColumnModel().getColumn(0).setMaxWidth(100);
         }
+        TableProduct.getAccessibleContext().setAccessibleName("");
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
