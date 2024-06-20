@@ -22,29 +22,34 @@ public class ProductForm extends javax.swing.JPanel {
         initComponents();
         displayCategories();
         displayProducts();
-//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-//        {
-//            @Override
-//             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+        {
+            @Override
+             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 //                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
-//                Font font = c.getFont(); // Lấy font hiện tại
-//                font = font.deriveFont(Font.BOLD, 22f); // Đặt font là đậm, kích thước
-//                c.setFont(font);
-//                return c;
-//            }
-//        };        
-//        headerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho tiêu đề
-//        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-//        JTableHeader tableHeader1 = ProductTable.getTableHeader();
-//        JTableHeader tableHeader2 = TableProduct.getTableHeader();
-//        tableHeader1.setDefaultRenderer(headerRenderer);
-//        tableHeader2.setDefaultRenderer(headerRenderer);
-//
-//        
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//        centerRenderer.setHorizontalAlignment(JLabel.LEFT); // Đặt căn cho văn bản
-//
+                Font font = c.getFont(); // Lấy font hiện tại
+                font = font.deriveFont(Font.BOLD, 20f); // Đặt font là đậm, kích thước
+                c.setFont(font);
+                return c;
+            }
+        };        
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
+        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+        JTableHeader productTable = ProductTable.getTableHeader();
+        JTableHeader tableProduct = TableProduct.getTableHeader();
+        productTable.setDefaultRenderer(headerRenderer);
+        tableProduct.setDefaultRenderer(headerRenderer);
+
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+        // Áp dụng cho ProductTable
+        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
+            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+
 //        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
 //            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 //        }
@@ -54,7 +59,7 @@ public class ProductForm extends javax.swing.JPanel {
 //            TableProduct.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 //        }
 //        TableProduct.setRowHeight(30);
-//        
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,11 +104,10 @@ public class ProductForm extends javax.swing.JPanel {
         categoryLabel.setText("Category Table");
         CategoryPanel.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 200, 60));
 
-        AddCategoryButton.setBackground(new java.awt.Color(255, 153, 0));
+        AddCategoryButton.setBackground(new java.awt.Color(0, 255, 0));
         AddCategoryButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         AddCategoryButton.setForeground(new java.awt.Color(255, 255, 255));
         AddCategoryButton.setText("Add");
-        AddCategoryButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddCategoryButtonActionPerformed(evt);
@@ -111,8 +115,9 @@ public class ProductForm extends javax.swing.JPanel {
         });
         CategoryPanel.add(AddCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 140, 40));
 
+        editCategoryButton.setBackground(new java.awt.Color(255, 204, 0));
         editCategoryButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editCategoryButton.setForeground(new java.awt.Color(255, 153, 0));
+        editCategoryButton.setForeground(new java.awt.Color(255, 255, 255));
         editCategoryButton.setText("Edit");
         editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +146,7 @@ public class ProductForm extends javax.swing.JPanel {
         jScrollPane1.setBorder(null);
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        ProductTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        ProductTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -159,17 +164,16 @@ public class ProductForm extends javax.swing.JPanel {
                 "ID", "Category", "Description"
             }
         ));
-        ProductTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ProductTable.setGridColor(new java.awt.Color(153, 153, 153));
+        ProductTable.setGridColor(new java.awt.Color(255, 255, 255));
         ProductTable.setRowHeight(30);
-        ProductTable.setSelectionBackground(new java.awt.Color(153, 153, 153));
+        ProductTable.setSelectionBackground(new java.awt.Color(255, 102, 0));
         ProductTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         ProductTable.setShowGrid(false);
-        ProductTable.setShowVerticalLines(true);
         jScrollPane1.setViewportView(ProductTable);
         if (ProductTable.getColumnModel().getColumnCount() > 0) {
-            ProductTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-            ProductTable.getColumnModel().getColumn(0).setMaxWidth(200);
+            ProductTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            ProductTable.getColumnModel().getColumn(1).setMinWidth(400);
+            ProductTable.getColumnModel().getColumn(1).setMaxWidth(1000);
         }
 
         jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -184,11 +188,10 @@ public class ProductForm extends javax.swing.JPanel {
         productLabel.setForeground(new java.awt.Color(255, 255, 255));
         productLabel.setText("Product Table");
 
-        AddProductButton.setBackground(new java.awt.Color(255, 153, 0));
+        AddProductButton.setBackground(new java.awt.Color(0, 255, 0));
         AddProductButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         AddProductButton.setForeground(new java.awt.Color(255, 255, 255));
         AddProductButton.setText("Add");
-        AddProductButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         AddProductButton.setPreferredSize(new java.awt.Dimension(140, 40));
         AddProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,8 +199,9 @@ public class ProductForm extends javax.swing.JPanel {
             }
         });
 
+        editProductButton.setBackground(new java.awt.Color(255, 153, 0));
         editProductButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editProductButton.setForeground(new java.awt.Color(255, 102, 0));
+        editProductButton.setForeground(new java.awt.Color(255, 255, 255));
         editProductButton.setText("Edit");
         editProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +242,7 @@ public class ProductForm extends javax.swing.JPanel {
                     .addComponent(AddProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(productLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,9 +259,11 @@ public class ProductForm extends javax.swing.JPanel {
         jScrollPane2.setBorder(null);
         jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        TableProduct.setFont(TableProduct.getFont().deriveFont((float)18));
+        TableProduct.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         TableProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -281,20 +287,14 @@ public class ProductForm extends javax.swing.JPanel {
                 "ID", "Image", "Category_id", "Product", "Size", "Price"
             }
         ));
-        TableProduct.setGridColor(new java.awt.Color(153, 153, 153));
+        TableProduct.setGridColor(new java.awt.Color(0, 0, 0));
         TableProduct.setRowHeight(30);
-        TableProduct.setSelectionBackground(new java.awt.Color(204, 204, 204));
         TableProduct.setSelectionForeground(new java.awt.Color(255, 255, 255));
         TableProduct.setShowGrid(false);
-        TableProduct.setShowVerticalLines(true);
-        TableProduct.setUpdateSelectionOnSort(false);
-        TableProduct.setVerifyInputWhenFocusTarget(false);
         jScrollPane2.setViewportView(TableProduct);
         if (TableProduct.getColumnModel().getColumnCount() > 0) {
-            TableProduct.getColumnModel().getColumn(0).setPreferredWidth(100);
-            TableProduct.getColumnModel().getColumn(0).setMaxWidth(100);
+            TableProduct.getColumnModel().getColumn(0).setMaxWidth(50);
         }
-        TableProduct.getAccessibleContext().setAccessibleName("");
 
         jPanel2.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 

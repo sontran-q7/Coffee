@@ -26,37 +26,45 @@ public class CategoryDao {
     
     // add category
     public void insertCat(String ID, String category, String description) {
-        if (isIdExists(ID)) {
-            JOptionPane.showMessageDialog(parentComponent, "ID đã tồn tại trong cơ sở dữ liệu.");
-            return; // Kết thúc phương thức nếu ID đã tồn tại
-        }
-        // Chuẩn bị câu lệnh SQL để chèn dữ liệu vào bảng category
-        String sql = "INSERT INTO category (ID, category, description) VALUES (?, ?, ?)";
-        // Sử dụng try-with-resources để tự động đóng kết nối sau khi sử dụng xong
-        try (Connection con = DatabaseConnection.getJDBConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            // Thiết lập giá trị cho các tham số của câu lệnh SQL
-            pstmt.setString(1, ID);
-            pstmt.setString(2, category);
-            pstmt.setString(3, description);
-            // Thực thi câu lệnh SQL để chèn dữ liệu
-            pstmt.executeUpdate();
-//            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            // In ra thông báo nếu thành công
-            JOptionPane.showMessageDialog(parentComponent, "Thêm thành công");
-            //cập nhật lại bảng TableCate
-            ProductForm productForm = new ProductForm();
-            productForm.updateCategoryTable();
+        try {
+            // Kiểm tra xem ID đã tồn tại và có status là 2 hay không
+            String checkSql = "SELECT status FROM category WHERE ID = ?";
+            try (Connection con = DatabaseConnection.getJDBConnection();
+                 PreparedStatement checkStmt = con.prepareStatement(checkSql)) {
+
+                checkStmt.setString(1, ID);
+                
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next()) {
+                        int status = rs.getInt("status");
+                        if (status == 2) {
+                            // Nếu ID đã tồn tại và có status là 2, tái sử dụng lại bằng cách cập nhật status về 1
+                            reactivateCategory(ID);
+                            // Sau khi tái sử dụng lại, tiếp tục thêm mới Category với status là 1
+//                            insertNewCategory(con, ID, category, description);
+                        } else {
+                            // Nếu ID đã tồn tại nhưng có status khác 2, thông báo lỗi
+                            JOptionPane.showMessageDialog(parentComponent, "ID đã tồn tại trong cơ sở dữ liệu.");
+                        }
+                    } else {
+                        // Nếu ID chưa tồn tại, thêm mới Category với status là 1
+                        insertNewCategory(con, ID, category, description);
+                    }
+                }
+            }
+            // Sau khi tái sử dụng lại hoặc khi ID đã tồn tại với status = 1, cho phép chỉnh sửa category và description
+//        updateReturnCategory(ID, category, description);
         } catch (SQLException e) {
-            // Xử lý các lỗi SQL
             JOptionPane.showMessageDialog(parentComponent, "Lỗi khi thêm sản phẩm");
+            e.printStackTrace();
         }
     }
     
     // Phương thức này trả về một danh sách các đối tượng Category từ cơ sở dữ liệu
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM category";
+//          String sql = "SELECT * FROM category";
+            String sql = "SELECT * FROM category WHERE status = 1";
         try (Connection con = DatabaseConnection.getJDBConnection();
              PreparedStatement pstmt = con.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -65,7 +73,8 @@ public class CategoryDao {
                 String id = rs.getString("ID");
                 String category = rs.getString("category");
                 String description = rs.getString("description");
-                Category c = new Category(id, category, description);
+                String status = rs.getString("status");
+                Category c = new Category(id, category, description, status);
                 categories.add(c);
             }
         } catch (SQLException e) {
@@ -95,6 +104,8 @@ public class CategoryDao {
         Connection con = null;
         PreparedStatement stmt = null;
         boolean success = false;
+        
+        String sql = "UPDATE category SET status = 1 WHERE ID = ? AND status = 2"; // Chỉ cập nhật nếu status là 2
 
         try {
             con = DatabaseConnection.getJDBConnection();
@@ -121,29 +132,80 @@ public class CategoryDao {
                 System.out.println("Error closing resources: " + ex.getMessage());
             }
         }
-
-        return success;
+        return success;    
     }
     // delete category
     public boolean deleteCategory(String categoryID) {
-        ProductDao productDao = new ProductDao();
-        if (productDao.deleteProductsForCategory(categoryID)) {
-            String sql = "DELETE FROM category WHERE id = ?";
+        String sql = "UPDATE category SET status = 2 WHERE ID = ?";
+        try (Connection con = DatabaseConnection.getJDBConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            try (Connection con = DatabaseConnection.getJDBConnection();
-                 PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, categoryID);
 
-                pstmt.setString(1, categoryID);
+            int rowsUpdated = pstmt.executeUpdate();
 
-                int rowsDeleted = pstmt.executeUpdate();
-                return rowsDeleted > 0;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
+            if (rowsUpdated > 0) {
+                return true;
             }
-        } else {
-            return false;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Lỗi khi xóa sản phẩm");
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void reactivateCategory(String ID) throws SQLException {
+        String sql = "UPDATE category SET status = 1 WHERE ID = ?";
+        try (Connection con = DatabaseConnection.getJDBConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, ID);
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(parentComponent, "Đã tái sử dụng lại sản phẩm thành công");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Lỗi khi tái sử dụng sản phẩm");
+            throw e; // Ném lại lỗi để báo lỗi khi cần thiết
+        }
+    }
+
+    private void insertNewCategory(Connection con, String ID, String category, String description) throws SQLException {
+        String sql = "INSERT INTO category (ID, category, description, status) VALUES (?, ?, ?, 1)";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, ID);
+            pstmt.setString(2, category);
+            pstmt.setString(3, description);
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(parentComponent, "Thêm mới sản phẩm thành công");
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(parentComponent, "Lỗi khi thêm sản phẩm");
+            throw e; // Ném lại lỗi để báo lỗi khi cần thiết
+        }
+    }
+
+    private void updateReturnCategory(String ID, String newCategory, String newDescription) {
+            try (Connection con = DatabaseConnection.getJDBConnection()) {
+            String sql = "UPDATE category SET category = ?, description = ?, status = 1 WHERE ID = ?";
+            try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                pstmt.setString(1, newCategory);
+                pstmt.setString(2, newDescription);
+                pstmt.setString(3, ID);
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(parentComponent, "Cập nhật sản phẩm thành công");
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(parentComponent, "Lỗi khi cập nhật sản phẩm");
+                ex.printStackTrace();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(parentComponent, "Lỗi kết nối cơ sở dữ liệu");
+            ex.printStackTrace();
         }
     }
 }

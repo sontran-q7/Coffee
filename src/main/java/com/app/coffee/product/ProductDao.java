@@ -187,7 +187,7 @@ public class ProductDao {
     // Phương thức để lấy danh sách các category từ cơ sở dữ liệu
     public List<String> getAllCategories() {
         List<String> categories = new ArrayList<>();
-        String sql = "SELECT id FROM category"; // Thay đổi query theo cấu trúc của bạn
+        String sql = "SELECT id FROM category where status = 1"; // Thay đổi query theo cấu trúc của bạn
 
         try (Connection con = DatabaseConnection.getJDBConnection();
              PreparedStatement pstmt = con.prepareStatement(sql);
