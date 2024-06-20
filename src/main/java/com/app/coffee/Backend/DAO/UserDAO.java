@@ -202,6 +202,20 @@ public class UserDAO implements DAOInterface<UsersModel> {
         return user;
     }
 
+    @Override
+    public boolean deleteAccount(int userId) {
+        String sql = "UPDATE Account SET status = 0 WHERE account_id = ?";
+        try (Connection connection = ConnectionCoffee.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     
     
     public class RoleDAO {

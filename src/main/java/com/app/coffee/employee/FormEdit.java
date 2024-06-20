@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,8 +26,9 @@ import javax.swing.JTextField;
 import javax.swing.JDialog;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
+import com.app.coffee.Backend.Model.UsersModel;
 
-public class FormAdd extends JPanel {
+public class FormEdit extends JPanel {
     private JTextField nameField;
     private JComboBox<String> positionComboBox;
     private JTextField phoneField;
@@ -35,23 +37,26 @@ public class FormAdd extends JPanel {
     private JPasswordField confirmPasswordField;
     private JButton btnAction;
     private JPanel buttonPanel;
+    private JCheckBox changePasswordCheckBox;
     private JDialog parentDialog;
     private EmployeeManager employeeManager;
+    private UsersModel userModel;
 
     // Role mapping
     private HashMap<String, Integer> roleMap;
 
-    public FormAdd(JDialog parentDialog, EmployeeManager employeeManager) {
+    public FormEdit(JDialog parentDialog, EmployeeManager employeeManager, UsersModel userModel) {
         this.parentDialog = parentDialog;
         this.employeeManager = employeeManager;
+        this.userModel = userModel;
         initComponents();
-        initAddComponents();
+        initEditComponents();
         initRoleMap(); // Initialize role map
+        populateFields();
     }
 
     private void initRoleMap() {
         roleMap = new HashMap<>();
-        
         
         roleMap.put("Manager", 2);
         roleMap.put("Barista", 3);
@@ -64,9 +69,9 @@ public class FormAdd extends JPanel {
 
         
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(243,114,44));
+        topPanel.setBackground(new Color(255,51,0));
         topPanel.setForeground(Color.WHITE);
-        JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Edit Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         topPanel.add(titleLabel, BorderLayout.CENTER);
 
@@ -88,6 +93,7 @@ public class FormAdd extends JPanel {
         JLabel lblEmail = new JLabel("Email:");
         JLabel lblPassword = new JLabel("Password:");
         JLabel lblConfirmPassword = new JLabel("Confirm Password:");
+        JLabel lblChangePassword = new JLabel("Change Password:");
 
         nameField = new JTextField();
         // Removing "Admin" role from JComboBox
@@ -96,6 +102,16 @@ public class FormAdd extends JPanel {
         emailField = new JTextField();
         passwordField = new JPasswordField();
         confirmPasswordField = new JPasswordField();
+        changePasswordCheckBox = new JCheckBox();
+
+        changePasswordCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean selected = changePasswordCheckBox.isSelected();
+                passwordField.setEnabled(selected);
+                confirmPasswordField.setEnabled(selected);
+            }
+        });
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -131,87 +147,127 @@ public class FormAdd extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 4;
+        formPanel.add(lblChangePassword, gbc);
+
+        gbc.gridx = 1;
+        formPanel.add(changePasswordCheckBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         formPanel.add(lblPassword, gbc);
 
         gbc.gridx = 1;
         formPanel.add(passwordField, gbc);
         passwordField.setPreferredSize(new Dimension(200, 25));
+        passwordField.setEnabled(false);
 
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         formPanel.add(lblConfirmPassword, gbc);
 
         gbc.gridx = 1;
         formPanel.add(confirmPasswordField, gbc);
         confirmPasswordField.setPreferredSize(new Dimension(200, 25));
+        confirmPasswordField.setEnabled(false);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         formPanel.add(buttonPanel, gbc);
 
-        // Add padding around the form panel
+        
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(formPanel, BorderLayout.CENTER);
     }
 
-    private void initAddComponents() {
-        btnAction = new JButton("Register");
+    private void initEditComponents() {
+        btnAction = new JButton("Save");
         btnAction.setBackground(new Color(255,51,0));
         btnAction.setForeground(Color.WHITE);
         btnAction.setSize(140,40);
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actionPerformedAdd(e);
+                actionPerformedEdit(e);
             }
         });
         buttonPanel.add(btnAction);
     }
 
-    private void actionPerformedAdd(ActionEvent e) {
+    private void populateFields() {
+        nameField.setText(userModel.getUserName());
+        positionComboBox.setSelectedItem(userModel.getRole().getName());
+        phoneField.setText(String.valueOf(userModel.getPhone()));
+        emailField.setText(userModel.getEmail());
+    }
+
+    private void actionPerformedEdit(ActionEvent e) {
         String fullName = nameField.getText();
         String position = (String) positionComboBox.getSelectedItem();
         String phone = phoneField.getText();
         String email = emailField.getText();
-        String password = new String(passwordField.getPassword());
-        String confirmPassword = new String(confirmPasswordField.getPassword());
 
-        if (fullName.isEmpty() || position.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (fullName.isEmpty() || position.isEmpty() || phone.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         
         int roleId = roleMap.get(position);
 
+       
         Connection connection = ConnectionCoffee.getConnection();
         if (connection != null) {
-            String sql = "INSERT INTO Account (username, password, phone, role_id, status, email) VALUES (?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setString(1, fullName);
-                ps.setString(2, password);
-                ps.setString(3, phone);
-                ps.setInt(4, roleId);
-                ps.setInt(5, 1); // Assuming status is active
-                ps.setString(6, email);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Employee added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                employeeManager.GetList(); // Refresh the employee list
-                parentDialog.dispose(); // Close the dialog
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                ConnectionCoffee.closeConnection(connection);
+            String sql;
+            if (changePasswordCheckBox.isSelected()) {
+                String password = new String(passwordField.getPassword());
+                String confirmPassword = new String(confirmPasswordField.getPassword());
+
+                if (password.isEmpty() || confirmPassword.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in the password fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                sql = "UPDATE Account SET username = ?, password = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setString(1, fullName);
+                    ps.setString(2, password);
+                    ps.setString(3, phone);
+                    ps.setInt(4, roleId);
+                    ps.setString(5, email);
+                    ps.setInt(6, userModel.getAccount_id());
+                    ps.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Failed to update employee.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else {
+                sql = "UPDATE Account SET username = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setString(1, fullName);
+                    ps.setString(2, phone);
+                    ps.setInt(3, roleId);
+                    ps.setString(4, email);
+                    ps.setInt(5, userModel.getAccount_id());
+                    ps.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Failed to update employee.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             }
+
+            JOptionPane.showMessageDialog(this, "Employee updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            employeeManager.GetList(); // Refresh the employee list
+            parentDialog.dispose(); // Close the dialog
         }
     }
 }

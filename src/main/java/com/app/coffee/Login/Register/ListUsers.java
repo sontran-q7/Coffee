@@ -555,29 +555,29 @@ public class ListUsers extends javax.swing.JPanel {
     }//GEN-LAST:event_CreateButtonMouseClicked
     
     public void GetList() {
-    UserDAO userdao = new UserDAO();
-    ArrayList<UsersModel> listUser = userdao.selectAll();
+        UserDAO userdao = new UserDAO();
+        ArrayList<UsersModel> listUser = userdao.selectAll();
 
-    Collections.sort(listUser, new Comparator<UsersModel>() {
-        @Override
-        public int compare(UsersModel u1, UsersModel u2) {
-            return u1.getAccount_id() - u2.getAccount_id();
+        Collections.sort(listUser, new Comparator<UsersModel>() {
+            @Override
+            public int compare(UsersModel u1, UsersModel u2) {
+                return u1.getAccount_id() - u2.getAccount_id();
+            }
+        });
+
+        DefaultTableModel table = (DefaultTableModel) TableListUser.getModel();
+        table.setRowCount(0);
+
+        for (UsersModel user : listUser) {
+            Object[] row = {
+                user.getAccount_id(),
+                user.getUserName() != null ? user.getUserName() : "",
+                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+                user.getRole() != null ? user.getRole().getName() : "", 
+                user.getEmail() != null ? user.getEmail() : ""        
+            };
+            table.addRow(row);
         }
-    });
-
-    DefaultTableModel table = (DefaultTableModel) TableListUser.getModel();
-    table.setRowCount(0);
-
-    for (UsersModel user : listUser) {
-        Object[] row = {
-            user.getAccount_id(),
-            user.getUserName() != null ? user.getUserName() : "",
-            user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
-            user.getRole() != null ? user.getRole().getName() : "", 
-            user.getEmail() != null ? user.getEmail() : ""        
-        };
-        table.addRow(row);
-    }
 }
 
 public void RefreshList() {

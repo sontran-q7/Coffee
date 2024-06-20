@@ -42,7 +42,7 @@ public class demo extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                // Create an instance of DemoFrame and make it visible
+                
                 demo frame = new demo();
                 frame.setVisible(true);
             }

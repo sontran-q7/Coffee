@@ -357,7 +357,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductButtonMouseExited
 
     private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
-       showPanel("member");
+       showPanel("employee");
     }//GEN-LAST:event_EmployeeButtonMouseClicked
 
     private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
@@ -377,8 +377,8 @@ public class Dashboard extends javax.swing.JFrame {
         MenuPanel menu = new MenuPanel();
         ListUsers user = new ListUsers();
         DislayPanel.add(dashboardPage, "dashboard");
-        //DislayPanel.add(employeeManager, "employee"); 
-        DislayPanel.add(user,"member");
+        DislayPanel.add(employeeManager, "employee"); 
+        //DislayPanel.add(user,"member");
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product"); 
         DislayPanel.add(menu,"menu");

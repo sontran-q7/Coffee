@@ -20,4 +20,6 @@ public interface DAOInterface<T> {
     public T selectById(T t);
     
     public ArrayList<T> selectByCondition(String condition);
+    
+    public boolean deleteAccount(int userId);
 }
