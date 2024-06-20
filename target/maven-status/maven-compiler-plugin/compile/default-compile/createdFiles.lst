@@ -12,6 +12,7 @@ com\app\coffee\product\InputProductForm$1.class
 com\app\coffee\product\Category.class
 com\app\coffee\product\InputProductForm$4.class
 com\app\coffee\menu\MenuPanel$17.class
+com\app\coffee\product\ProductForm$7.class
 com\app\coffee\menu\NewClass$1.class
 com\app\coffee\product\CategoryDao.class
 com\app\coffee\menu\MenuPanel$11.class
@@ -29,6 +30,7 @@ com\app\coffee\product\EditProductForm.class
 com\app\coffee\Login\CustomDialog.class
 com\app\coffee\employee\EmployeeManager$3.class
 com\app\coffee\Login\Register\ListUsers$11.class
+com\app\coffee\employee\EmployeeManager$5.class
 com\app\coffee\product\InputCategoryForm$2.class
 com\app\coffee\Login\Register\Member.class
 com\app\coffee\menu\MenuPanel$12.class
@@ -39,7 +41,6 @@ com\app\coffee\Login\Register\ListUsers$5.class
 com\app\coffee\dashboard\Dashboard$8.class
 com\app\coffee\menu\MenuPanel$6.class
 com\app\coffee\product\ProductForm$6.class
-com\app\coffee\menu\MenuPanel$19.class
 com\app\coffee\employee\FormAdd.class
 com\app\coffee\product\EditCategoryForm.class
 com\app\coffee\Backend\Model\UsersModel.class
@@ -69,7 +70,6 @@ com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\demo$1.class
 com\app\coffee\product\ProductForm$5.class
 com\app\coffee\product\Product.class
-com\app\coffee\menu\MenuPanel$18.class
 com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\product\InputProductForm$3.class
 com\app\coffee\employee\FormEdit$1.class
@@ -104,7 +104,6 @@ com\app\coffee\Database\Connection.class
 com\app\coffee\menu\MenuPanel$9.class
 com\app\coffee\Login\Register\ListUsers$9.class
 com\app\coffee\dashboard\Dashboard$5.class
-com\app\coffee\product\EditProduct.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\product\CustomHeaderRenderer.class
 com\app\coffee\employee\EmployeeManager$1.class

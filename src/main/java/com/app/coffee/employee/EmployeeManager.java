@@ -9,14 +9,21 @@ import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -29,6 +36,34 @@ public class EmployeeManager extends javax.swing.JPanel {
         setDefTable();
         
         GetList();
+        
+         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+        {
+            @Override
+             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+//                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
+                Font font = c.getFont(); // Lấy font hiện tại
+                font = font.deriveFont(Font.BOLD, 16f); // Đặt font là đậm, kích thước
+                c.setFont(font);
+                return c;
+            }
+        };        
+        headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
+        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+        JTableHeader productTable = tableListUser.getTableHeader();
+       
+        productTable.setDefaultRenderer(headerRenderer);
+       
+
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+        // Áp dụng cho ProductTable
+        for (int i = 0; i < tableListUser.getColumnCount(); i++) {
+            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        
     }
     
     private void setDefTable() {
@@ -97,12 +132,29 @@ public class EmployeeManager extends javax.swing.JPanel {
         tableListUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
                 "No", "Name", "Position", "Phone", "Email"
             }
         ));
+        tableListUser.setRowHeight(30);
+        tableListUser.setSelectionBackground(new java.awt.Color(255, 153, 0));
+        tableListUser.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tableListUser.setShowGrid(false);
         tableListUser.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(tableListUser);

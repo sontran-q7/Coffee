@@ -53,7 +53,7 @@ public class CategoryDao {
                 }
             }
             // Sau khi tái sử dụng lại hoặc khi ID đã tồn tại với status = 1, cho phép chỉnh sửa category và description
-//        updateReturnCategory(ID, category, description);
+        updateReturnCategory(ID, category, description);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(parentComponent, "Lỗi khi thêm sản phẩm");
             e.printStackTrace();

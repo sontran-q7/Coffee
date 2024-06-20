@@ -29,6 +29,7 @@ import java.util.Date;
  * @author anhso
  */
 public class Dashboard extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form Dashboard
@@ -301,7 +302,8 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignoutButtonActionPerformed
-        // TODO add your handling code here:
+         this.dispose(); // Close the current dashboard
+        Login.showLoginForm(); // Show the login form again
     }//GEN-LAST:event_SignoutButtonActionPerformed
 
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed

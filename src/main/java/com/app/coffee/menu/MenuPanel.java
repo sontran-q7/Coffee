@@ -70,38 +70,6 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel85 = new javax.swing.JLabel();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        MinusButton9 = new javax.swing.JButton();
-        PlusButton9 = new javax.swing.JButton();
-        jCheckBox51 = new javax.swing.JCheckBox();
-        jCheckBox52 = new javax.swing.JCheckBox();
-        jCheckBox53 = new javax.swing.JCheckBox();
-        jCheckBox54 = new javax.swing.JCheckBox();
-        jLabel88 = new javax.swing.JLabel();
-        jLabel89 = new javax.swing.JLabel();
-        jLabel90 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        jLabel92 = new javax.swing.JLabel();
-        jLabel93 = new javax.swing.JLabel();
-        jLabel94 = new javax.swing.JLabel();
-        jLabel95 = new javax.swing.JLabel();
-        jLabel96 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        MinusButton10 = new javax.swing.JButton();
-        PlusButton10 = new javax.swing.JButton();
-        jCheckBox55 = new javax.swing.JCheckBox();
-        jCheckBox56 = new javax.swing.JCheckBox();
-        jCheckBox57 = new javax.swing.JCheckBox();
-        jCheckBox58 = new javax.swing.JCheckBox();
-        jLabel97 = new javax.swing.JLabel();
-        jLabel98 = new javax.swing.JLabel();
-        jLabel99 = new javax.swing.JLabel();
-        jLabel100 = new javax.swing.JLabel();
-        jLabel101 = new javax.swing.JLabel();
-        jLabel102 = new javax.swing.JLabel();
-        jLabel103 = new javax.swing.JLabel();
-        jLabel104 = new javax.swing.JLabel();
-        jLabel105 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         MinusButton11 = new javax.swing.JButton();
         PlusButton11 = new javax.swing.JButton();
@@ -150,6 +118,22 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel130 = new javax.swing.JLabel();
         jLabel131 = new javax.swing.JLabel();
         jLabel132 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
+        MinusButton14 = new javax.swing.JButton();
+        PlusButton14 = new javax.swing.JButton();
+        jCheckBox71 = new javax.swing.JCheckBox();
+        jCheckBox72 = new javax.swing.JCheckBox();
+        jCheckBox73 = new javax.swing.JCheckBox();
+        jCheckBox74 = new javax.swing.JCheckBox();
+        jLabel133 = new javax.swing.JLabel();
+        jLabel134 = new javax.swing.JLabel();
+        jLabel135 = new javax.swing.JLabel();
+        jLabel136 = new javax.swing.JLabel();
+        jLabel137 = new javax.swing.JLabel();
+        jLabel138 = new javax.swing.JLabel();
+        jLabel139 = new javax.swing.JLabel();
+        jLabel140 = new javax.swing.JLabel();
+        jLabel141 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -566,317 +550,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
-
-        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel15.setPreferredSize(new java.awt.Dimension(260, 370));
-
-        MinusButton9.setBackground(new java.awt.Color(51, 51, 51));
-        MinusButton9.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
-        MinusButton9.setForeground(new java.awt.Color(255, 255, 255));
-        MinusButton9.setText("-");
-        MinusButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MinusButton9ActionPerformed(evt);
-            }
-        });
-
-        PlusButton9.setBackground(new java.awt.Color(255, 102, 0));
-        PlusButton9.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        PlusButton9.setForeground(new java.awt.Color(255, 255, 255));
-        PlusButton9.setText("+");
-
-        jCheckBox51.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jCheckBox51.setText("S");
-
-        jCheckBox52.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jCheckBox52.setText("L");
-
-        jCheckBox53.setText("50%");
-
-        jCheckBox54.setText("100%");
-        jCheckBox54.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox54ActionPerformed(evt);
-            }
-        });
-
-        jLabel88.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel88.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel88.setText("0");
-
-        jLabel89.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel89.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel89.setText(" Suger :");
-
-        jLabel90.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel90.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel90.setText("Cup size : ");
-
-        jLabel91.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel91.setText("image");
-        jLabel91.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel92.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jLabel92.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel92.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel92.setText("Coffee milk");
-
-        jLabel93.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel93.setForeground(new java.awt.Color(255, 102, 0));
-        jLabel93.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel93.setText("Price");
-
-        jLabel94.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel94.setText("13.00 USD");
-
-        jLabel95.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel95.setText("14.50 USD");
-
-        jLabel96.setText("Or");
-
-        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel16.setPreferredSize(new java.awt.Dimension(260, 370));
-
-        MinusButton10.setBackground(new java.awt.Color(102, 102, 102));
-        MinusButton10.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
-        MinusButton10.setForeground(new java.awt.Color(255, 255, 255));
-        MinusButton10.setText("-");
-        MinusButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MinusButton10ActionPerformed(evt);
-            }
-        });
-
-        PlusButton10.setBackground(new java.awt.Color(255, 102, 0));
-        PlusButton10.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        PlusButton10.setForeground(new java.awt.Color(255, 255, 255));
-        PlusButton10.setText("+");
-
-        jCheckBox55.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jCheckBox55.setText("S");
-
-        jCheckBox56.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jCheckBox56.setText("L");
-
-        jCheckBox57.setText("50%");
-
-        jCheckBox58.setText("100%");
-        jCheckBox58.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox58ActionPerformed(evt);
-            }
-        });
-
-        jLabel97.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel97.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel97.setText("0");
-
-        jLabel98.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel98.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel98.setText(" Suger :");
-
-        jLabel99.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel99.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel99.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel99.setText("Cup size : ");
-
-        jLabel100.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel100.setText("image");
-        jLabel100.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel101.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        jLabel101.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel101.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel101.setText("Coffee milk");
-
-        jLabel102.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel102.setForeground(new java.awt.Color(255, 102, 0));
-        jLabel102.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel102.setText("Price");
-
-        jLabel103.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel103.setText("13.00 USD");
-
-        jLabel104.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel104.setText("14.50 USD");
-
-        jLabel105.setText("Or");
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel102, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel104, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel105))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel103, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel98, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox57)
-                        .addGap(20, 20, 20)
-                        .addComponent(jCheckBox58))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(MinusButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel97, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel16Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel99, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox55)))
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox56, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PlusButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel101, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel100, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(jLabel102, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel103, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel105)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel104, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel101, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel99, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox55, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox56, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox57, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox58, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel98, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MinusButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel97, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PlusButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(jLabel96))
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCheckBox53)
-                        .addGap(20, 20, 20)
-                        .addComponent(jCheckBox54))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(MinusButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox51)))
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox52, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PlusButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel92, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel93, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel94, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel96)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel95, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel92, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox51, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox52, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox53, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox54, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MinusButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel88, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PlusButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        jPanel9.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
+        jPanel9.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jPanel17.setBackground(new java.awt.Color(255, 255, 255));
         jPanel17.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -1027,7 +701,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, -1, -1));
+        jPanel9.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, -1, -1));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -1329,7 +1003,158 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 430, -1, -1));
+        jPanel9.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel20.setPreferredSize(new java.awt.Dimension(260, 370));
+
+        MinusButton14.setBackground(new java.awt.Color(51, 51, 51));
+        MinusButton14.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
+        MinusButton14.setForeground(new java.awt.Color(255, 255, 255));
+        MinusButton14.setText("-");
+        MinusButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MinusButton14ActionPerformed(evt);
+            }
+        });
+
+        PlusButton14.setBackground(new java.awt.Color(255, 102, 0));
+        PlusButton14.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        PlusButton14.setForeground(new java.awt.Color(255, 255, 255));
+        PlusButton14.setText("+");
+
+        jCheckBox71.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jCheckBox71.setText("S");
+
+        jCheckBox72.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jCheckBox72.setText("L");
+
+        jCheckBox73.setText("50%");
+
+        jCheckBox74.setText("100%");
+        jCheckBox74.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox74ActionPerformed(evt);
+            }
+        });
+
+        jLabel133.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel133.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel133.setText("0");
+
+        jLabel134.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel134.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel134.setText(" Suger :");
+
+        jLabel135.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel135.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel135.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel135.setText("Cup size : ");
+
+        jLabel136.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel136.setText("image");
+        jLabel136.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel137.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        jLabel137.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel137.setText("Coffee milk");
+
+        jLabel138.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel138.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel138.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel138.setText("Price");
+
+        jLabel139.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel139.setText("13.00 USD");
+
+        jLabel140.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel140.setText("14.50 USD");
+
+        jLabel141.setText("Or");
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel140, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel141))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel139, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel138, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox73)
+                        .addGap(20, 20, 20)
+                        .addComponent(jCheckBox74))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(MinusButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel133, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel20Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox71)))
+                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox72, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PlusButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel137, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel136, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(jLabel138, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel139, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel141)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel140, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel137, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel135, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox71, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox72, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox73, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox74, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel134, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MinusButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel133, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PlusButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel9.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, -1, -1));
 
         jScrollPane1.setViewportView(jPanel9);
 
@@ -1337,19 +1162,18 @@ public class MenuPanel extends javax.swing.JPanel {
         FullDishJPanel.setLayout(FullDishJPanelLayout);
         FullDishJPanelLayout.setHorizontalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1))
         );
         FullDishJPanelLayout.setVerticalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
@@ -1493,14 +1317,6 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox50ActionPerformed
 
-    private void MinusButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MinusButton9ActionPerformed
-
-    private void jCheckBox54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox54ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox54ActionPerformed
-
     private void MinusButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MinusButton11ActionPerformed
@@ -1529,13 +1345,13 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox58ActionPerformed
+    private void MinusButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton14ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox58ActionPerformed
+    }//GEN-LAST:event_MinusButton14ActionPerformed
 
-    private void MinusButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton10ActionPerformed
+    private void jCheckBox74ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox74ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MinusButton10ActionPerformed
+    }//GEN-LAST:event_jCheckBox74ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1543,21 +1359,19 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton CoffeButton;
     private javax.swing.JPanel FullDishJPanel;
     private javax.swing.JButton JuiceButton;
-    private javax.swing.JButton MinusButton10;
     private javax.swing.JButton MinusButton11;
     private javax.swing.JButton MinusButton12;
     private javax.swing.JButton MinusButton13;
+    private javax.swing.JButton MinusButton14;
     private javax.swing.JButton MinusButton7;
     private javax.swing.JButton MinusButton8;
-    private javax.swing.JButton MinusButton9;
     private javax.swing.JScrollPane OrderTable;
-    private javax.swing.JButton PlusButton10;
     private javax.swing.JButton PlusButton11;
     private javax.swing.JButton PlusButton12;
     private javax.swing.JButton PlusButton13;
+    private javax.swing.JButton PlusButton14;
     private javax.swing.JButton PlusButton7;
     private javax.swing.JButton PlusButton8;
-    private javax.swing.JButton PlusButton9;
     private javax.swing.JButton SoftDrintButton;
     private javax.swing.JButton TeaButton;
     private javax.swing.JButton jButton1;
@@ -1570,14 +1384,6 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox48;
     private javax.swing.JCheckBox jCheckBox49;
     private javax.swing.JCheckBox jCheckBox50;
-    private javax.swing.JCheckBox jCheckBox51;
-    private javax.swing.JCheckBox jCheckBox52;
-    private javax.swing.JCheckBox jCheckBox53;
-    private javax.swing.JCheckBox jCheckBox54;
-    private javax.swing.JCheckBox jCheckBox55;
-    private javax.swing.JCheckBox jCheckBox56;
-    private javax.swing.JCheckBox jCheckBox57;
-    private javax.swing.JCheckBox jCheckBox58;
     private javax.swing.JCheckBox jCheckBox59;
     private javax.swing.JCheckBox jCheckBox60;
     private javax.swing.JCheckBox jCheckBox61;
@@ -1590,13 +1396,11 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox jCheckBox68;
     private javax.swing.JCheckBox jCheckBox69;
     private javax.swing.JCheckBox jCheckBox70;
+    private javax.swing.JCheckBox jCheckBox71;
+    private javax.swing.JCheckBox jCheckBox72;
+    private javax.swing.JCheckBox jCheckBox73;
+    private javax.swing.JCheckBox jCheckBox74;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
     private javax.swing.JLabel jLabel106;
     private javax.swing.JLabel jLabel107;
     private javax.swing.JLabel jLabel108;
@@ -1626,6 +1430,15 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
+    private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel134;
+    private javax.swing.JLabel jLabel135;
+    private javax.swing.JLabel jLabel136;
+    private javax.swing.JLabel jLabel137;
+    private javax.swing.JLabel jLabel138;
+    private javax.swing.JLabel jLabel139;
+    private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel jLabel141;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -1650,27 +1463,14 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
-    private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
-    private javax.swing.JLabel jLabel92;
-    private javax.swing.JLabel jLabel93;
-    private javax.swing.JLabel jLabel94;
-    private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;

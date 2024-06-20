@@ -29,7 +29,7 @@ public class ProductForm extends javax.swing.JPanel {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 //                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
                 Font font = c.getFont(); // Lấy font hiện tại
-                font = font.deriveFont(Font.BOLD, 20f); // Đặt font là đậm, kích thước
+                font = font.deriveFont(Font.BOLD, 16f); // Đặt font là đậm, kích thước
                 c.setFont(font);
                 return c;
             }
@@ -289,6 +289,7 @@ public class ProductForm extends javax.swing.JPanel {
         ));
         TableProduct.setGridColor(new java.awt.Color(0, 0, 0));
         TableProduct.setRowHeight(30);
+        TableProduct.setSelectionBackground(new java.awt.Color(255, 102, 0));
         TableProduct.setSelectionForeground(new java.awt.Color(255, 255, 255));
         TableProduct.setShowGrid(false);
         jScrollPane2.setViewportView(TableProduct);
