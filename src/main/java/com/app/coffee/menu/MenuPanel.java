@@ -215,7 +215,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
 
         AllMenuButton.setBackground(new java.awt.Color(102, 102, 102));
-        AllMenuButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AllMenuButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         AllMenuButton.setForeground(new java.awt.Color(255, 255, 255));
         AllMenuButton.setText("ALL Menu");
         AllMenuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +226,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel6.add(AllMenuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 111, 40));
 
         CoffeButton.setBackground(new java.awt.Color(102, 102, 102));
-        CoffeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CoffeButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         CoffeButton.setForeground(new java.awt.Color(255, 255, 255));
         CoffeButton.setText("Coffe");
         CoffeButton.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +237,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel6.add(CoffeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 111, 40));
 
         TeaButton.setBackground(new java.awt.Color(102, 102, 102));
-        TeaButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TeaButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TeaButton.setForeground(new java.awt.Color(255, 255, 255));
         TeaButton.setText("Tea");
         TeaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -248,13 +248,13 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel6.add(TeaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 111, 40));
 
         JuiceButton.setBackground(new java.awt.Color(102, 102, 102));
-        JuiceButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        JuiceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         JuiceButton.setForeground(new java.awt.Color(255, 255, 255));
         JuiceButton.setText("Juice");
         jPanel6.add(JuiceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 111, 40));
 
         SoftDrintButton.setBackground(new java.awt.Color(102, 102, 102));
-        SoftDrintButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SoftDrintButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         SoftDrintButton.setForeground(new java.awt.Color(255, 255, 255));
         SoftDrintButton.setText("Soft Drint");
         SoftDrintButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1346,8 +1346,8 @@ public class MenuPanel extends javax.swing.JPanel {
         FullDishJPanelLayout.setVerticalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -1374,14 +1374,14 @@ public class MenuPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 640, 140, 50));
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 640, 140, 50));
 
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 102, 0));
         jButton3.setText("Cancel Order ");
         jButton3.setBorder(null);
-        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 140, 50));
+        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 640, 140, 50));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel32.setText("Note :");

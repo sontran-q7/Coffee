@@ -161,7 +161,7 @@ public class FormAdd extends JPanel {
         btnAction = new JButton("Register");
         btnAction.setBackground(new Color(255,51,0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setSize(140,40);
+        btnAction.setSize(180,40);
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
