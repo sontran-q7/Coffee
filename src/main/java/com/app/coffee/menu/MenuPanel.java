@@ -269,7 +269,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setPreferredSize(new java.awt.Dimension(260, 370));
 
-        MinusButton7.setBackground(new java.awt.Color(51, 51, 51));
+        MinusButton7.setBackground(new java.awt.Color(102, 102, 102));
         MinusButton7.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
         MinusButton7.setForeground(new java.awt.Color(255, 255, 255));
         MinusButton7.setText("-");
@@ -420,7 +420,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setPreferredSize(new java.awt.Dimension(260, 370));
 
-        MinusButton8.setBackground(new java.awt.Color(51, 51, 51));
+        MinusButton8.setBackground(new java.awt.Color(102, 102, 102));
         MinusButton8.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
         MinusButton8.setForeground(new java.awt.Color(255, 255, 255));
         MinusButton8.setText("-");
@@ -639,7 +639,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel16.setBackground(new java.awt.Color(255, 255, 255));
         jPanel16.setPreferredSize(new java.awt.Dimension(260, 370));
 
-        MinusButton10.setBackground(new java.awt.Color(51, 51, 51));
+        MinusButton10.setBackground(new java.awt.Color(102, 102, 102));
         MinusButton10.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
         MinusButton10.setForeground(new java.awt.Color(255, 255, 255));
         MinusButton10.setText("-");
@@ -1347,9 +1347,9 @@ public class MenuPanel extends javax.swing.JPanel {
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
@@ -1501,14 +1501,6 @@ public class MenuPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox54ActionPerformed
 
-    private void MinusButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MinusButton10ActionPerformed
-
-    private void jCheckBox58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox58ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox58ActionPerformed
-
     private void MinusButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MinusButton11ActionPerformed
@@ -1536,6 +1528,14 @@ public class MenuPanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox58ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox58ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox58ActionPerformed
+
+    private void MinusButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MinusButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MinusButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

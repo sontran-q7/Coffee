@@ -99,10 +99,11 @@ public class ProductForm extends javax.swing.JPanel {
         categoryLabel.setText("Category Table");
         CategoryPanel.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 200, 60));
 
-        AddCategoryButton.setBackground(new java.awt.Color(0, 255, 0));
+        AddCategoryButton.setBackground(new java.awt.Color(255, 153, 0));
         AddCategoryButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         AddCategoryButton.setForeground(new java.awt.Color(255, 255, 255));
         AddCategoryButton.setText("Add");
+        AddCategoryButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         AddCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddCategoryButtonActionPerformed(evt);
@@ -110,9 +111,8 @@ public class ProductForm extends javax.swing.JPanel {
         });
         CategoryPanel.add(AddCategoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 20, 140, 40));
 
-        editCategoryButton.setBackground(new java.awt.Color(255, 204, 0));
         editCategoryButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editCategoryButton.setForeground(new java.awt.Color(255, 255, 255));
+        editCategoryButton.setForeground(new java.awt.Color(255, 153, 0));
         editCategoryButton.setText("Edit");
         editCategoryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,10 +184,11 @@ public class ProductForm extends javax.swing.JPanel {
         productLabel.setForeground(new java.awt.Color(255, 255, 255));
         productLabel.setText("Product Table");
 
-        AddProductButton.setBackground(new java.awt.Color(0, 255, 0));
+        AddProductButton.setBackground(new java.awt.Color(255, 153, 0));
         AddProductButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         AddProductButton.setForeground(new java.awt.Color(255, 255, 255));
         AddProductButton.setText("Add");
+        AddProductButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         AddProductButton.setPreferredSize(new java.awt.Dimension(140, 40));
         AddProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,9 +196,8 @@ public class ProductForm extends javax.swing.JPanel {
             }
         });
 
-        editProductButton.setBackground(new java.awt.Color(255, 153, 0));
         editProductButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        editProductButton.setForeground(new java.awt.Color(255, 102, 0));
         editProductButton.setText("Edit");
         editProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +238,7 @@ public class ProductForm extends javax.swing.JPanel {
                     .addComponent(AddProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(productLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
