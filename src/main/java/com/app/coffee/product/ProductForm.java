@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.product;
+
+import com.app.coffee.category.CategoryDao;
+import com.app.coffee.category.Category;
 import java.awt.*;
 import java.util.List;
 import javax.swing.*;
@@ -303,8 +306,8 @@ public class ProductForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
-        InputCategoryForm newCategory = new InputCategoryForm(this); // Pass the reference to ProductForm
-        newCategory.setVisible(true);
+//        InputCategoryForm newCategory = new InputCategoryForm(this); // Pass the reference to ProductForm
+//        newCategory.setVisible(true);
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void editCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCategoryButtonActionPerformed
@@ -316,8 +319,8 @@ public class ProductForm extends javax.swing.JPanel {
             String description = ProductTable.getValueAt(selectedRow, 2).toString();
 
             // Hiển thị một cửa sổ hoặc dialog cho phép người dùng chỉnh sửa thông tin
-            EditCategoryForm editCategory = new EditCategoryForm(ID, category, description, this);
-            editCategory.setVisible(true);
+//            EditCategoryForm editCategory = new EditCategoryForm(ID, category, description, this);
+//            editCategory.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }

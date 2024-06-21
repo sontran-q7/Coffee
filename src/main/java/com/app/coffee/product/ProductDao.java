@@ -4,6 +4,7 @@
  */
 package com.app.coffee.product;
 
+import com.app.coffee.category.Category;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
