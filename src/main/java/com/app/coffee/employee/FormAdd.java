@@ -72,7 +72,7 @@ public class FormAdd extends JPanel {
 
         nameField = new JTextField();
         positionComboBox = new JComboBox<>(new String[]{"Manager", "Barista", "Cashier", "Customer"});
-        phoneField = new JTextField("84");
+        phoneField = new JTextField();
         emailField = new JTextField();
         passwordField = new JPasswordField();
         confirmPasswordField = new JPasswordField();
@@ -152,8 +152,8 @@ public class FormAdd extends JPanel {
             return true;
         }
 
-        if (!phone.matches("^\\d{8,}$")) {
-            JOptionPane.showMessageDialog(this, "Phone number must have at least 8 digits.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!phone.matches("^0\\d{8,}$")) {
+            JOptionPane.showMessageDialog(this, "The phone number always starts with 0 and must have at least 8 digits.", "Error", JOptionPane.ERROR_MESSAGE);
             return true;
         }
 
