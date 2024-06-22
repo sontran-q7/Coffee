@@ -41,15 +41,6 @@ public class DashboardPage extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         Percent_revenue = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        No1Field = new javax.swing.JTextField();
-        No2Field = new javax.swing.JTextField();
-        No3Field = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -72,12 +63,12 @@ public class DashboardPage extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Daily sales revenue :");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 255, 0));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 204));
         jLabel2.setText("375.60 USD");
 
         timeLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        timeLabel.setForeground(new java.awt.Color(255, 51, 0));
+        timeLabel.setForeground(new java.awt.Color(0, 0, 255));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -111,7 +102,7 @@ public class DashboardPage extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel2)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 100));
@@ -197,60 +188,6 @@ public class DashboardPage extends javax.swing.JPanel {
         );
 
         add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
-        jPanel5.setPreferredSize(new java.awt.Dimension(350, 250));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel10.setBackground(new java.awt.Color(255, 102, 0));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Best-selling product");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(jLabel12)
-                .addContainerGap(75, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel5.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, -1, 50));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("No.1 :");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 73, 40));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("No.2 :");
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 73, 40));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("No.3 :");
-        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 50, 30));
-        jPanel5.add(No1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 190, 30));
-        jPanel5.add(No2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 190, 30));
-        jPanel5.add(No3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 190, 30));
-
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
@@ -398,27 +335,18 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JButton Add_Staff;
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel MonthPanel;
-    private javax.swing.JTextField No1Field;
-    private javax.swing.JTextField No2Field;
-    private javax.swing.JTextField No3Field;
     private javax.swing.JLabel Percent_revenue;
     private javax.swing.JTable Shift_Staff;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
