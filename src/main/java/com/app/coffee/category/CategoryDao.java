@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import com.app.coffee.product.DatabaseConnection; // Import lớp Connection từ gói com.app.coffee.product
 import com.app.coffee.product.DatabaseConnection;
-import com.app.coffee.product.ProductForm;
+
 import java.awt.Component;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -25,8 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class CategoryDao {
 
     private Component parentComponent;
-    private ProductForm productForm;
-    
+  
     // add category
     public void insertCat(String ID, String category, String description) {
         try {
