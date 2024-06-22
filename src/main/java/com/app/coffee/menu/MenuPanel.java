@@ -37,7 +37,7 @@ public class MenuPanel extends javax.swing.JPanel {
         JuiceButton = new javax.swing.JButton();
         SoftDrintButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel9 = new javax.swing.JPanel();
+        menupanelcon = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         MinusButton7 = new javax.swing.JButton();
         PlusButton7 = new javax.swing.JButton();
@@ -248,12 +248,12 @@ public class MenuPanel extends javax.swing.JPanel {
         });
         jPanel6.add(SoftDrintButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 111, 40));
 
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menupanelcon.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setPreferredSize(new java.awt.Dimension(260, 370));
 
-        MinusButton7.setBackground(new java.awt.Color(102, 102, 102));
+        MinusButton7.setBackground(new java.awt.Color(51, 51, 51));
         MinusButton7.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
         MinusButton7.setForeground(new java.awt.Color(255, 255, 255));
         MinusButton7.setText("-");
@@ -399,12 +399,12 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        menupanelcon.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setPreferredSize(new java.awt.Dimension(260, 370));
 
-        MinusButton8.setBackground(new java.awt.Color(102, 102, 102));
+        MinusButton8.setBackground(new java.awt.Color(51, 51, 51));
         MinusButton8.setFont(new java.awt.Font("Segoe UI", 2, 28)); // NOI18N
         MinusButton8.setForeground(new java.awt.Color(255, 255, 255));
         MinusButton8.setText("-");
@@ -550,7 +550,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+        menupanelcon.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jPanel17.setBackground(new java.awt.Color(255, 255, 255));
         jPanel17.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -701,7 +701,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, -1, -1));
+        menupanelcon.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, -1, -1));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -852,7 +852,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
+        menupanelcon.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -1003,7 +1003,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
+        menupanelcon.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, -1, -1));
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
         jPanel20.setPreferredSize(new java.awt.Dimension(260, 370));
@@ -1154,9 +1154,9 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addComponent(PlusButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel9.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, -1, -1));
+        menupanelcon.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, -1, -1));
 
-        jScrollPane1.setViewportView(jPanel9);
+        jScrollPane1.setViewportView(menupanelcon);
 
         javax.swing.GroupLayout FullDishJPanelLayout = new javax.swing.GroupLayout(FullDishJPanel);
         FullDishJPanel.setLayout(FullDishJPanelLayout);
@@ -1290,7 +1290,7 @@ public class MenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_CoffeButtonActionPerformed
 
     private void AllMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllMenuButtonActionPerformed
-        // TODO add your handling code here:
+        // SHOW ALL MENU
     }//GEN-LAST:event_AllMenuButtonActionPerformed
 
     private void SoftDrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SoftDrintButtonActionPerformed
@@ -1473,7 +1473,6 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -1484,5 +1483,6 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JPanel menupanelcon;
     // End of variables declaration//GEN-END:variables
 }

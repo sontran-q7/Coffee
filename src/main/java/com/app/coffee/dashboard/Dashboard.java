@@ -8,6 +8,7 @@ import com.app.coffee.Login.Register.ListUsers;
 import com.app.coffee.Login.Register.Member;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
+import com.app.coffee.category.*;
 import com.app.coffee.product.*;
 import  com.app.coffee.menu.*;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -22,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JLabel;
 
 
 /**
@@ -30,7 +32,7 @@ import java.util.Date;
  */
 public class Dashboard extends javax.swing.JFrame {
     
-
+    private JLabel currentButton;
     /**
      * Creates new form Dashboard
      */
@@ -55,8 +57,9 @@ public class Dashboard extends javax.swing.JFrame {
         HomeButton = new javax.swing.JLabel();
         MenuButton = new javax.swing.JLabel();
         BillButton = new javax.swing.JLabel();
-        ProductButton = new javax.swing.JLabel();
+        CategoryButton = new javax.swing.JLabel();
         EmployeeButton = new javax.swing.JLabel();
+        ProductButton = new javax.swing.JLabel();
         Header = new javax.swing.JPanel();
         SearchField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -138,21 +141,21 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        ProductButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        ProductButton.setForeground(new java.awt.Color(255, 255, 255));
-        ProductButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ProductButton.setText("Product");
-        ProductButton.setPreferredSize(new java.awt.Dimension(40, 16));
-        ProductButton.setVerifyInputWhenFocusTarget(false);
-        ProductButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        CategoryButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        CategoryButton.setForeground(new java.awt.Color(255, 255, 255));
+        CategoryButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CategoryButton.setText("Category");
+        CategoryButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        CategoryButton.setVerifyInputWhenFocusTarget(false);
+        CategoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ProductButtonMouseClicked(evt);
+                CategoryButtonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ProductButtonMouseEntered(evt);
+                CategoryButtonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ProductButtonMouseExited(evt);
+                CategoryButtonMouseExited(evt);
             }
         });
 
@@ -174,6 +177,24 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        ProductButton.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        ProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        ProductButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ProductButton.setText("Product");
+        ProductButton.setPreferredSize(new java.awt.Dimension(40, 16));
+        ProductButton.setVerifyInputWhenFocusTarget(false);
+        ProductButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ProductButtonMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout SidebarLayout = new javax.swing.GroupLayout(Sidebar);
         Sidebar.setLayout(SidebarLayout);
         SidebarLayout.setHorizontalGroup(
@@ -186,28 +207,35 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(MenuButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BillButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EmployeeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(CategoryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(SidebarLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(EmployeeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
                         .addGap(0, 37, Short.MAX_VALUE)
                         .addComponent(SignoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
+                        .addComponent(ProductButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         SidebarLayout.setVerticalGroup(
             SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
-                .addGap(190, 190, 190)
+                .addGap(135, 135, 135)
                 .addComponent(HomeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ProductButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CategoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EmployeeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(SignoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
         );
@@ -295,6 +323,7 @@ public class Dashboard extends javax.swing.JFrame {
         getContentPane().add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1360, -1));
 
         DislayPanel.setBackground(new java.awt.Color(255, 255, 255));
+        DislayPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DislayPanel.setLayout(new java.awt.CardLayout());
         getContentPane().add(DislayPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 1350, 760));
 
@@ -312,63 +341,106 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void HomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseClicked
         showPanel("dashboard");
+        setButtonColor(HomeButton);
     }//GEN-LAST:event_HomeButtonMouseClicked
 
     private void HomeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseEntered
-       HomeButton.setForeground(new Color(255,153,0));
+         if (currentButton != HomeButton) {
+         HomeButton.setForeground(new Color(255,153,0));
+       }
     }//GEN-LAST:event_HomeButtonMouseEntered
 
     private void HomeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseExited
-        HomeButton.setForeground(Color.white);
+        if (currentButton != HomeButton) {
+          HomeButton.setForeground(Color.white);
+        }
     }//GEN-LAST:event_HomeButtonMouseExited
 
     private void MenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseClicked
         showPanel("menu");
+         setButtonColor(MenuButton);
     }//GEN-LAST:event_MenuButtonMouseClicked
 
     private void MenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseEntered
-        MenuButton.setForeground(new Color(255,153,0));
+        if (currentButton != MenuButton) {
+         MenuButton.setForeground(new Color(255,153,0));
+       }
     }//GEN-LAST:event_MenuButtonMouseEntered
 
     private void MenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseExited
-         MenuButton.setForeground(Color.white);
+          if (currentButton != MenuButton) {
+          MenuButton.setForeground(Color.white);
+        }
     }//GEN-LAST:event_MenuButtonMouseExited
 
     private void BillButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseClicked
         showPanel("bill");
+        setButtonColor(BillButton);
     }//GEN-LAST:event_BillButtonMouseClicked
 
     private void BillButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseEntered
-        BillButton.setForeground(new Color(255,153,0));
+        if (currentButton != BillButton) {
+         BillButton.setForeground(new Color(255,153,0));
+       }
     }//GEN-LAST:event_BillButtonMouseEntered
 
     private void BillButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseExited
-         BillButton.setForeground(Color.white);
+        if (currentButton != BillButton) {
+          BillButton.setForeground(Color.white);
+        }
     }//GEN-LAST:event_BillButtonMouseExited
 
-    private void ProductButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseClicked
-        showPanel("product");
-    }//GEN-LAST:event_ProductButtonMouseClicked
+    private void CategoryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryButtonMouseClicked
+        showPanel("category");
+        setButtonColor(CategoryButton);
+    }//GEN-LAST:event_CategoryButtonMouseClicked
 
-    private void ProductButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseEntered
-        ProductButton.setForeground(new Color(255,153,0));
-    }//GEN-LAST:event_ProductButtonMouseEntered
+    private void CategoryButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryButtonMouseEntered
+        if (currentButton != CategoryButton) {
+         CategoryButton.setForeground(new Color(255,153,0));
+       }
+    }//GEN-LAST:event_CategoryButtonMouseEntered
 
-    private void ProductButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseExited
-         ProductButton.setForeground(Color.white);
-    }//GEN-LAST:event_ProductButtonMouseExited
+    private void CategoryButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryButtonMouseExited
+        if (currentButton != CategoryButton) {
+          CategoryButton.setForeground(Color.white);
+        }
+    }//GEN-LAST:event_CategoryButtonMouseExited
 
     private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
        showPanel("employee");
+       setButtonColor(EmployeeButton);
     }//GEN-LAST:event_EmployeeButtonMouseClicked
 
     private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
-       EmployeeButton.setForeground(new Color(255,153,0));
+       if (currentButton != EmployeeButton) {
+        EmployeeButton.setForeground(new Color(255,153,0));
+       }
     }//GEN-LAST:event_EmployeeButtonMouseEntered
 
     private void EmployeeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseExited
-         EmployeeButton.setForeground(Color.white);
+         
+          if (currentButton != EmployeeButton) {
+        EmployeeButton.setForeground(Color.white);
+          }
     }//GEN-LAST:event_EmployeeButtonMouseExited
+
+    private void ProductButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseClicked
+        showPanel("product");
+        setButtonColor(ProductButton);
+    }//GEN-LAST:event_ProductButtonMouseClicked
+
+    private void ProductButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseEntered
+         if (currentButton != ProductButton) {
+        ProductButton.setForeground(new Color(255,153,0));
+    }
+    }//GEN-LAST:event_ProductButtonMouseEntered
+
+    private void ProductButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseExited
+       if (currentButton != ProductButton) {
+        ProductButton.setForeground(Color.WHITE);
+    }
+    }//GEN-LAST:event_ProductButtonMouseExited
 
     // setup Panel của các package khác 
   private void loadPanels() {
@@ -378,11 +450,13 @@ public class Dashboard extends javax.swing.JFrame {
         ProductForm product = new ProductForm();
         MenuPanel menu = new MenuPanel();
         ListUsers user = new ListUsers();
+        CategoryForm categoryForm = new CategoryForm();
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
         //DislayPanel.add(user,"member");
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product"); 
+        DislayPanel.add(categoryForm, "category"); 
         DislayPanel.add(menu,"menu");
     }
    private void showPanel(String panelName) {
@@ -399,6 +473,15 @@ public class Dashboard extends javax.swing.JFrame {
     // Loại bỏ khả năng thu nhỏ cửa sổ bằng cách đặt undecorated
     setUndecorated(true);
 }
+    private void setButtonColor(javax.swing.JLabel button) {
+    if (currentButton != null) {
+        currentButton.setForeground(Color.WHITE); // Set the previous button to white
+    }
+    currentButton = button;
+    currentButton.setForeground(new Color(255,153,0)); // Set the current button to orange
+}
+
+
 //        // chỉnh day time
 //     private void startClock() {
 //        // Định dạng ngày giờ
@@ -455,6 +538,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BillButton;
+    private javax.swing.JLabel CategoryButton;
     private javax.swing.JPanel DislayPanel;
     private javax.swing.JLabel EmployeeButton;
     private javax.swing.JPanel Header;
