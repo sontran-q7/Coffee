@@ -73,6 +73,7 @@ com\app\coffee\employee\EmployeeManager$7.class
 com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\employee\FormEdit$1.class
 com\app\coffee\employee\demo.class
+com\app\coffee\hashpassword\PasswordHash.class
 com\app\coffee\product\Addproduct.class
 com\app\coffee\Database\PasswordUtils.class
 com\app\coffee\employee\StaffSchedule.class

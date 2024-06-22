@@ -103,7 +103,7 @@ public class EmployeeManager extends javax.swing.JPanel {
                 user.getAccount_id(),
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+                user.getPhone() != null ? user.getPhone() : "",
                 user.getEmail() != null ? user.getEmail() : ""     
             };
             table.addRow(row);

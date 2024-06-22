@@ -1,32 +1,14 @@
 package com.app.coffee.employee;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.JDialog;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
+import javax.swing.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.Model.UsersModel;
@@ -44,7 +26,6 @@ public class FormEdit extends JPanel {
     private EmployeeManager employeeManager;
     private UsersModel userModel;
 
-    // Role mapping
     private HashMap<String, Integer> roleMap;
 
     public FormEdit(JDialog parentDialog, EmployeeManager employeeManager, UsersModel userModel) {
@@ -209,10 +190,13 @@ public class FormEdit extends JPanel {
                     return;
                 }
 
+                // Hash the password using BCrypt
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
                 sql = "UPDATE Account SET username = ?, password = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setString(1, fullName);
-                    ps.setString(2, password);
+                    ps.setString(2, hashedPassword);
                     ps.setString(3, phone);
                     ps.setInt(4, roleId);
                     ps.setString(5, email);
