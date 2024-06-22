@@ -40,7 +40,7 @@ public class Dashboard extends javax.swing.JFrame {
         setFullScreen();
         initComponents();
         loadPanels();
-       // startClock();
+        startClock();
     }
 
     /**
@@ -64,9 +64,9 @@ public class Dashboard extends javax.swing.JFrame {
         SearchField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         StaffLabel = new javax.swing.JLabel();
-        ShiftLabel = new javax.swing.JLabel();
         StaffField = new javax.swing.JTextField();
-        ShiftField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        timeLable = new javax.swing.JLabel();
         DislayPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -266,19 +266,15 @@ public class Dashboard extends javax.swing.JFrame {
         StaffLabel.setForeground(new java.awt.Color(255, 102, 0));
         StaffLabel.setText("Staff : ");
 
-        ShiftLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ShiftLabel.setForeground(new java.awt.Color(255, 102, 0));
-        ShiftLabel.setText("Shift : ");
-
         StaffField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         StaffField.setForeground(new java.awt.Color(102, 102, 102));
         StaffField.setText("Sontran@gmail.com");
         StaffField.setBorder(null);
 
-        ShiftField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ShiftField.setForeground(new java.awt.Color(102, 102, 102));
-        ShiftField.setText("02");
-        ShiftField.setBorder(null);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Day Time:");
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -289,14 +285,14 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 405, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 374, Short.MAX_VALUE)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(StaffLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ShiftLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ShiftField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeLable, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
         HeaderLayout.setVerticalGroup(
@@ -314,10 +310,10 @@ public class Dashboard extends javax.swing.JFrame {
                             .addComponent(StaffLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ShiftLabel)
-                            .addComponent(ShiftField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                            .addComponent(timeLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         getContentPane().add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1360, -1));
@@ -482,23 +478,23 @@ public class Dashboard extends javax.swing.JFrame {
 }
 
 
-//        // chỉnh day time
-//     private void startClock() {
-//        // Định dạng ngày giờ
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        // Tạo Timer để cập nhật mỗi giây
-//        Timer timer = new Timer(1000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Lấy thời gian hiện tại
-//                Date now = new Date();
-//                // Định dạng và đặt vào timeLabel
-//                timeLabel.setText(sdf.format(now));
-//            }
-//        });
-//        // Bắt đầu Timer
-//        timer.start();
-//    }
+        // chỉnh day time
+     private void startClock() {
+        // Định dạng ngày giờ
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        // Tạo Timer để cập nhật mỗi giây
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lấy thời gian hiện tại
+                Date now = new Date();
+                // Định dạng và đặt vào timeLabel
+                timeLable.setText(sdf.format(now));
+            }
+        });
+        // Bắt đầu Timer
+        timer.start();
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -546,12 +542,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel MenuButton;
     private javax.swing.JLabel ProductButton;
     private javax.swing.JTextField SearchField;
-    private javax.swing.JTextField ShiftField;
-    private javax.swing.JLabel ShiftLabel;
     private com.app.coffee.design.GradientPanel Sidebar;
     private javax.swing.JButton SignoutButton;
     private javax.swing.JTextField StaffField;
     private javax.swing.JLabel StaffLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel timeLable;
     // End of variables declaration//GEN-END:variables
 }

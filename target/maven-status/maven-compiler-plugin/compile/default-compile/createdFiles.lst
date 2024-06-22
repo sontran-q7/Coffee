@@ -35,6 +35,7 @@ com\app\coffee\Login\Register\ListUsers$12.class
 com\app\coffee\Login\Register\ListUsers$5.class
 com\app\coffee\dashboard\Dashboard$8.class
 com\app\coffee\employee\ReturnAccount$4.class
+com\app\coffee\dashboard\Dashboard$10.class
 com\app\coffee\menu\MenuPanel$6.class
 com\app\coffee\employee\FormAdd.class
 com\app\coffee\product\EditProduct$2.class

@@ -96,6 +96,7 @@ public class CategoryForm extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        CategoryTable.setRowHeight(30);
         jScrollPane1.setViewportView(CategoryTable);
         if (CategoryTable.getColumnModel().getColumnCount() > 0) {
             CategoryTable.getColumnModel().getColumn(0).setMinWidth(80);

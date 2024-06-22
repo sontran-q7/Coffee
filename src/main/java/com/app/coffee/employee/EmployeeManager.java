@@ -164,7 +164,7 @@ public class EmployeeManager extends javax.swing.JPanel {
         if (tableListUser.getColumnModel().getColumnCount() > 0) {
             tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
             tableListUser.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(150);
             tableListUser.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 

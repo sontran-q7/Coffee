@@ -91,6 +91,7 @@ public class ProductForm extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        jTable1.setRowHeight(30);
         jScrollPane1.setViewportView(jTable1);
 
         Productpanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
