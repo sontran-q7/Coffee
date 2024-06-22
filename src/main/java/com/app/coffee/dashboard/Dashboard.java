@@ -276,6 +276,9 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Day Time:");
 
+        timeLable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        timeLable.setForeground(new java.awt.Color(102, 102, 102));
+
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(

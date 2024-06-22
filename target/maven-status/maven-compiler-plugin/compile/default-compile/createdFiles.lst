@@ -6,7 +6,6 @@ com\app\coffee\menu\cardProduct$1.class
 com\app\coffee\menu\MenuPanel.class
 com\app\coffee\menu\MenuPanel$1.class
 com\app\coffee\dashboard\Dashboard$3.class
-com\app\coffee\menu\MenuPanel$4.class
 com\app\coffee\Login\LoginAccount\LoginForm.class
 com\app\coffee\menu\NewClass$1.class
 com\app\coffee\category\CategoryForm$1.class
@@ -62,14 +61,12 @@ com\app\coffee\Login\Register\ListUsers$6.class
 com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\demo$1.class
 com\app\coffee\employee\EmployeeManager$7.class
-com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\employee\FormEdit$1.class
 com\app\coffee\employee\demo.class
 com\app\coffee\hashpassword\PasswordHash.class
 com\app\coffee\product\Addproduct.class
 com\app\coffee\Database\PasswordUtils.class
 com\app\coffee\employee\StaffSchedule.class
-com\app\coffee\menu\MenuPanel$5.class
 com\app\coffee\menu\totalInvoicePanel.class
 com\app\coffee\category\Category.class
 com\app\coffee\dateformat\DateLabelFormatter.class
@@ -98,5 +95,4 @@ com\app\coffee\product\EditProduct.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
-com\app\coffee\menu\MenuPanel$3.class
 com\app\coffee\Login\Register\ListUsers$2.class
