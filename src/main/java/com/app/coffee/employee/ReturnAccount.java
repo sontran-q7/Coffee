@@ -30,9 +30,9 @@ import javax.swing.table.JTableHeader;
  *
  * @author phamv
  */
-public class EmployeeManager extends javax.swing.JPanel {
+public class ReturnAccount extends javax.swing.JPanel {
 
-    public EmployeeManager() {
+    public ReturnAccount() {
         initComponents();
         setDefTable();
         
@@ -82,34 +82,34 @@ public class EmployeeManager extends javax.swing.JPanel {
     }
     
     public void GetList() {
-    UserDAO userdao = new UserDAO();
-    ArrayList<UsersModel> listUser = userdao.selectAll();
+        UserDAO userdao = new UserDAO();
+        ArrayList<UsersModel> listUser = userdao.selectAll();
 
-    // Sort users by account_id
-    Collections.sort(listUser, new Comparator<UsersModel>() {
-        @Override
-        public int compare(UsersModel u1, UsersModel u2) {
-            return u1.getAccount_id() - u2.getAccount_id();
-        }
-    });
+        // Sort users by account_id
+        Collections.sort(listUser, new Comparator<UsersModel>() {
+            @Override
+            public int compare(UsersModel u1, UsersModel u2) {
+                return u1.getAccount_id() - u2.getAccount_id();
+            }
+        });
 
-    DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
-    table.setRowCount(0);
+        DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
+        table.setRowCount(0);
 
-    for (UsersModel user : listUser) {
-        
-        if (user.getStatus() == 1) {
-            Object[] row = {
-                user.getAccount_id(),
-                user.getUserName() != null ? user.getUserName() : "",
-                user.getRole() != null ? user.getRole().getName() : "", 
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
-                user.getEmail() != null ? user.getEmail() : ""     
-            };
-            table.addRow(row);
+        for (UsersModel user : listUser) {
+
+            if (user.getStatus() == 0) {
+                Object[] row = {
+                    user.getAccount_id(),
+                    user.getUserName() != null ? user.getUserName() : "",
+                    user.getRole() != null ? user.getRole().getName() : "", 
+                    user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+                    user.getEmail() != null ? user.getEmail() : ""     
+                };
+                table.addRow(row);
+            }
         }
     }
-}
 
     
     @SuppressWarnings("unchecked")
@@ -119,13 +119,10 @@ public class EmployeeManager extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tableListUser = new javax.swing.JTable();
-        editAccount = new javax.swing.JButton();
-        DeleteEmploy = new javax.swing.JButton();
-        AddAccount = new javax.swing.JButton();
+        RestoreEmploy = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        restoreAccount = new javax.swing.JButton();
-        staffSchedule = new javax.swing.JButton();
+        BackManager = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1350, 650));
@@ -170,32 +167,13 @@ public class EmployeeManager extends javax.swing.JPanel {
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
 
-        editAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        editAccount.setForeground(new java.awt.Color(255, 102, 0));
-        editAccount.setText("Edit");
-        editAccount.addActionListener(new java.awt.event.ActionListener() {
+        RestoreEmploy.setBackground(new java.awt.Color(51, 51, 51));
+        RestoreEmploy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        RestoreEmploy.setForeground(new java.awt.Color(255, 255, 255));
+        RestoreEmploy.setText("Restore");
+        RestoreEmploy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editAccountActionPerformed(evt);
-            }
-        });
-
-        DeleteEmploy.setBackground(new java.awt.Color(51, 51, 51));
-        DeleteEmploy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        DeleteEmploy.setForeground(new java.awt.Color(255, 255, 255));
-        DeleteEmploy.setText("Delete");
-        DeleteEmploy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteEmployActionPerformed(evt);
-            }
-        });
-
-        AddAccount.setBackground(new java.awt.Color(255, 153, 0));
-        AddAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        AddAccount.setForeground(new java.awt.Color(255, 255, 255));
-        AddAccount.setText("Add");
-        AddAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddAccountActionPerformed(evt);
+                RestoreEmployActionPerformed(evt);
             }
         });
 
@@ -205,23 +183,14 @@ public class EmployeeManager extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Employee Management");
+        jLabel1.setText("Restore Account");
 
-        restoreAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        restoreAccount.setForeground(new java.awt.Color(255, 102, 0));
-        restoreAccount.setText("Restore Account");
-        restoreAccount.addActionListener(new java.awt.event.ActionListener() {
+        BackManager.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BackManager.setForeground(new java.awt.Color(255, 102, 0));
+        BackManager.setText("Back Manager");
+        BackManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                restoreAccountActionPerformed(evt);
-            }
-        });
-
-        staffSchedule.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        staffSchedule.setForeground(new java.awt.Color(255, 102, 0));
-        staffSchedule.setText("Staff Schedule");
-        staffSchedule.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                staffScheduleActionPerformed(evt);
+                BackManagerActionPerformed(evt);
             }
         });
 
@@ -233,10 +202,8 @@ public class EmployeeManager extends javax.swing.JPanel {
                 .addGap(79, 79, 79)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(restoreAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(staffSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addComponent(BackManager, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,8 +211,7 @@ public class EmployeeManager extends javax.swing.JPanel {
                 .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(restoreAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(staffSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BackManager, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -255,89 +221,50 @@ public class EmployeeManager extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 755, Short.MAX_VALUE)
-                        .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1187, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(RestoreEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)))
                 .addGap(80, 80, 80))
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(RestoreEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAccountActionPerformed
+    private void RestoreEmployActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestoreEmployActionPerformed
+        restoreAccount();
+    }//GEN-LAST:event_RestoreEmployActionPerformed
+
+    private void BackManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackManagerActionPerformed
+        backEmployeePanel();
+    }//GEN-LAST:event_BackManagerActionPerformed
+   
+    
+    private void restoreAccount() {
         int selectedRow = tableListUser.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to edit.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int userId = (int) tableListUser.getValueAt(selectedRow, 0);
-        UserDAO userdao = new UserDAO();
-        UsersModel userModel = userdao.selectById(userId);
-
-        if (userModel != null) {
-            showFormEditDialog(userModel);
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to retrieve user details.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_editAccountActionPerformed
-
-    private void DeleteEmployActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteEmployActionPerformed
-        deleteAccount();
-    }//GEN-LAST:event_DeleteEmployActionPerformed
-
-    private void AddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAccountActionPerformed
-        showFormAddDialog();
-    }//GEN-LAST:event_AddAccountActionPerformed
-
-    private void restoreAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreAccountActionPerformed
-        showReturnAccountPanel();
-    }//GEN-LAST:event_restoreAccountActionPerformed
-
-    private void staffScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffScheduleActionPerformed
-        showStaffSchedulePanel();
-    }//GEN-LAST:event_staffScheduleActionPerformed
-    
-    private void showFormAddDialog() {
-        JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Add Form", true);
-        dialog.getContentPane().add(new FormAdd(dialog, this));
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
-    }
-    
-    private void deleteAccount() {
-        int selectedRow = tableListUser.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a user to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select a user to restore.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         int userId = (int) tableListUser.getValueAt(selectedRow, 0);
-        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this account?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to restore this account?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response != JOptionPane.YES_OPTION) {
             return;
         }
 
         UserDAO userdao = new UserDAO();
-        if (userdao.deleteAccount(userId)) {
+        if (userdao.restoreAccount(userId)) {
             JOptionPane.showMessageDialog(this, "User status set to inactive.", "Success", JOptionPane.INFORMATION_MESSAGE);
             GetList();
         } else {
@@ -345,40 +272,21 @@ public class EmployeeManager extends javax.swing.JPanel {
         }
     }
     
-    private void showFormEditDialog(UsersModel userModel) {
-        JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Edit Form", true);
-        dialog.getContentPane().add(new FormEdit(dialog, this, userModel));
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
-    }
-    
-    private void showReturnAccountPanel() {
+    private void backEmployeePanel() {
         Container parent = this.getParent();
         parent.removeAll();
-        parent.add(new ReturnAccount());
+        parent.add(new EmployeeManager());
         parent.revalidate();
         parent.repaint();
     }
-    
-    private void showStaffSchedulePanel() {
-        Container parent = this.getParent();
-        parent.removeAll();
-        parent.add(new StaffSchedule());
-        parent.revalidate();
-        parent.repaint();
-    }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddAccount;
-    private javax.swing.JButton DeleteEmploy;
-    private javax.swing.JButton editAccount;
+    private javax.swing.JButton BackManager;
+    private javax.swing.JButton RestoreEmploy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton restoreAccount;
     private javax.swing.JScrollPane scroll;
-    private javax.swing.JButton staffSchedule;
     private javax.swing.JTable tableListUser;
     // End of variables declaration//GEN-END:variables
 }

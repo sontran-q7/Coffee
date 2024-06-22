@@ -22,4 +22,5 @@ public interface DAOInterface<T> {
     public ArrayList<T> selectByCondition(String condition);
     
     public boolean deleteAccount(int userId);
+    public boolean restoreAccount(int userId);
 }
