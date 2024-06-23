@@ -6,6 +6,7 @@ package com.app.coffee.employee;
 
 import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
+import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
@@ -354,19 +355,25 @@ public class EmployeeManager extends javax.swing.JPanel {
     }
     
     private void showReturnAccountPanel() {
-        Container parent = this.getParent();
-        parent.removeAll();
-        parent.add(new ReturnAccount());
-        parent.revalidate();
-        parent.repaint();
+         Container parent = this.getParent();
+        while (parent != null && !(parent instanceof Dashboard)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            Dashboard dashboard = (Dashboard) parent;
+            dashboard.showPanel("returnAccount");
+        }   
     }
     
     private void showStaffSchedulePanel() {
         Container parent = this.getParent();
-        parent.removeAll();
-        parent.add(new StaffSchedule());
-        parent.revalidate();
-        parent.repaint();
+        while (parent != null && !(parent instanceof Dashboard)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            Dashboard dashboard = (Dashboard) parent;
+            dashboard.showPanel("staffSchedule");
+        }   
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

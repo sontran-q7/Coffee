@@ -4,6 +4,7 @@
  */
 package com.app.coffee.employee;
 
+import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
@@ -176,10 +177,13 @@ public class StaffSchedule extends javax.swing.JPanel {
     
     private void backEmployeePanel() {
         Container parent = this.getParent();
-        parent.removeAll();
-        parent.add(new EmployeeManager());
-        parent.revalidate();
-        parent.repaint();
+        while (parent != null && !(parent instanceof Dashboard)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            Dashboard dashboard = (Dashboard) parent;
+            dashboard.showPanel("employee");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -450,6 +450,9 @@ public class Dashboard extends javax.swing.JFrame {
         MenuPanel menu = new MenuPanel();
         ListUsers user = new ListUsers();
         CategoryForm categoryForm = new CategoryForm();
+        ReturnAccount returnAccount = new ReturnAccount();
+        StaffSchedule staffSchedule = new StaffSchedule();
+        
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
         //DislayPanel.add(user,"member");
@@ -457,8 +460,10 @@ public class Dashboard extends javax.swing.JFrame {
         DislayPanel.add(product, "product"); 
         DislayPanel.add(categoryForm, "category"); 
         DislayPanel.add(menu,"menu");
+        DislayPanel.add(returnAccount, "returnAccount");
+        DislayPanel.add(staffSchedule, "staffSchedule");
     }
-   private void showPanel(String panelName) {
+    public void showPanel(String panelName) {
         ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);
     }
     
