@@ -12,14 +12,14 @@ import com.app.coffee.Login.LoginAccount.LoginForm;
  * @author anhso
  */
 public class Login {
-    public static void main(String[] args) {
-        AdminAccountManager.createAdminAccount();
-        showLoginForm();
-    }
-
-    public static void showLoginForm() {
-        LoginForm loginForm = new LoginForm();
-        loginForm.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        loginForm.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        AdminAccountManager.createAdminAccount();
+//        showLoginForm();
+//    }
+//
+//    public static void showLoginForm() {
+//        LoginForm loginForm = new LoginForm();
+//        loginForm.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+//        loginForm.setVisible(true);
+//    }
 }

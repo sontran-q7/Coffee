@@ -117,7 +117,7 @@ public class DetailForm extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Stt", "Product", "Price", "Quantity", "Description", "Size"
+                "No", "Product", "Price", "Quantity", "Size", "Description"
             }
         ));
         jTable1.setGridColor(new java.awt.Color(255, 153, 51));
@@ -128,8 +128,8 @@ public class DetailForm extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(2);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(30);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(160);
         }
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));

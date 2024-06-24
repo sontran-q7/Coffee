@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.app.coffee.dashboard;
+import static com.app.coffee.Coffee.showLoginForm;
 import com.app.coffee.Login.*;
 import com.app.coffee.Login.Register.ListUsers;
 import com.app.coffee.Login.Register.Member;
@@ -331,7 +332,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void SignoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignoutButtonActionPerformed
          this.dispose(); // Close the current dashboard
-        Login.showLoginForm(); // Show the login form again
+        showLoginForm(); // Show the login form again
     }//GEN-LAST:event_SignoutButtonActionPerformed
 
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
