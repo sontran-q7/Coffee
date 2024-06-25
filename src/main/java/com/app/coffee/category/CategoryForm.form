@@ -113,7 +113,7 @@
                 <Component class="javax.swing.JTable" name="CategoryTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="4">
+                      <Table columnCount="3" rowCount="50">
                         <Column editable="true" title="ID" type="java.lang.Integer"/>
                         <Column editable="true" title="Category_name" type="java.lang.String"/>
                         <Column editable="true" title="description" type="java.lang.String"/>
@@ -138,7 +138,6 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
-                    <Property name="rowHeight" type="int" value="30"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -207,6 +206,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteCategoryActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="1220" y="30" width="90" height="30"/>

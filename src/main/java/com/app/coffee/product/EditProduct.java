@@ -4,17 +4,64 @@
  */
 package com.app.coffee.product;
 
+import com.app.coffee.category.Category;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author anhso
  */
 public class EditProduct extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EditProduct
-     */
-    public EditProduct() {
+    public FileInputStream img;
+    private ProductForm productForm;
+    public File anh = null;
+    public static Product p;
+    public int pro_id=0;
+    public EditProduct(ProductForm productForm, int product_id, String image, String description, String name, String price, int cate_id, String size) {
+        this.productForm = productForm;
+         
         initComponents();
+        loadCategories();
+        loadSizes();
+        ProductDao productDao = new ProductDao();
+        List<String> categories = productDao.getAllCategories();
+        
+        pro_id=product_id;
+        txtImage.setText(image);
+        jTextArea1.setText(description);
+        txtPrice.setText(price);
+        txtProduct.setText(name);
+        for (Category c : productDao.getCategory()) {
+            if (c.getCategory_id() == cate_id) {
+                CategoryCombobBox.setSelectedItem(c.getCategory_name());
+            }
+        }
+        CategoryCombobBox.setEnabled(false);
+        if (size != null) {
+
+            if (size.equals("S")) {
+                jComboBox2.setSelectedItem("S");
+            }
+            if (size.equals("L")) {
+                jComboBox2.setSelectedItem("L");
+            }
+        }
+
     }
 
     /**
@@ -34,15 +81,16 @@ public class EditProduct extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        ProductNameField = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
+        txtImage = new javax.swing.JTextField();
+        txtProduct = new javax.swing.JTextField();
         CategoryCombobBox = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btn_choose = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,21 +136,22 @@ public class EditProduct extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Size:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtPriceActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtImage.setActionCommand("<Not Set>");
+        txtImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtImageActionPerformed(evt);
             }
         });
 
-        ProductNameField.addActionListener(new java.awt.event.ActionListener() {
+        txtProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProductNameFieldActionPerformed(evt);
+                txtProductActionPerformed(evt);
             }
         });
 
@@ -124,6 +173,18 @@ public class EditProduct extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Save");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        btn_choose.setText("Chọn ảnh");
+        btn_choose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_chooseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,7 +198,7 @@ public class EditProduct extends javax.swing.JPanel {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
@@ -147,26 +208,29 @@ public class EditProduct extends javax.swing.JPanel {
                             .addComponent(jLabel5))
                         .addGap(18, 30, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(ProductNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(txtPrice)
+                            .addComponent(txtProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(txtImage, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                             .addComponent(CategoryCombobBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1))))
+                            .addComponent(jScrollPane1)
+                            .addComponent(btn_choose, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_choose)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProductNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +242,7 @@ public class EditProduct extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -194,25 +258,190 @@ public class EditProduct extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtPriceActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtImageActionPerformed
 
-    private void ProductNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductNameFieldActionPerformed
+    private void txtProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ProductNameFieldActionPerformed
+    }//GEN-LAST:event_txtProductActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Product pr = p;
+        String image = txtImage.getText().trim();
+//        String category_id = (String) comboBoxCategory.getSelectedItem();
+        String categoryName = (String) CategoryCombobBox.getSelectedItem();
+        String product_name = txtProduct.getText().trim();
+        String description = jTextArea1.getText().trim();
+//        String price = txtPrice.getText().trim();
+        int price;
+            // Get the integer price from the text field
+            try {
+                price = Integer.parseInt(txtPrice.getText().trim());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(productForm, "Giá tiền phải là một số nguyên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+        String size = (String) jComboBox2.getSelectedItem();
 
+        ProductDao productDao = new ProductDao();
+        int id_category = 0;
+        for (Category c : productDao.getCategory()) {
+            if (categoryName.equals(c.getCategory_name())) {
+                id_category = c.getCategory_id();
+            }
+        }
+        int count = 0;
+        for (Product pp : productDao.getAllProducts()) {
+            if (pp.getProduct_name().equals(product_name) && pp.getPrice() == price) {
+                count++;
+                if (pp.getSize().equals(size)) {
+                    JOptionPane.showMessageDialog(this, "Sản phẩm với cùng tên, kích thước, và giá đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        }
+        System.out.println(count);
+        // If more than one product with the same name and price exists
+//        if (count > 1) {
+//            JOptionPane.showMessageDialog(this, "Sản phẩm với cùng tên và giá đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+
+        // Lấy image
+        try {
+
+            if (img.read() == -1) {
+                JOptionPane.showMessageDialog(this, "Không được để trống ảnh");
+                return;
+            } else {
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = img.read(buf)) != -1;) {
+                    bos.write(buf, 0, readNum);
+                }
+                String currentDirectory = System.getProperty("user.dir");
+                currentDirectory = currentDirectory + "/static";
+                Path directory = Paths.get(currentDirectory);
+                if (!Files.exists(directory)) {
+                    Files.createDirectories(directory);
+                }
+                File sourceFile = new File(anh.getAbsolutePath());
+                String baseFileName = "product";
+                String fileExtension = "png";
+                File file = getUniqueFile(currentDirectory, baseFileName, fileExtension);
+                BufferedImage bufferedImage = ImageIO.read(sourceFile);
+
+                anh = file;
+                if (ImageIO.write(bufferedImage, "png", file)) {
+                    System.out.println("Tạo và lưu tệp ảnh thành công: " + file.getAbsolutePath());
+                } else {
+                    System.out.println("Không thể lưu tệp ảnh.");
+                }
+
+            }
+        } catch (IOException e1) {
+            JOptionPane.showMessageDialog(this, "Không được để trống ảnh");
+
+            e1.printStackTrace();
+        }
+        image = anh.getName();
+
+        if (product_name.isEmpty() || description.isEmpty() || categoryName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+//        try {
+//            int priceNumber = Integer.parseInt(price);
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(this, "Giá tiền phải là một số.");
+//            return;
+//        }
+
+        pr = new Product(pro_id, image, id_category, product_name, description, size, price, "1");
+        try {
+            ProductDao dao = new ProductDao();
+            dao.updateProduct(pr);
+        } catch (Exception e) {
+        }
+        productForm.refreshProductTable();
+
+        JOptionPane.showMessageDialog(this,
+                "Sửa sản phẩm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_chooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_chooseActionPerformed
+        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Set initial directory
+        fileChooser.setDialogTitle("Choose an image file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+        int returnValue = fileChooser.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            anh = fileChooser.getSelectedFile();
+            String imageName = selectedFile.getName(); // lay ten cua hinh anh
+            ImageIcon selectedImage = new ImageIcon(selectedFile.getAbsolutePath());
+            try {
+                img = new FileInputStream(anh.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // Display selected image (optional)
+            JLabel imageLabel = new JLabel();
+            imageLabel.setIcon(selectedImage);
+            JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+
+//                    // Pass selected image back to InputProduct or directly add to tableForm
+            txtImage.setText(imageName);
+//                    productForm.addProductToTable(txtImage.getText(), selectedImage);
+        }
+    }//GEN-LAST:event_btn_chooseActionPerformed
+    private void loadCategories() {
+        // Lấy danh sách các category từ cơ sở dữ liệu
+        ProductDao productDao = new ProductDao();
+        List<String> categories = productDao.getAllCategories();
+
+        // Xóa các mục hiện tại trong JComboBox
+        CategoryCombobBox.removeAllItems();
+
+        // Thêm các category vào JComboBox
+        for (String category : categories) {
+            CategoryCombobBox.addItem(category); // Thêm tên danh mục vào JComboBox
+        }
+    }
+
+    private static File getUniqueFile(String directory, String baseName, String extension) {
+        File file;
+        int count = 0;
+        do {
+            String fileName = baseName + (count == 0 ? "" : "_" + count) + "." + extension;
+            file = new File(directory, fileName);
+            count++;
+        } while (file.exists());
+        return file;
+    }
+
+    private void loadSizes() {
+        // Xóa các mục hiện tại trong JComboBox (nếu có)
+        jComboBox2.removeAllItems();
+        // Thêm các size vào JComboBox
+        jComboBox2.addItem("S");
+        jComboBox2.addItem("L");
+        // Thêm các size khác tùy theo nhu cầu
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CategoryCombobBox;
-    private javax.swing.JTextField ProductNameField;
+    public static javax.swing.JComboBox<String> CategoryCombobBox;
+    public javax.swing.JButton btn_choose;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
+    public static javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -222,8 +451,9 @@ public class EditProduct extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    public static javax.swing.JTextArea jTextArea1;
+    public static javax.swing.JTextField txtImage;
+    public static javax.swing.JTextField txtPrice;
+    public static javax.swing.JTextField txtProduct;
     // End of variables declaration//GEN-END:variables
 }
