@@ -23,6 +23,7 @@ com\app\coffee\Login\Register\ListUsers$4.class
 com\app\coffee\product\ProductForm$4.class
 com\app\coffee\category\AddCategory$1.class
 com\app\coffee\Login\Register\ListUsers$14.class
+com\app\coffee\dashboard\DashboardPage$1.class
 com\app\coffee\Login\Register\ListUsers$7.class
 com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\product\EditProduct$4.class
