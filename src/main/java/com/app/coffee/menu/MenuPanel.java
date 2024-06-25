@@ -4,6 +4,12 @@
  */
 package com.app.coffee.menu;
 
+import com.app.coffee.Login.Register.ListUsers;
+import com.app.coffee.bill.Bill;
+import com.app.coffee.category.CategoryForm;
+import com.app.coffee.dashboard.DashboardPage;
+import com.app.coffee.employee.EmployeeManager;
+import com.app.coffee.product.ProductForm;
 import java.awt.CardLayout;
 
 /**
@@ -18,6 +24,7 @@ public class MenuPanel extends javax.swing.JPanel {
     public MenuPanel() {
         initComponents();
         loadPanels();
+        
     }
 
     /**
@@ -31,15 +38,12 @@ public class MenuPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         FullDishJPanel = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        AllMenuButton = new javax.swing.JButton();
-        CoffeButton = new javax.swing.JButton();
-        TeaButton = new javax.swing.JButton();
-        JuiceButton = new javax.swing.JButton();
-        SoftDrintButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MenuOrder = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -90,10 +94,6 @@ public class MenuPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1350, 760));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setMinimumSize(new java.awt.Dimension(1352, 760));
-        jPanel5.setPreferredSize(new java.awt.Dimension(1350, 760));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         FullDishJPanel.setBackground(new java.awt.Color(255, 255, 255));
         FullDishJPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 3));
         FullDishJPanel.setAutoscrolls(true);
@@ -110,64 +110,35 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel1.setText("Select menu");
         jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
 
-        AllMenuButton.setBackground(new java.awt.Color(102, 102, 102));
-        AllMenuButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        AllMenuButton.setForeground(new java.awt.Color(255, 255, 255));
-        AllMenuButton.setText("ALL Menu");
-        AllMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AllMenuButtonActionPerformed(evt);
-            }
-        });
-        jPanel6.add(AllMenuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 111, 40));
+        jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setBorder(null);
+        jScrollPane3.setForeground(new java.awt.Color(255, 255, 255));
 
-        CoffeButton.setBackground(new java.awt.Color(102, 102, 102));
-        CoffeButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        CoffeButton.setForeground(new java.awt.Color(255, 255, 255));
-        CoffeButton.setText("Coffe");
-        CoffeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CoffeButtonActionPerformed(evt);
-            }
-        });
-        jPanel6.add(CoffeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, 111, 40));
+        jPanel3.setBackground(new java.awt.Color(255, 102, 0));
 
-        TeaButton.setBackground(new java.awt.Color(102, 102, 102));
-        TeaButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TeaButton.setForeground(new java.awt.Color(255, 255, 255));
-        TeaButton.setText("Tea");
-        TeaButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TeaButtonActionPerformed(evt);
-            }
-        });
-        jPanel6.add(TeaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 111, 40));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 891, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 70, Short.MAX_VALUE)
+        );
 
-        JuiceButton.setBackground(new java.awt.Color(102, 102, 102));
-        JuiceButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        JuiceButton.setForeground(new java.awt.Color(255, 255, 255));
-        JuiceButton.setText("Juice");
-        jPanel6.add(JuiceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 111, 40));
+        jScrollPane3.setViewportView(jPanel3);
 
-        SoftDrintButton.setBackground(new java.awt.Color(102, 102, 102));
-        SoftDrintButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SoftDrintButton.setForeground(new java.awt.Color(255, 255, 255));
-        SoftDrintButton.setText("Soft Drint");
-        SoftDrintButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SoftDrintButtonActionPerformed(evt);
-            }
-        });
-        jPanel6.add(SoftDrintButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, 111, 40));
+        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 540, 80));
 
-        MenuOrder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        MenuOrder.setLayout(new java.awt.CardLayout());
         jScrollPane1.setViewportView(MenuOrder);
 
         javax.swing.GroupLayout FullDishJPanelLayout = new javax.swing.GroupLayout(FullDishJPanel);
         FullDishJPanel.setLayout(FullDishJPanelLayout);
         FullDishJPanelLayout.setHorizontalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1))
@@ -176,12 +147,12 @@ public class MenuPanel extends javax.swing.JPanel {
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jPanel5.add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
+        add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -266,6 +237,13 @@ public class MenuPanel extends javax.swing.JPanel {
         jTable1.setRowHeight(25);
         jTable1.setShowGrid(true);
         OrderTable.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+        }
 
         jPanel4.add(OrderTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 380, 240));
 
@@ -280,50 +258,26 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel13.setText("Order Detail");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, 120, 40));
 
-        jPanel5.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 700));
-
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 700));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AllMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllMenuButtonActionPerformed
-        showPanel("productPanel");
-    }//GEN-LAST:event_AllMenuButtonActionPerformed
-
-    private void CoffeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoffeButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CoffeButtonActionPerformed
-
-    private void TeaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TeaButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TeaButtonActionPerformed
-
-    private void SoftDrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SoftDrintButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SoftDrintButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void loadPanels() {
+        DashboardPage dashboardPage = new DashboardPage();
+       cardProduct caProduct = new cardProduct();
+        MenuOrder.add(caProduct, "cardProduct");
         
-        ProductPanel productPanel = new ProductPanel();
-        
-        MenuOrder.add(productPanel,"productPanel");
     }
    private void showPanel(String panelName) {
         ((CardLayout)MenuOrder.getLayout()).show(MenuOrder, panelName);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AllMenuButton;
-    private javax.swing.JButton CoffeButton;
     private javax.swing.JPanel FullDishJPanel;
-    private javax.swing.JButton JuiceButton;
     private javax.swing.JPanel MenuOrder;
     private javax.swing.JScrollPane OrderTable;
-    private javax.swing.JButton SoftDrintButton;
-    private javax.swing.JButton TeaButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -337,11 +291,13 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
