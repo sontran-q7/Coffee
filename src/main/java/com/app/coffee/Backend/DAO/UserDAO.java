@@ -30,7 +30,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             String hashedPassword = hashPassword(t.getPassword());
             ps.setString(1, t.getUserName());
             ps.setString(2, hashedPassword);
-            ps.setInt(3, t.getPhone());
+            ps.setString(3, t.getPhone());
             ps.setInt(4,t.getRole().getRole_id());
             ps.setString(5,t.getEmail());          
             ps.setInt(6,t.getStatus());
@@ -59,7 +59,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             String hashedPassword = PasswordUtils.hashPassword(t.getPassword());
             ps.setString(1, t.getUserName());
             ps.setString(2, hashedPassword);
-            ps.setInt(3, t.getPhone());
+            ps.setString(3, t.getPhone());
             ps.setString(4, t.getEmail());
             ps.setInt(5, t.getStatus());
             ps.setInt(6, t.getAccount_id());
@@ -113,7 +113,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
                 rs.getInt("account_id"),
                 rs.getString("username"),
                 rs.getString("password"),
-                rs.getInt("phone"),
+                rs.getString("phone"),
                 new Role(rs.getInt("role_id"), rs.getString("role_name")), 
                 rs.getInt("status"),
                 rs.getString("email")
@@ -156,7 +156,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
                 rs.getInt("account_id"),
                 rs.getString("username"),
                 rs.getString("password"),
-                rs.getInt("phone"),
+                rs.getString("phone"),
                 new Role(rs.getInt("role_id"), "role_name"), 
                 rs.getInt("status"),
                 rs.getString("email")
@@ -205,6 +205,20 @@ public class UserDAO implements DAOInterface<UsersModel> {
     @Override
     public boolean deleteAccount(int userId) {
         String sql = "UPDATE Account SET status = 0 WHERE account_id = ?";
+        try (Connection connection = ConnectionCoffee.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean restoreAccount(int userId) {
+        String sql = "UPDATE Account SET status = 1 WHERE account_id = ?";
         try (Connection connection = ConnectionCoffee.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, userId);

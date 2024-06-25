@@ -4,34 +4,44 @@
  */
 package com.app.coffee.bill;
 
+import com.app.coffee.Backend.DAO.OrderDetailDAO;
+import com.app.coffee.Backend.Model.OrderDetailModel;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JScrollPane;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.JTableHeader;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author anhso
+ * @author Admin
  */
 public class Bill extends javax.swing.JPanel {
-
+    
     /**
-     * Creates new form test
+     * Creates new form Bill
      */
     public Bill() {
         initComponents();
-        
         setDefTable();
+        refreshListBill();
     }
-    
-    private void setDefTable() {
-        table.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
+       private void setDefTable() {
+        tableBill.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
         jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
                 + "border:4,4,4,4,$TableHeader.bottomSeparatorColor,,10");
-        table.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+        tableBill.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
                 + "hoverBackground:null;"
                 + "pressedBackground:null;"
                 + "separatorColor:$TableHeader.background");
@@ -50,9 +60,10 @@ public class Bill extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        tableBill = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -60,34 +71,41 @@ public class Bill extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
-        setPreferredSize(new java.awt.Dimension(1340, 720));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1340, 720));
 
         jPanel2.setLayout(new java.awt.BorderLayout());
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        tableBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, "cs", null, null, null, null, null},
-                {null, null, null, null, "sccs", null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Staff", "Customer", "Product", "Size", "Quantity", "Note", "Total"
+                "ID", "Quantity", "Description", "Day", "Detail"
             }
-        ));
-        table.setRowHeight(30);
-        jScrollPane1.setViewportView(table);
-        if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(30);
-            table.getColumnModel().getColumn(3).setPreferredWidth(120);
-            table.getColumnModel().getColumn(4).setPreferredWidth(30);
-            table.getColumnModel().getColumn(5).setPreferredWidth(30);
-            table.getColumnModel().getColumn(7).setPreferredWidth(50);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableBill.setShowGrid(true);
+        jScrollPane1.setViewportView(tableBill);
+        if (tableBill.getColumnModel().getColumnCount() > 0) {
+            tableBill.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tableBill.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tableBill.getColumnModel().getColumn(2).setPreferredWidth(600);
+            tableBill.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableBill.getColumnModel().getColumn(4).setPreferredWidth(5);
         }
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -119,29 +137,49 @@ public class Bill extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("From :");
 
+        jDateChooser1.setDate(new java.util.Date(1718996884000L));
+        jDateChooser1.setDateFormatString(" yyyy , MMMMM d");
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("To :");
 
+        jDateChooser2.setDateFormatString(" yyyy , MMMMM d");
+
         jButton1.setBackground(new java.awt.Color(255, 102, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+        jButton2.setBackground(new java.awt.Color(255, 102, 0));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Refresh");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefresh(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(83, 83, 83)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(388, 388, 388)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(389, 389, 389)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,39 +188,138 @@ public class Bill extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(jButton1)))
+                                .addComponent(jButton1)
+                                .addGap(44, 44, 44)
+                                .addComponent(jButton2)))
                         .addGap(0, 64, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
         );
+
+        jButton2.getAccessibleContext().setAccessibleName("Refesh");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1340, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Search(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search
+        Date fromDate = jDateChooser1.getDate();
+        Date toDate = jDateChooser2.getDate();
+        
+        if (fromDate == null || toDate == null) {
+        // Kiểm tra xem người dùng có chọn cả hai ngày không
+        JOptionPane.showMessageDialog(this, "Please select both dates.", "Error!!", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
+    if (fromDate.after(toDate)) {
+        // Nếu fromDate lớn hơn toDate, hiển thị thông báo lỗi
+        JOptionPane.showMessageDialog(this, "The start date cannot be greater than the end date.", "Error!!!", JOptionPane.ERROR_MESSAGE);
+    } else {
+        refreshListBillByDate(fromDate, toDate); 
+    }        
+    }//GEN-LAST:event_Search
+
+    private void jButtonRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefresh
+        // TODO add your handling code herer
+        refreshListBill();
+    }//GEN-LAST:event_jButtonRefresh
+
+    public void refreshListBill(){
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        ArrayList<OrderDetailModel> ListBill = orderDetailDAO.selectAll();
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
+        defaultTableModel.setRowCount(0);
+       
+        
+        JButton button = new JButton("Detail");
+        for(OrderDetailModel list: ListBill ){
+            Object[] row = {
+                list.getOrder_id(),
+
+                list.getQuantity(),
+
+                list.getDescription(),
+                list.getDay(),
+                button
+            };
+            defaultTableModel.addRow(row);
+        }
+        tableBill.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+
+        tableBill.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
+        
+    }
+
+     
+    public void refreshListBillByDate(Date fromDate, Date toDate) {
+    OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+    ArrayList<OrderDetailModel> ListBill = orderDetailDAO.selectByDateRange(fromDate, toDate);
+    
+    DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
+    defaultTableModel.setRowCount(0);
+    for (OrderDetailModel list : ListBill) {
+        Object[] row = {
+            list.getOrder_detail_id(),
+            list.getQuantity(),          
+            list.getDescription(),
+            list.getDay(),    
+        };
+        defaultTableModel.addRow(row);
+    }
+       
+}
+    
+  
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable table;
+    private javax.swing.JTable tableBill;
     // End of variables declaration//GEN-END:variables
 }

@@ -60,7 +60,7 @@ public class UserService {
             throw new IllegalArgumentException("Email already exists. Please use a different email.");
         }
 
-        UsersModel newUser = new UsersModel(0, userName, password, Integer.parseInt(phone), selectedRole, 0, email);
+        UsersModel newUser = new UsersModel(0, userName, password, phone, selectedRole, 0, email);
         int result = userDAO.Create(newUser); // Assuming `create` method in `UserDAO`
 
         return result;
@@ -103,7 +103,7 @@ public class UserService {
         updatedUser.setAccount_id(currentUserId);
         updatedUser.setUserName(userName);
         updatedUser.setPassword(password);
-        updatedUser.setPhone(Integer.parseInt(phone));
+        updatedUser.setPhone(phone);
         updatedUser.setEmail(email);
         updatedUser.setRole(role);
 

@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.app.coffee.dashboard.*;
+import com.app.coffee.hashpassword.PasswordHash;
 
 /**
  *
@@ -159,7 +160,7 @@ public class LoginForm extends javax.swing.JFrame {
     String enteredPassword = new String(jPasswordField1.getPassword());
     user = userController.getUserByEmail(enteredEmail);
     
-        if (user != null && PasswordUtils.checkPassword(enteredPassword, user.getPassword())) {
+        if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
 
             System.out.println("Success");
            showDashboard();

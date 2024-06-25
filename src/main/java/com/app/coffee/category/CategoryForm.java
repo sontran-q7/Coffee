@@ -9,8 +9,17 @@ import com.app.coffee.bill.Bill;
 import com.app.coffee.dashboard.DashboardPage;
 import com.app.coffee.employee.EmployeeManager;
 import com.app.coffee.menu.MenuPanel;
-import com.app.coffee.product.ProductForm;
+import com.app.coffee.product.Product;
+import com.app.coffee.product.ProductDao;
+
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,9 +30,25 @@ public class CategoryForm extends javax.swing.JPanel {
     /**
      * Creates new form CategoryForm
      */
+    public Category c;
+
     public CategoryForm() {
         initComponents();
         loadPanels();
+        refreshCategoryTable();
+
+        ProductDao cate = new ProductDao();
+
+        List<Category> cc = cate.getCategory();
+
+        this.CategoryTable.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int selectedRowIndex = CategoryTable.getSelectedRow();
+                selectedRowIndex = CategoryTable.convertRowIndexToModel(selectedRowIndex);
+                c = cc.get(selectedRowIndex);
+           
+            }
+        });
     }
 
     /**
@@ -36,6 +61,7 @@ public class CategoryForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         CategoryPanel01 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -49,15 +75,25 @@ public class CategoryForm extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 0));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Category Manager");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel3.setPreferredSize(new java.awt.Dimension(1344, 718));
@@ -68,6 +104,52 @@ public class CategoryForm extends javax.swing.JPanel {
 
         CategoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -102,12 +184,12 @@ public class CategoryForm extends javax.swing.JPanel {
         CategoryFormPanel.setLayout(new java.awt.CardLayout());
         jPanel3.add(CategoryFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 430, 520));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Category Table :");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 160, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Category Form :");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 30));
@@ -116,6 +198,11 @@ public class CategoryForm extends javax.swing.JPanel {
         DeleteCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DeleteCategory.setForeground(new java.awt.Color(255, 255, 255));
         DeleteCategory.setText("Delete");
+        DeleteCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteCategoryActionPerformed(evt);
+            }
+        });
         jPanel3.add(DeleteCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 30, 90, 30));
 
         AddCategoryButton.setBackground(new java.awt.Color(255, 102, 0));
@@ -144,34 +231,116 @@ public class CategoryForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
+        AddCategory newCategory = new AddCategory(this); // Truyền tham chiếu của CategoryForm vào AddCategory
         showPanel("addCategory");
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void EditCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditCategoryButtonActionPerformed
-         showPanel("editCategory");
+        int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            // Lấy thông tin của category từ bảng
+            int category_id = (int) CategoryTable.getValueAt(selectedRow, 0); // Lấy ID
+            String category = CategoryTable.getValueAt(selectedRow, 1).toString();
+            String description = CategoryTable.getValueAt(selectedRow, 2).toString();
+
+            // Hiển thị form chỉnh sửa
+            EditCategory editCategory = new EditCategory(this, category_id, category, description);
+            showPanel("editCategory");
+            CategoryFormPanel.add(editCategory, "editCategory");
+        } else {
+//        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_EditCategoryButtonActionPerformed
-     private void loadPanels() {
-        AddCategory addCategory = new AddCategory();
-        EditCategory editCategory = new EditCategory();
-        CategoryFormPanel.add(addCategory,"addCategory");
-        CategoryFormPanel.add(editCategory,"editCategory");
+
+    private void DeleteCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteCategoryActionPerformed
+        int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+
+        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
+                DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
+                String category_id= model.getValueAt(selectedRow, 0).toString(); // Lấy ID của category từ model của bảng
+                
+                
+                CategoryDao categoryDao = new CategoryDao();
+                ProductDao productDao = new ProductDao();
+
+                // Kiểm tra xem danh mục có sản phẩm liên quan không
+                if (productDao.hasProductsForCategory(category_id)) {
+                    int option2 = JOptionPane.showConfirmDialog(this, "Có thể có sản phẩm liên quan đến danh mục này. Bạn có muốn xóa danh mục và các sản phẩm liên quan không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+                    if (option2 == JOptionPane.YES_OPTION) {
+                        // Xóa sản phẩm của danh mục này trước
+                        if (productDao.deleteProductsForCategory(category_id)) {
+                            // Sau khi xóa thành công sản phẩm, tiến hành xóa danh mục
+                            if (categoryDao.deleteCategory(category_id)) {
+                                model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+                                JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Xóa sản phẩm không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    // Không có sản phẩm liên quan, chỉ cần xóa danh mục
+                    if (categoryDao.deleteCategory(category_id)) {
+                        model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+                        JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_DeleteCategoryActionPerformed
+
+    private void loadPanels() {
+        AddCategory addCategory = new AddCategory(this);
+//        EditCategory editCategory = new EditCategory(this, category_id, category, description);
+        CategoryFormPanel.add(addCategory, "addCategory");
+//        CategoryFormPanel.add(editCategory,"editCategory");
+
+        // Cài đặt sự kiện cho nút Sửa
+        EditCategoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+                if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+                    // Lấy thông tin của category từ bảng
+                    int categoryId = (int) CategoryTable.getValueAt(selectedRow, 0); // Lấy ID
+                    String categoryName = CategoryTable.getValueAt(selectedRow, 1).toString(); // Lấy tên danh mục
+                    String description = CategoryTable.getValueAt(selectedRow, 2).toString(); // Lấy mô tả
+
+                    // Hiển thị form chỉnh sửa
+                    EditCategory editCategory = new EditCategory(CategoryForm.this, categoryId, categoryName, description);
+                    showPanel("editCategory");
+                } else {
+                    JOptionPane.showMessageDialog(CategoryForm.this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
     }
-   private void showPanel(String panelName) {
-        ((CardLayout)CategoryFormPanel.getLayout()).show(CategoryFormPanel, panelName);
+
+    private void showPanel(String panelName) {
+        ((CardLayout) CategoryFormPanel.getLayout()).show(CategoryFormPanel, panelName);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -183,8 +352,23 @@ public class CategoryForm extends javax.swing.JPanel {
     private javax.swing.JButton EditCategoryButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    void refreshCategoryTable() {
+        DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
+        model.setRowCount(0); // Xóa hết dữ liệu cũ trong bảng
+
+        // Lấy danh sách các danh mục từ cơ sở dữ liệu và thêm vào bảng
+        CategoryDao categoryDao = new CategoryDao();
+        List<Category> categories = categoryDao.getAllCategories();
+        for (Category category : categories) {
+            Object[] row = {category.getCategory_id(), category.getCategory_name(), category.getDescription()};
+            model.addRow(row);
+        }
+    }
+
 }

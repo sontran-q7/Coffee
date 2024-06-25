@@ -32,7 +32,7 @@ public class UserController {
                     int account_id = rs.getInt("account_id");
                     String username = rs.getString("username");
                     String password = rs.getString("password");
-                    int phone = rs.getInt("phone");
+                    String phone = rs.getString("phone");
                     int role_id = rs.getInt("role_id");
                     int status = rs.getInt("status");
                     Role role = new Role(role_id, "Admin");

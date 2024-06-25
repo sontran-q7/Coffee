@@ -6,10 +6,12 @@ package com.app.coffee.employee;
 
 import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
+import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,7 +104,7 @@ public class EmployeeManager extends javax.swing.JPanel {
                 user.getAccount_id(),
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+                user.getPhone() != null ? user.getPhone() : "",
                 user.getEmail() != null ? user.getEmail() : ""     
             };
             table.addRow(row);
@@ -123,6 +125,8 @@ public class EmployeeManager extends javax.swing.JPanel {
         AddAccount = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        restoreAccount = new javax.swing.JButton();
+        staffSchedule = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1350, 650));
@@ -161,7 +165,7 @@ public class EmployeeManager extends javax.swing.JPanel {
         if (tableListUser.getColumnModel().getColumnCount() > 0) {
             tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
             tableListUser.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(150);
             tableListUser.getColumnModel().getColumn(4).setPreferredWidth(100);
         }
 
@@ -204,6 +208,24 @@ public class EmployeeManager extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Employee Management");
 
+        restoreAccount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        restoreAccount.setForeground(new java.awt.Color(255, 102, 0));
+        restoreAccount.setText("Restore Account");
+        restoreAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restoreAccountActionPerformed(evt);
+            }
+        });
+
+        staffSchedule.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        staffSchedule.setForeground(new java.awt.Color(255, 102, 0));
+        staffSchedule.setText("Staff Schedule");
+        staffSchedule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                staffScheduleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -211,13 +233,20 @@ public class EmployeeManager extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(restoreAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(staffSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(restoreAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(staffSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -279,6 +308,14 @@ public class EmployeeManager extends javax.swing.JPanel {
     private void AddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAccountActionPerformed
         showFormAddDialog();
     }//GEN-LAST:event_AddAccountActionPerformed
+
+    private void restoreAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreAccountActionPerformed
+        showReturnAccountPanel();
+    }//GEN-LAST:event_restoreAccountActionPerformed
+
+    private void staffScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffScheduleActionPerformed
+        showStaffSchedulePanel();
+    }//GEN-LAST:event_staffScheduleActionPerformed
     
     private void showFormAddDialog() {
         JDialog dialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Add Form", true);
@@ -295,6 +332,10 @@ public class EmployeeManager extends javax.swing.JPanel {
             return;
         }
         int userId = (int) tableListUser.getValueAt(selectedRow, 0);
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this account?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         UserDAO userdao = new UserDAO();
         if (userdao.deleteAccount(userId)) {
@@ -312,7 +353,29 @@ public class EmployeeManager extends javax.swing.JPanel {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
-
+    
+    private void showReturnAccountPanel() {
+         Container parent = this.getParent();
+        while (parent != null && !(parent instanceof Dashboard)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            Dashboard dashboard = (Dashboard) parent;
+            dashboard.showPanel("returnAccount");
+        }   
+    }
+    
+    private void showStaffSchedulePanel() {
+        Container parent = this.getParent();
+        while (parent != null && !(parent instanceof Dashboard)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            Dashboard dashboard = (Dashboard) parent;
+            dashboard.showPanel("staffSchedule");
+        }   
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAccount;
     private javax.swing.JButton DeleteEmploy;
@@ -320,7 +383,9 @@ public class EmployeeManager extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton restoreAccount;
     private javax.swing.JScrollPane scroll;
+    private javax.swing.JButton staffSchedule;
     private javax.swing.JTable tableListUser;
     // End of variables declaration//GEN-END:variables
 }

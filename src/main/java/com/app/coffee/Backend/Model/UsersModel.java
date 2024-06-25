@@ -15,14 +15,14 @@ public class UsersModel {
 	private int account_id;
         private String username;
         private String password;
-        private int phone;  
+        private String phone;  
         private Role role;
         private int status;
         private String email;
         
 
         
-        public UsersModel(int account_id, String username, String password, int phone,Role role, int status, String email) {
+        public UsersModel(int account_id, String username, String password, String phone,Role role, int status, String email) {
         this.account_id = account_id;
         this.username = username;
         this.password = password;
@@ -41,7 +41,7 @@ public class UsersModel {
         this.account_id = 0;
         this.username = "";
         this.password = "";
-        this.phone = 0;
+        this.phone = "";
         this.role = null;
         this.status = 0;
         this.email = "";
@@ -59,7 +59,7 @@ public class UsersModel {
             return password;
         }
         
-        public int getPhone(){
+        public String getPhone(){
             return phone;
         }
         public String getUserName(){
@@ -84,7 +84,7 @@ public class UsersModel {
             return role;
         }
 
-        public void setPhone(int phone){
+        public void setPhone(String phone){
             this.phone = phone;
         }
 

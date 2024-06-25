@@ -572,7 +572,7 @@ public class ListUsers extends javax.swing.JPanel {
             Object[] row = {
                 user.getAccount_id(),
                 user.getUserName() != null ? user.getUserName() : "",
-                user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+                user.getPhone() != null ? user.getPhone() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
                 user.getEmail() != null ? user.getEmail() : ""        
             };
@@ -599,7 +599,7 @@ public void RefreshList() {
         Object[] row = {
             user.getAccount_id(),
             user.getUserName() != null ? user.getUserName() : "",
-            user.getPhone() != 0 ? String.valueOf(user.getPhone()) : "",
+            user.getPhone() != null ? String.valueOf(user.getPhone()) : "",
             user.getRole() != null ? user.getRole().getName() : "", 
             user.getEmail() != null ? user.getEmail() : ""            
         };
