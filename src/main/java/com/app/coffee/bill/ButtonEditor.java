@@ -26,7 +26,7 @@ public class ButtonEditor extends DefaultCellEditor {
     private boolean isPushed;
     private JTable table;
     private Bill bill;
-     private DetailForm detailForm;
+    private DetailForm detailForm;
     
     private Object[] rowData;
 
@@ -37,34 +37,28 @@ public class ButtonEditor extends DefaultCellEditor {
         button.setBackground(Color.red);
         button.setOpaque(true);
         button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = table.getEditingRow();
-                if (selectedRow != -1) { 
-                    selectedRow = table.convertRowIndexToModel(selectedRow);
-                    Object value = table.getModel().getValueAt(selectedRow, 0); 
-                    if (value != null && value instanceof Integer) {
-                        int orderDetailId = (Integer) value;
-                        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-                        OrderDetailModel orderDetailModel = orderDetailDAO.selectById(orderDetailId);
-                        if(orderDetailModel != null){
-                           DetailForm detailForm = new DetailForm();
-                           detailForm.updateDetails(orderDetailModel);
-                           detailForm.setVisible(true);
-                            fireEditingStopped();
-                        }
-                        if (bill != null) {
-                            bill.refreshListBill();
-                        }else {
-                            JOptionPane.showMessageDialog(button, "Order detail not found.");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(button, "Invalid data type in the table.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(button, "No row is selected.");
-                }
+         @Override
+        public void actionPerformed(ActionEvent e) {
+            int selectedRow = table.convertRowIndexToModel(table.getEditingRow());
+            int orderDetailId = (Integer) table.getModel().getValueAt(selectedRow, 0);
+
+            // Assuming OrderDetailDAO and OrderDetailModel are properly defined
+            OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+            OrderDetailModel orderDetailModel = orderDetailDAO.selectById(orderDetailId);
+
+            if (orderDetailModel != null) {
+                DetailForm detailForm = new DetailForm(); // Create DetailForm instance
+                detailForm.updateDetails(orderDetailModel); // Update details in the form
+
+                JOptionPane.showMessageDialog(button, detailForm, "Detail Form", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(button, "Order detail not found.");
             }
+
+            if (bill != null) {
+                bill.refreshListBill(); // Refresh the bill if necessary
+            }
+        }
         });
     }
     public void setBill(Bill bill) {

@@ -5,6 +5,7 @@
 package com.app.coffee.Backend.Model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -19,25 +20,112 @@ public class OrderDetailModel {
     private OrderModel order;
     private String username;
     private String product_name;
+    private float price;
+    private String size;
+    private String email;
+    private int order_id;
+    private List<OrderItemModel> orderItems;
 
-    public OrderDetailModel(int order_detail_id, int quantity, float total, String description, Date day, OrderModel order, String username, String product_name) {
+       public OrderDetailModel(int order_id, int order_detail_id, int quantity, float total, String description, Date day) {
+        this.order_id = order_id;
         this.order_detail_id = order_detail_id;
         this.quantity = quantity;
         this.total = total;
         this.description = description;
         this.day = day;
-        this.order = order;
-        this.username = username;
-        this.product_name = product_name;
+    }
+       public List<OrderItemModel> getOrderItems() {
+        return orderItems;
     }
 
-      public OrderDetailModel(int order_detail_id, int quantity, float total, String description, Date day) {
-        this.order_detail_id = order_detail_id;
-        this.quantity = quantity;
-        this.total = total;
-        this.description = description;
-        this.day = day;
-      }
+    public void setOrderItems(List<OrderItemModel> orderItems) {
+        this.orderItems = orderItems;
+    }
+    
+//    public OrderDetailModel(int order_detail_id, int order_id, int quantity, float total, String description, Date day, OrderModel order, String username, String product_name,String size, String email, float price) {
+//        this.order_detail_id = order_detail_id;
+//        this.quantity = quantity;
+//        this.total = total;
+//        this.description = description;
+//        this.day = day;
+//        this.order = order;
+//        this.username = username;
+//        this.product_name = product_name;
+//        this.email= email;
+//        this.price = price;
+//        this.size = size;
+//        this.order_id = order_id;
+//    }
+//    
+//    public OrderDetailModel(int order_detail_id, int quantity, float total, String description, Date day, int order_id, String username, String email) {
+//        this.order_detail_id = order_detail_id;
+//        this.quantity = quantity;
+//        this.total = total;
+//        this.description = description;
+//        this.day = day;
+//        this.order_id = order_id;
+//        this.username = username;
+//        this.email = email;
+//    }
+//
+//    public OrderDetailModel(int aInt, int aInt0, int aInt1, float aFloat, String string, java.sql.Date date) {
+//         
+//    }
+//
+//    
+//    public OrderDetailModel(int order_detail_id, int quantity, float total, String description, Date day, OrderModel order, String username, String product_name, float price, String size, String email) {
+//        this.order_detail_id = order_detail_id;
+//        this.quantity = quantity;
+//        this.total = total;
+//        this.description = description;
+//        this.day = day;
+//        this.order = order;
+//        this.username = username;
+//        this.product_name = product_name;
+//        this.price = price;
+//        this.size = size;
+//        this.email = email;
+//    }
+
+  
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+//      public OrderDetailModel(int order_detail_id, int quantity, float total, String description, Date day) {
+//        this.order_detail_id = order_detail_id;
+//        this.quantity = quantity;
+//        this.total = total;
+//        this.description = description;
+//        this.day = day;
+//      }
     
     public String getProduct_name() {
         return product_name;
@@ -47,14 +135,14 @@ public class OrderDetailModel {
         this.product_name = product_name;
     }
 
-    public OrderDetailModel(int aInt, int aInt0, float aFloat, String string, java.sql.Date date) {
-        this.order_detail_id = aInt;
-        this.quantity = aInt0;
-        this.total = aFloat;
-        this.description = string;
-        this.day = date;
-        
-    }
+//    public OrderDetailModel(int aInt, int aInt0, float aFloat, String string, java.sql.Date date) {
+//        this.order_detail_id = aInt;
+//        this.quantity = aInt0;
+//        this.total = aFloat;
+//        this.description = string;
+//        this.day = date;
+//        
+//    }
 
     public OrderModel getOrder() {
         return order;

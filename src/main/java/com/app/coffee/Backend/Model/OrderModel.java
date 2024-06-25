@@ -1,18 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.app.coffee.Backend.Model;
 
-/**
- *
- * @author Admin
- */
 public class OrderModel {
     private int order_id;
     private int order_detail_id;
     private int product_id;
     private int account_id;
+
+    public OrderModel() {
+        // Constructor mặc định
+    }
 
     public OrderModel(int order_id, int order_detail_id, int product_id, int account_id) {
         this.order_id = order_id;
@@ -52,5 +48,4 @@ public class OrderModel {
     public void setAccount_id(int account_id) {
         this.account_id = account_id;
     }
-    
 }

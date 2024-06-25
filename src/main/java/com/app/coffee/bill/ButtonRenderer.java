@@ -20,7 +20,7 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
     
     public ButtonRenderer() {
             setOpaque(true);
-            setPreferredSize(new Dimension(20, 20)); 
+//            setPreferredSize(new Dimension(20, 20)); 
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
             

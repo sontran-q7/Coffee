@@ -81,55 +81,31 @@ public class Bill extends javax.swing.JPanel {
 
         tableBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Quantity", "Total", "Description", "Day", "Detail"
+                "ID", "Quantity", "Description", "Day", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tableBill.setRowHeight(30);
         tableBill.setShowGrid(true);
         jScrollPane1.setViewportView(tableBill);
         if (tableBill.getColumnModel().getColumnCount() > 0) {
             tableBill.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableBill.getColumnModel().getColumn(1).setPreferredWidth(60);
-            tableBill.getColumnModel().getColumn(2).setPreferredWidth(60);
-            tableBill.getColumnModel().getColumn(3).setPreferredWidth(600);
-            tableBill.getColumnModel().getColumn(4).setPreferredWidth(60);
-            tableBill.getColumnModel().getColumn(5).setPreferredWidth(5);
+            tableBill.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tableBill.getColumnModel().getColumn(2).setPreferredWidth(600);
+            tableBill.getColumnModel().getColumn(3).setPreferredWidth(30);
+            tableBill.getColumnModel().getColumn(4).setPreferredWidth(5);
         }
 
         jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -212,8 +188,8 @@ public class Bill extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
+                                .addComponent(jButton1)
+                                .addGap(44, 44, 44)
                                 .addComponent(jButton2)))
                         .addGap(0, 64, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -295,18 +271,19 @@ public class Bill extends javax.swing.JPanel {
         JButton button = new JButton("Detail");
         for(OrderDetailModel list: ListBill ){
             Object[] row = {
-                list.getOrder_detail_id(),
+                list.getOrder_id(),
+
                 list.getQuantity(),
-                list.getTotal(),
+
                 list.getDescription(),
                 list.getDay(),
                 button
             };
             defaultTableModel.addRow(row);
         }
-        tableBill.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        tableBill.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
 
-        tableBill.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+        tableBill.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
         
     }
 
@@ -320,8 +297,7 @@ public class Bill extends javax.swing.JPanel {
     for (OrderDetailModel list : ListBill) {
         Object[] row = {
             list.getOrder_detail_id(),
-            list.getQuantity(),
-            list.getTotal(),
+            list.getQuantity(),          
             list.getDescription(),
             list.getDay(),    
         };
