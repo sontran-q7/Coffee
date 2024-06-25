@@ -84,4 +84,38 @@ public class BillDAO {
 
         return totalSum;
     }
+    
+    public static float getTotalSumOfDay() {
+    float totalSum = 0;
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        conn = ConnectionCoffee.getConnection();
+        String query = "SELECT SUM(total) AS total_sum " +
+                       "FROM order_detail " +
+                       "WHERE DATE(day) = (CURDATE())";
+        stmt = conn.prepareStatement(query);
+       
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            totalSum = rs.getFloat("total_sum");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ConnectionCoffee.closeConnection(conn);
+    }
+
+    return totalSum;
+}
+
 }

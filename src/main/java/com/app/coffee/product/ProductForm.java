@@ -43,7 +43,7 @@ public class ProductForm extends javax.swing.JPanel {
 
     public ProductForm() {
         initComponents();
-        loadPanels(p);
+        loadPanels();
 
         refreshProductTable();
         ProductDao productDao = new ProductDao();
@@ -152,11 +152,11 @@ public class ProductForm extends javax.swing.JPanel {
 
         Productpanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(Productpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 850, 540));
+        add(Productpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 810, 540));
 
         ProductFormPanel.setBackground(new java.awt.Color(255, 255, 255));
         ProductFormPanel.setLayout(new java.awt.CardLayout());
-        add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 150, 410, 540));
+        add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 150, 430, 540));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -206,7 +206,7 @@ public class ProductForm extends javax.swing.JPanel {
                 btn_loadActionPerformed(evt);
             }
         });
-        add(btn_load, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
+        add(btn_load, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 100, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductActionPerformed
@@ -255,7 +255,7 @@ public class ProductForm extends javax.swing.JPanel {
         p = null;
     }//GEN-LAST:event_btn_loadActionPerformed
 
-    private void loadPanels(Product p) {
+    private void loadPanels() {
         AddProduct addproduct = new AddProduct(this);
         EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
 
@@ -264,7 +264,7 @@ public class ProductForm extends javax.swing.JPanel {
     }
 
     private void showPanel(String panelName) {
-        loadPanels(p);
+       
         ((CardLayout) ProductFormPanel.getLayout()).show(ProductFormPanel, panelName);
     }
 
