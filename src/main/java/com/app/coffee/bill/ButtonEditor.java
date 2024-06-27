@@ -90,8 +90,8 @@ public class ButtonEditor extends DefaultCellEditor {
         return super.stopCellEditing();
     }
 
-    @Override
-    protected void fireEditingStopped() {
-        super.fireEditingStopped();
-    }
+//    @Override
+//    protected void fireEditingStopped() {
+//        super.fireEditingStopped();
+//    }
 }

@@ -4,13 +4,9 @@
  */
 package com.app.coffee.menu;
 
-import com.app.coffee.Login.Register.ListUsers;
-import com.app.coffee.bill.Bill;
-import com.app.coffee.category.CategoryForm;
-import com.app.coffee.dashboard.DashboardPage;
-import com.app.coffee.employee.EmployeeManager;
-import com.app.coffee.product.ProductForm;
+
 import java.awt.CardLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -24,7 +20,7 @@ public class MenuPanel extends javax.swing.JPanel {
     public MenuPanel() {
         initComponents();
         loadPanels();
-        
+//        customizeScrollBar();
     }
 
     /**
@@ -38,14 +34,10 @@ public class MenuPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
         FullDishJPanel = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MenuOrder = new javax.swing.JPanel();
+        HeaderPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -58,8 +50,6 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         OrderTable = new javax.swing.JScrollPane();
@@ -99,57 +89,43 @@ public class MenuPanel extends javax.swing.JPanel {
         FullDishJPanel.setAutoscrolls(true);
         FullDishJPanel.setPreferredSize(new java.awt.Dimension(1350, 760));
 
-        jPanel6.setBackground(new java.awt.Color(255, 102, 0));
-        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Select menu");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
-
-        jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane3.setBorder(null);
-        jScrollPane3.setForeground(new java.awt.Color(255, 255, 255));
-
-        jPanel3.setBackground(new java.awt.Color(255, 102, 0));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 891, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        jScrollPane3.setViewportView(jPanel3);
-
-        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 540, 80));
-
         MenuOrder.setLayout(new java.awt.CardLayout());
         jScrollPane1.setViewportView(MenuOrder);
+
+        HeaderPanel.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                HeaderPanelComponentAdded(evt);
+            }
+        });
+        HeaderPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                HeaderPanelAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                HeaderPanelAncestorMoved(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        HeaderPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout FullDishJPanelLayout = new javax.swing.GroupLayout(FullDishJPanel);
         FullDishJPanel.setLayout(FullDishJPanelLayout);
         FullDishJPanelLayout.setHorizontalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(HeaderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         FullDishJPanelLayout.setVerticalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(HeaderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
@@ -159,10 +135,10 @@ public class MenuPanel extends javax.swing.JPanel {
         jPanel4.setPreferredSize(new java.awt.Dimension(452, 762));
         jPanel4.setRequestFocusEnabled(false);
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 100, 31));
-        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 270, 29));
-        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 70, 31));
-        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 270, 30));
+        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, 100, 31));
+        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 270, 29));
+        jPanel4.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 70, 31));
+        jPanel4.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 270, 30));
 
         jButton1.setBackground(new java.awt.Color(255, 102, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -194,22 +170,16 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel34.setText("Staff :");
-        jPanel4.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 80, 30));
+        jPanel4.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 80, 30));
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel35.setText("No. :");
-        jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 50, 30));
+        jPanel4.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 50, 30));
 
         jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel36.setText("Table No. :");
-        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 90, 30));
-
-        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel38.setText("ID Order :");
-        jPanel4.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 70, 80, -1));
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 62, 90, 30));
+        jPanel4.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 90, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -256,31 +226,49 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 102, 0));
         jLabel13.setText("Order Detail");
-        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, 120, 40));
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, 120, 50));
 
         add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 700));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void HeaderPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_HeaderPanelAncestorAdded
+
+    }//GEN-LAST:event_HeaderPanelAncestorAdded
+
+    private void HeaderPanelAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_HeaderPanelAncestorMoved
+
+    }//GEN-LAST:event_HeaderPanelAncestorMoved
+
+    private void HeaderPanelComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_HeaderPanelComponentAdded
+        showPanel("headerPanel");
+    }//GEN-LAST:event_HeaderPanelComponentAdded
+
     private void loadPanels() {
-        DashboardPage dashboardPage = new DashboardPage();
-       cardProduct caProduct = new cardProduct();
-        MenuOrder.add(caProduct, "cardProduct");
+//        cardProduct caProduct = new cardProduct();
+//        MenuOrder.add(caProduct, "cardProduct");
+
+        CardProductPanel cardProductPanel = new CardProductPanel();
+        MenuOrder.add(cardProductPanel, "cardProduct");
         
+        HeaderPanel headerPanel1 = new HeaderPanel();
+        HeaderPanel.add(headerPanel1, "headerPanel");
     }
-   private void showPanel(String panelName) {
+
+    private void showPanel(String panelName) {
         ((CardLayout)MenuOrder.getLayout()).show(MenuOrder, panelName);
-    }
+    }               
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FullDishJPanel;
+    private javax.swing.JPanel HeaderPanel;
     private javax.swing.JPanel MenuOrder;
     private javax.swing.JScrollPane OrderTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel32;
@@ -288,19 +276,13 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
