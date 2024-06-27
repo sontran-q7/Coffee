@@ -45,30 +45,33 @@ public class FormAdd extends JPanel {
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(20, 20));
+        setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(243, 114, 44));
-        topPanel.setForeground(Color.WHITE);
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(Color.WHITE);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Added padding
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
-        JLabel lblFullName = new JLabel("Full Name:");
-        JLabel lblPosition = new JLabel("Position:");
-        JLabel lblPhone = new JLabel("Phone:");
-        JLabel lblEmail = new JLabel("Email:");
-        JLabel lblPassword = new JLabel("Password:");
-        JLabel lblConfirmPassword = new JLabel("Confirm Password:");
+        JLabel lblFullName = createBoldLabel("Full Name:");
+        JLabel lblPosition = createBoldLabel("Position:");
+        JLabel lblPhone = createBoldLabel("Phone:");
+        JLabel lblEmail = createBoldLabel("Email:");
+        JLabel lblPassword = createBoldLabel("Password:");
+        JLabel lblConfirmPassword = createBoldLabel("Confirm Password:");
 
         nameField = new JTextField();
         positionComboBox = new JComboBox<>(new String[]{"Manager", "Barista", "Cashier", "Customer"});
@@ -88,11 +91,17 @@ public class FormAdd extends JPanel {
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        buttonPanel.setBackground(Color.WHITE);
         formPanel.add(buttonPanel, gbc);
 
-        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(formPanel, BorderLayout.CENTER);
+    }
+
+    private JLabel createBoldLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        return label;
     }
 
     private void addFormComponent(JPanel panel, GridBagConstraints gbc, JLabel label, JComponent component, int y) {
@@ -101,14 +110,14 @@ public class FormAdd extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(200, 25));
+        component.setPreferredSize(new Dimension(300, 30));
     }
 
     private void initAddComponents() {
         btnAction = new JButton("Register");
         btnAction.setBackground(new Color(255, 51, 0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setSize(180, 40);
+        btnAction.setPreferredSize(new Dimension(200, 40));
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,7 +207,9 @@ public class FormAdd extends JPanel {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(this, "Employee added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             employeeManager.GetList();
-            parentDialog.dispose();
+            if (parentDialog != null) {
+                parentDialog.dispose();
+            }
         }
     }
 
