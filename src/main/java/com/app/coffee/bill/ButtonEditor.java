@@ -68,20 +68,15 @@ public class ButtonEditor extends DefaultCellEditor {
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         this.table = table;
-        label = "Detail"; 
+        label =  "Detail" ;
         button.setText(label);
         isPushed = true;
         return button;
     }
 
-    @Override
+     @Override
     public Object getCellEditorValue() {
-        if (isPushed) {
-            isPushed = false;
-            return label;
-        } else {
-            return ""; 
-        }
+        return label;
     }
 
     @Override
@@ -90,8 +85,8 @@ public class ButtonEditor extends DefaultCellEditor {
         return super.stopCellEditing();
     }
 
-//    @Override
-//    protected void fireEditingStopped() {
-//        super.fireEditingStopped();
-//    }
+    @Override
+    protected void fireEditingStopped() {
+        super.fireEditingStopped();
+    }
 }

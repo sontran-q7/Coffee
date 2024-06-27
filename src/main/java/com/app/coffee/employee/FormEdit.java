@@ -51,7 +51,7 @@ public class FormEdit extends JPanel {
         setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(255, 51, 0));
+        topPanel.setBackground(new Color(255,102,0));
         JLabel titleLabel = new JLabel("Edit Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);

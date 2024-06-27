@@ -73,7 +73,6 @@ com\app\coffee\employee\FormEdit.class
 com\app\coffee\Backend\DAO\BillDAO.class
 com\app\coffee\Backend\DAO\DAOInterface.class
 com\app\coffee\Login\Register\ListUsers$10.class
-com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\bill\ButtonRenderer.class
 com\app\coffee\dashboard\DashboardPage.class
 com\app\coffee\employee\StaffSchedule$1.class

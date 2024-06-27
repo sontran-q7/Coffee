@@ -49,12 +49,13 @@ public class FormAdd extends JPanel {
         setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(243, 114, 44));
+        topPanel.setBackground(new Color(255,102,0));
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        titleLabel.setSize(490,550);
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());

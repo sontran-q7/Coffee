@@ -17,14 +17,10 @@ import javax.swing.table.TableCellRenderer;
 
 public class ButtonRenderer extends JButton implements TableCellRenderer {
 
-    
     public ButtonRenderer() {
-            setOpaque(true);
-//            setPreferredSize(new Dimension(20, 20)); 
-            setBackground(Color.WHITE);
-            setForeground(Color.BLACK);
-            
-        }
+        setOpaque(true);
+        setForeground(Color.BLACK);
+    }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -36,14 +32,8 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
             setBackground(Color.WHITE);
         }
         
-        if (value instanceof JButton) {
-            setText("Detail");
-            return (JButton) value;
-             
-        } else {
-            setText("");
-            return this; 
-        }
+        setText("Detail");
+        return this;
     }
 }
 
