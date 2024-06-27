@@ -47,98 +47,80 @@ public class FormEdit extends JPanel {
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(20, 20));
+        setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(255, 51, 0));
-        topPanel.setForeground(Color.WHITE);
         JLabel titleLabel = new JLabel("Edit Employee", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(Color.WHITE);
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Added padding
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
-        JLabel lblFullName = new JLabel("Full Name:");
-        JLabel lblPosition = new JLabel("Position:");
-        JLabel lblPhone = new JLabel("Phone:");
-        JLabel lblEmail = new JLabel("Email:");
-        JLabel lblPassword = new JLabel("Password:");
-        JLabel lblConfirmPassword = new JLabel("Confirm Password:");
+        JLabel lblFullName = createBoldLabel("Full Name:");
+        JLabel lblPosition = createBoldLabel("Position:");
+        JLabel lblPhone = createBoldLabel("Phone:");
+        JLabel lblEmail = createBoldLabel("Email:");
+        JLabel lblPassword = createBoldLabel("Password:");
+        JLabel lblConfirmPassword = createBoldLabel("Confirm Password:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[] {"Manager", "Barista", "Cashier", "Customer"});
+        positionComboBox = new JComboBox<>(new String[]{"Manager", "Barista", "Cashier", "Customer"});
         phoneField = new JTextField();
-        phoneField.setText("84");
         emailField = new JTextField();
         emailField.setEditable(false);
         passwordField = new JPasswordField();
         confirmPasswordField = new JPasswordField();
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        formPanel.add(lblFullName, gbc);
-        gbc.gridx = 1;
-        formPanel.add(nameField, gbc);
-        nameField.setPreferredSize(new Dimension(200, 25));
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        formPanel.add(lblPosition, gbc);
-        gbc.gridx = 1;
-        formPanel.add(positionComboBox, gbc);
-        positionComboBox.setPreferredSize(new Dimension(200, 25));
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        formPanel.add(lblPhone, gbc);
-        gbc.gridx = 1;
-        formPanel.add(phoneField, gbc);
-        phoneField.setPreferredSize(new Dimension(200, 25));
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        formPanel.add(lblEmail, gbc);
-        gbc.gridx = 1;
-        formPanel.add(emailField, gbc);
-        emailField.setPreferredSize(new Dimension(200, 25));
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        formPanel.add(lblPassword, gbc);
-        gbc.gridx = 1;
-        formPanel.add(passwordField, gbc);
-        passwordField.setPreferredSize(new Dimension(200, 25));
-
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        formPanel.add(lblConfirmPassword, gbc);
-        gbc.gridx = 1;
-        formPanel.add(confirmPasswordField, gbc);
-        confirmPasswordField.setPreferredSize(new Dimension(200, 25));
+        addFormComponent(formPanel, gbc, lblFullName, nameField, 0);
+        addFormComponent(formPanel, gbc, lblPosition, positionComboBox, 1);
+        addFormComponent(formPanel, gbc, lblPhone, phoneField, 2);
+        addFormComponent(formPanel, gbc, lblEmail, emailField, 3);
+        addFormComponent(formPanel, gbc, lblPassword, passwordField, 4);
+        addFormComponent(formPanel, gbc, lblConfirmPassword, confirmPasswordField, 5);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        buttonPanel.setBackground(Color.WHITE);
         formPanel.add(buttonPanel, gbc);
 
-        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(formPanel, BorderLayout.CENTER);
+    }
+
+    private JLabel createBoldLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Arial", Font.BOLD, 14));
+        return label;
+    }
+
+    private void addFormComponent(JPanel panel, GridBagConstraints gbc, JLabel label, JComponent component, int y) {
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(label, gbc);
+        gbc.gridx = 1;
+        panel.add(component, gbc);
+        component.setPreferredSize(new Dimension(300, 30));
     }
 
     private void initEditComponents() {
         btnAction = new JButton("Save");
         btnAction.setBackground(new Color(255, 51, 0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setSize(140, 40);
+        btnAction.setPreferredSize(new Dimension(200, 40));
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -151,7 +133,7 @@ public class FormEdit extends JPanel {
     private void populateFields() {
         nameField.setText(userModel.getUsername());
         positionComboBox.setSelectedItem(userModel.getRole().getName());
-        phoneField.setText(String.valueOf(userModel.getPhone())); // Convert int to String
+        phoneField.setText(userModel.getPhone());
         emailField.setText(userModel.getEmail());
     }
 
@@ -167,7 +149,7 @@ public class FormEdit extends JPanel {
             JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         if (!phone.matches("^\\d{8,}$")) {
             JOptionPane.showMessageDialog(this, "Phone number must have at least 8 digits.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -190,7 +172,6 @@ public class FormEdit extends JPanel {
                     return;
                 }
 
-                // Hash the password using BCrypt
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
                 sql = "UPDATE Account SET username = ?, password = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
@@ -225,7 +206,9 @@ public class FormEdit extends JPanel {
 
             JOptionPane.showMessageDialog(this, "Employee updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             employeeManager.GetList();
-            parentDialog.dispose();
+            if (parentDialog != null) {
+                parentDialog.dispose();
+            }
         }
     }
 }

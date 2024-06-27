@@ -23,8 +23,8 @@ public class demo extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the size of the frame
-        setSize(958, 527);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setSize(958, 527);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         // Center the frame
         setLocationRelativeTo(null);
 
