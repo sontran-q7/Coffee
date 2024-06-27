@@ -20,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -34,6 +36,7 @@ public class Bill extends javax.swing.JPanel {
      */
     public Bill() {
         initComponents();
+        setCellRenderer(tableBill);
         setDefTable();
         refreshListBill();
     }
@@ -270,11 +273,12 @@ public class Bill extends javax.swing.JPanel {
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
        
-        
+//        int nextId = 1;
         JButton button = new JButton("Detail");
         for(OrderDetailModel list: ListBill ){
             Object[] row = {
-                list.getOrder_id(),
+                list.getOrder_detail_id(),
+//                nextId,
 
                 list.getQuantity(),
 
@@ -283,6 +287,7 @@ public class Bill extends javax.swing.JPanel {
                 button
             };
             defaultTableModel.addRow(row);
+//            nextId++;
         }
         tableBill.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
 
@@ -290,7 +295,14 @@ public class Bill extends javax.swing.JPanel {
         
     }
 
-     
+     private void setCellRenderer(JTable table) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+      }
     public void refreshListBillByDate(Date fromDate, Date toDate) {
     OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
     ArrayList<OrderDetailModel> ListBill = orderDetailDAO.selectByDateRange(fromDate, toDate);

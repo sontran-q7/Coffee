@@ -26,14 +26,16 @@ public class OrderDetailModel {
     private int order_id;
     private List<OrderItemModel> orderItems;
 
-       public OrderDetailModel(int order_id, int order_detail_id, int quantity, float total, String description, Date day) {
-        this.order_id = order_id;
+       public OrderDetailModel( int order_detail_id, int quantity, String description, Date day) {
+//        this.order_id = order_id;
         this.order_detail_id = order_detail_id;
         this.quantity = quantity;
-        this.total = total;
+//        this.total = total;
         this.description = description;
         this.day = day;
     }
+
+    
        public List<OrderItemModel> getOrderItems() {
         return orderItems;
     }

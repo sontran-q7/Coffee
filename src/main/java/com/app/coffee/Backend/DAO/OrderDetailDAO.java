@@ -51,18 +51,19 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
         ArrayList<OrderDetailModel> ListBill = new ArrayList<>();
          try (Connection conn = ConnectionCoffee.getConnection()){
 //          String sql = "SELECT order_detail_id, quantity, total, description, day FROM order_detail";
-            String sql = "SELECT o.order_id, od.order_detail_id, od.quantity, od.total, od.description, od.day " +
-             "FROM `order` o " +
-             "JOIN `order_detail` od ON o.order_detail_id = od.order_detail_id";
+            String sql = "SELECT order_detail_id, quantity, total, description, day FROM order_detail";
+//            String sql = "SELECT o.order_id, od.order_detail_id, od.quantity, od.total, od.description, od.day " +
+//             "FROM `order` o " +
+//             "JOIN `order_detail` od ON o.order_detail_id = od.order_detail_id";
                      
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery();
              while(rs.next()){             
                 OrderDetailModel orderDetailModel = new OrderDetailModel(
-                rs.getInt("order_id"), 
+//                rs.getInt("order_id"), 
                 rs.getInt("order_detail_id"), 
                 rs.getInt("quantity"),
-                rs.getFloat("total"),
+//                rs.getFloat("total"),
                 rs.getString("description"),
                 rs.getDate("day")
                 );

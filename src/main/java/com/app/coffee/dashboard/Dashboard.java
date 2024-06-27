@@ -66,6 +66,7 @@ public class Dashboard extends javax.swing.JFrame {
         StaffField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         timeLable = new javax.swing.JLabel();
+        timeLable2 = new javax.swing.JLabel();
         DislayPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -262,6 +263,9 @@ public class Dashboard extends javax.swing.JFrame {
         timeLable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         timeLable.setForeground(new java.awt.Color(102, 102, 102));
 
+        timeLable2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        timeLable2.setForeground(new java.awt.Color(102, 102, 102));
+
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
         HeaderLayout.setHorizontalGroup(
@@ -269,7 +273,9 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap(725, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(258, 258, 258)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(timeLable2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addComponent(StaffLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +290,8 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(StaffLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(StaffField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeLable2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(timeLable, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -464,7 +471,7 @@ public class Dashboard extends javax.swing.JFrame {
                 // Lấy thời gian hiện tại
                 Date now = new Date();
                 // Định dạng và đặt vào timeLabel
-                timeLable.setText(sdf.format(now));
+                timeLable2.setText(sdf.format(now));
             }
         });
         // Bắt đầu Timer
@@ -522,5 +529,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel StaffLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel timeLable;
+    private javax.swing.JLabel timeLable2;
     // End of variables declaration//GEN-END:variables
 }
