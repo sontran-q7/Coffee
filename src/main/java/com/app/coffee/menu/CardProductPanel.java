@@ -16,6 +16,9 @@ public class CardProductPanel extends JPanel {
     private Component parentComponent;
     private JPanel jPanel13;
     private CategoryMenu categoryMenu;
+    private JComboBox<String> categoryComboBox;
+    private List<CategoryMenu> categories;
+    private HeaderPanel headerPanel;
 
     public CardProductPanel() {
         initUI();
@@ -28,15 +31,7 @@ public class CardProductPanel extends JPanel {
         jPanel13.setBackground(new Color(204, 204, 204));
         jPanel13.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
 
-        System.out.println("Initializing UI");
-
         updateProductPanels();
-
-        categoryMenu.addPropertyChangeListener(evt -> {
-            if ("category_id".equals(evt.getPropertyName())) {
-                updateProductPanels();
-            }
-        });
 
         JScrollPane rightScrollPane = new JScrollPane(jPanel13);
         rightScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -45,139 +40,74 @@ public class CardProductPanel extends JPanel {
         setLayout(new BorderLayout());
         add(rightScrollPane, BorderLayout.CENTER);
 
-        
-        // ComboBox for selecting categories
-//        JComboBox<String> categoryComboBox = new JComboBox<>();
-//        categoryComboBox.addItem("All Categories");
-//        categoryComboBox.addItem("Category 1");
-//        categoryComboBox.addItem("Category 2");
-//        categoryComboBox.addItem("Category 3");
-//
-//        categoryComboBox.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int selectedIndex = categoryComboBox.getSelectedIndex();
-//                if (selectedIndex == 0) {
-//                    categoryMenu.setCategoryId(0);
-//                } else {
-//                    categoryMenu.setCategoryId(selectedIndex); 
-//                }
-//            }
-//        });
-//
-//        add(categoryComboBox, BorderLayout.NORTH);
-        
-//        List<String> lengthCategory = new ArrayList<>();
-//        CategoryDaoMenu dao = new CategoryDaoMenu();
-//        List<CategoryMenu> categories = dao.getAllCategories();
-//
-//        for (CategoryMenu category : categories) {
-//            lengthCategory.add(category.getCategoryName());
-//        }
-//
-//        HeaderPanel headerPanel = new HeaderPanel();
-//        headerPanel.setCategoryClickListener(categoryName -> {
-//            if (jPanel13 != null) {
-//                jPanel13.removeAll();
-//            }
-//
-//            int selectedIndex = lengthCategory.indexOf(categoryName); 
-//
-//            if (selectedIndex == -1) {
-//                categoryMenu.setCategoryId(0); // Xử lý trường hợp không tìm thấy categoryName
-//            } else {
-//                CategoryMenu selectedCategory = categories.get(selectedIndex);
-//                categoryMenu.setCategoryId(selectedCategory.getCategoryId()); // Thiết lập categoryId từ selectedCategory
-//            }
-//
-//            // Cập nhật giao diện nếu cần thiết
-//            revalidate();
-//            repaint();
-//        });
+        categoryComboBox = new JComboBox<>();
+        categoryComboBox.addItem("All Categories");
 
+        CategoryDaoMenu dao = new CategoryDaoMenu();
+        categories = dao.getAllCategories();
 
+        for (CategoryMenu category : categories) {
+            categoryComboBox.addItem(category.getCategoryName());
+        }
+
+        categoryComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = categoryComboBox.getSelectedIndex();
+
+                if (selectedIndex == 0) {
+                    categoryMenu.setCategoryId(0);
+                } else {
+                    CategoryMenu selectedCategory = categories.get(selectedIndex - 1); 
+                    categoryMenu.setCategoryId(selectedCategory.getCategoryId());
+                }
+            }
+        });
+
+        add(categoryComboBox, BorderLayout.NORTH);
+
+        
+        headerPanel = new HeaderPanel();
+        headerPanel.setCategoryClickListener(new HeaderPanel.CategoryClickListener() {
+            @Override
+            public void onCategoryClick(int categoryId) {
+                System.out.println("Clicked category ID: " + categoryId);
+
+                if (categoryComboBox != null) {
+                    categoryComboBox.setSelectedIndex(getIndexForCategoryId(categoryId));
+                }
+                updateProductPanels();
+            }
+
+            private int getIndexForCategoryId(int categoryId) {
+                if (categoryId == 0) {
+                    return 0; 
+                }
+
+                for (int i = 0; i < categories.size(); i++) {
+                    if (categories.get(i).getCategoryId() == categoryId) {
+                        return i + 1; 
+                    }
+                }
+
+                return -1; 
+            }
+        });
+
+        add(headerPanel, BorderLayout.NORTH);
     }
 
-//    private JComboBox<String> categoryComboBox;
-//    private List<CategoryMenu> categories;
-//
-//    private void initUI() {
-//        categoryMenu = new CategoryMenu();
-//        jPanel13 = new JPanel();
-//        jPanel13.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-//        jPanel13.setBackground(new Color(204, 204, 204));
-//        jPanel13.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-//
-//        System.out.println("Initializing UI");
-//
-//        updateProductPanels();
-//
-//        categoryMenu.addPropertyChangeListener(evt -> {
-//            if ("category_id".equals(evt.getPropertyName())) {
-//                updateProductPanels();
-//            }
-//        });
-//
-//        JScrollPane rightScrollPane = new JScrollPane(jPanel13);
-//        rightScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        rightScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//
-//        setLayout(new BorderLayout());
-//        add(rightScrollPane, BorderLayout.CENTER);
-//
-//        categoryComboBox = new JComboBox<>();
-//        categoryComboBox.addItem("All Categories");
-//
-//        CategoryDaoMenu dao = new CategoryDaoMenu();
-//        categories = dao.getAllCategories();
-//
-//        for (CategoryMenu category : categories) {
-//            categoryComboBox.addItem(category.getCategoryName());
-//        }
-//
-//        categoryComboBox.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int selectedIndex = categoryComboBox.getSelectedIndex();
-//
-//                if (selectedIndex == 0) {
-//                    categoryMenu.setCategoryId(0);
-//                } else {
-//                    CategoryMenu selectedCategory = categories.get(selectedIndex - 1); // vì index 0 là "All Categories"
-//                    categoryMenu.setCategoryId(selectedCategory.getCategoryId());
-//                }
-//            }
-//        });
-//
-//        add(categoryComboBox, BorderLayout.NORTH);
-//
-//        HeaderPanel headerPanel = new HeaderPanel();
-//        headerPanel.setCategoryClickListener(categoryName -> {
-//            if (jPanel13 != null) {
-//                jPanel13.removeAll();
-//            }
-//
-//            int selectedIndex = categoryComboBox.getSelectedIndex(); 
-//
-//            if (selectedIndex == -1) {
-//                categoryMenu.setCategoryId(0); 
-//            } else {
-//                CategoryMenu selectedCategory = categories.get(selectedIndex - 1);
-//                categoryMenu.setCategoryId(selectedCategory.getCategoryId());
-//            }
-//
-//            revalidate();
-//            repaint();
-//        });
-//    }
     private void updateProductPanels() {
         jPanel13.removeAll();
 
+        int currentCategoryId = categoryMenu.getCategoryId();
+        
+
         List<ProductMenu> products;
-        if (categoryMenu.getCategoryId() == 0) {
+        if (currentCategoryId == 0) {
             products = getAllProducts();
         } else {
-            products = getProductsByCategoryId(categoryMenu.getCategoryId());
+            products = getProductsByCategoryId(currentCategoryId);
         }
 
         for (ProductMenu product : products) {
@@ -200,7 +130,6 @@ public class CardProductPanel extends JPanel {
         jPanel13.revalidate();
         jPanel13.repaint();
     }
-
 
     public List<ProductMenu> getProductsByCategoryId(int categoryId) {
         List<ProductMenu> products = new ArrayList<>();
@@ -226,10 +155,8 @@ public class CardProductPanel extends JPanel {
                     String size = rs.getString("size");
                     int status = rs.getInt("status");
 
-                    ProductMenu p = new ProductMenu(productName);
                     ProductMenu product = new ProductMenu(productId, productName, price, categoryIdFromDb, description, size, status);
-                     
-                    products.add(p);
+                    products.add(product);
                 }
             }
         } catch (SQLException e) {
@@ -237,10 +164,10 @@ public class CardProductPanel extends JPanel {
         }
         return products;
     }
-    
+
     private List<ProductMenu> getAllProducts() {
         List<ProductMenu> products = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE status = 1"; 
+        String sql = "SELECT * FROM product WHERE status = 1";
 
         try (Connection con = DatabaseConnection.getJDBConnection();
              PreparedStatement pstmt = con.prepareStatement(sql);

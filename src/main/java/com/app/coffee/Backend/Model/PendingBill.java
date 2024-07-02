@@ -11,7 +11,7 @@ import java.util.Date;
  * @author anhso
  */
 public class PendingBill {
-    private int order_detail_id;
+    private int order_id;
    // private int quantity;
     private float total;
     private String description;
@@ -20,10 +20,8 @@ public class PendingBill {
     private boolean status;
 
   
-    public int getOrder_detail_id() { return order_detail_id; }
-    public void setOrder_detail_id(int order_detail_id) { this.order_detail_id = order_detail_id; }
-   // public int getQuantity() { return quantity; }
-    //public void setQuantity(int quantity) { this.quantity = quantity; }
+    public int getOrder_id() { return order_id; }
+    public void setOrder_id(int order_id) { this.order_id = order_id; }
     public float getTotal() { return total; }
     public void setTotal(float total) { this.total = total; }
     

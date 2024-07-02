@@ -87,7 +87,8 @@ public class CategoryDao {
 
     private boolean isCategoryIdExists(int category_id) {
         String sql = "SELECT COUNT(*) FROM category WHERE category_id = ?";
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try (Connection con = DatabaseConnection.getJDBConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setInt(1, category_id);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -103,39 +104,22 @@ public class CategoryDao {
     }
 
     // edit category
-    public boolean updateCategory(int category_id, String newCategory, String newDescription) {
-        Connection con = null;
-        PreparedStatement stmt = null;
-        boolean success = false;
+    public boolean updateCategory(Category category) {
+        String sql = "UPDATE category SET category_name = ?, description = ? WHERE category_id = ?";
 
-//        String sql = "UPDATE category SET status = 1 WHERE ID = ?"; // Chỉ cập nhật nếu status là 1
-        try {
-            con = DatabaseConnection.getJDBConnection();
-            String query = "UPDATE category SET category_name = ?, description = ? WHERE category_id = ?";
-            stmt = con.prepareStatement(query);
-            stmt.setString(1, newCategory);
-            stmt.setString(2, newDescription);
-            stmt.setInt(3, category_id);
+        try (Connection con = DatabaseConnection.getJDBConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, category.getCategory_name());
+            pstmt.setString(2, category.getDescription());
+            pstmt.setInt(3, category.getCategory_id());
+            int rowsUpdated = pstmt.executeUpdate();
 
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                success = true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error updating category: " + ex.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error closing resources: " + ex.getMessage());
-            }
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error updating category: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
-        return success;
     }
 
     // delete category

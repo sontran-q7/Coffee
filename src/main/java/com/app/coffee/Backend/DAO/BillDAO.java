@@ -22,7 +22,14 @@ public class BillDAO {
     public static List<PendingBill> getPendingBills() {
         List<PendingBill> pendingBills = new ArrayList<>();
         Connection conn = ConnectionCoffee.getConnection();
-        String query = "SELECT order_detail_id,  total, description,table_number, day,status FROM order_detail";
+         String query = "SELECT o.order_id, o.total, o.description, o.day, o.created_at AS order_created_at, " +
+                   "o.updated_at AS order_updated_at, GROUP_CONCAT(od.product_detail_id) AS product_details, " +
+                   "SUM(od.quantity) AS total_quantity, od.table_number, od.status, od.created_at AS order_detail_created_at, " +
+                   "od.updated_at AS order_detail_updated_at " +
+                   "FROM orders o " +
+                   "JOIN order_detail od ON o.order_id = od.order_id " +
+                   "WHERE od.status = 1 " +
+                   "GROUP BY o.order_id, od.table_number";
 // quantity
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -30,7 +37,7 @@ public class BillDAO {
 
             while (rs.next()) {
                 PendingBill bill = new PendingBill();
-                bill.setOrder_detail_id(rs.getInt("order_detail_id"));
+                bill.setOrder_id(rs.getInt("order_id"));
                // bill.setQuantity(rs.getInt("quantity"));
                 bill.setTotal(rs.getFloat("total"));
                // bill.setNo(rs.getInt("no"));
@@ -62,7 +69,7 @@ public class BillDAO {
         try {
             conn = ConnectionCoffee.getConnection();
             String query = "SELECT SUM(total) AS total_sum " +
-                           "FROM order_detail " +
+                           "FROM orders " +
                            "WHERE YEAR(day) = YEAR(CURDATE()) AND MONTH(day) = MONTH(CURDATE())";
             stmt = conn.prepareStatement(query);
             rs = stmt.executeQuery();
@@ -94,7 +101,7 @@ public class BillDAO {
     try {
         conn = ConnectionCoffee.getConnection();
         String query = "SELECT SUM(total) AS total_sum " +
-                       "FROM order_detail " +
+                       "FROM orders " +
                        "WHERE DATE(day) = (CURDATE())";
         stmt = conn.prepareStatement(query);
        

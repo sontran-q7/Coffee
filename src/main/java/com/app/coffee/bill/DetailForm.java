@@ -5,7 +5,10 @@
 package com.app.coffee.bill;
 
 import com.app.coffee.Backend.Model.OrderDetailModel;
+import com.app.coffee.Backend.Model.OrderModel;
+import com.app.coffee.Backend.Model.ProductDetailModel;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -25,7 +28,7 @@ public class DetailForm extends javax.swing.JPanel {
         /* Create and display the form within a JFrame */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrame frame = new JFrame("Detail Form");
+                JFrame frame = new JFrame("Detail Bill");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
                 DetailForm panel = new DetailForm();
@@ -43,7 +46,7 @@ public class DetailForm extends javax.swing.JPanel {
     public DetailForm() {
         initComponents();
         
-        tableModel = new DefaultTableModel(new Object[]{"Product","Price","Quantity","Description","Size"}, 0); 
+        tableModel = new DefaultTableModel(new Object[]{"Product","Price","Quantity","Size"}, 0); 
         jTable1.setModel(tableModel);
         setCellRenderer(jTable1);
     }
@@ -105,25 +108,25 @@ public class DetailForm extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Product", "Price", "Quantity", "Description", "Size"
+                "Product", "Quantity", "Price", "Size"
             }
         ));
         jTable1.setGridColor(new java.awt.Color(140, 140, 140));
@@ -133,9 +136,8 @@ public class DetailForm extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(160);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(10);
         }
 
         OrderTable.setViewportView(jScrollPane1);
@@ -280,59 +282,38 @@ public class DetailForm extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void updateDetails(OrderDetailModel orderDetail) {
-// for (OrderDetailModel order : orderDetails) {
-//        Object[] rowData = {
-//            order.getProduct_name(),
-//            order.getPrice(),
-//            order.getQuantity(),
-//            order.getDescription(),
-//            order.getSize()
-//        };
-//           tableModel.addRow(rowData); 
-//    }
-//        
-//        labelID.setText(" " + orderDetails.get(0).getOrder_detail_id()); // Giả sử lấy thông tin từ dòng đầu tiên của danh sách
-//        labelUserName1.setText(" " + orderDetails.get(0).getUsername());
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String formattedDate = sdf.format(orderDetails.get(0).getDay());
-//        Total.setText(" " + orderDetails.get(0).getTotal());
-//        labelDay.setText(formattedDate);
-//        labelEmail.setText(" " + orderDetails.get(0).getEmail());
-        
-        
-        labelID.setText( " "+orderDetail.getOrder_detail_id());
-        labelUserName1.setText( " "+orderDetail.getUsername());
-        SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd");
-        String formattedDate = sdf.format(orderDetail.getDay());
-        Total.setText(" " + orderDetail.getTotal());
+   public void updateDetails(OrderModel orderModel) {
+        labelID.setText(" " + orderModel.getOrder_id());
+        labelUserName1.setText(" " + orderModel.getUsername());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
+        String formattedDate = orderModel.getDay().format(formatter);
+        Total.setText(" " + orderModel.getTotal());
         labelDay.setText(formattedDate);
-        labelEmail.setText( " "+orderDetail.getEmail());
-        
-        Object[] rowData = {
-        orderDetail.getProduct_name(),
-        orderDetail.getPrice(),
-        orderDetail.getQuantity(),
-        orderDetail.getDescription(),
-        orderDetail.getSize() 
-        
-    };
-        tableModel.addRow(rowData);
+        labelEmail.setText(" " + orderModel.getEmail());
+
+        tableModel.setRowCount(0);
+        for (OrderDetailModel orderDetail : orderModel.getOrderDetails()) {
+            for (ProductDetailModel productDetail : orderDetail.getProductDetails()) {
+                Object[] rowData = {
+                    productDetail.getProduct_name(),
+                    productDetail.getPrice(),
+                    orderDetail.getQuantity(),                  
+                    productDetail.getSize()
+                };
+                tableModel.addRow(rowData);
+            }
+        }
     }
     
-     private void setCellRenderer(JTable table) {
+    private void setCellRenderer(JTable table) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-      }
+    }
     
-//   public void handleOrderDetailSelection(int orderDetailId) {
-//    List<OrderDetailModel> orderDetails = selectById(orderDetailId);
-//    updateDetails(orderDetails);
-//}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane OrderTable;

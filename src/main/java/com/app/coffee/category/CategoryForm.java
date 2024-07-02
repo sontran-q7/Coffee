@@ -19,6 +19,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CategoryForm extends javax.swing.JPanel {
 
+    private int currentSTT = 1; // Biến để giữ số thứ tự hiện tại
     /**
      * Creates new form CategoryForm
      */
@@ -37,18 +40,16 @@ public class CategoryForm extends javax.swing.JPanel {
         loadPanels();
         refreshCategoryTable();
 
-        ProductDao cate = new ProductDao();
-
-        List<Category> cc = cate.getCategory();
-
-        this.CategoryTable.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int selectedRowIndex = CategoryTable.getSelectedRow();
-                selectedRowIndex = CategoryTable.convertRowIndexToModel(selectedRowIndex);
-                c = cc.get(selectedRowIndex);
-           
-            }
-        });
+        // Đặt căn giữa cho stt
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        CategoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        
+        // Đặt căn giữa tất cả các cột
+//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+//        for (int i = 0; i < CategoryTable.getColumnCount(); i++) {
+//            CategoryTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
     }
 
     /**
@@ -156,7 +157,7 @@ public class CategoryForm extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Category_name", "description"
+                "STT", "Category name", "Description"
             }
         ) {
             Class[] types = new Class [] {
@@ -167,6 +168,8 @@ public class CategoryForm extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        CategoryTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        CategoryTable.setRowHeight(30);
         jScrollPane1.setViewportView(CategoryTable);
         if (CategoryTable.getColumnModel().getColumnCount() > 0) {
             CategoryTable.getColumnModel().getColumn(0).setMinWidth(80);
@@ -246,22 +249,26 @@ public class CategoryForm extends javax.swing.JPanel {
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
         AddCategory newCategory = new AddCategory(this); // Truyền tham chiếu của CategoryForm vào AddCategory
         showPanel("addCategory");
+        
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void EditCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditCategoryButtonActionPerformed
         int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
+
         if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
+            DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
+
             // Lấy thông tin của category từ bảng
-            int category_id = (int) CategoryTable.getValueAt(selectedRow, 0); // Lấy ID
-            String category = CategoryTable.getValueAt(selectedRow, 1).toString();
-            String description = CategoryTable.getValueAt(selectedRow, 2).toString();
+            String categoryName = model.getValueAt(selectedRow, 1).toString(); // Lấy tên danh mục
+            String description = model.getValueAt(selectedRow, 2).toString(); // Lấy mô tả
 
             // Hiển thị form chỉnh sửa
-            EditCategory editCategory = new EditCategory(this, category_id, category, description);
-            showPanel("editCategory");
+            int categoryId = getCategoryIdByName(categoryName); // Lấy category_id từ cơ sở dữ liệu dựa trên tên danh mục
+            EditCategory editCategory = new EditCategory(this, categoryId, categoryName, description);
             CategoryFormPanel.add(editCategory, "editCategory");
+            showPanel("editCategory");
         } else {
-//        JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_EditCategoryButtonActionPerformed
 
@@ -281,22 +288,22 @@ public class CategoryForm extends javax.swing.JPanel {
 
                 // Kiểm tra xem danh mục có sản phẩm liên quan không
                 if (productDao.hasProductsForCategory(category_id)) {
-                    int option2 = JOptionPane.showConfirmDialog(this, "Có thể có sản phẩm liên quan đến danh mục này. Bạn có muốn xóa danh mục và các sản phẩm liên quan không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+                    int option2 = JOptionPane.showConfirmDialog(this, "Không thể xóa! Có sản phẩm hiện đang liên quan đến danh mục này", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
 
-                    if (option2 == JOptionPane.YES_OPTION) {
-                        // Xóa sản phẩm của danh mục này trước
-                        if (productDao.deleteProductsForCategory(category_id)) {
-                            // Sau khi xóa thành công sản phẩm, tiến hành xóa danh mục
-                            if (categoryDao.deleteCategory(category_id)) {
-                                model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
-                                JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Xóa sản phẩm không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
+//                    if (option2 == JOptionPane.YES_OPTION) {
+//                        // Xóa sản phẩm của danh mục này trước
+//                        if (productDao.deleteProductsForCategory(category_id)) {
+//                            // Sau khi xóa thành công sản phẩm, tiến hành xóa danh mục
+//                            if (categoryDao.deleteCategory(category_id)) {
+//                                model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+//                                JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//                            } else {
+//                                JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                            }
+//                        } else {
+//                            JOptionPane.showMessageDialog(this, "Xóa sản phẩm không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//                        }
+//                    }
                 } else {
                     // Không có sản phẩm liên quan, chỉ cần xóa danh mục
                     if (categoryDao.deleteCategory(category_id)) {
@@ -314,29 +321,8 @@ public class CategoryForm extends javax.swing.JPanel {
 
     private void loadPanels() {
         AddCategory addCategory = new AddCategory(this);
-//        EditCategory editCategory = new EditCategory(this, category_id, category, description);
         CategoryFormPanel.add(addCategory, "addCategory");
-//        CategoryFormPanel.add(editCategory,"editCategory");
-
-        // Cài đặt sự kiện cho nút Sửa
-        EditCategoryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
-                if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
-                    // Lấy thông tin của category từ bảng
-                    int categoryId = (int) CategoryTable.getValueAt(selectedRow, 0); // Lấy ID
-                    String categoryName = CategoryTable.getValueAt(selectedRow, 1).toString(); // Lấy tên danh mục
-                    String description = CategoryTable.getValueAt(selectedRow, 2).toString(); // Lấy mô tả
-
-                    // Hiển thị form chỉnh sửa
-                    EditCategory editCategory = new EditCategory(CategoryForm.this, categoryId, categoryName, description);
-                    showPanel("editCategory");
-                } else {
-                    JOptionPane.showMessageDialog(CategoryForm.this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        });
+        
     }
 
     private void showPanel(String panelName) {
@@ -365,10 +351,22 @@ public class CategoryForm extends javax.swing.JPanel {
         // Lấy danh sách các danh mục từ cơ sở dữ liệu và thêm vào bảng
         CategoryDao categoryDao = new CategoryDao();
         List<Category> categories = categoryDao.getAllCategories();
+        // Thêm các hàng mới vào bảng với stt tự động tăng
+        int stt = 1;
         for (Category category : categories) {
-            Object[] row = {category.getCategory_id(), category.getCategory_name(), category.getDescription()};
+            Object[] row = {stt++, category.getCategory_name(), category.getDescription()}; //category.getCategory_id(), 
             model.addRow(row);
         }
     }
 
+    private int getCategoryIdByName(String categoryName) {
+        CategoryDao categoryDao = new CategoryDao();
+        List<Category> categories = categoryDao.getAllCategories();
+        for (Category category : categories) {
+            if (category.getCategory_name().equals(categoryName)) {
+                return category.getCategory_id();
+            }
+        }
+        return -1; // Nếu không tìm thấy, trả về -1 hoặc xử lý khác phù hợp
+    }
 }

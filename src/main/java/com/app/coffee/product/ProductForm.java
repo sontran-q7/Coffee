@@ -6,21 +6,7 @@ package com.app.coffee.product;
 
 import com.app.coffee.category.Category;
 import java.awt.CardLayout;
-import java.awt.Component;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Image;
 
-import java.awt.event.*;
 
 /**
  *
@@ -31,42 +17,13 @@ public class ProductForm extends javax.swing.JPanel {
     /**
      * Creates new form ProductForm
      */
-    public Product p;
-    List<Product> products;
-    String image;
-    String description;
-    String size;
-    int catego_id;
-    String price;
-    int product_id;
-    String name;
+
 
     public ProductForm() {
         initComponents();
         loadPanels();
-
-        refreshProductTable();
-        ProductDao productDao = new ProductDao();
-        products = productDao.getAllProducts();
-        List<Category> categories = productDao.getCategory();
-
-        this.ProductTable.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int selectedRowIndex = ProductTable.getSelectedRow();
-                selectedRowIndex = ProductTable.convertRowIndexToModel(selectedRowIndex);
-                p = products.get(selectedRowIndex);
-//                image = ProductTable.getValueAt(selectedRowIndex, 1).toString();
-//                product_id = (int) ProductTable.getValueAt(selectedRowIndex, 0);
-//                catego_id = products.get(selectedRowIndex).getCategoryId();
-//                name = ProductTable.getValueAt(selectedRowIndex, 3).toString();
-//                price = ProductTable.getValueAt(selectedRowIndex, 6).toString();
-//                description = ProductTable.getValueAt(selectedRowIndex, 4).toString();
-//                size = ProductTable.getValueAt(selectedRowIndex, 5).toString();
-//
-            }
-        });
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +44,7 @@ public class ProductForm extends javax.swing.JPanel {
         EditProduct = new javax.swing.JButton();
         DeleteProduct = new javax.swing.JButton();
         AddProduct = new javax.swing.JButton();
-        btn_load = new javax.swing.JButton();
+        btnLoadData = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -121,13 +78,59 @@ public class ProductForm extends javax.swing.JPanel {
 
         ProductTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, "123aasdasdasdasdasdsdasdasdasd", null, null},
+                {null, null, null, null, "", null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Image", "Category_name", "Name", "Description", "Size", "Price"
+                "STT", "Image", "Category name", "Product name", "Description", "Size", "Price"
             }
         ) {
             Class[] types = new Class [] {
@@ -163,9 +166,9 @@ public class ProductForm extends javax.swing.JPanel {
         jLabel2.setText("Product form:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 110, 110, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Product list:");
+        jLabel3.setText("Product Table:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 210, 30));
 
         EditProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -200,67 +203,37 @@ public class ProductForm extends javax.swing.JPanel {
         });
         add(AddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 110, 100, 30));
 
-        btn_load.setText("Load Data");
-        btn_load.addActionListener(new java.awt.event.ActionListener() {
+        btnLoadData.setText("Load Data");
+        btnLoadData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_loadActionPerformed(evt);
+                btnLoadDataActionPerformed(evt);
             }
         });
-        add(btn_load, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 100, 30));
+        add(btnLoadData, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 110, 100, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductActionPerformed
-        AddProduct addProduct = new AddProduct(this); // Truyền tham chiếu của ProductForm vào AddProduct
         showPanel("addProduct");
     }//GEN-LAST:event_AddProductActionPerformed
 
-    private void DeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteProductActionPerformed
-        int selectedRow = ProductTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
-        if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
-            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
-                int product_id = (int) ProductTable.getValueAt(selectedRow, 0); // Lấy ID của product, đảm bảo ép kiểu về int
-                ProductDao productDao = new ProductDao();
-                if (productDao.deleteProduct(product_id)) { // Xóa product từ database
-                    DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
-                    model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
-                } else {
-                    JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_DeleteProductActionPerformed
-
     private void EditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProductActionPerformed
-
-        int selectedRowIndex = ProductTable.getSelectedRow();
-        System.out.println("rr" + selectedRowIndex);
-        selectedRowIndex = ProductTable.convertRowIndexToModel(selectedRowIndex);
-        p = products.get(selectedRowIndex);
-        image = ProductTable.getValueAt(selectedRowIndex, 1).toString();
-        product_id = (int) ProductTable.getValueAt(selectedRowIndex, 0);
-        catego_id = products.get(selectedRowIndex).getCategoryId();
-        name = ProductTable.getValueAt(selectedRowIndex, 3).toString();
-        price = ProductTable.getValueAt(selectedRowIndex, 6).toString();
-        description = ProductTable.getValueAt(selectedRowIndex, 4).toString();
-        size = ProductTable.getValueAt(selectedRowIndex, 5).toString();
-
         showPanel("editProduct");
     }//GEN-LAST:event_EditProductActionPerformed
 
-    private void btn_loadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loadActionPerformed
-        refreshProductTable();
-        p = null;
-    }//GEN-LAST:event_btn_loadActionPerformed
+    private void DeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteProductActionPerformed
+
+    }//GEN-LAST:event_DeleteProductActionPerformed
+
+    private void btnLoadDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadDataActionPerformed
+
+    }//GEN-LAST:event_btnLoadDataActionPerformed
 
     private void loadPanels() {
         AddProduct addproduct = new AddProduct(this);
-        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
+//        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
 
         ProductFormPanel.add(addproduct, "addProduct");
-        ProductFormPanel.add(editProduct, "editProduct");
+//        ProductFormPanel.add(editProduct, "editProduct");
     }
 
     private void showPanel(String panelName) {
@@ -276,68 +249,12 @@ public class ProductForm extends javax.swing.JPanel {
     private javax.swing.JPanel ProductFormPanel;
     private javax.swing.JTable ProductTable;
     private javax.swing.JPanel Productpanel;
-    private javax.swing.JButton btn_load;
+    private javax.swing.JButton btnLoadData;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    public void refreshProductTable() {
-        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
-        model.setRowCount(0);
-        try {
-            ProductDao productDao = new ProductDao();
-            List<Product> products = productDao.getAllProducts();
-            List<Category> categories = productDao.getCategory();
 
-            for (Product product : products) {
-                String category_n = "";
-                for (Category cc : categories) {
-                    if (product.getCategory_id() == cc.getCategory_id()) {
-                        category_n = cc.getCategory_name();
-                    }
-                }
-                Object[] row = {product.getProduct_id(), product.getImage(), category_n, product.getProduct_name(),
-                    product.getDescription(),
-                    product.getSize(), product.getPrice()
-                };
-                model.addRow(row);
-            }
-             
-            ProductTable.setRowHeight(70);
-
-            ProductTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRender());
-          
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi cập nhật bảng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private static File getUniqueFile(String directory, String baseName, String extension) {
-        File file;
-        int count = 0;
-        do {
-            String fileName = baseName + (count == 0 ? "" : "_" + count) + "." + extension;
-            file = new File(directory, fileName);
-            count++;
-        } while (file.exists());
-        return file;
-    }
-
-    public class ImageRender extends DefaultTableCellRenderer {
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-                int row, int column) {
-            if (value == "" || value == null) {
-                return new JLabel("");
-            }
-            String photoName = value.toString();
-
-            ImageIcon imageIcon = new ImageIcon(
-                    new ImageIcon("static/" + photoName).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-            return new JLabel(imageIcon);
-        }
-    }
 }

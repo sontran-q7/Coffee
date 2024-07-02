@@ -7,6 +7,8 @@ package com.app.coffee.menu;
 
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JLabel;
 
 /**
  *
@@ -20,8 +22,33 @@ public class MenuPanel extends javax.swing.JPanel {
     public MenuPanel() {
         initComponents();
         loadPanels();
+        centerTableCells();
 //        customizeScrollBar();
     }
+    
+    private void centerTableCells() {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int i = 0; i < TableOrder.getColumnCount(); i++) {
+            TableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    
+     private void loadPanels() {
+         
+//         HeaderPanel headerPanel = new HeaderPanel();
+//         HeaderPanel.add(headerPanel, "cardProduct");
+         
+        CardProductPanel cardProductPanel = new CardProductPanel();
+        MenuOrder.add(cardProductPanel, "cardProduct");
+    }
+
+    private void showPanel(String panelName) {
+        ((CardLayout)MenuOrder.getLayout()).show(MenuOrder, panelName);
+    } 
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +80,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         OrderTable = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TableOrder = new javax.swing.JTable();
         jLabel12 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -113,22 +140,19 @@ public class MenuPanel extends javax.swing.JPanel {
         FullDishJPanel.setLayout(FullDishJPanelLayout);
         FullDishJPanelLayout.setHorizontalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FullDishJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(HeaderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(HeaderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
         );
         FullDishJPanelLayout.setVerticalGroup(
             FullDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FullDishJPanelLayout.createSequentialGroup()
                 .addComponent(HeaderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
 
-        add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
+        add(FullDishJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 750));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -187,7 +211,7 @@ public class MenuPanel extends javax.swing.JPanel {
 
         jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 490, 260, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TableOrder.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"011", "coffee sua da", "s", "12", "100"},
                 {null, null, null, null, null},
@@ -201,18 +225,18 @@ public class MenuPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Size", "Quantity", "Suger"
+                "No", "Name", "Size", "Quantity", "Suger"
             }
         ));
-        jTable1.setRowHeight(25);
-        jTable1.setShowGrid(true);
-        OrderTable.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+        TableOrder.setRowHeight(25);
+        TableOrder.setShowGrid(true);
+        OrderTable.setViewportView(TableOrder);
+        if (TableOrder.getColumnModel().getColumnCount() > 0) {
+            TableOrder.getColumnModel().getColumn(0).setPreferredWidth(30);
+            TableOrder.getColumnModel().getColumn(1).setPreferredWidth(100);
+            TableOrder.getColumnModel().getColumn(2).setPreferredWidth(30);
+            TableOrder.getColumnModel().getColumn(3).setPreferredWidth(30);
+            TableOrder.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
         jPanel4.add(OrderTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 380, 240));
@@ -228,7 +252,7 @@ public class MenuPanel extends javax.swing.JPanel {
         jLabel13.setText("Order Detail");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 6, 120, 50));
 
-        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 700));
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 0, 440, 750));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -247,26 +271,14 @@ public class MenuPanel extends javax.swing.JPanel {
         showPanel("headerPanel");
     }//GEN-LAST:event_HeaderPanelComponentAdded
 
-    private void loadPanels() {
-//        cardProduct caProduct = new cardProduct();
-//        MenuOrder.add(caProduct, "cardProduct");
-
-        CardProductPanel cardProductPanel = new CardProductPanel();
-        MenuOrder.add(cardProductPanel, "cardProduct");
-        
-        HeaderPanel headerPanel1 = new HeaderPanel();
-        HeaderPanel.add(headerPanel1, "headerPanel");
-    }
-
-    private void showPanel(String panelName) {
-        ((CardLayout)MenuOrder.getLayout()).show(MenuOrder, panelName);
-    }               
+                 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel FullDishJPanel;
     private javax.swing.JPanel HeaderPanel;
     private javax.swing.JPanel MenuOrder;
     private javax.swing.JScrollPane OrderTable;
+    private javax.swing.JTable TableOrder;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel12;
@@ -281,7 +293,6 @@ public class MenuPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

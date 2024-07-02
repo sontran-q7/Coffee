@@ -11,39 +11,22 @@ import javax.swing.JOptionPane;
  *
  * @author anhso
  */
-public class EditCategory extends javax.swing.JPanel {
-    
-    private CategoryForm categoryForm;
-    private int category_id;
-    private String originalCategory;
-    private String originalDescription;
+    public class EditCategory extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EditCategory
-     */
-    public EditCategory(CategoryForm categoryForm,int category_id, String category_name, String description) {
+        private CategoryForm categoryForm;
+        private int categoryId;
+
+
+    public EditCategory(CategoryForm categoryForm, int categoryId, String category_name, String description) {
         initComponents();
         
         this.categoryForm = categoryForm;
-        this.category_id = category_id;
-        this.originalCategory = category_name;
-        this.originalDescription = description;
+        this.categoryId = categoryId;
 
         // Hiển thị dữ liệu ban đầu lên form
         txtCategory.setText(category_name);
         txtDescription.setText(description);
     }
-
-    // Các phương thức getter để lấy dữ liệu từ form chỉnh sửa
-    public String getNewCategory() {
-        return txtCategory.getText().trim();
-    }
-
-    public String getNewDescription() {
-        return txtDescription.getText().trim();
-    }
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,19 +143,22 @@ public class EditCategory extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-    // Lấy thông tin chỉnh sửa từ các trường dữ liệu trên form
-            String newName = txtCategory.getText();
-            String newDescription = txtDescription.getText();
+        String categoryName = txtCategory.getText();
+        String description = txtDescription.getText();
 
-            // Thực hiện cập nhật trong cơ sở dữ liệu
-            CategoryDao categoryDao = new CategoryDao();
-            if (categoryDao.updateCategory(category_id, newName, newDescription)) {
-                // Cập nhật thành công, thông báo và cập nhật bảng
-                JOptionPane.showMessageDialog(this, "Cập nhật thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                categoryForm.refreshCategoryTable();
-            } else {
-                JOptionPane.showMessageDialog(this, "Cập nhật không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
+        // Tạo đối tượng Category mới với thông tin đã chỉnh sửa
+        Category category = new Category(categoryId, categoryName, description, "1");
+
+        // Cập nhật cơ sở dữ liệu
+        CategoryDao categoryDao = new CategoryDao();
+        boolean success = categoryDao.updateCategory(category);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Cập nhật danh mục thành công!");
+            categoryForm.refreshCategoryTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật danh mục không thành công!");
+        }
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -194,7 +180,4 @@ public class EditCategory extends javax.swing.JPanel {
     private javax.swing.JTextArea txtDescription;
     // End of variables declaration//GEN-END:variables
 
-    private void closeEditForm() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

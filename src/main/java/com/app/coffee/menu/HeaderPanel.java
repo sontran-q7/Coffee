@@ -12,6 +12,7 @@ public class HeaderPanel extends javax.swing.JPanel {
     private List<Integer> categoryIdList; 
     private CategoryClickListener categoryClickListener; 
     private CategoryMenu categoryMenu;
+   
     
     public HeaderPanel() {
         initComponents();
@@ -19,8 +20,12 @@ public class HeaderPanel extends javax.swing.JPanel {
         loadCategoryButtons();
     }
 
-    public void setCategoryClickListener(CategoryClickListener listener) {
+   public void setCategoryClickListener(CategoryClickListener listener) {
         this.categoryClickListener = listener;
+    }
+
+    public CategoryClickListener getCategoryClickListener() {
+        return this.categoryClickListener;
     }
 
     private void customizeScrollBar() {
@@ -31,6 +36,10 @@ public class HeaderPanel extends javax.swing.JPanel {
     public void loadCategoryButtons() {
         CategoryDaoMenu dao = new CategoryDaoMenu();
         List<CategoryMenu> categories = dao.getAllCategories();
+
+        if (this.categoryMenu == null) {
+            this.categoryMenu = new CategoryMenu();
+        }
 
         jPanel1.removeAll();
 
@@ -54,11 +63,13 @@ public class HeaderPanel extends javax.swing.JPanel {
         allMenuButton.setBounds(x, y, buttonWidth, buttonHeight);
         allMenuButton.addActionListener(e -> {
             resetButtonColors();
-            allMenuButton.setBackground(new Color(102, 102, 102)); 
-            allMenuButton.setForeground(Color.YELLOW); 
+            allMenuButton.setBackground(new Color(102, 102, 102));
+            allMenuButton.setForeground(Color.YELLOW);
             if (categoryClickListener != null) {
-                categoryClickListener.onCategoryClick(0); 
+                categoryClickListener.onCategoryClick(0);
                 categoryMenu.setCategoryId(0);
+            } else {
+                System.err.println("CategoryClickListener is not set!");
             }
         });
 
@@ -75,14 +86,16 @@ public class HeaderPanel extends javax.swing.JPanel {
             button.setForeground(Color.WHITE);
             button.setFont(new Font("Segoe UI", Font.BOLD, 16));
             button.setBounds(x, y, buttonWidth, buttonHeight);
-            int categoryId = category.getCategoryId(); 
+            int categoryId = category.getCategoryId();
             button.addActionListener(e -> {
                 resetButtonColors();
                 button.setBackground(new Color(102, 102, 102));
                 button.setForeground(Color.YELLOW);
                 if (categoryClickListener != null) {
-                    categoryClickListener.onCategoryClick(categoryId); 
+                    categoryClickListener.onCategoryClick(categoryId);
                     categoryMenu.setCategoryId(categoryId);
+                } else {
+                    System.err.println("CategoryClickListener is not set!");
                 }
             });
             jPanel1.add(button);
@@ -91,7 +104,6 @@ public class HeaderPanel extends javax.swing.JPanel {
 
             x += buttonWidth + gap;
         }
-
 
         jPanel1.revalidate();
         jPanel1.repaint();
@@ -105,6 +117,20 @@ public class HeaderPanel extends javax.swing.JPanel {
             button.setForeground(Color.WHITE); 
         }
     }
+    
+    
+    public void printProducts(List<ProductMenu> products) {
+    for (ProductMenu product : products) {
+        System.out.println("Product ID: " + product.getProductId());
+        System.out.println("Product Name: " + product.getProductName());
+        System.out.println("Price: " + product.getPrice());
+        System.out.println("Category ID: " + product.getCategoryId());
+        System.out.println("Description: " + product.getDescription());
+        System.out.println("Size: " + product.getSize());
+        System.out.println("Status: " + product.getStatus());
+        System.out.println("----------------------------------");
+    }
+}
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -112,7 +138,14 @@ public class HeaderPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-
+         
+        setLayout(new BorderLayout()); 
+        jScrollPane1 = new JScrollPane();
+        jPanel1 = new JPanel();
+        jPanel1.setLayout(null); 
+        jScrollPane1.setViewportView(jPanel1);
+        add(jScrollPane1, BorderLayout.CENTER); 
+        
         jPanel6.setBackground(new java.awt.Color(255, 102, 0));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,6 +175,11 @@ public class HeaderPanel extends javax.swing.JPanel {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }
+    
+    public void refreshUI() {
+    jPanel1.revalidate();
+    jPanel1.repaint();
+}
 
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -157,4 +195,5 @@ public class HeaderPanel extends javax.swing.JPanel {
     public interface CategoryClickListener {
         void onCategoryClick(int categoryId);
     }
+    
 }

@@ -10,6 +10,7 @@ package com.app.coffee.bill;
  */
 import com.app.coffee.Backend.DAO.OrderDetailDAO;
 import com.app.coffee.Backend.Model.OrderDetailModel;
+import com.app.coffee.Backend.Model.OrderModel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -44,11 +45,11 @@ public class ButtonEditor extends DefaultCellEditor {
 
             // Assuming OrderDetailDAO and OrderDetailModel are properly defined
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            OrderDetailModel orderDetailModel = orderDetailDAO.selectById(orderDetailId);
+            OrderModel ordermodel = orderDetailDAO.selectById(orderDetailId);
 
-            if (orderDetailModel != null) {
+            if (ordermodel != null) {
                 DetailForm detailForm = new DetailForm(); // Create DetailForm instance
-                detailForm.updateDetails(orderDetailModel); // Update details in the form
+                detailForm.updateDetails(ordermodel); // Update details in the form
 
                 JOptionPane.showMessageDialog(button, detailForm, "Detail Form", JOptionPane.PLAIN_MESSAGE);
             } else {

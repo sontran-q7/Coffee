@@ -8,14 +8,19 @@ import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.Model.OrderDetailModel;
 import com.app.coffee.Backend.Model.OrderItemModel;
 import com.app.coffee.Backend.Model.OrderModel;
+import com.app.coffee.Backend.Model.ProductDetailModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -46,114 +51,143 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
      *
      * @return
      */
-     @Override
-     public ArrayList<OrderDetailModel> selectAll() {
-        ArrayList<OrderDetailModel> ListBill = new ArrayList<>();
-         try (Connection conn = ConnectionCoffee.getConnection()){
-//          String sql = "SELECT order_detail_id, quantity, total, description, day FROM order_detail";
-            String sql = "SELECT order_detail_id, quantity, total, description, day FROM order_detail";
-//            String sql = "SELECT o.order_id, od.order_detail_id, od.quantity, od.total, od.description, od.day " +
-//             "FROM `order` o " +
-//             "JOIN `order_detail` od ON o.order_detail_id = od.order_detail_id";
-                     
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery();
-             while(rs.next()){             
-                OrderDetailModel orderDetailModel = new OrderDetailModel(
-//                rs.getInt("order_id"), 
-                rs.getInt("order_detail_id"), 
-                rs.getInt("quantity"),
-//                rs.getFloat("total"),
-                rs.getString("description"),
-                rs.getDate("day")
-                );
-                ListBill.add(orderDetailModel);
-             }
-             rs.close();
-             ps.close();
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-        return ListBill;
-    }
-
-    public ArrayList<OrderDetailModel> selectByDateRange(Date fromDate, Date toDate) {
-        ArrayList<OrderDetailModel> list = new ArrayList<>();
+   
+    public ArrayList<OrderModel> selectAll1Bill() {
+        ArrayList<OrderModel> ListBill = new ArrayList<>();
         try (Connection conn = ConnectionCoffee.getConnection()) {
-            String sql = "SELECT * FROM order_detail WHERE day >= ? AND day <= ?";
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setDate(1, new java.sql.Date(fromDate.getTime()));
-                stmt.setDate(2, new java.sql.Date(toDate.getTime()));
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        OrderDetailModel orderDetail = new OrderDetailModel();
-                        
-                        orderDetail.setOrder_detail_id(rs.getInt("order_detail_id"));
-                        orderDetail.setQuantity(rs.getInt("quantity"));
-                        orderDetail.setTotal(rs.getFloat("total"));
-                        orderDetail.setDescription(rs.getString("description"));
-                        orderDetail.setDay(rs.getDate("day"));
-                        list.add(orderDetail);
+            String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
+                         "a.username AS account_username, a.email AS account_email " +
+                         "FROM orders o " +
+                         "LEFT JOIN account a ON o.account_id = a.account_id";
+
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+                    OrderModel orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setAccount_id(rs.getInt("account_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("order_description"));
+                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    if (timestamp != null) {
+                        orderModel.setDay(timestamp.toLocalDateTime());
                     }
+                    orderModel.setUsername(rs.getString("account_username"));
+                    orderModel.setEmail(rs.getString("account_email"));
+
+                    ListBill.add(orderModel);
                 }
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return list;
-    }
+    return ListBill;
+}
 
-    public OrderDetailModel selectById(int orderDetailId) {
-        OrderDetailModel orderDetailModel = null;
-        String sql = "SELECT o.order_id, o.order_detail_id, o.account_id, o.product_id, " +
-                 "od.quantity, od.total, od.description, od.day, " +
+    public ArrayList<OrderModel> selectByDateRange(LocalDateTime  fromDate, LocalDateTime  toDate) {
+    ArrayList<OrderModel> list = new ArrayList<>();
+    try (Connection conn = ConnectionCoffee.getConnection()) {
+        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
+                     "a.username AS account_username, a.email AS account_email " +
+                     "FROM orders o " +
+                     "LEFT JOIN account a ON o.account_id = a.account_id " +
+                     "WHERE o.updated_at >= ? AND o.updated_at <= ?";
+                     
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setTimestamp(1, Timestamp.valueOf(fromDate));
+            stmt.setTimestamp(2, Timestamp.valueOf(toDate));
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    OrderModel orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setAccount_id(rs.getInt("account_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("order_description"));
+                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    if (timestamp != null) {
+                        orderModel.setDay(timestamp.toLocalDateTime());
+                    }
+                    orderModel.setUsername(rs.getString("account_username"));
+                    orderModel.setEmail(rs.getString("account_email"));
+
+                    list.add(orderModel);
+                }
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return list;
+}
+
+    public OrderModel  selectById(int orderId) {
+        OrderModel orderModel = null;
+        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
+                 "od.order_detail_id, od.product_detail_id, od.quantity, od.table_number, od.status AS order_detail_status, " +
                  "a.username AS account_username, a.email AS account_email, " +
-                 "p.product_name, p.price, p.size " +
-                 "FROM `order` o " +
-                 "LEFT JOIN `order_detail` od ON o.order_detail_id = od.order_detail_id " +
-                 "LEFT JOIN `account` a ON o.account_id = a.account_id " +
-                 "LEFT JOIN `product` p ON o.product_id = p.product_id " +
-                 "LEFT JOIN `order_items` oi ON o.order_id = oi.order_id " +
-                 "WHERE o.order_detail_id = ?";
+                 "pd.size, pd.price, " +
+                 "p.product_name " +
+                 "FROM orders o " +
+                 "LEFT JOIN order_detail od ON o.order_id = od.order_id " +
+                 "LEFT JOIN account a ON o.account_id = a.account_id " +
+                 "LEFT JOIN product_detail pd ON od.product_detail_id = pd.product_detail_id " +
+                 "LEFT JOIN product p ON pd.product_id = p.product_id " +
+                 "WHERE o.order_id = ?";
 
     try (Connection conn = ConnectionCoffee.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, orderDetailId);
+        ps.setInt(1, orderId);
         try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                OrderModel order = new OrderModel();
-                order.setOrder_id(rs.getInt("order_id"));
-                order.setAccount_id(rs.getInt("account_id"));
-                order.setOrder_detail_id(rs.getInt("order_detail_id"));
-                
-                orderDetailModel = new OrderDetailModel();
-                orderDetailModel.setOrder(order);
-                orderDetailModel.setOrder_detail_id(rs.getInt("order_detail_id"));
-                orderDetailModel.setQuantity(rs.getInt("quantity"));
-                orderDetailModel.setTotal(rs.getFloat("total"));
-                orderDetailModel.setDescription(rs.getString("description"));
-                orderDetailModel.setDay(rs.getDate("day"));  
-                orderDetailModel.setEmail(rs.getString("account_email"));
-                orderDetailModel.setUsername(rs.getString("account_username"));
-                orderDetailModel.setProduct_name(rs.getString("product_name"));
-                try {
-                    float price = rs.getFloat("price");
-                    orderDetailModel.setPrice(price);
-                } catch (NumberFormatException e) {
-                    System.out.println("NumberFormatException: " + e.getMessage());
-                    orderDetailModel.setPrice(0.0f); 
+            Map<Integer, OrderDetailModel> orderDetailsMap = new HashMap<>();
+
+            while (rs.next()) {
+                if (orderModel == null) {
+                    orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setAccount_id(rs.getInt("account_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("order_description"));
+                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    if (timestamp != null) {
+                        orderModel.setDay(timestamp.toLocalDateTime());
+                    }
+                    orderModel.setUsername(rs.getString("account_username"));
+                    orderModel.setEmail(rs.getString("account_email"));
                 }
-                orderDetailModel.setSize(rs.getString("size"));
+
+                int orderDetailId = rs.getInt("order_detail_id");
+                OrderDetailModel orderDetail = orderDetailsMap.get(orderDetailId);
+                if (orderDetail == null) {
+                    orderDetail = new OrderDetailModel();
+                    orderDetail.setOrder_detail_id(orderDetailId);
+                    orderDetail.setQuantity(rs.getInt("quantity"));
+                    orderDetail.setTable_number(rs.getInt("table_number"));
+                    orderDetail.setStatus(rs.getInt("order_detail_status"));
+                    orderDetail.setProductDetails(new ArrayList<>());
+                    orderDetailsMap.put(orderDetailId, orderDetail);
+                }
+
+                ProductDetailModel productDetail = new ProductDetailModel();
+                productDetail.setProduct_detail_id(rs.getInt("product_detail_id"));
+                productDetail.setSize(rs.getString("size"));
+                productDetail.setPrice(rs.getFloat("price"));
                 
-                List<OrderItemModel> orderItems = getOrderItemsForOrder(order.getOrder_id());
-                orderDetailModel.setOrderItems(orderItems);
+                productDetail.setProduct_name(rs.getString("product_name"));
+
+                orderDetail.getProductDetails().add(productDetail);
+            }
+
+            if (orderModel != null) {
+                orderModel.setOrderDetails(new ArrayList<>(orderDetailsMap.values()));
             }
         }
     } catch (SQLException e) {
-       System.out.println("SQL Error: " + e.getMessage());
+        System.out.println("SQL Error: " + e.getMessage());
     }
-    return orderDetailModel;
+    return orderModel;
 }
 
     private List<OrderItemModel> getOrderItemsForOrder(int orderId) {
@@ -197,6 +231,11 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
 
     @Override
     public boolean restoreAccount(int userId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<OrderDetailModel> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  
