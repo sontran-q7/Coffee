@@ -35,7 +35,7 @@ public class ReturnAccount extends javax.swing.JPanel {
 
     public ReturnAccount() {
         initComponents();
-        setDefTable();
+        //setDefTable();
         
         GetList();
         

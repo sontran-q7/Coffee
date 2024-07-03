@@ -136,6 +136,7 @@ com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\employee\ReturnAccount$1.class
 com\app\coffee\menu\CustomScrollBarUI.class
 com\app\coffee\bill\Bill$4.class
+com\app\coffee\employee\StaffSchedule$4.class
 com\app\coffee\dashboard\DashboardPage$3.class
 com\app\coffee\Database\Connection.class
 com\app\coffee\dashboard\AddShift$2.class
