@@ -26,7 +26,6 @@ com\app\coffee\employee\StaffSchedule$2.class
 com\app\coffee\dashboard\DashboardPage$3$1.class
 com\app\coffee\product\ProductForm$4.class
 com\app\coffee\category\AddCategory$1.class
-com\app\coffee\Login\Register\ListUsers$14.class
 com\app\coffee\dashboard\DashboardPage$1.class
 com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\menu\CardProductPanel$2.class
@@ -78,7 +77,6 @@ com\app\coffee\employee\FormEdit.class
 com\app\coffee\Backend\DAO\BillDAO.class
 com\app\coffee\Backend\DAO\DAOInterface.class
 com\app\coffee\dashboard\MoneyFilter.class
-com\app\coffee\Login\Register\ListUsers$10.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\bill\ButtonRenderer.class
 com\app\coffee\dashboard\DashboardPage.class
@@ -130,14 +128,12 @@ com\app\coffee\product\AddProduct$2.class
 com\app\coffee\product\EditProduct$5.class
 com\app\coffee\dashboard\CardName.class
 com\app\coffee\dashboard\AddShift$1.class
-com\app\coffee\Login\Register\ListUsers$1.class
 com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\employee\ReturnAccount$1.class
 com\app\coffee\menu\CustomScrollBarUI.class
 com\app\coffee\bill\Bill$4.class
 com\app\coffee\dashboard\DashboardPage$3.class
 com\app\coffee\Database\Connection.class
-com\app\coffee\Login\Register\ListUsers$9.class
 com\app\coffee\dashboard\AddShift$2.class
 com\app\coffee\Backend\Model\OrderItemModel.class
 com\app\coffee\dashboard\Dashboard$5.class
@@ -147,4 +143,3 @@ com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
 com\app\coffee\menu\MenuPanel$3.class
 com\app\coffee\category\AddCategory.class
-com\app\coffee\Login\Register\ListUsers$2.class

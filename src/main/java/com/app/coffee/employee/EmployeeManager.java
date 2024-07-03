@@ -109,12 +109,10 @@ public class EmployeeManager extends javax.swing.JPanel {
     DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
     table.setRowCount(0);
 
-    int count = 1;
-
     for (UsersModel user : listUser) {
         if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
             Object[] row = {
-                count++,
+                user.getAccount_id(),   
                 user.getImage()!= null ? user.getImage() : "no-image.png",
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 

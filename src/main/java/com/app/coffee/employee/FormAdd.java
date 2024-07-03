@@ -45,8 +45,7 @@ public class FormAdd extends JPanel {
 
     private void initRoleMap() {
         roleMap = new HashMap<>();
-        //chổ thay đổi
-        roleMap.put("staff", 2);    
+        roleMap.put("Staff", 2);    
         roleMap.put("Customer", 3);
     }
 
@@ -66,7 +65,7 @@ public class FormAdd extends JPanel {
 
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(Color.WHITE);
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Added padding
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -82,7 +81,6 @@ public class FormAdd extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        //chổ thay đổi
         positionComboBox = new JComboBox<>(new String[]{"Staff", "Customer"});
         phoneField = new JTextField();
         emailField = new JTextField();
@@ -105,7 +103,7 @@ public class FormAdd extends JPanel {
         addFormComponent(formPanel, gbc, lblPassword, passwordField, 4);
         addFormComponent(formPanel, gbc, lblConfirmPassword, confirmPasswordField, 5);
         addFormComponent(formPanel, gbc, lblImage, btnChooseImage, 6);
-        
+
         gbc.gridx = 1;
         gbc.gridy = 7;
         formPanel.add(imageLabel, gbc);
@@ -182,14 +180,19 @@ public class FormAdd extends JPanel {
             return;
         }
 
-        int roleId = roleMap.get(position);
+        Integer roleId = roleMap.get(position); // Changed to Integer to check for null
+        if (roleId == null) {
+            JOptionPane.showMessageDialog(this, "Selected role is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         String imageName = (selectedImageFile != null) ? saveImage(selectedImageFile) : null;
 
         try (Connection connection = ConnectionCoffee.getConnection()) {
             if (connection != null) {
                 addEmployeeToDatabase(fullName, hashedPassword, phone, roleId, email, imageName, connection);
-                resetForm(); // Reset form sau khi thêm thành công
+                resetForm(); // Reset form after successful addition
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

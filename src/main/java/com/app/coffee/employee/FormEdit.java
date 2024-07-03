@@ -48,7 +48,6 @@ public class FormEdit extends JPanel {
 
     private void initRoleMap() {
         roleMap = new HashMap<>();
-        //chổ thay đổi
         roleMap.put("Staff", 2);    
         roleMap.put("Customer", 3);
     }
@@ -58,7 +57,7 @@ public class FormEdit extends JPanel {
         setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(255,102,0));
+        topPanel.setBackground(new Color(255, 102, 0));
         JLabel titleLabel = new JLabel("Edit Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
@@ -84,7 +83,6 @@ public class FormEdit extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        //chổ thay đổi
         positionComboBox = new JComboBox<>(new String[]{"Staff", "Customer"});
         phoneField = new JTextField();
         emailField = new JTextField();
@@ -192,7 +190,11 @@ public class FormEdit extends JPanel {
             return;
         }
 
-        int roleId = roleMap.get(position);
+        Integer roleId = roleMap.get(position);
+        if (roleId == null) {
+            JOptionPane.showMessageDialog(this, "Selected role is invalid.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         Connection connection = ConnectionCoffee.getConnection();
         if (connection != null) {
