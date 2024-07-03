@@ -5,8 +5,6 @@
 package com.app.coffee.dashboard;
 import static com.app.coffee.Coffee.showLoginForm;
 import com.app.coffee.Login.*;
-import com.app.coffee.Login.Register.ListUsers;
-import com.app.coffee.Login.Register.Member;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
 import com.app.coffee.category.*;
@@ -422,7 +420,6 @@ public class Dashboard extends javax.swing.JFrame {
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
         MenuPanel menu = new MenuPanel();
-        ListUsers user = new ListUsers();
         CategoryForm categoryForm = new CategoryForm();
         ReturnAccount returnAccount = new ReturnAccount();
         StaffSchedule staffSchedule = new StaffSchedule();

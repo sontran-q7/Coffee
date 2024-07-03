@@ -3,10 +3,15 @@ package com.app.coffee.employee;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.swing.*;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -21,12 +26,15 @@ public class FormEdit extends JPanel {
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
     private JButton btnAction;
+    private JButton btnChooseImage;
+    private JLabel imageLabel;
     private JPanel buttonPanel;
     private JDialog parentDialog;
     private EmployeeManager employeeManager;
     private UsersModel userModel;
 
     private HashMap<String, Integer> roleMap;
+    private File selectedImageFile;
 
     public FormEdit(JDialog parentDialog, EmployeeManager employeeManager, UsersModel userModel) {
         this.parentDialog = parentDialog;
@@ -40,10 +48,9 @@ public class FormEdit extends JPanel {
 
     private void initRoleMap() {
         roleMap = new HashMap<>();
-        roleMap.put("Manager", 2);
-        roleMap.put("Barista", 3);
-        roleMap.put("Cashier", 4);
-        roleMap.put("Customer", 5);
+        //chổ thay đổi
+        roleMap.put("Staff", 2);    
+        roleMap.put("Customer", 3);
     }
 
     private void initComponents() {
@@ -74,14 +81,25 @@ public class FormEdit extends JPanel {
         JLabel lblEmail = createBoldLabel("Email:");
         JLabel lblPassword = createBoldLabel("Password:");
         JLabel lblConfirmPassword = createBoldLabel("Confirm Password:");
+        JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[]{"Manager", "Barista", "Cashier", "Customer"});
+        //chổ thay đổi
+        positionComboBox = new JComboBox<>(new String[]{"Staff", "Customer"});
         phoneField = new JTextField();
         emailField = new JTextField();
         emailField.setEditable(false);
         passwordField = new JPasswordField();
         confirmPasswordField = new JPasswordField();
+        btnChooseImage = new JButton("Choose Image");
+        imageLabel = new JLabel();
+
+        btnChooseImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseImage();
+            }
+        });
 
         addFormComponent(formPanel, gbc, lblFullName, nameField, 0);
         addFormComponent(formPanel, gbc, lblPosition, positionComboBox, 1);
@@ -89,9 +107,14 @@ public class FormEdit extends JPanel {
         addFormComponent(formPanel, gbc, lblEmail, emailField, 3);
         addFormComponent(formPanel, gbc, lblPassword, passwordField, 4);
         addFormComponent(formPanel, gbc, lblConfirmPassword, confirmPasswordField, 5);
+        addFormComponent(formPanel, gbc, lblImage, btnChooseImage, 6);
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        formPanel.add(imageLabel, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
@@ -124,7 +147,7 @@ public class FormEdit extends JPanel {
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actionPerformedEdit(e);
+                handleEditEmployee(e);
             }
         });
         buttonPanel.add(btnAction);
@@ -135,9 +158,29 @@ public class FormEdit extends JPanel {
         positionComboBox.setSelectedItem(userModel.getRole().getName());
         phoneField.setText(userModel.getPhone());
         emailField.setText(userModel.getEmail());
+        if (userModel.getImage() != null) {
+            selectedImageFile = new File("src/image/" + userModel.getImage());
+            Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            imageLabel.setIcon(new ImageIcon(img));
+        }
     }
 
-    private void actionPerformedEdit(ActionEvent e) {
+    private void chooseImage() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedImageFile = fileChooser.getSelectedFile();
+            try {
+                Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                imageLabel.setIcon(new ImageIcon(img));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void handleEditEmployee(ActionEvent e) {
         String fullName = nameField.getText();
         String position = (String) positionComboBox.getSelectedItem();
         String phone = phoneField.getText();
@@ -145,13 +188,7 @@ public class FormEdit extends JPanel {
         String password = new String(passwordField.getPassword());
         String confirmPassword = new String(confirmPasswordField.getPassword());
 
-        if (fullName.isEmpty() || position.isEmpty() || phone.isEmpty() || email.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!phone.matches("^\\d{8,}$")) {
-            JOptionPane.showMessageDialog(this, "Phone number must have at least 8 digits.", "Error", JOptionPane.ERROR_MESSAGE);
+        if (!FormValidator.validateEditForm(fullName, position, phone, email, password, confirmPassword)) {
             return;
         }
 
@@ -160,28 +197,22 @@ public class FormEdit extends JPanel {
         Connection connection = ConnectionCoffee.getConnection();
         if (connection != null) {
             String sql;
-
             if (!password.isEmpty() || !confirmPassword.isEmpty()) {
-                if (password.isEmpty() || confirmPassword.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please fill in the password fields.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                if (!password.equals(confirmPassword)) {
-                    JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-                sql = "UPDATE Account SET username = ?, password = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
+                sql = "UPDATE Account SET username = ?, password = ?, phone = ?, role_id = ?, email = ?, image = ? WHERE account_id = ?";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setString(1, fullName);
                     ps.setString(2, hashedPassword);
                     ps.setString(3, phone);
                     ps.setInt(4, roleId);
                     ps.setString(5, email);
-                    ps.setInt(6, userModel.getAccount_id());
+                    String imageName = saveImage(selectedImageFile);
+                    if (imageName != null) {
+                        ps.setString(6, imageName);
+                    } else {
+                        ps.setNull(6, java.sql.Types.VARCHAR);
+                    }
+                    ps.setInt(7, userModel.getAccount_id());
                     ps.executeUpdate();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -189,13 +220,19 @@ public class FormEdit extends JPanel {
                     return;
                 }
             } else {
-                sql = "UPDATE Account SET username = ?, phone = ?, role_id = ?, email = ? WHERE account_id = ?";
+                sql = "UPDATE Account SET username = ?, phone = ?, role_id = ?, email = ?, image = ? WHERE account_id = ?";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setString(1, fullName);
                     ps.setString(2, phone);
                     ps.setInt(3, roleId);
                     ps.setString(4, email);
-                    ps.setInt(5, userModel.getAccount_id());
+                    String imageName = saveImage(selectedImageFile);
+                    if (imageName != null) {
+                        ps.setString(5, imageName);
+                    } else {
+                        ps.setNull(5, java.sql.Types.VARCHAR);
+                    }
+                    ps.setInt(6, userModel.getAccount_id());
                     ps.executeUpdate();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -210,5 +247,31 @@ public class FormEdit extends JPanel {
                 parentDialog.dispose();
             }
         }
+    }
+
+    private String saveImage(File imageFile) {
+        if (imageFile != null) {
+            try {
+                // Generate a random name for the image file
+                String extension = imageFile.getName().substring(imageFile.getName().lastIndexOf("."));
+                String imageName = UUID.randomUUID().toString() + extension;
+
+                // Delete the old image file if it exists
+                if (userModel.getImage() != null && !userModel.getImage().isEmpty()) {
+                    File oldImageFile = new File("src/image/" + userModel.getImage());
+                    if (oldImageFile.exists()) {
+                        oldImageFile.delete();
+                    }
+                }
+
+                File destFile = new File("src/image/" + imageName);
+                Files.copy(imageFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                return imageName;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        return userModel.getImage();
     }
 }

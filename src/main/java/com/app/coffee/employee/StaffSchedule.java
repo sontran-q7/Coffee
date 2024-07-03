@@ -4,11 +4,20 @@
  */
 package com.app.coffee.employee;
 
+import com.app.coffee.Backend.Model.ControlModel;
+import com.app.coffee.Backend.Service.ControlService;
 import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,34 +26,77 @@ import javax.swing.table.DefaultTableModel;
  */
 public class StaffSchedule extends javax.swing.JPanel {
     
+    private ControlService controlService;
+    private DateTimeFormatter timeFormatter;
+    private DateTimeFormatter dateFormatter;
       
     
     public StaffSchedule() {
         initComponents();
         setDefTable();
         
-        setupTableModel();
-    }
-    
-    
-    
-    private void setupTableModel() {
+        controlService = new ControlService();
+        timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        DefaultTableModel tableModel = new DefaultTableModel(
-            new Object[][] {
-                {"1","Mạnh","16:57:20", "16:57:30", "200000", "300000", "09/06/2024"},
-                {"2","Toan","16:57:20", "16:57:30", "200000", "300000", "09/06/2024"},
-                {"1","Son","16:57:20", "16:57:30", "200000", "300000", "10/06/2024"},
-                {"2","Mạnh","16:57:20", "16:57:30", "200000", "300000", "10/06/2024"},
-            },
-            new String[] {
-                "Shift","Name", "Arrival time", "Time to leave", "First money", "End money", "Datetime"
+        GetList();
+        Search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Date selectedDate = jDateChooser.getDate();
+                if (selectedDate != null) {
+                    LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    filterByDate(localDate);
+                }
             }
-        );
-
-        // Set the model to the table
-        table.setModel(tableModel);
+        });
+        
+        Show.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               GetList();
+            }
+        });
     }
+    
+    public void GetList() {
+        List<ControlModel> controlList = controlService.getAllControls();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); 
+
+        for (ControlModel control : controlList) {
+            model.addRow(new Object[]{
+                control.getWorkingTime().getName(),
+                control.getAccount().getUserName(), 
+                control.getCheckIn().format(timeFormatter), 
+                control.getCheckOut().format(timeFormatter), 
+                control.getCheckInPay(),
+                control.getCheckOutPay(),
+                control.getCreatedAt().format(dateFormatter)
+            });
+        }
+    }
+
+    private void filterByDate(LocalDate date) {
+        List<ControlModel> controlList = controlService.getControlsByDate(date.atStartOfDay()); // Ideally, you should have a method to get controls by date
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); 
+
+        for (ControlModel control : controlList) {
+            if (control.getCreatedAt().toLocalDate().equals(date)) {
+                model.addRow(new Object[]{
+                    control.getWorkingTime().getName(),
+                    control.getAccount().getUserName(),
+                    control.getCheckIn().format(timeFormatter), 
+                    control.getCheckOut().format(timeFormatter), 
+                    control.getCheckInPay(),
+                    control.getCheckOutPay(),
+                    control.getCreatedAt().format(dateFormatter) 
+                });
+            }
+        }
+    }
+    
     
     
     private void setDefTable() {
@@ -74,6 +126,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         BackManager = new javax.swing.JButton();
+        Show = new javax.swing.JButton();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -87,8 +140,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         ));
         scroll.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(10);
-            table.getColumnModel().getColumn(1).setPreferredWidth(150);
+            table.getColumnModel().getColumn(1).setPreferredWidth(100);
         }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
@@ -136,19 +188,26 @@ public class StaffSchedule extends javax.swing.JPanel {
                 .addGap(10, 10, 10))
         );
 
+        Show.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Show.setForeground(new java.awt.Color(255, 102, 0));
+        Show.setText(" Show all");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Show, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)))
                 .addGap(41, 41, 41))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -158,7 +217,9 @@ public class StaffSchedule extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Search, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Search, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(Show, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                     .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,6 +250,7 @@ public class StaffSchedule extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackManager;
     private javax.swing.JButton Search;
+    private javax.swing.JButton Show;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
