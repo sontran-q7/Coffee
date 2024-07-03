@@ -103,7 +103,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
     public ArrayList<UsersModel> selectAll() {
     ArrayList<UsersModel> listUser = new ArrayList<>();
     try (Connection conn = ConnectionCoffee.getConnection()) {
-        String sql = "SELECT a.account_id, a.username, a.password, a.phone, a.role_id, r.name as role_name, a.status, a.email " +
+        String sql = "SELECT a.account_id, a.username, a.image,a.password, a.phone, a.role_id, r.name as role_name, a.status, a.email " +
                      "FROM account a " +
                      "JOIN role r ON a.role_id = r.role_id";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -112,6 +112,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             UsersModel user = new UsersModel(
                 rs.getInt("account_id"),
                 rs.getString("username"),
+                rs.getString("image"),
                 rs.getString("password"),
                 rs.getString("phone"),
                 new Role(rs.getInt("role_id"), rs.getString("role_name")), 
@@ -155,6 +156,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             user = new UsersModel(
                 rs.getInt("account_id"),
                 rs.getString("username"),
+                rs.getString("image"),
                 rs.getString("password"),
                 rs.getString("phone"),
                 new Role(rs.getInt("role_id"), "role_name"), 

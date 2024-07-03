@@ -16,16 +16,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jDateChooser" min="-2" pref="212" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="Search" min="-2" pref="90" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-              <Component id="jPanel1" pref="760" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jDateChooser" min="-2" pref="212" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Search" min="-2" pref="90" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Show" min="-2" pref="116" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="jPanel1" pref="760" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -38,7 +43,10 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="Search" pref="30" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Search" alignment="3" pref="30" max="32767" attributes="0"/>
+                      <Component id="Show" alignment="3" pref="30" max="32767" attributes="0"/>
+                  </Group>
                   <Component id="jDateChooser" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -88,12 +96,12 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -212,5 +220,16 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="Show">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="66" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" Show all"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

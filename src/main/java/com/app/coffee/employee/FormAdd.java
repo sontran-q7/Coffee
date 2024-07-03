@@ -3,12 +3,16 @@ package com.app.coffee.employee;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.regex.Pattern;
+import java.util.UUID;
 import javax.swing.*;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -22,11 +26,14 @@ public class FormAdd extends JPanel {
     private JPasswordField passwordField;
     private JPasswordField confirmPasswordField;
     private JButton btnAction;
+    private JButton btnChooseImage;
+    private JLabel imageLabel;
     private JPanel buttonPanel;
     private JDialog parentDialog;
     private EmployeeManager employeeManager;
 
     private HashMap<String, Integer> roleMap;
+    private File selectedImageFile;
 
     public FormAdd(JDialog parentDialog, EmployeeManager employeeManager) {
         this.parentDialog = parentDialog;
@@ -49,13 +56,13 @@ public class FormAdd extends JPanel {
         setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(255,102,0));
+        topPanel.setBackground(new Color(255, 102, 0));
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        titleLabel.setSize(490,550);
+        titleLabel.setSize(490, 550);
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -73,6 +80,7 @@ public class FormAdd extends JPanel {
         JLabel lblEmail = createBoldLabel("Email:");
         JLabel lblPassword = createBoldLabel("Password:");
         JLabel lblConfirmPassword = createBoldLabel("Confirm Password:");
+        JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
         positionComboBox = new JComboBox<>(new String[]{"Manager", "Barista", "Cashier", "Customer"});
@@ -80,6 +88,15 @@ public class FormAdd extends JPanel {
         emailField = new JTextField();
         passwordField = new JPasswordField();
         confirmPasswordField = new JPasswordField();
+        btnChooseImage = new JButton("Choose Image");
+        imageLabel = new JLabel();
+
+        btnChooseImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseImage();
+            }
+        });
 
         addFormComponent(formPanel, gbc, lblFullName, nameField, 0);
         addFormComponent(formPanel, gbc, lblPosition, positionComboBox, 1);
@@ -87,9 +104,14 @@ public class FormAdd extends JPanel {
         addFormComponent(formPanel, gbc, lblEmail, emailField, 3);
         addFormComponent(formPanel, gbc, lblPassword, passwordField, 4);
         addFormComponent(formPanel, gbc, lblConfirmPassword, confirmPasswordField, 5);
+        addFormComponent(formPanel, gbc, lblImage, btnChooseImage, 6);
+        
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        formPanel.add(imageLabel, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
@@ -128,6 +150,21 @@ public class FormAdd extends JPanel {
         buttonPanel.add(btnAction);
     }
 
+    private void chooseImage() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedImageFile = fileChooser.getSelectedFile();
+            try {
+                Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                imageLabel.setIcon(new ImageIcon(img));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     private void handleAddEmployee(ActionEvent e) {
         String fullName = nameField.getText();
         String position = (String) positionComboBox.getSelectedItem();
@@ -136,7 +173,9 @@ public class FormAdd extends JPanel {
         String password = new String(passwordField.getPassword());
         String confirmPassword = new String(confirmPasswordField.getPassword());
 
-        if (isFormInvalid(fullName, position, phone, email, password, confirmPassword)) return;
+        if (!FormValidator.validateForm(fullName, position, phone, email, password, confirmPassword)) {
+            return;
+        }
 
         if (isEmailExist(email)) {
             JOptionPane.showMessageDialog(this, "Email already exists.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -145,39 +184,17 @@ public class FormAdd extends JPanel {
 
         int roleId = roleMap.get(position);
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        String imageName = (selectedImageFile != null) ? saveImage(selectedImageFile) : null;
 
         try (Connection connection = ConnectionCoffee.getConnection()) {
             if (connection != null) {
-                addEmployeeToDatabase(fullName, hashedPassword, phone, roleId, email, connection);
+                addEmployeeToDatabase(fullName, hashedPassword, phone, roleId, email, imageName, connection);
+                resetForm(); // Reset form sau khi thêm thành công
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Failed to add employee.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    private boolean isFormInvalid(String fullName, String position, String phone, String email, String password, String confirmPassword) {
-        if (fullName.isEmpty() || position.isEmpty() || phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-
-        if (!phone.matches("^0\\d{8,}$")) {
-            JOptionPane.showMessageDialog(this, "The phone number always starts with 0 and must have at least 8 digits.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-
-        if (!isValidEmail(email)) {
-            JOptionPane.showMessageDialog(this, "Invalid email format.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(this, "Passwords do not match.", "Error", JOptionPane.ERROR_MESSAGE);
-            return true;
-        }
-
-        return false;
     }
 
     private boolean isEmailExist(String email) {
@@ -196,8 +213,25 @@ public class FormAdd extends JPanel {
         return false;
     }
 
-    private void addEmployeeToDatabase(String fullName, String password, String phone, int roleId, String email, Connection connection) throws SQLException {
-        String sql = "INSERT INTO Account (username, password, phone, role_id, status, email) VALUES (?, ?, ?, ?, ?, ?)";
+    private String saveImage(File imageFile) {
+        try {
+            String extension = "";
+            int i = imageFile.getName().lastIndexOf('.');
+            if (i > 0) {
+                extension = imageFile.getName().substring(i + 1);
+            }
+            String imageName = UUID.randomUUID().toString() + "." + extension;
+            File destFile = new File("src/image/" + imageName);
+            Files.copy(imageFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return imageName;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    private void addEmployeeToDatabase(String fullName, String password, String phone, int roleId, String email, String imageName, Connection connection) throws SQLException {
+        String sql = "INSERT INTO Account (username, password, phone, role_id, status, email, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, fullName);
             ps.setString(2, password);
@@ -205,6 +239,7 @@ public class FormAdd extends JPanel {
             ps.setInt(4, roleId);
             ps.setInt(5, 1);
             ps.setString(6, email);
+            ps.setString(7, imageName);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(this, "Employee added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             employeeManager.GetList();
@@ -214,9 +249,14 @@ public class FormAdd extends JPanel {
         }
     }
 
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        return pattern.matcher(email).matches();
+    private void resetForm() {
+        nameField.setText("");
+        positionComboBox.setSelectedIndex(0);
+        phoneField.setText("");
+        emailField.setText("");
+        passwordField.setText("");
+        confirmPasswordField.setText("");
+        imageLabel.setIcon(null);
+        selectedImageFile = null;
     }
 }

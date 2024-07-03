@@ -14,6 +14,7 @@ import java.util.List;
 public class UsersModel {
 	private int account_id;
         private String username;
+        private String image;
         private String password;
         private String phone;  
         private Role role;
@@ -22,9 +23,10 @@ public class UsersModel {
         
 
         
-        public UsersModel(int account_id, String username, String password, String phone,Role role, int status, String email) {
+        public UsersModel(int account_id, String username, String image, String password, String phone,Role role, int status, String email) {
         this.account_id = account_id;
         this.username = username;
+        this.image = image;
         this.password = password;
         this.phone = phone;
         this.role = role;
@@ -48,7 +50,10 @@ public class UsersModel {
     }
        
     
-       
+
+        public String getImage() {
+            return image;
+        }
         public int getAccount_id(){
         return account_id;
         }
@@ -90,6 +95,10 @@ public class UsersModel {
 
         public void setEmail(String email){
             this.email = email;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
         }
 
     public void setUsername(String username) {

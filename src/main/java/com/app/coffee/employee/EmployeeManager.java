@@ -14,9 +14,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Image;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,41 +38,41 @@ import javax.swing.table.JTableHeader;
 public class EmployeeManager extends javax.swing.JPanel {
 
     public EmployeeManager() {
-        initComponents();
-        setDefTable();
-        
+    initComponents();
+    setDefTable();
+    
         //test
-        loadPanels();
+    loadPanels();
         
-        GetList();
-        
+    GetList();
+
          DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
         {
-            @Override
-             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Font font = c.getFont(); // Lấy font hiện tại
-                c.setFont(font);
-                return c;
-            }
-        };        
+            c.setFont(font);
+            return c;
+        }
+    };
         headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
         // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-        JTableHeader productTable = tableListUser.getTableHeader();
+    JTableHeader productTable = tableListUser.getTableHeader();
        
-        productTable.setDefaultRenderer(headerRenderer);
-       
+    productTable.setDefaultRenderer(headerRenderer);
+
 
         
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
         
-        for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        
+    for (int i = 0; i < tableListUser.getColumnCount(); i++) {
+        tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
-    
+        
+}
+
     private void setDefTable() {
         tableListUser.setDefaultRenderer(Object.class, new TableGradient(new Color(243,114,44),new Color(243,114,44)));
         jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
@@ -85,7 +88,7 @@ public class EmployeeManager extends javax.swing.JPanel {
     }
     
     public void GetList() {
-    UserDAO userdao = new UserDAO();
+    UserDAO userdao = new UserDAO();    
     ArrayList<UsersModel> listUser = userdao.selectAll();
 
     // Sort users by account_id
@@ -99,11 +102,13 @@ public class EmployeeManager extends javax.swing.JPanel {
     DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
     table.setRowCount(0);
 
+    int count = 1;
+
     for (UsersModel user : listUser) {
-        
         if (user.getStatus() == 1) {
             Object[] row = {
-                user.getAccount_id(),
+                count++,
+                user.getImage()!= null ? user.getImage() : "no-image",
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
                 user.getPhone() != null ? user.getPhone() : "",
@@ -112,9 +117,12 @@ public class EmployeeManager extends javax.swing.JPanel {
             table.addRow(row);
         }
     }
+    // image
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
 }
 
-    
+
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,18 +138,18 @@ public class EmployeeManager extends javax.swing.JPanel {
         restoreAccount = new javax.swing.JButton();
         staffSchedule = new javax.swing.JButton();
         FormEmployee = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1350, 650));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        tableListUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "No", "Name", "Position", "Phone", "Email"
+                "No", "Image", "Name", "Position", "Phone", "Email"
             }
         ));
         tableListUser.setRowHeight(30);
@@ -153,9 +161,9 @@ public class EmployeeManager extends javax.swing.JPanel {
         scroll.setViewportView(tableListUser);
         if (tableListUser.getColumnModel().getColumnCount() > 0) {
             tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableListUser.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tableListUser.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
@@ -222,7 +230,7 @@ public class EmployeeManager extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 641, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE)
                 .addComponent(restoreAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(staffSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,51 +250,46 @@ public class EmployeeManager extends javax.swing.JPanel {
         FormEmployee.setBackground(new java.awt.Color(255, 255, 255));
         FormEmployee.setLayout(new java.awt.CardLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("List user:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(FormEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addContainerGap(863, Short.MAX_VALUE)
+                .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(961, 961, 961)
+                    .addComponent(FormEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                    .addGap(47, 47, 47)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                    .addComponent(FormEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeleteEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(155, 155, 155)
+                    .addComponent(FormEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                    .addGap(21, 21, 21)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -381,13 +384,25 @@ public class EmployeeManager extends javax.swing.JPanel {
         ((CardLayout) FormEmployee.getLayout()).show(FormEmployee, panelName);
     }
     
+    //không hiển thị khi mở lên được nên chưa biết nên làm không
+    private class ImageRenderTest extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            String photoName = value.toString();
+            ImageIcon imageIcon = new ImageIcon(
+                    new ImageIcon("src/image/" + photoName).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+            return new JLabel(imageIcon);
+        }
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAccount;
     private javax.swing.JButton DeleteEmploy;
     private javax.swing.JPanel FormEmployee;
     private javax.swing.JButton editAccount;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton restoreAccount;

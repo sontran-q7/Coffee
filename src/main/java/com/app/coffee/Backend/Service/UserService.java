@@ -28,7 +28,7 @@ public class UserService {
     public UserService() {
         this.userDAO = new UserDAO();
     }
-    public int create(String userName, String email, String password, String confirmPassword, String phone, Role selectedRole) { 
+    public int create(String userName, String email, String image,String password, String confirmPassword, String phone, Role selectedRole) { 
         if (userName.isEmpty()) {
             throw new IllegalArgumentException("User_Name can't be empty!!");
         }
@@ -60,7 +60,7 @@ public class UserService {
             throw new IllegalArgumentException("Email already exists. Please use a different email.");
         }
 
-        UsersModel newUser = new UsersModel(0, userName, password, phone, selectedRole, 0, email);
+        UsersModel newUser = new UsersModel(0, userName, image,password, phone, selectedRole, 0, email);
         int result = userDAO.Create(newUser); // Assuming `create` method in `UserDAO`
 
         return result;

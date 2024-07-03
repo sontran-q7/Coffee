@@ -31,12 +31,13 @@ public class UserController {
                 if (rs.next()) {
                     int account_id = rs.getInt("account_id");
                     String username = rs.getString("username");
+                    String image = rs.getString("image");
                     String password = rs.getString("password");
                     String phone = rs.getString("phone");
                     int role_id = rs.getInt("role_id");
                     int status = rs.getInt("status");
                     Role role = new Role(role_id, "Admin");
-                    user = new UsersModel(account_id, username, password, phone, role, status, email);
+                    user = new UsersModel(account_id, username, image,password, phone, role, status, email);
                 }
             }
         } catch (SQLException e) {
