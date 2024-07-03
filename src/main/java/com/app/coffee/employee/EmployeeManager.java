@@ -9,16 +9,23 @@ import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -105,10 +112,10 @@ public class EmployeeManager extends javax.swing.JPanel {
     int count = 1;
 
     for (UsersModel user : listUser) {
-        if (user.getStatus() == 1) {
+        if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
             Object[] row = {
                 count++,
-                user.getImage()!= null ? user.getImage() : "no-image",
+                user.getImage()!= null ? user.getImage() : "no-image.png",
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
                 user.getPhone() != null ? user.getPhone() : "",
@@ -389,12 +396,49 @@ public class EmployeeManager extends javax.swing.JPanel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            String photoName = value.toString();
-            ImageIcon imageIcon = new ImageIcon(
-                    new ImageIcon("src/image/" + photoName).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+            String photoName = value != null ? value.toString() : "no-image.png";
+            File imageFile = new File("src/image/" + photoName);
+            if (!imageFile.exists()) {
+                imageFile = new File("src/image/no-image.png");
+            }
+//            ImageIcon imageIcon = new ImageIcon(
+//                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
+            ImageIcon imageIcon = createCircularImageIcon(imageFile.getAbsolutePath());
             return new JLabel(imageIcon);
         }
         
+    }
+    
+    private ImageIcon createCircularImageIcon(String path) {
+        try {
+            BufferedImage master = ImageIO.read(new File(path));
+            int diameter = Math.min(master.getWidth(), master.getHeight());
+            BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D g2d = mask.createGraphics();
+            applyQualityRenderingHints(g2d);
+            g2d.fill(new Ellipse2D.Double(0, 0, diameter, diameter));
+            g2d.dispose();
+
+            BufferedImage masked = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+            g2d = masked.createGraphics();
+            applyQualityRenderingHints(g2d);
+            g2d.drawImage(master, 0, 0, diameter, diameter, null);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_IN));
+            g2d.drawImage(mask, 0, 0, null);
+            g2d.dispose();
+
+            return new ImageIcon(masked);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void applyQualityRenderingHints(Graphics2D g2d) {
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
