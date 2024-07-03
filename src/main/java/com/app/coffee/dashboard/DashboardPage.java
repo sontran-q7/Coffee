@@ -73,7 +73,7 @@ public class DashboardPage extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JButton();
-        DeleteStaff = new javax.swing.JButton();
+        EditShift = new javax.swing.JButton();
         StaffPanel = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         PositionCard = new javax.swing.JLabel();
@@ -253,9 +253,9 @@ public class DashboardPage extends javax.swing.JPanel {
             }
         });
 
-        DeleteStaff.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        DeleteStaff.setText("Delete");
-        DeleteStaff.setPreferredSize(new java.awt.Dimension(90, 30));
+        EditShift.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        EditShift.setText("Edit");
+        EditShift.setPreferredSize(new java.awt.Dimension(90, 30));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -264,11 +264,11 @@ public class DashboardPage extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(465, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(230, 230, 230)
+                .addGap(195, 195, 195)
                 .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(DeleteStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(18, 18, 18)
+                .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +277,7 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DeleteStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -474,7 +474,7 @@ public class DashboardPage extends javax.swing.JPanel {
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListStaff dialog = new ListStaff(new javax.swing.JFrame(), true);
+                AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -550,7 +550,7 @@ public class DashboardPage extends javax.swing.JPanel {
       }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStaff;
-    private javax.swing.JButton DeleteStaff;
+    private javax.swing.JButton EditShift;
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel Money_day;
     private javax.swing.JLabel MonthPanel;
