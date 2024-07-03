@@ -10,6 +10,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CardPr
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ProductDao.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\ProductDetailModel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO\UserDAO.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\ControlModel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\DashboardPage.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\CustomDialog.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\CategoryDao.java
@@ -19,10 +20,10 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\hashpasswor
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\ButtonRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CategoryMenu.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CardProduct.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\WorkingTimeModel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\ProductDaoMenu.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\ButtonEditor.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\FormEdit.java
-C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\Register\ListUsers.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO\DAOInterface.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\UserController.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\MenuPanel.java
@@ -33,11 +34,12 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\Custom
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dateformat\DateLabelFormatter.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\LoginForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\ProductMenu.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\FormValidator.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Service\ControlService.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\StaffSchedule.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CategoryDaoMenu.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\DatabaseConnection.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\GradientPanel.java
-C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\Register\Member.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\TableGradient.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\PendingBill.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\EditCategory.java

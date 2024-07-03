@@ -12,8 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -33,6 +35,8 @@ public class AddShift extends javax.swing.JDialog {
     
     public static final int RET_OK = 1;
     
+    private HashMap<String, Integer> shiftMap;
+    private HashMap<String, Integer> managerMap;
        private void loadBoxShift() {
         String sql = "SELECT * FROM working_time"; // Giả sử bảng shifts có cột shift_id và shift_name
         try (Connection conn = ConnectionCoffee.getConnection();
@@ -71,6 +75,8 @@ public class AddShift extends javax.swing.JDialog {
     public AddShift(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initShiftMap();
+        initManagerMap();
         updateCheckInTimeLabel();
         loadBoxShift();
         loadManager();
@@ -297,6 +303,74 @@ public class AddShift extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     private void initShiftMap() {
+        shiftMap = new HashMap<>();
+        try (Connection conn = ConnectionCoffee.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT working_time_id, name FROM working_time")) {
+            while (rs.next()) {
+                shiftMap.put(rs.getString("name"), rs.getInt("working_time_id"));
+            }
+            BoxShift.setModel(new javax.swing.DefaultComboBoxModel<>(shiftMap.keySet().toArray(new String[0])));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initManagerMap() {
+        managerMap = new HashMap<>();
+        try (Connection conn = ConnectionCoffee.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT account_id, username FROM account WHERE role_id = 2")) {
+            while (rs.next()) {
+                managerMap.put(rs.getString("username"), rs.getInt("account_id"));
+            }
+            BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(managerMap.keySet().toArray(new String[0])));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+    // Lấy dữ liệu từ các trường nhập liệu
+    String selectedShift = (String) BoxShift.getSelectedItem();
+    Integer workingTimeId = shiftMap.get(selectedShift);
+    if (workingTimeId == null) {
+        JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Lấy thời gian hiện tại
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String checkIn = now.format(formatter);
+    
+    // Giá trị check out, nếu cần lấy từ giao diện
+    String checkOut = now.format(formatter); // Thay đổi này phụ thuộc vào thực tế logic của ứng dụng
+    
+    // Kiểm tra và chuyển đổi giá trị của InPayField
+    float checkInPay = 0;
+    try {
+        checkInPay = Float.parseFloat(InPayField.getText());
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Check In Pay.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
+
+    String selectedManager = (String) BoxManager.getSelectedItem();
+    Integer accountId = managerMap.get(selectedManager);
+    if (accountId == null) {
+        JOptionPane.showMessageDialog(this, "Quản lý không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Thêm ca làm việc
+    addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
+     doClose(RET_OK);
+    }//GEN-LAST:event_okButtonActionPerformed
     
     // Phương thức updateCheckInTimeLabel
     private void updateCheckInTimeLabel() {
@@ -308,44 +382,24 @@ public class AddShift extends javax.swing.JDialog {
     
     // Phương thức addControl
     public void addControl(int workingTimeId, String checkIn, String checkOut, float checkInPay, float checkOutPay, int accountId) {
-        String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";
+     String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";
+    
+    try (Connection conn = ConnectionCoffee.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         
-        try (Connection conn = ConnectionCoffee.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setInt(1, workingTimeId);
-            pstmt.setString(2, checkIn);
-            pstmt.setString(3, checkOut);
-            pstmt.setFloat(4, checkInPay);
-            pstmt.setFloat(5, checkOutPay);
-            pstmt.setInt(6, accountId);
-            
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        pstmt.setInt(1, workingTimeId);
+        pstmt.setString(2, checkIn);
+        pstmt.setString(3, checkOut);
+        pstmt.setFloat(4, checkInPay);
+        pstmt.setFloat(5, checkOutPay);
+        pstmt.setInt(6, accountId);
+        
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
-    
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-           // Lấy dữ liệu từ các trường nhập liệu
-        int workingTimeId = Integer.parseInt(BoxShift.getSelectedItem().toString());
-        String checkOut = ""; // Giá trị check out, nếu cần lấy từ giao diện
-        float checkInPay = Float.parseFloat(InPayField.getText());
-        float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
-        int accountId = Integer.parseInt(BoxManager.getSelectedItem().toString()); 
-        
-        // Lấy thời gian hiện tại
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String checkIn = now.format(formatter);
-        
-        // Thêm ca làm việc
-        addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
-        
-        // Đóng dialog
-        doClose(RET_OK);
-    }//GEN-LAST:event_okButtonActionPerformed
-    
+    }
     
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
