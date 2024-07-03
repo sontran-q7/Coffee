@@ -401,44 +401,11 @@ public class EmployeeManager extends javax.swing.JPanel {
             if (!imageFile.exists()) {
                 imageFile = new File("src/image/no-image.png");
             }
-//            ImageIcon imageIcon = new ImageIcon(
-//                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
-            ImageIcon imageIcon = createCircularImageIcon(imageFile.getAbsolutePath());
+            ImageIcon imageIcon = new ImageIcon(
+                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));          
             return new JLabel(imageIcon);
         }
         
-    }
-    
-    private ImageIcon createCircularImageIcon(String path) {
-        try {
-            BufferedImage master = ImageIO.read(new File(path));
-            int diameter = Math.min(master.getWidth(), master.getHeight());
-            BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
-
-            Graphics2D g2d = mask.createGraphics();
-            applyQualityRenderingHints(g2d);
-            g2d.fill(new Ellipse2D.Double(0, 0, diameter, diameter));
-            g2d.dispose();
-
-            BufferedImage masked = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
-            g2d = masked.createGraphics();
-            applyQualityRenderingHints(g2d);
-            g2d.drawImage(master, 0, 0, diameter, diameter, null);
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_IN));
-            g2d.drawImage(mask, 0, 0, null);
-            g2d.dispose();
-
-            return new ImageIcon(masked);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private void applyQualityRenderingHints(Graphics2D g2d) {
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
