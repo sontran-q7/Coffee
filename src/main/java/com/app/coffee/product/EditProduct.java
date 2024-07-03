@@ -116,6 +116,11 @@ public class EditProduct extends javax.swing.JPanel {
         });
 
         CategoryCombobBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CategoryCombobBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategoryCombobBoxActionPerformed(evt);
+            }
+        });
 
         btnReset.setBackground(new java.awt.Color(51, 51, 51));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -280,6 +285,10 @@ public class EditProduct extends javax.swing.JPanel {
             txtImage.setText(imageName);
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed
+
+    private void CategoryCombobBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryCombobBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CategoryCombobBoxActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
