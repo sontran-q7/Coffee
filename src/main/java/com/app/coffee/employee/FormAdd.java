@@ -50,7 +50,7 @@ public class FormAdd extends JPanel {
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout(20, 20));
+        setLayout(new BorderLayout(10, 10));
         setBackground(Color.WHITE);
 
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -59,13 +59,13 @@ public class FormAdd extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         titleLabel.setSize(490, 550);
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(Color.WHITE);
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -111,7 +111,8 @@ public class FormAdd extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.weighty = 1.0; // Add weight to push the form upwards
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonPanel.setBackground(Color.WHITE);
         formPanel.add(buttonPanel, gbc);
@@ -138,7 +139,7 @@ public class FormAdd extends JPanel {
         btnAction = new JButton("Register");
         btnAction.setBackground(new Color(255, 51, 0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setPreferredSize(new Dimension(200, 40));
+        btnAction.setPreferredSize(new Dimension(100, 27));
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

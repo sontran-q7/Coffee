@@ -10,7 +10,9 @@ import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -18,7 +20,12 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -33,13 +40,14 @@ public class StaffSchedule extends javax.swing.JPanel {
     
     public StaffSchedule() {
         initComponents();
-        setDefTable();
+        //setDefTable();
         
         controlService = new ControlService();
         timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         GetList();
+        SetColumn();
         Search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,6 +65,33 @@ public class StaffSchedule extends javax.swing.JPanel {
                GetList();
             }
         });
+    }
+    
+    private void SetColumn() {
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+        {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                Font font = c.getFont(); // Lấy font hiện tại
+            c.setFont(font);
+            return c;
+        }
+    };
+    headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
+        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+    JTableHeader productTable = table.getTableHeader();
+       
+    productTable.setDefaultRenderer(headerRenderer);
+
+
+        
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+        
+    for (int i = 0; i < table.getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
     }
     
     public void GetList() {
