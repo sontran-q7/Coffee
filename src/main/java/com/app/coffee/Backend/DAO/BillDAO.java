@@ -37,10 +37,8 @@ public class BillDAO {
 
             while (rs.next()) {
                 PendingBill bill = new PendingBill();
-                bill.setOrder_id(rs.getInt("order_id"));
-               // bill.setQuantity(rs.getInt("quantity"));
+                bill.setOrder_id(rs.getInt("order_id"));           
                 bill.setTotal(rs.getFloat("total"));
-               // bill.setNo(rs.getInt("no"));
                 bill.setTable_number(rs.getInt("table_number"));
                 bill.setDescription(rs.getString("description"));
                 bill.setDay(rs.getDate("day"));

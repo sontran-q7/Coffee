@@ -5,6 +5,8 @@
 package com.app.coffee.product;
 
 import com.app.coffee.category.Category;
+import com.app.coffee.category.CategoryDao;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -13,8 +15,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -29,12 +33,17 @@ public class EditProduct extends javax.swing.JPanel {
 
     private ProductForm productForm;
     public File anh = null;
-   
-    public EditProduct(ProductForm productForm) {
+    public CategoryDao cd = new CategoryDao();
+    ProductDao pd = new ProductDao();
+    public int id;
+
+    public EditProduct(ProductForm productForm, int idProduct) {
         this.productForm = productForm;
-         
+        this.id = idProduct;
         initComponents();
-        
+        fillComboboxCategory();
+        cboCategory.setEnabled(false);
+
     }
 
     /**
@@ -53,7 +62,6 @@ public class EditProduct extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtImage = new javax.swing.JTextField();
         txtProduct = new javax.swing.JTextField();
-        CategoryCombobBox = new javax.swing.JComboBox<>();
         btnReset = new javax.swing.JButton();
         btnUpdateProduct = new javax.swing.JButton();
         btnChooseImage = new javax.swing.JButton();
@@ -66,6 +74,7 @@ public class EditProduct extends javax.swing.JPanel {
         Description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
+        cboCategory = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -115,18 +124,16 @@ public class EditProduct extends javax.swing.JPanel {
             }
         });
 
-        CategoryCombobBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CategoryCombobBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CategoryCombobBoxActionPerformed(evt);
-            }
-        });
-
         btnReset.setBackground(new java.awt.Color(51, 51, 51));
         btnReset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
         btnReset.setText("Reset");
         btnReset.setPreferredSize(new java.awt.Dimension(75, 30));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
 
         btnUpdateProduct.setBackground(new java.awt.Color(255, 102, 0));
         btnUpdateProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -166,6 +173,8 @@ public class EditProduct extends javax.swing.JPanel {
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
+        cboCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,8 +212,8 @@ public class EditProduct extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                                     .addComponent(txtImage, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-                                    .addComponent(CategoryCombobBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnChooseImage)))
+                                    .addComponent(btnChooseImage)
+                                    .addComponent(cboCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
@@ -225,11 +234,13 @@ public class EditProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CategoryCombobBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(cboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Size, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Price, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,7 +273,37 @@ public class EditProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_txtProductActionPerformed
 
     private void btnUpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateProductActionPerformed
-        
+
+        if (productForm != null && !productForm.checkRowSelection()) {
+            JOptionPane.showMessageDialog(null, "No row is selected. Please select a row to edit!");
+            return;
+        }
+
+        if (!checkvalidate()) { // Kiểm tra nếu không hợp lệ
+            return;
+        } else {
+            try {
+                ProductDetail pdS = editProductDetailSizeS();
+                ProductDetail pdL = editProductDetailSizeL();
+                int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?", "Notification", JOptionPane.YES_NO_OPTION);
+                if (i == 0) {
+
+                    if (pd.UpdateProductAndDetailSizeS(pdS, id) != null && pd.UpdateProductAndDetailSizeL(pdL, id) != null) {
+                        JOptionPane.showMessageDialog(null, "Edited successfully!");
+                        if (productForm != null) {
+                            productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Add failure!");
+                    }
+                } else {
+                    return;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }//GEN-LAST:event_btnUpdateProductActionPerformed
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
@@ -276,29 +317,37 @@ public class EditProduct extends javax.swing.JPanel {
             File selectedFile = fileChooser.getSelectedFile();
             anh = fileChooser.getSelectedFile();
             String imageName = selectedFile.getName(); // lay ten cua hinh anh
-            ImageIcon selectedImage = new ImageIcon(selectedFile.getAbsolutePath());
-            // Xem trước hình ảnh đã chọn
+            ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+
+            // Thay đổi kích thước của hình ảnh
+            Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+            ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+
+            // Xem trước hình ảnh đã chọn với kích thước cố định
             JLabel imageLabel = new JLabel();
-            imageLabel.setIcon(selectedImage);
+            imageLabel.setIcon(resizedImageIcon);
             JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
-            //
+
             txtImage.setText(imageName);
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed
 
-    private void CategoryCombobBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoryCombobBoxActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CategoryCombobBoxActionPerformed
+        if (productForm != null) {
+            productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
+        }
+    }//GEN-LAST:event_btnResetActionPerformed
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JComboBox<String> CategoryCombobBox;
     private javax.swing.JLabel Description;
     private javax.swing.JLabel Price;
     private javax.swing.JLabel Size;
     public javax.swing.JButton btnChooseImage;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUpdateProduct;
+    private javax.swing.JComboBox<String> cboCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -313,4 +362,114 @@ public class EditProduct extends javax.swing.JPanel {
     private javax.swing.JTextField txtPriceS;
     public static javax.swing.JTextField txtProduct;
     // End of variables declaration//GEN-END:variables
+
+    private void fillComboboxCategory() {
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model = (DefaultComboBoxModel) cboCategory.getModel();
+        model.removeAllElements();
+        List<Category> list = cd.getAllCategories();
+        for (Category c : list) {
+            model.addElement(c);
+        }
+    }
+
+    public void getDataTable() {
+        ArrayList<ProductDetail> listPD = pd.showDataProductDetail(id);
+        System.out.println("edit:" + id);
+
+        for (ProductDetail p : listPD) {
+            txtDescription.setText(p.getProduct().getDescription());
+            txtImage.setText(p.getProduct().getImage());
+            txtProduct.setText(p.getProduct().getProduct_name());
+            cboCategory.setSelectedIndex(p.getProduct().getCategory().getCategory_id() - 1);
+            if (p.getSize().equals("S")) {
+                txtPriceS.setText(p.getPrice().toString());
+
+            }
+            if (p.getSize().equals("L")) {
+                txtPriceL.setText(p.getPrice().toString());
+
+            }
+        }
+    }
+
+    private boolean checkvalidate() {
+        String image = txtImage.getText();
+        String product = txtProduct.getText();
+        String description = txtDescription.getText();
+        String priceL = txtPriceL.getText();
+        String priceS = txtPriceS.getText();
+        if (image.isEmpty() || product.isEmpty() || description.isEmpty() || priceL.isEmpty() || priceS.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Cannot be empty!");
+            return false;
+        }
+        if (!isNumeric(priceL) || !isNumeric(priceS)) {
+            JOptionPane.showMessageDialog(null, "Price must be numeric!");
+            return false;
+        }
+
+        try {
+            int priceLarge = Integer.parseInt(priceL);
+            int priceSmall = Integer.parseInt(priceS);
+
+            if (priceLarge <= 0 || priceSmall <= 0) {
+                JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid price format! Please enter valid integers.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public ProductDetail editProductDetailSizeS() {
+        ProductDetail pDetail = new ProductDetail();
+        Product p = new Product();
+        p.setProduct_id(id);
+        Category selectedCategory = (Category) cboCategory.getSelectedItem();
+        p.setCategory(selectedCategory);
+        p.setDescription(txtDescription.getText());
+        p.setImage(txtImage.getText());
+        p.setProduct_name(txtProduct.getText());
+        pDetail.setProduct(p);
+        pDetail.setPrice(Integer.parseInt(txtPriceS.getText()));
+        return pDetail;
+    }
+
+    public ProductDetail editProductDetailSizeL() {
+        ProductDetail pDetail = new ProductDetail();
+        Product p = new Product();
+        p.setProduct_id(id);
+        Category selectedCategory = (Category) cboCategory.getSelectedItem();
+        p.setCategory(selectedCategory);
+        p.setDescription(txtDescription.getText());
+        p.setImage(txtImage.getText());
+        p.setProduct_name(txtProduct.getText());
+        pDetail.setProduct(p);
+        pDetail.setPrice(Integer.parseInt(txtPriceL.getText()));
+        return pDetail;
+    }
+
+    public void resetFields() {
+        txtImage.setText("");
+        txtProduct.setText("");
+        txtPriceL.setText("");
+        txtPriceS.setText("");
+        txtDescription.setText("");
+        cboCategory.setSelectedIndex(0);
+    }
 }

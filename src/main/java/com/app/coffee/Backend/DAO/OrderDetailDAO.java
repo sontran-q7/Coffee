@@ -6,7 +6,7 @@ package com.app.coffee.Backend.DAO;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.Model.OrderDetailModel;
-import com.app.coffee.Backend.Model.OrderItemModel;
+
 import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.Backend.Model.ProductDetailModel;
 
@@ -189,29 +189,6 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     }
     return orderModel;
 }
-
-    private List<OrderItemModel> getOrderItemsForOrder(int orderId) {
-    List<OrderItemModel> orderItems = new ArrayList<>();
-    String sql = "SELECT order_id, order_detail_id FROM order_items WHERE order_id = ?";
-    try (Connection conn = ConnectionCoffee.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-
-        ps.setInt(1, orderId);
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                int itemId = rs.getInt("order_detail_id");
-                int itemId2 = rs.getInt("order_id");
-                OrderItemModel item = new OrderItemModel(orderId, itemId);
-                orderItems.add(item);
-            }
-        }
-    } catch (SQLException e) {
-        System.out.println("SQL Error: " + e.getMessage());
-    }
-    return orderItems;
-}
-
-
 
     @Override
     public OrderDetailModel selectById(OrderDetailModel t) {

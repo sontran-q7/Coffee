@@ -5,8 +5,7 @@
 package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.DAO.BillDAO;
-import com.app.coffee.Backend.DAO.OrderDetailDAO;
-import com.app.coffee.Backend.Model.OrderModel;
+
 import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.bill.ButtonEditor;
 import com.app.coffee.bill.ButtonRenderer;
@@ -46,6 +45,7 @@ public class DashboardPage extends javax.swing.JPanel {
         updatePendingBillTable();
         displayTotalSumOfMonth();
         displayTotalSumOfDay();
+        //showDetailDialog();
         //refreshDayNow();
     }
 
@@ -73,7 +73,7 @@ public class DashboardPage extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JButton();
-        EditShift = new javax.swing.JButton();
+        EndShift = new javax.swing.JButton();
         StaffPanel = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         PositionCard = new javax.swing.JLabel();
@@ -253,9 +253,14 @@ public class DashboardPage extends javax.swing.JPanel {
             }
         });
 
-        EditShift.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        EditShift.setText("Edit");
-        EditShift.setPreferredSize(new java.awt.Dimension(90, 30));
+        EndShift.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        EndShift.setText("Edit");
+        EndShift.setPreferredSize(new java.awt.Dimension(90, 30));
+        EndShift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EndShiftActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -267,7 +272,7 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addGap(195, 195, 195)
                 .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
         );
         jPanel3Layout.setVerticalGroup(
@@ -277,7 +282,7 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -488,14 +493,55 @@ public class DashboardPage extends javax.swing.JPanel {
             }
         });
     }//GEN-LAST:event_AddStaffActionPerformed
+
+    private void EndShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndShiftActionPerformed
+          EndShift dialog = new EndShift(new javax.swing.JFrame(), true);
+
+    // Cấu hình WindowListener
+    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent e) {
+            dialog.setVisible(false);
+            dialog.dispose();
+        }
+    });
+
+    // Đặt vị trí của dialog và hiển thị nó
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
+    }//GEN-LAST:event_EndShiftActionPerformed
    
 
+    // chỉnh form detail
+    private void showDetailDialog() {
+    JDialog detailDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Detail Dialog", true);
+    // Customize your detail dialog here
+    
+    // Calculate center position relative to the main panel
+    int centerX = this.getWidth() / 2 - detailDialog.getWidth() / 6;
+    int centerY = this.getHeight() / 2 - detailDialog.getHeight() / 6;
+    
+    // Set the dialog location
+    detailDialog.setLocation(centerX, centerY);
+    
+    // Show the dialog
+    detailDialog.setVisible(true);
+    detailDialog.setLocationRelativeTo(null);
+}
     
      private void updatePendingBillTable() {
         List<PendingBill> pendingBills = BillDAO.getPendingBills();
         DefaultTableModel model = (DefaultTableModel) PendingBillTabel1.getModel();
       
         JButton detailButton = new JButton();
+    detailButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showDetailDialog(); // Call the method to show dialog on button click
+            
+        }
+    });
+        
         for (PendingBill bill : pendingBills) {
             Object[] row = new Object[]{
                 bill.getOrder_id(),
@@ -550,7 +596,7 @@ public class DashboardPage extends javax.swing.JPanel {
       }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStaff;
-    private javax.swing.JButton EditShift;
+    private javax.swing.JButton EndShift;
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel Money_day;
     private javax.swing.JLabel MonthPanel;

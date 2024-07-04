@@ -28,7 +28,6 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\UserController.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\MenuPanel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\Product.java
-C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO\ControlDAO.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\CardName.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CustomScrollBarUI.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dateformat\DateLabelFormatter.java
@@ -42,6 +41,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\Dat
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\GradientPanel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\TableGradient.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\PendingBill.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ProductDetail.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\EditCategory.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\DetailForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\OrderModel.java
@@ -49,7 +49,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Coffee.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\MoneyFilter.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\AddCategory.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\EmployeeManager.java
-C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\OrderItemModel.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\EndShift.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Database\PasswordUtils.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\AddProductDetail.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\Role.java
