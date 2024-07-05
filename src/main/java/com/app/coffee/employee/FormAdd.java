@@ -46,7 +46,7 @@ public class FormAdd extends JPanel {
     private void initRoleMap() {
         roleMap = new HashMap<>();
         roleMap.put("Manager", 2);    
-        roleMap.put("Customer", 3);
+        roleMap.put("Staff", 3);
     }
 
     private void initComponents() {
@@ -81,7 +81,7 @@ public class FormAdd extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[]{"Manager", "Customer"});
+        positionComboBox = new JComboBox<>(new String[]{"Manager", "Staff"});
         phoneField = new JTextField();
         emailField = new JTextField();
         passwordField = new JPasswordField();
