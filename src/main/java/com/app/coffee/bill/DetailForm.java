@@ -24,22 +24,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class DetailForm extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
     
-    public static void main(String args[]) {
-        /* Create and display the form within a JFrame */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame("Detail Form");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
-                DetailForm panel = new DetailForm();
-                frame.add(panel);
-                
-                //frame.pack();
-                frame.setVisible(true);
-                frame.setLocationRelativeTo(null);
-            }
-        });
-    }
+    
     /**
      * Creates new form DetailForm
      */
