@@ -155,25 +155,16 @@ public class EmployeeManager extends javax.swing.JPanel {
 
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "No", "Image", "Name", "Position", "Phone", "Email"
             }
         ));
-        tableListUser.setRowHeight(30);
-        tableListUser.setSelectionBackground(new java.awt.Color(255, 153, 0));
-        tableListUser.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tableListUser.setShowGrid(false);
-        tableListUser.getTableHeader().setResizingAllowed(false);
-        tableListUser.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(tableListUser);
-        if (tableListUser.getColumnModel().getColumnCount() > 0) {
-            tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableListUser.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tableListUser.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(5).setPreferredWidth(100);
-        }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
 
