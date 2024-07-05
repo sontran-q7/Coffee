@@ -60,7 +60,7 @@ public class FormAdd extends JPanel {
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        titleLabel.setSize(490, 550);
+        titleLabel.setSize(590, 550);
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
