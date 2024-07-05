@@ -53,30 +53,34 @@ public class EmployeeManager extends javax.swing.JPanel {
         
     GetList();
 
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-        {
+    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                Font font = c.getFont(); // Lấy font hiện tại
+            Font font = c.getFont(); // Lấy font hiện tại
             c.setFont(font);
             return c;
         }
     };
     headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+
+    // Set header renderer for all columns
     JTableHeader productTable = tableListUser.getTableHeader();
-       
     productTable.setDefaultRenderer(headerRenderer);
 
-
-        
+    // Center align text in all columns except the image column
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
-        
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+
     for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-        tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        // Skip the image column (assuming the image column index is 1)
+        if (i != 1) {
+            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
+
+    // Set custom renderer for image column
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
         
 }
 

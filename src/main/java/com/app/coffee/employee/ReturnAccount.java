@@ -42,32 +42,34 @@ public class ReturnAccount extends javax.swing.JPanel {
         
         GetList();
         
-         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-        {
+         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
-             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//                c.setForeground(Color.BLUE); // Đặt màu chữ của tiêu đề cột thành màu xanh
                 Font font = c.getFont(); // Lấy font hiện tại
-                font = font.deriveFont(Font.BOLD, 16f); // Đặt font là đậm, kích thước
                 c.setFont(font);
                 return c;
             }
-        };        
+        };
         headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
-        JTableHeader productTable = tableListUser.getTableHeader();
-       
-        productTable.setDefaultRenderer(headerRenderer);
-       
 
-        
+        // Set header renderer for all columns
+        JTableHeader productTable = tableListUser.getTableHeader();
+        productTable.setDefaultRenderer(headerRenderer);
+
+        // Center align text in all columns except the image column
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
-        // Áp dụng cho ProductTable
+
         for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            // Skip the image column (assuming the image column index is 1)
+            if (i != 1) {
+                tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
         }
+
+        // Set custom renderer for image column
+        tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
         
     }
     
