@@ -92,7 +92,6 @@ com\app\coffee\product\EditProduct$4.class
 com\app\coffee\Login\CustomDialog.class
 com\app\coffee\employee\EmployeeManager$3.class
 com\app\coffee\employee\ReturnAccount$2.class
-com\app\coffee\bill\DetailForm$1.class
 com\app\coffee\menu\CategoryMenu.class
 com\app\coffee\dashboard\Dashboard$1.class
 com\app\coffee\employee\FormAdd.class

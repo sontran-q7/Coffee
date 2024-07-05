@@ -10,13 +10,13 @@ public class ProductMenu {
     private String size;
     private int status;
 
-    public ProductMenu(int product_id, String product_name, float price, int category_id, String description, String size, int status ) {
+    public ProductMenu(int product_id, String product_name, int category_id, String description, int status ) {
         this.product_id = product_id;
         this.product_name = product_name;
-        this.price = price;
+        
         this.category_id = category_id;
         this.description = description;
-        this.size = size;
+        
         this.status = status;
     }
 
@@ -27,6 +27,8 @@ public class ProductMenu {
     public ProductMenu() {
 
     }
+
+   
 
     public void setProduct_id(int product_id) {
         this.product_id = product_id;

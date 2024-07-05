@@ -150,12 +150,12 @@ public class CardProductPanel extends JPanel {
                     int productId = rs.getInt("product_id");
                     int categoryIdFromDb = rs.getInt("category_id");
                     String productName = rs.getString("product_name");
-                    float price = rs.getFloat("price");
+                    
                     String description = rs.getString("description");
-                    String size = rs.getString("size");
+                    
                     int status = rs.getInt("status");
 
-                    ProductMenu product = new ProductMenu(productId, productName, price, categoryIdFromDb, description, size, status);
+                    ProductMenu product = new ProductMenu(productId, productName, categoryIdFromDb, description, status);
                     products.add(product);
                 }
             }
@@ -177,12 +177,12 @@ public class CardProductPanel extends JPanel {
                 int productId = rs.getInt("product_id");
                 int categoryId = rs.getInt("category_id");
                 String productName = rs.getString("product_name");
-                float price = rs.getFloat("price");
+                
                 String description = rs.getString("description");
-                String size = rs.getString("size");
+                
                 int status = rs.getInt("status");
 
-                ProductMenu product = new ProductMenu(productId, productName, price, categoryId, description, size, status);
+                ProductMenu product = new ProductMenu(productId, productName, categoryId, description, status);
                 products.add(product);
             }
 
