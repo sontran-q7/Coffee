@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.category;
-
 import com.app.coffee.bill.Bill;
 import com.app.coffee.dashboard.DashboardPage;
 import com.app.coffee.employee.EmployeeManager;

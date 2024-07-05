@@ -4,105 +4,113 @@
  */
 package com.app.coffee.product;
 
+import com.app.coffee.category.Category;
+import java.nio.channels.Pipe;
+import java.time.LocalDateTime;
+import javax.swing.ImageIcon;
+
 public class Product {
 
-    private int product_id;
-    private String image; // Sử dụng byte array để lưu trữ dữ liệu hình ảnh (blob) (string image)
-    private int category_id;
+    private Integer product_id;
+    private Category category;
     private String product_name;
+    private String image;
     private String description;
-    private String size;
-    private int price;
-    private String status;
+    private boolean status;
+    private LocalDateTime created_at;
+    private LocalDateTime update_at;
+    private ProductDetail productDetail;
 
-    // Constructor không tham số
-    public Product(String product_name1, String size1, double parseDouble) {
-
+    public Product() {
     }
 
-
-    public void setProduct_id(int product_id) {
+    public Product(Integer product_id, Category category, String product_name, String image, String description) {
         this.product_id = product_id;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-
-    public void setProduct_name(String product_name) {
+        this.category = category;
         this.product_name = product_name;
-    }
-
-    public void setDescription(String description) {
+        this.image = image;
         this.description = description;
     }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Product(int product_id, String image, int category_id, String product_name, String description, String size, int price, String status) {
+    
+    public Product(Integer product_id, Category category, String product_name, String image, String description, ProductDetail productDetail) {
         this.product_id = product_id;
-        this.image = image;
-        this.category_id = category_id;
+        this.category = category;
         this.product_name = product_name;
+        this.image = image;
         this.description = description;
-        this.size = size;
-        this.price = price;
-        this.status = status;
+        this.productDetail = productDetail;
     }
 
-    public int getProduct_id() {
+    public Integer getProduct_id() {
         return product_id;
     }
 
-    public String getImage() {
-        return image;
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getProduct_name() {
         return product_name;
     }
 
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public String getSize() {
-        return size;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public int getCategoryId() {
-        return category_id; // assuming category_id is a string representation of an integer
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" + "product_id=" + product_id + ", image=" + image + ", category_id=" + category_id + ", product_name=" + product_name + ", description=" + description + ", size=" + size + ", price=" + price + ", status=" + status + '}';
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
+    }
+
+    public LocalDateTime getUpdate_at() {
+        return update_at;
+    }
+
+    public void setUpdate_at(LocalDateTime update_at) {
+        this.update_at = update_at;
+    }
+
+    public ProductDetail getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(ProductDetail productDetail) {
+        this.productDetail = productDetail;
     }
 
 }

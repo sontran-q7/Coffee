@@ -55,7 +55,10 @@ public class Bill extends javax.swing.JPanel {
                 + "hoverBackground:null;"
                 + "pressedBackground:null;"
                 + "separatorColor:$TableHeader.background");
-
+//        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+//                + "border:9,0,9,0,$Table.background,10,10");
+//        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+//                + "hoverTrackColor:null");
     }
 
     /**

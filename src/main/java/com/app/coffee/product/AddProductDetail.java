@@ -4,29 +4,60 @@
  */
 package com.app.coffee.product;
 
+import com.app.coffee.category.Category;
+import com.app.coffee.category.CategoryDao;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import static javax.swing.JDialog.setDefaultLookAndFeelDecorated;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Acer
+ * @author anhso
  */
 public class AddProductDetail extends javax.swing.JDialog {
 
+    public CategoryDao cd = new CategoryDao();
+    ProductDao pd = new ProductDao();
+    private ProductForm productForm;
+    private AddProduct parent;
+    public int id;
+
     private void setScreen() {
         setDefaultLookAndFeelDecorated(true);
-        setMinimumSize(new java.awt.Dimension(450, 600));
-        setPreferredSize(new java.awt.Dimension(450, 600));
+        setMinimumSize(new java.awt.Dimension(450, 530));
+        setPreferredSize(new java.awt.Dimension(450, 530));
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setModal(true);
+        setUndecorated(true);
     }
+
     /**
      * Creates new form AddProductDetail
      */
-    public AddProductDetail(AddProduct parent) {
-//        super(parent, modal);
+    public AddProductDetail(AddProduct parent, ProductForm productForm, int idProduct) {
+        this.productForm = productForm;
+        this.parent = parent;
+        this.id = idProduct;
         setScreen();
         initComponents();
+        fillComboboxCategory();
+        getDataAddProduct();
+    }
+
+    private void getDataAddProduct() {
+        Product p = pd.fillAllAddProductDetail(id);
+        txtImage.setText(p.getImage());
+        txtDescription.setText(p.getDescription());
+        txtProduct.setText(p.getProduct_name());
+        comboBoxCategory.setSelectedIndex(p.getCategory().getCategory_id() - 1);
+        txtImage.setEnabled(false);
+        comboBoxCategory.setEnabled(false);
+        txtProduct.setEnabled(false);
+        txtDescription.setEnabled(false);
     }
 
     /**
@@ -48,7 +79,6 @@ public class AddProductDetail extends javax.swing.JDialog {
         txtImage = new javax.swing.JTextField();
         comboBoxCategory = new javax.swing.JComboBox<>();
         txtProduct = new javax.swing.JTextField();
-        btnCancel = new javax.swing.JButton();
         btnAddProduct = new javax.swing.JButton();
         Description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -64,7 +94,7 @@ public class AddProductDetail extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel2.setBackground(new java.awt.Color(255, 153, 51));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,16 +130,6 @@ public class AddProductDetail extends javax.swing.JDialog {
         });
 
         comboBoxCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnCancel.setBackground(new java.awt.Color(51, 51, 51));
-        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
 
         btnAddProduct.setBackground(new java.awt.Color(255, 102, 0));
         btnAddProduct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -158,14 +178,9 @@ public class AddProductDetail extends javax.swing.JDialog {
                     .addComponent(txtPriceL, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Description)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,8 +194,11 @@ public class AddProductDetail extends javax.swing.JDialog {
                                 .addComponent(comboBoxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtProduct)
                                 .addComponent(txtImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(60, 60, 60))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(157, 157, 157))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,11 +231,9 @@ public class AddProductDetail extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPriceL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelSizeL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -250,110 +266,30 @@ public class AddProductDetail extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelActionPerformed
-
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-//        try {
-//            // Lấy dữ liệu từ các trường form
-//            String image = txtImage.getText().trim();
-//            //          String category_id = (String) comboBoxCategory.getSelectedItem();
-//            String categoryName = (String) comboBoxCategory.getSelectedItem();
-//            String product_name = txtProduct.getText().trim();
-//            String description = txtDescription.getText().trim();
-//            int price;
-//            // Get the integer price from the text field
-//            try {
-//                price = Integer.parseInt(txtPrice.getText().trim());
-//            } catch (NumberFormatException e) {
-//                JOptionPane.showMessageDialog(productForm, "Giá tiền phải là một số nguyên.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//            String size = (String) comboBoxSize.getSelectedItem();
-//            ProductDao productDao = new ProductDao();
-//            int id_category = 0;
-//            for (Category c : productDao.getCategory()) {
-//                if (categoryName.equals(c.getCategory_name())) {
-//                    id_category = c.getCategory_id();
-//                }
-//            }
-//            // Kiểm tra xem tên sản phẩm có tồn tại với cùng kích thước và giá không
-//            for (Product pp : productDao.getAllProducts()) {
-//                if (pp.getProduct_name().equals(product_name) && pp.getPrice() == price && pp.getSize().equals(size)) {
-//                    JOptionPane.showMessageDialog(this, "Sản phẩm với cùng tên, kích thước, và giá đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
-//            }
-//
-//            // Lấy category_id từ category_name
-//            try {
-//
-//                if (img.read() == -1) {
-//                    JOptionPane.showMessageDialog(productForm, "Không được để trống ảnh");
-//                    return;
-//                } else {
-//
-//                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//                    byte[] buf = new byte[1024];
-//                    for (int readNum; (readNum = img.read(buf)) != -1;) {
-//                        bos.write(buf, 0, readNum);
-//                    }
-//                    String currentDirectory = System.getProperty("user.dir");
-//                    currentDirectory = currentDirectory + "/static";
-//                    Path directory = Paths.get(currentDirectory);
-//                    if (!Files.exists(directory)) {
-//                        Files.createDirectories(directory);
-//                    }
-//                    File sourceFile = new File(anh.getAbsolutePath());
-//                    String baseFileName = "product";
-//                    String fileExtension = "png";
-//                    File file = getUniqueFile(currentDirectory, baseFileName, fileExtension);
-//                    BufferedImage bufferedImage = ImageIO.read(sourceFile);
-//
-//                    anh = file;
-//                    if (ImageIO.write(bufferedImage, "png", file)) {
-//                        System.out.println("Tạo và lưu tệp ảnh thành công: " + file.getAbsolutePath());
-//                    } else {
-//                        System.out.println("Không thể lưu tệp ảnh.");
-//                    }
-//
-//                }
-//            } catch (IOException e1) {
-//                JOptionPane.showMessageDialog(productForm, "Không được để trống ảnh");
-//
-//                e1.printStackTrace();
-//            }
-//            image = anh.getName();
-//            //        categoryId = productDao.getCategoryIdByName(categoryName);
-//            // Kiểm tra dữ liệu đầu vào
-//            if (product_name.isEmpty() || description.isEmpty() || categoryName.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-            // xet price
-            //            try {
-                //                int priceNumber = Integer.parseInt(price);
-                //            } catch (NumberFormatException e) {
-                //                JOptionPane.showMessageDialog(productForm, "Giá tiền phải là một số.");
-                //                return;
-                //            }
-            // Kiểm tra xem tên sản phẩm có tồn tại với cùng kích thước và giá không
+        if (!checkvalidate()) { // Kiểm tra nếu không hợp lệ
+            return;
+        } else {
+            try {
+                ProductDetail pDetailtL = addProductDetailSizeL();
+                ProductDetail pDetailtS = addProductDetailSizeS();
+                Integer addS = pd.insertProductDetail(pDetailtS);
+                Integer addL = pd.insertProductDetail(pDetailtL);
+                if (addS != null && addL != null) {
+                    JOptionPane.showMessageDialog(null, "Add success!");
+                    dispose();
+                    if (productForm != null) {
+                        productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
+                    }
+                    parent.resetFields();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Add failure!");
+                }
 
-            //            if (productDao.isProductNameExists(product_name, size, price)) {
-                //                JOptionPane.showMessageDialog(this, "Sản phẩm với cùng tên, kích thước, và giá đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                //                return;
-                //            }
-
-            // Thêm sản phẩm vào cơ sở dữ liệu
-//            productDao.insertProd(image, id_category, product_name, description, size, price);
-//            // Làm mới bảng
-//            productForm.refreshProductTable();
-//            // Thông báo thành công
-//            JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-//        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnAddProductActionPerformed
 
     private void txtImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImageActionPerformed
@@ -372,7 +308,6 @@ public class AddProductDetail extends javax.swing.JDialog {
     private javax.swing.JLabel Product;
     private javax.swing.JLabel Size;
     private javax.swing.JButton btnAddProduct;
-    private javax.swing.JButton btnCancel;
     private javax.swing.JComboBox<String> comboBoxCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelSizeL;
@@ -387,4 +322,77 @@ public class AddProductDetail extends javax.swing.JDialog {
     private javax.swing.JTextField txtPriceS;
     private javax.swing.JTextField txtProduct;
     // End of variables declaration//GEN-END:variables
+private boolean checkvalidate() {
+        String product = txtProduct.getText();
+        String description = txtDescription.getText();
+        String priceL = txtPriceL.getText();
+        String priceS = txtPriceS.getText();
+
+        if (product.isEmpty() || description.isEmpty() || priceL.isEmpty() || priceS.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Fields cannot be empty!");
+            return false;
+        }
+
+        if (!isNumeric(priceL) || !isNumeric(priceS)) {
+            JOptionPane.showMessageDialog(null, "Price must be numeric!");
+            return false;
+        }
+
+        try {
+            int priceLarge = Integer.parseInt(priceL);
+            int priceSmall = Integer.parseInt(priceS);
+
+            if (priceLarge <= 0 || priceSmall <= 0) {
+                JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid price format! Please enter valid integers.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isNumeric(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public ProductDetail addProductDetailSizeS() {
+        ProductDetail pDetail = new ProductDetail();
+        int priceS = Integer.parseInt(txtPriceS.getText());
+        Product p = pd.fillAllAddProductDetail(id);
+        pDetail.setProduct(p);
+        pDetail.setPrice(priceS);
+        pDetail.setSize("S");
+        return pDetail;
+    }
+
+    public ProductDetail addProductDetailSizeL() {
+        ProductDetail pDetail = new ProductDetail();
+        int priceL = Integer.parseInt(txtPriceL.getText());
+        Product p = pd.fillAllAddProductDetail(id);
+        pDetail.setProduct(p);
+        pDetail.setPrice(priceL);
+        pDetail.setSize("L");
+        return pDetail;
+    }
+
+    private void fillComboboxCategory() {
+        DefaultComboBoxModel combo = (DefaultComboBoxModel) comboBoxCategory.getModel();
+        combo.removeAllElements();
+        List<Category> list = cd.getAllCategories();
+        for (Category c : list) {
+            combo.addElement(c);
+        }
+    }
+
 }

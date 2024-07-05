@@ -38,7 +38,7 @@ public class AddShift extends javax.swing.JDialog {
     private HashMap<String, Integer> shiftMap;
     private HashMap<String, Integer> managerMap;
        private void loadBoxShift() {
-        String sql = "SELECT * FROM working_time"; // Giả sử bảng shifts có cột shift_id và shift_name
+        String sql = "SELECT * FROM working_time"; 
         try (Connection conn = ConnectionCoffee.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
@@ -80,11 +80,7 @@ public class AddShift extends javax.swing.JDialog {
         updateCheckInTimeLabel();
         loadBoxShift();
         loadManager();
-         // Áp dụng NumberFilter cho InPayField
-//        PlainDocument doc = (PlainDocument) InPayField.getDocument();
-//        doc.setDocumentFilter(new MoneyFilter());
-        
-        // Close the dialog when Esc is pressed
+
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
@@ -341,7 +337,6 @@ public class AddShift extends javax.swing.JDialog {
         return;
     }
     
-    // Lấy thời gian hiện tại
     LocalDateTime now = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String checkIn = now.format(formatter);
@@ -350,7 +345,7 @@ public class AddShift extends javax.swing.JDialog {
     String checkOut = now.format(formatter); // Thay đổi này phụ thuộc vào thực tế logic của ứng dụng
     
     // Kiểm tra và chuyển đổi giá trị của InPayField
-    float checkInPay = 0;
+    float checkInPay ;
     try {
         checkInPay = Float.parseFloat(InPayField.getText());
     } catch (NumberFormatException e) {
@@ -396,8 +391,8 @@ public class AddShift extends javax.swing.JDialog {
         
         pstmt.executeUpdate();
     } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+       // e.printStackTrace();
+       // JOptionPane.showMessageDialog(this, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
     }
     

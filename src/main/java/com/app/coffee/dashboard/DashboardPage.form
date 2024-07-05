@@ -310,7 +310,7 @@
                   <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
                   <Component id="AddStaff" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="EditShift" min="-2" max="-2" attributes="0"/>
+                  <Component id="EndShift" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -322,7 +322,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="AddStaff" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="EditShift" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EndShift" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
@@ -359,7 +359,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddStaffActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="EditShift">
+        <Component class="javax.swing.JButton" name="EndShift">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="1"/>
@@ -369,6 +369,9 @@
               <Dimension value="[90, 30]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EndShiftActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

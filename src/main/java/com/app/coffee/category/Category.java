@@ -12,6 +12,9 @@ public class Category {
     private String category_name;
     private String description;
     private String status;
+    
+    public Category() {
+    }
 
     public Category(int category_id, String category_name, String description, String status) {
         this.category_id = category_id;
@@ -19,7 +22,24 @@ public class Category {
         this.description = description;
         this.status = status;
     }
+    // set
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
 
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    // get
     public int getCategory_id() {
         return category_id;
     }

@@ -17,6 +17,8 @@ import java.util.List;
 
 import com.app.coffee.product.DatabaseConnection; // Import lớp Connection từ gói com.app.coffee.product
 import java.io.File;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import javax.swing.table.DefaultTableModel;
 
 public class ProductDao {
@@ -25,168 +27,14 @@ public class ProductDao {
     private ProductForm productForm;
 
     // add product
-    public void insertProd(String image, int category_id, String product_name, String description, String size, int price) {
-        String query = "INSERT INTO product (image, category_id, product_name, description, size, price, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(query)) {
-
-            pstmt.setString(1, image);
-            pstmt.setInt(2, category_id);
-            pstmt.setString(3, product_name);
-            pstmt.setString(4, description);
-            pstmt.setString(5, size);
-            pstmt.setInt(6, price);
-            pstmt.setString(7, "1");
-
-            pstmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Phương thức này trả về một danh sách các đối tượng Product từ cơ sở dữ liệu
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE status = 1";
-
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                int product_id = rs.getInt("product_id");
-                String image = rs.getString("image");
-                int category_id = rs.getInt("category_id");
-                String product_name = rs.getString("product_name");
-                String description = rs.getString("description");
-                String size = rs.getString("size");
-                int price = rs.getInt("price");
-                String status = rs.getString("status");
-
-                Product p = new Product(product_id, image, category_id, product_name, description, size, price, status);
-                products.add(p);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(parentComponent, "Error retrieving products");
-            e.printStackTrace();
-        }
-        return products;
-    }
-
-    public   List<Category> getCategory() {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM category "; // Thay đổi query theo cấu trúc của bạn
-
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                int category_id = rs.getInt("category_id");
-                String category_name = rs.getString("category_name");
-                String description = rs.getString("description");
-                String status = rs.getString("status");
-                Category c = new Category(category_id, category_name, description, status);
-                categories.add(c);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return categories;
-    }
-
-    List<String> getAllCategories() {
-        List<String> categories = new ArrayList<>();
-        String sql = "SELECT category_name FROM category ORDER BY category_name"; // Thay đổi query theo cấu trúc của bạn
-
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                String category = rs.getString("category_name");
-                categories.add(category);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return categories;
-    }
-
-    public boolean isProductNameExists(String productName, String size, String price) {
-        String query = "SELECT COUNT(*) FROM product WHERE product_name = ? AND size = ? AND price = ?";
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, productName);
-            pstmt.setString(2, size);
-            pstmt.setString(3, price);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    int count = rs.getInt(1);
-                    return count > 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    List<String> getCategoryIdByName(String categoryName) {
-        List<String> categories = new ArrayList<>();
-        String sql = "SELECT category_name FROM category ORDER BY category_name"; // Thay đổi query theo cấu trúc của bạn
-
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                String category = rs.getString("category_name");
-                categories.add(category);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return categories;
-    }
-
-    public void updateProduct(Product p) throws SQLException {
-        System.out.println(p.toString());
-        // Thay đổi query theo cấu trúc của bạn
-        String query = "UPDATE product SET product_name = ?,category_id=?, description = ?, price = ?,size=?, image=?   where product_id ="
-                + p.getProduct_id();
-
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(query)) {
-            pstmt.setString(1, p.getProduct_name());
-            pstmt.setInt(2, p.getCategory_id());
-            pstmt.setString(3, p.getDescription());
-            pstmt.setInt(4, p.getPrice());
-             pstmt.setString(5, p.getSize());
-            pstmt.setString(6, p.getImage());
-          
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public boolean deleteProduct(int product_id) {
-        String sql = "DELETE FROM product WHERE product_id = ?";
-    
-        try (Connection con = DatabaseConnection.getJDBConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, product_id);
-
-            int rowsDeleted = pstmt.executeUpdate();
-            return rowsDeleted > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public void insertProd() {
     }
 
     public boolean hasProductsForCategory(String category_id) {
         String sql = "SELECT COUNT(*) AS count FROM product WHERE category_id = ?";
-        try (Connection con = DatabaseConnection.getJDBConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, category_id);
-            try (ResultSet rs = pstmt.executeQuery()) {
+            try ( ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     int count = rs.getInt("count");
                     return count > 0;
@@ -198,18 +46,240 @@ public class ProductDao {
         return false;
     }
 
-    public boolean deleteProductsForCategory(String category_id) {
-        String sql = "DELETE FROM product WHERE product_id = ?";
-        
-        try (Connection con = DatabaseConnection.getJDBConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, category_id);
-            
-            int rowsDeleted = pstmt.executeUpdate();
-            return rowsDeleted > 0;
+    public ArrayList<Product> fillAllProduct() {
+        ArrayList<Product> listProduct = new ArrayList<>();
+        String sql = """
+                     select  p.image,c.category_name, p.product_name,p.description,pd.`size`,pd.price,p.product_id from product p join category c on p.category_id = c.category_id
+                     left join product_detail pd on pd.product_id = p.product_id  where pd.size like 'S' AND p.status = 1
+                     ORDER BY  p.created_at DESC
+                     
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  
+                PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String image = rs.getString(1);
+                    String category = rs.getString(2);
+                    String productName = rs.getString(3);
+                    String description = rs.getString(4);
+                    String size = rs.getString(5);
+                    int price = rs.getInt(6);
+                    int idProduct = rs.getInt(7);
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setPrice(price);
+                    productDetail.setSize(size);
+                    Category c = new Category();
+                    c.setCategory_name(category);
+                    Product product = new Product(idProduct, c, productName, image, description, productDetail);
+                    listProduct.add(product);
+
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return listProduct;
+    }
+
+    public Integer insertProduct(Product p) {
+        Integer productId = null;
+        String sql = "INSERT INTO `product` ( `category_id`, `product_name`, `image`, `description`, \n"
+                + "                `status`, `created_at`, `updated_at`)VALUES( ?,?,? , ?, 1, NOW(),NOW() )";
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setObject(1, p.getCategory().getCategory_id());
+            pstmt.setObject(2, p.getProduct_name());
+            pstmt.setObject(3, p.getImage());
+            pstmt.setObject(4, p.getDescription());
+
+            int rowsInserted = pstmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    productId = generatedKeys.getInt(1); // Lấy product_id từ generatedKeys
+                } else {
+                    throw new SQLException("Failed to retrieve generated product_id.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productId;
+    }
+
+//ProductDetail
+    public Product fillAllAddProductDetail(int idProduct) {
+        Product p = new Product();
+        String sql = """
+                     select * from  product p 
+                                     where p.product_id =? AND p.status =1
+                      """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setObject(1, idProduct);
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    int id_category = rs.getInt(2);
+                    String productName = rs.getString(3);
+                    String iamge = rs.getString(4);
+                    String description = rs.getString(5);
+                    Category c = new Category();
+                    c.setCategory_id(id_category);
+
+                    p = new Product(idProduct, c, productName, iamge, description);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    public ArrayList<ProductDetail> fillAllProductDetailByID(int idProduct) {
+        ArrayList<ProductDetail> listProductDt = new ArrayList<>();
+        String sql = """
+                     select pd.`size`,pd.price from product_detail pd join product p on pd.product_id =p.product_id 
+                                     where p.product_id =? and pd.status = 1 and p.status =1
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setObject(1, idProduct);
+            pstmt.executeQuery();
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String size = rs.getString(1);
+                    int price = rs.getInt(2);
+                    ProductDetail pd = new ProductDetail(size, price);
+                    listProductDt.add(pd);
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listProductDt;
+    }
+
+    public ArrayList<ProductDetail> showDataProductDetail(int idProduct) {
+        ArrayList<ProductDetail> listProductDt = new ArrayList<>();
+        String sql = """
+                       select pd.`size`,pd.price , p.product_name,p.description,p.image,c.category_name,c.category_id
+                       from product_detail pd join product p on pd.product_id =p.product_id 
+                       join category c on p.category_id = c.category_id  where p.product_id =? and pd.status = 1 and p.status =1
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setObject(1, idProduct);
+            pstmt.executeQuery();
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String size = rs.getString(1);
+                    int price = rs.getInt(2);
+                    String proName = rs.getString(3);
+                    String description = rs.getString(4);
+                    String iamge = rs.getString(5);
+                    String categoryName = rs.getString(6);
+                    int categoryID = rs.getInt(7);
+                    Category c = new Category();
+                    c.setCategory_id(categoryID);
+                    Product p = new Product();
+                    p.setProduct_id(idProduct);
+                    p.setCategory(c);
+                    p.setImage(iamge);
+                    p.setProduct_name(proName);
+                    p.setDescription(description);
+                    ProductDetail pro_detail = new ProductDetail(p, size, price);
+                    listProductDt.add(pro_detail);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listProductDt;
+    }
+
+    public Integer insertProductDetail(ProductDetail pDetail) {
+        Integer row = null;
+        String sql = """
+                     INSERT INTO product_detail ( product_id, size, price, status, created_at, updated_at) VALUES
+                     ( ?, ?, ?, 1, NOW(), NOW())  
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setObject(1, pDetail.getProduct().getProduct_id());
+            pstmt.setObject(2, pDetail.getSize());
+            pstmt.setObject(3, pDetail.getPrice());
+            row = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
+
+    public static void main(String[] args) {
+        ProductDao pd = new ProductDao();
+        System.out.println(pd.fillAllProduct());
+    }
+
+    public Integer UpdateProductAndDetailSizeS(ProductDetail pd, int idProduct) {
+        Integer row = null;
+        String sql = """
+                     update product p join category c on p.category_id = c.category_id join product_detail pd on pd.product_id = p.product_id
+                     set p.image = ? , p.product_name = ?, p.category_id =?, p.description = ?, p.updated_at = NOW(),pd.updated_at = NOW(),
+                     	pd.price = ? WHERE pd.product_id = ? AND pd.size like "S"
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setObject(1, pd.getProduct().getImage());
+            pstmt.setObject(2, pd.getProduct().getProduct_name());
+            pstmt.setObject(3, pd.getProduct().getCategory().getCategory_id());
+            pstmt.setObject(4, pd.getProduct().getDescription());
+            pstmt.setObject(5, pd.getPrice());
+            pstmt.setObject(6, idProduct);
+            row = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
+
+    public Integer UpdateProductAndDetailSizeL(ProductDetail pd, int idProduct) {
+        Integer row = null;
+        String sql = """
+                     update product p join category c on p.category_id = c.category_id join product_detail pd on pd.product_id = p.product_id
+                     set p.image = ? , p.product_name = ?, p.category_id =?, p.description = ?, p.updated_at = NOW(),pd.updated_at = NOW(),
+                     	pd.price = ? WHERE pd.product_id = ? AND pd.size like "L"
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setObject(1, pd.getProduct().getImage());
+            pstmt.setObject(2, pd.getProduct().getProduct_name());
+            pstmt.setObject(3, pd.getProduct().getCategory().getCategory_id());
+            pstmt.setObject(4, pd.getProduct().getDescription());
+            pstmt.setObject(5, pd.getPrice());
+            pstmt.setObject(6, idProduct);
+            row = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
+
+    //Xoa mem
+    public Integer DeleteMem(int idProduct) {
+        Integer row = null;
+        String sql = """
+                     update product p join product_detail pd on pd.product_id = p.product_id
+                     set  pd.status = 2 , p.status =2, p.updated_at = NOW(),pd.updated_at = NOW()
+                     WHERE pd.product_id = ?
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setObject(1, idProduct);
+            row = pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
     }
 }

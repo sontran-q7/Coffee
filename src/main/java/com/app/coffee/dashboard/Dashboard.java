@@ -441,9 +441,9 @@ public class Dashboard extends javax.swing.JFrame {
     private void setFullScreen() {
     // Kiểm tra xem phương thức có được gọi không
     System.out.println("setFullScreen() method called");
-    // Thiết lập JFrame ở chế độ toàn màn hình
+    
     setExtendedState(JFrame.MAXIMIZED_BOTH);
-    // Vô hiệu hóa khả năng thay đổi kích thước của JFrame
+   
     setResizable(false);
     // Loại bỏ khả năng thu nhỏ cửa sổ bằng cách đặt undecorated
     setUndecorated(true);
