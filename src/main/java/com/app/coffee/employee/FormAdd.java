@@ -89,6 +89,13 @@ public class FormAdd extends JPanel {
         btnChooseImage = new JButton("Choose Image");
         imageLabel = new JLabel();
 
+        // Set preferred and minimum size for JTextField components
+        setFixedHeight(nameField);
+        setFixedHeight(phoneField);
+        setFixedHeight(emailField);
+        setFixedHeight(passwordField);
+        setFixedHeight(confirmPasswordField);
+
         btnChooseImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,6 +127,11 @@ public class FormAdd extends JPanel {
         add(formPanel, BorderLayout.CENTER);
     }
 
+    private void setFixedHeight(JTextField textField) {
+        textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, 50));
+        textField.setMinimumSize(new Dimension(textField.getMinimumSize().width, 50));
+    }
+
     private JLabel createBoldLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, 14));
@@ -132,8 +144,9 @@ public class FormAdd extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(300, 30));
-    }
+        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 50
+        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 50
+        }
 
     private void initAddComponents() {
         btnAction = new JButton("Register");
@@ -150,19 +163,37 @@ public class FormAdd extends JPanel {
     }
 
     private void chooseImage() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedImageFile = fileChooser.getSelectedFile();
-            try {
-                Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                imageLabel.setIcon(new ImageIcon(img));
-            } catch (Exception ex) {
-                ex.printStackTrace();
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+    int result = fileChooser.showOpenDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+        selectedImageFile = fileChooser.getSelectedFile();
+        String fileName = selectedImageFile.getName();
+        imageLabel.setText(getTruncatedFileName(fileName, imageLabel.getFontMetrics(imageLabel.getFont()), imageLabel.getWidth()));
+    }
+}
+
+    private String getTruncatedFileName(String fileName, FontMetrics fontMetrics, int maxWidth) {
+        if (fontMetrics.stringWidth(fileName) <= maxWidth) {
+            return fileName;
+        }
+
+        String ellipsis = "...";
+        int ellipsisWidth = fontMetrics.stringWidth(ellipsis);
+        int availableWidth = maxWidth - ellipsisWidth;
+        int truncatedWidth = 0;
+        int i;
+
+        for (i = 0; i < fileName.length(); i++) {
+            truncatedWidth += fontMetrics.charWidth(fileName.charAt(i));
+            if (truncatedWidth > availableWidth) {
+                break;
             }
         }
+
+        return fileName.substring(0, i) + ellipsis;
     }
+
 
     private void handleAddEmployee(ActionEvent e) {
         String fullName = nameField.getText();
@@ -260,7 +291,7 @@ public class FormAdd extends JPanel {
         emailField.setText("");
         passwordField.setText("");
         confirmPasswordField.setText("");
-        imageLabel.setIcon(null);
+        imageLabel.setText("");
         selectedImageFile = null;
     }
 }

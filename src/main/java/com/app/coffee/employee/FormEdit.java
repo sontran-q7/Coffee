@@ -93,6 +93,13 @@ public class FormEdit extends JPanel {
         btnChooseImage = new JButton("Choose Image");
         imageLabel = new JLabel();
 
+        // Set preferred and minimum size for JTextField components
+        setFixedHeight(nameField);
+        setFixedHeight(phoneField);
+        setFixedHeight(emailField);
+        setFixedHeight(passwordField);
+        setFixedHeight(confirmPasswordField);
+
         btnChooseImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +131,11 @@ public class FormEdit extends JPanel {
         add(formPanel, BorderLayout.CENTER);
     }
 
+    private void setFixedHeight(JTextField textField) {
+        textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, 50));
+        textField.setMinimumSize(new Dimension(textField.getMinimumSize().width, 50));
+    }
+
     private JLabel createBoldLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, 14));
@@ -136,7 +148,8 @@ public class FormEdit extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(300, 30));
+        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 50
+        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 50
     }
 
     private void initEditComponents() {
@@ -160,8 +173,8 @@ public class FormEdit extends JPanel {
         emailField.setText(userModel.getEmail());
         if (userModel.getImage() != null) {
             selectedImageFile = new File("src/image/" + userModel.getImage());
-            Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            imageLabel.setIcon(new ImageIcon(img));
+            String fileName = selectedImageFile.getName();
+            imageLabel.setText(getTruncatedFileName(fileName, imageLabel.getFontMetrics(imageLabel.getFont()), imageLabel.getWidth()));
         }
     }
 
@@ -171,13 +184,30 @@ public class FormEdit extends JPanel {
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             selectedImageFile = fileChooser.getSelectedFile();
-            try {
-                Image img = new ImageIcon(selectedImageFile.getAbsolutePath()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                imageLabel.setIcon(new ImageIcon(img));
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            String fileName = selectedImageFile.getName();
+            imageLabel.setText(getTruncatedFileName(fileName, imageLabel.getFontMetrics(imageLabel.getFont()), imageLabel.getWidth()));
+        }
+    }
+
+    private String getTruncatedFileName(String fileName, FontMetrics fontMetrics, int maxWidth) {
+        if (fontMetrics.stringWidth(fileName) <= maxWidth) {
+            return fileName;
+        }
+
+        String ellipsis = "...";
+        int ellipsisWidth = fontMetrics.stringWidth(ellipsis);
+        int availableWidth = maxWidth - ellipsisWidth;
+        int truncatedWidth = 0;
+        int i;
+
+        for (i = 0; i < fileName.length(); i++) {
+            truncatedWidth += fontMetrics.charWidth(fileName.charAt(i));
+            if (truncatedWidth > availableWidth) {
+                break;
             }
         }
+
+        return fileName.substring(0, i) + ellipsis;
     }
 
     private void handleEditEmployee(ActionEvent e) {
