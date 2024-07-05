@@ -13,9 +13,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -83,34 +86,37 @@ public class ReturnAccount extends javax.swing.JPanel {
     }
     
     public void GetList() {
-        UserDAO userdao = new UserDAO();
-        ArrayList<UsersModel> listUser = userdao.selectAll();
+    UserDAO userdao = new UserDAO();    
+    ArrayList<UsersModel> listUser = userdao.selectAll();
 
-        // Sort users by account_id
-        Collections.sort(listUser, new Comparator<UsersModel>() {
-            @Override
-            public int compare(UsersModel u1, UsersModel u2) {
-                return u1.getAccount_id() - u2.getAccount_id();
-            }
-        });
+    // Sort users by account_id
+    Collections.sort(listUser, new Comparator<UsersModel>() {
+        @Override
+        public int compare(UsersModel u1, UsersModel u2) {
+            return u1.getAccount_id() - u2.getAccount_id();
+        }
+    });
 
-        DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
-        table.setRowCount(0);
+    DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
+    table.setRowCount(0);
 
-        for (UsersModel user : listUser) {
-
-            if (user.getStatus() == 0) {
-                Object[] row = {
-                    user.getAccount_id(),
-                    user.getUserName() != null ? user.getUserName() : "",
-                    user.getRole() != null ? user.getRole().getName() : "", 
-                    user.getPhone() != null ? user.getPhone() : "",
-                    user.getEmail() != null ? user.getEmail() : ""     
-                };
-                table.addRow(row);
-            }
+    for (UsersModel user : listUser) {
+        if (user.getStatus() == 0) {
+            Object[] row = {
+                user.getAccount_id(),   
+                user.getImage()!= null ? user.getImage() : "no-image.png",
+                user.getUserName() != null ? user.getUserName() : "",
+                user.getRole() != null ? user.getRole().getName() : "", 
+                user.getPhone() != null ? user.getPhone() : "",
+                user.getEmail() != null ? user.getEmail() : ""     
+            };
+            table.addRow(row);
         }
     }
+    // image
+    tableListUser.setRowHeight(50);
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
+}
 
     
     @SuppressWarnings("unchecked")
@@ -133,24 +139,24 @@ public class ReturnAccount extends javax.swing.JPanel {
         tableListUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Name", "Position", "Phone", "Email"
+                "No", "Image", "Name", "Position", "Phone", "Email"
             }
         ));
         tableListUser.setRowHeight(30);
@@ -161,9 +167,9 @@ public class ReturnAccount extends javax.swing.JPanel {
         scroll.setViewportView(tableListUser);
         if (tableListUser.getColumnModel().getColumnCount() > 0) {
             tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableListUser.getColumnModel().getColumn(1).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(2).setPreferredWidth(150);
             tableListUser.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableListUser.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
@@ -282,6 +288,23 @@ public class ReturnAccount extends javax.swing.JPanel {
             Dashboard dashboard = (Dashboard) parent;
             dashboard.showPanel("employee");
         }
+    }
+    
+    //không hiển thị khi mở lên được nên chưa biết nên làm không
+    private class ImageRenderTest extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            String photoName = value != null ? value.toString() : "no-image.png";
+            File imageFile = new File("src/image/" + photoName);
+            if (!imageFile.exists()) {
+                imageFile = new File("src/image/no-image.png");
+            }
+            ImageIcon imageIcon = new ImageIcon(
+                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));          
+            return new JLabel(imageIcon);
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
