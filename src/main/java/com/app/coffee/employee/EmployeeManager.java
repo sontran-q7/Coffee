@@ -58,8 +58,8 @@ public class EmployeeManager extends javax.swing.JPanel {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                Font font = c.getFont(); // Lấy font hiện tại
-            c.setFont(font);
+               // Font font = c.getFont(); // Lấy font hiện tại
+            //c.setFont(font);
             return c;
         }
     };
@@ -80,19 +80,19 @@ public class EmployeeManager extends javax.swing.JPanel {
         
 }
 
-    private void setDefTable() {
-        tableListUser.setDefaultRenderer(Object.class, new TableGradient(new Color(243,114,44),new Color(243,114,44)));
-        jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
-        tableListUser.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverBackground:null;"
-                + "pressedBackground:null;"
-                + "separatorColor:$TableHeader.background");
-        scroll.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:3,0,3,0,$Table.background,10,10");
-        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverTrackColor:null");
-    }
+//    private void setDefTable() {
+//        tableListUser.setDefaultRenderer(Object.class, new TableGradient(new Color(243,114,44),new Color(243,114,44)));
+//        jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
+//                + "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
+//        tableListUser.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+//                + "hoverBackground:null;"
+//                + "pressedBackground:null;"
+//                + "separatorColor:$TableHeader.background");
+//        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+//                + "border:3,0,3,0,$Table.background,10,10");
+//        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+//                + "hoverTrackColor:null");
+//    }
     
     public void GetList() {
     UserDAO userdao = new UserDAO();    

@@ -54,8 +54,7 @@ public class ProductDao {
                      ORDER BY  p.created_at DESC
                      
                      """;
-        try ( Connection con = DatabaseConnection.getJDBConnection();  
-                PreparedStatement pstmt = con.prepareStatement(sql)) {
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {

@@ -163,7 +163,8 @@ public class LoginForm extends javax.swing.JFrame {
         if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
 
             System.out.println("Success");
-           showDashboard();
+           showDashboard(user.getUserName());
+           
            dispose();
 
 //            System.out.println("Success");
@@ -191,10 +192,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-    private void showDashboard() {
+    private void showDashboard(String userName) {
         if (dashboard == null) {
             dashboard = new Dashboard();
         }
+        dashboard.setUserName(userName);
+       // dashboard.setUserId(user.getAccount_id());
         dashboard.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

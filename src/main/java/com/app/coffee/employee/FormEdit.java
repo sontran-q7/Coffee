@@ -167,7 +167,7 @@ public class FormEdit extends JPanel {
     }
 
     private void populateFields() {
-        nameField.setText(userModel.getUsername());
+        nameField.setText(userModel.getUserName());
         positionComboBox.setSelectedItem(userModel.getRole().getName());
         phoneField.setText(userModel.getPhone());
         emailField.setText(userModel.getEmail());

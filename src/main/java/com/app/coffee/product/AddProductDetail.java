@@ -89,6 +89,7 @@ public class AddProductDetail extends javax.swing.JDialog {
         txtPriceL = new javax.swing.JTextField();
         jLabelSizeS = new javax.swing.JLabel();
         jLabelSizeL = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -160,6 +161,16 @@ public class AddProductDetail extends javax.swing.JDialog {
         jLabelSizeL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelSizeL.setText("L");
 
+        btnCancel.setBackground(new java.awt.Color(51, 51, 51));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -179,8 +190,12 @@ public class AddProductDetail extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(42, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Description)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,11 +209,8 @@ public class AddProductDetail extends javax.swing.JDialog {
                                 .addComponent(comboBoxCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtProduct)
                                 .addComponent(txtImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(157, 157, 157))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(60, 60, 60))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +244,9 @@ public class AddProductDetail extends javax.swing.JDialog {
                     .addComponent(txtPriceL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelSizeL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -296,6 +310,10 @@ public class AddProductDetail extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtImageActionPerformed
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,6 +326,7 @@ public class AddProductDetail extends javax.swing.JDialog {
     private javax.swing.JLabel Product;
     private javax.swing.JLabel Size;
     private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JComboBox<String> comboBoxCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelSizeL;
@@ -323,6 +342,7 @@ public class AddProductDetail extends javax.swing.JDialog {
     private javax.swing.JTextField txtProduct;
     // End of variables declaration//GEN-END:variables
 private boolean checkvalidate() {
+        String imagePath = txtImage.getText();  // Assuming you have a text field for the image path
         String product = txtProduct.getText();
         String description = txtDescription.getText();
         String priceL = txtPriceL.getText();
@@ -337,13 +357,22 @@ private boolean checkvalidate() {
             JOptionPane.showMessageDialog(null, "Price must be numeric!");
             return false;
         }
-
+        
+        if (!isImageFile(imagePath)) {
+            JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
+            return false;
+        }
+         
         try {
             int priceLarge = Integer.parseInt(priceL);
             int priceSmall = Integer.parseInt(priceS);
 
             if (priceLarge <= 0 || priceSmall <= 0) {
                 JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
+                return false;
+            }
+            if (priceLarge <= priceSmall) {
+                JOptionPane.showMessageDialog(null, "The price of size L must be higher than the price of size S");
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -354,6 +383,16 @@ private boolean checkvalidate() {
         return true;
     }
 
+    private boolean isImageFile(String path) {
+        String[] imageExtensions = { "jpg", "jpeg", "png", "gif", "bmp" };
+        for (String extension : imageExtensions) {
+            if (path.toLowerCase().endsWith("." + extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
             return false;

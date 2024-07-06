@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author
+ * @author anhso
  */
 public class ProductForm extends javax.swing.JPanel {
 
@@ -50,7 +50,7 @@ public class ProductForm extends javax.swing.JPanel {
         fillAllProduct();
         customJtable();
         
-        // Đặt căn giữa cho cột của bảng
+        // Đặt căn giữa cho cột
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         ProductTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
@@ -59,13 +59,12 @@ public class ProductForm extends javax.swing.JPanel {
         ProductTable.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
 
     }
-    
+
     ProductForm(Object object, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    // Phương thức tùy chỉnh bảng hiển thị sản phẩm
+
     private void customJtable() {
-        // Tùy chỉnh hiển thị tiêu đề bảng
         ProductTable.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
@@ -78,7 +77,7 @@ public class ProductForm extends javax.swing.JPanel {
                 return this;
             }
         });
-        // Thiết lập combobox cho bảng
+        //set combobox for table
         JComboBox<String> comboSize = new JComboBox();
         DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
         ArrayList<ProductDetail> listProductSizeByID = pd.fillAllProductDetailByID(product_id_select);
@@ -108,7 +107,7 @@ public class ProductForm extends javax.swing.JPanel {
 
         //an cot thu 7
 //        ProductTable.removeColumn(ProductTable.getColumnModel().getColumn(7));
-        //Thiết lập hình ảnh cho cột
+        //set image for column
         ProductTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int i1) {
@@ -121,7 +120,7 @@ public class ProductForm extends javax.swing.JPanel {
                     label.setBackground(com.getBackground());
                     return label;
                 } else {
-                    //  Có hình ảnh
+                    //  Has Image
                     if (o instanceof ImageIcon) {
 //                        Icon image = (ImageIcon) o;
 //                        JLabel label = new JLabel(image);
@@ -133,7 +132,7 @@ public class ProductForm extends javax.swing.JPanel {
                         int rowHeight = jtable.getRowHeight();
                         Image img = imageIcon.getImage().getScaledInstance(rowHeight, rowHeight, Image.SCALE_SMOOTH);
                         JLabel label = new JLabel(new ImageIcon(img));
-                        label.setHorizontalAlignment(JLabel.LEFT);
+                        label.setHorizontalAlignment(JLabel.CENTER);
                         label.setOpaque(selected);
                         label.setBackground(com.getBackground());
                         return label;
@@ -282,7 +281,6 @@ public class ProductForm extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        ProductTable.setRowHeight(50);
         ProductTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ProductTableMouseClicked(evt);
@@ -301,17 +299,15 @@ public class ProductForm extends javax.swing.JPanel {
             ProductTable.getColumnModel().getColumn(5).setMaxWidth(50);
             ProductTable.getColumnModel().getColumn(6).setMinWidth(100);
             ProductTable.getColumnModel().getColumn(6).setMaxWidth(100);
-            ProductTable.getColumnModel().getColumn(7).setMinWidth(80);
-            ProductTable.getColumnModel().getColumn(7).setMaxWidth(80);
         }
 
         Productpanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(Productpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 810, 560));
+        add(Productpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 810, 540));
 
         ProductFormPanel.setBackground(new java.awt.Color(255, 255, 255));
         ProductFormPanel.setLayout(new java.awt.CardLayout());
-        add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 150, 460, 560));
+        add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 150, 430, 540));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
@@ -395,7 +391,7 @@ public class ProductForm extends javax.swing.JPanel {
     }//GEN-LAST:event_DeleteProductActionPerformed
 
     private void btnLoadDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadDataActionPerformed
-        reloadTable();
+           fillAllProduct();
     }//GEN-LAST:event_btnLoadDataActionPerformed
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
@@ -455,23 +451,18 @@ public class ProductForm extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void fillAllProduct() {
-    DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
         ArrayList<Product> listProduct = new ArrayList<>();
         int stt = 1;
         model.setRowCount(0);
-        // Đường dẫn tương đối đến thư mục chứa hình ảnh
-        String imageDir = "/src/main/java/com/app/coffee/image";
-        // Lấy đường dẫn tuyệt đối của thư mục dự án
-        String projectDir = System.getProperty("user.dir");
-        // Kết hợp đường dẫn tuyệt đối của thư mục dự án với đường dẫn tương đối của thư mục chứa hình ảnh
-        String imageDirPath = projectDir + imageDir;
-
+//        String imageDir = "D:\\300\\500\\lan2\\Coffee\\Coffee\\src\\main\\java\\com\\app\\coffee\\image";
+        String imageDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
         listProduct = pd.fillAllProduct();
         for (Product p : listProduct) {
             ImageIcon imageIcon = null;
             if (p.getImage() != null && !p.getImage().isEmpty()) {
-                String imagePath = imageDirPath + "/" + p.getImage();
-                imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+                String imagePath = imageDir + "/" + p.getImage();
+                imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
             }
             model.addRow(new Object[]{
                 stt++,
@@ -483,6 +474,7 @@ public class ProductForm extends javax.swing.JPanel {
                 p.getProductDetail().getPrice(),
                 p.getProduct_id()
             });
+
         }
     }
 
@@ -523,3 +515,4 @@ public class ProductForm extends javax.swing.JPanel {
     }
 
 }
+//11111

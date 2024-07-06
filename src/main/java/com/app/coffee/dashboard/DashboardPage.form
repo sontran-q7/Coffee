@@ -244,9 +244,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="510" max="32767" attributes="0"/>
+                  <EmptySpace pref="489" max="32767" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="208" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="351" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="372" max="-2" attributes="0"/>
                   <Component id="finishBill" min="-2" pref="91" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -307,11 +307,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace pref="465" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="255" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
                   <Component id="AddStaff" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="EndShift" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

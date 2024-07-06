@@ -11,6 +11,9 @@ import com.app.coffee.category.CategoryDao;
 import java.awt.Image;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +70,6 @@ public class AddProduct extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDesscription = new javax.swing.JTextArea();
-        lblImage = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -150,28 +152,23 @@ public class AddProduct extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxCategory, 0, 300, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1)
-                                .addComponent(txtProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnChooseImage))
-                                    .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnChooseImage))
+                            .addComponent(txtImage))
+                        .addGap(0, 73, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                         .addComponent(btnSetupProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)))
                 .addGap(29, 29, 29))
@@ -182,14 +179,11 @@ public class AddProduct extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnChooseImage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChooseImage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtImage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,7 +233,44 @@ public class AddProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
-        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Set initial directory
+//        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Không đặt đường dẫn cố định
+//        fileChooser.setDialogTitle("Choose an image file");
+//        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+//        int returnValue = fileChooser.showOpenDialog(null);
+//
+//        if (returnValue == JFileChooser.APPROVE_OPTION) {
+//            File selectedFile = fileChooser.getSelectedFile();
+//            anh = selectedFile;
+//            String imageName = selectedFile.getName(); // Lấy tên của hình ảnh
+//
+//            // Đường dẫn đích bạn muốn sao chép tới
+//            String destinationPath = "src/main/java/com/app/coffee/image/" + imageName;
+//            File destinationFile = new File(destinationPath);
+//
+//            try {
+//                // Sao chép tệp tin
+//                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//
+//                // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
+//                ImageIcon originalImage = new ImageIcon(destinationFile.getAbsolutePath());
+//                Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon selectedImage = new ImageIcon(scaledImage);
+//                lblImage.setIcon(selectedImage);
+//
+//                // Hiển thị tên tệp tin đã sao chép vào JTextField
+//                txtImage.setText(imageName);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+
+        // Đường dẫn tương đối tới thư mục hình ảnh
+        String initialDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
+
+        // Tạo JFileChooser và thiết lập thư mục mặc định
+        JFileChooser fileChooser = new JFileChooser(new File(initialDir));
         fileChooser.setDialogTitle("Choose an image file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
@@ -247,19 +278,47 @@ public class AddProduct extends javax.swing.JPanel {
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            anh = fileChooser.getSelectedFile();
-            String imageName = selectedFile.getName(); // lay ten cua hinh anh
-            ImageIcon originalImage = new ImageIcon(selectedFile.getAbsolutePath());
-            //thay doi kich thuoc anh
-            Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
-            ImageIcon selectedImage = new ImageIcon(scaledImage);
-            lblImage.setIcon(selectedImage);
+            anh = selectedFile;
+            String imageName = selectedFile.getName(); // Lấy tên của hình ảnh
 
-            //
-            txtImage.setText(imageName);
+            // Đường dẫn đích bạn muốn sao chép tới
+            String destinationDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
+            File destinationDirFile = new File(destinationDir);
 
-            //Retrieving image icon from jlabel
-            //Store image icon In ImageIcon type Variable
+            // Tạo thư mục nếu nó chưa tồn tại
+            if (!destinationDirFile.exists()) {
+                destinationDirFile.mkdirs();
+            }
+
+            // Đường dẫn đích bạn muốn sao chép tới
+            String destinationPath = destinationDir + "/" + imageName;
+            File destinationFile = new File(destinationPath);
+
+            try {
+                // Sao chép tệp tin
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
+//                ImageIcon originalImage = new ImageIcon(destinationFile.getAbsolutePath());
+//                Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon selectedImage = new ImageIcon(scaledImage);
+//                lblImage.setIcon(selectedImage);
+                    ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+                  // Thay đổi kích thước của hình ảnh
+                    Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                    ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+
+                    // Xem trước hình ảnh đã chọn với kích thước cố định
+                    JLabel imageLabel = new JLabel();
+                    imageLabel.setIcon(resizedImageIcon);
+                    JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+
+                // Hiển thị tên tệp tin đã sao chép vào JTextField
+                txtImage.setText(imageName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed
 
@@ -276,7 +335,6 @@ public class AddProduct extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblImage;
     private javax.swing.JTextArea txtDesscription;
     private javax.swing.JTextField txtImage;
     private javax.swing.JTextField txtProduct;
@@ -325,7 +383,7 @@ public class AddProduct extends javax.swing.JPanel {
     public void resetFields() {
         txtImage.setText("");
         txtProduct.setText("");
-        lblImage.setText("");
+//        lblImage.setText("");
         txtDesscription.setText("");
         comboBoxCategory.setSelectedIndex(0);
     }

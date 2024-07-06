@@ -281,7 +281,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="timeLable" min="-2" pref="198" max="-2" attributes="0"/>
-                      <Component id="StaffField" min="-2" pref="225" max="-2" attributes="0"/>
+                      <Component id="NameStaff" min="-2" pref="225" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
@@ -293,7 +293,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="StaffLabel" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="StaffField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="NameStaff" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="timeLable2" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>
@@ -316,7 +316,7 @@
             <Property name="text" type="java.lang.String" value="Staff : "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="StaffField">
+        <Component class="javax.swing.JTextField" name="NameStaff">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>

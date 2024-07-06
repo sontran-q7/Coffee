@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -278,7 +279,7 @@ public class EditProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No row is selected. Please select a row to edit!");
             return;
         }
-
+        
         if (!checkvalidate()) { // Kiểm tra nếu không hợp lệ
             return;
         } else {
@@ -307,7 +308,35 @@ public class EditProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateProductActionPerformed
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
-        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Set initial directory
+//        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Set initial directory
+//        fileChooser.setDialogTitle("Choose an image file");
+//        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
+//        int returnValue = fileChooser.showOpenDialog(null);
+//
+//        if (returnValue == JFileChooser.APPROVE_OPTION) {
+//            File selectedFile = fileChooser.getSelectedFile();
+//            anh = fileChooser.getSelectedFile();
+//            String imageName = selectedFile.getName(); // lay ten cua hinh anh
+//            ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+//
+//            // Thay đổi kích thước của hình ảnh
+//            Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+//            ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+//
+//            // Xem trước hình ảnh đã chọn với kích thước cố định
+//            JLabel imageLabel = new JLabel();
+//            imageLabel.setIcon(resizedImageIcon);
+//            JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+//
+//            txtImage.setText(imageName);
+//        }
+
+        // Đường dẫn tương đối tới thư mục hình ảnh
+        String initialDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
+
+        // Tạo JFileChooser và thiết lập thư mục mặc định
+        JFileChooser fileChooser = new JFileChooser(new File(initialDir));
         fileChooser.setDialogTitle("Choose an image file");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
@@ -315,28 +344,56 @@ public class EditProduct extends javax.swing.JPanel {
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            anh = fileChooser.getSelectedFile();
-            String imageName = selectedFile.getName(); // lay ten cua hinh anh
-            ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+            anh = selectedFile;
+            String imageName = selectedFile.getName(); // Lấy tên của hình ảnh
 
-            // Thay đổi kích thước của hình ảnh
-            Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
-            ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+            // Đường dẫn đích bạn muốn sao chép tới
+            String destinationDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
+            File destinationDirFile = new File(destinationDir);
 
-            // Xem trước hình ảnh đã chọn với kích thước cố định
-            JLabel imageLabel = new JLabel();
-            imageLabel.setIcon(resizedImageIcon);
-            JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+            // Tạo thư mục nếu nó chưa tồn tại
+            if (!destinationDirFile.exists()) {
+                destinationDirFile.mkdirs();
+            }
 
-            txtImage.setText(imageName);
+            // Đường dẫn đích bạn muốn sao chép tới
+            String destinationPath = destinationDir + "/" + imageName;
+            File destinationFile = new File(destinationPath);
+
+            try {
+                // Sao chép tệp tin
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
+//                ImageIcon originalImage = new ImageIcon(destinationFile.getAbsolutePath());
+//                Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+//                ImageIcon selectedImage = new ImageIcon(scaledImage);
+//                lblImage.setIcon(selectedImage);
+                    ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+                  // Thay đổi kích thước của hình ảnh
+                    Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                    ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+
+                    // Xem trước hình ảnh đã chọn với kích thước cố định
+                    JLabel imageLabel = new JLabel();
+                    imageLabel.setIcon(resizedImageIcon);
+                    JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+
+                // Hiển thị tên tệp tin đã sao chép vào JTextField
+                txtImage.setText(imageName);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
-        if (productForm != null) {
-            productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
-        }
+//        if (productForm != null) {
+//            productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
+//        }
+        resetFields();
     }//GEN-LAST:event_btnResetActionPerformed
 
 
@@ -395,12 +452,12 @@ public class EditProduct extends javax.swing.JPanel {
     }
 
     private boolean checkvalidate() {
-        String image = txtImage.getText();
+        String imagePath = txtImage.getText();
         String product = txtProduct.getText();
         String description = txtDescription.getText();
         String priceL = txtPriceL.getText();
         String priceS = txtPriceS.getText();
-        if (image.isEmpty() || product.isEmpty() || description.isEmpty() || priceL.isEmpty() || priceS.isEmpty()) {
+        if (imagePath.isEmpty() || product.isEmpty() || description.isEmpty() || priceL.isEmpty() || priceS.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Cannot be empty!");
             return false;
         }
@@ -408,7 +465,10 @@ public class EditProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Price must be numeric!");
             return false;
         }
-
+        if (!isImageFile(imagePath)) {
+            JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
+            return false;
+        }
         try {
             int priceLarge = Integer.parseInt(priceL);
             int priceSmall = Integer.parseInt(priceS);
@@ -424,6 +484,16 @@ public class EditProduct extends javax.swing.JPanel {
         return true;
     }
 
+    private boolean isImageFile(String path) {
+        String[] imageExtensions = { "jpg", "jpeg", "png", "gif", "bmp" };
+        for (String extension : imageExtensions) {
+            if (path.toLowerCase().endsWith("." + extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
             return false;
@@ -467,8 +537,8 @@ public class EditProduct extends javax.swing.JPanel {
     public void resetFields() {
         txtImage.setText("");
         txtProduct.setText("");
-        txtPriceL.setText("");
         txtPriceS.setText("");
+        txtPriceL.setText("");
         txtDescription.setText("");
         cboCategory.setSelectedIndex(0);
     }

@@ -22,6 +22,7 @@ public class ConnectionCoffee {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             
             String url = "jdbc:mysql://localhost:3306/coffehouse";
+
             final String user = "root";
             final String password = "";
             
