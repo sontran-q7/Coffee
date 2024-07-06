@@ -53,8 +53,7 @@ public class EmployeeManager extends javax.swing.JPanel {
         
     GetList();
 
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
-        {
+    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -64,19 +63,24 @@ public class EmployeeManager extends javax.swing.JPanel {
         }
     };
     headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+
+    // Set header renderer for all columns
     JTableHeader productTable = tableListUser.getTableHeader();
-       
     productTable.setDefaultRenderer(headerRenderer);
 
-
-        
+    // Center align text in all columns except the image column
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
-        
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+
     for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-        tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        // Skip the image column (assuming the image column index is 1)
+        if (i != 1) {
+            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
+
+    // Set custom renderer for image column
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
         
 }
 
@@ -151,25 +155,16 @@ public class EmployeeManager extends javax.swing.JPanel {
 
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
                 "No", "Image", "Name", "Position", "Phone", "Email"
             }
         ));
-        tableListUser.setRowHeight(30);
-        tableListUser.setSelectionBackground(new java.awt.Color(255, 153, 0));
-        tableListUser.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tableListUser.setShowGrid(false);
-        tableListUser.getTableHeader().setResizingAllowed(false);
-        tableListUser.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(tableListUser);
-        if (tableListUser.getColumnModel().getColumnCount() > 0) {
-            tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableListUser.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tableListUser.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tableListUser.getColumnModel().getColumn(5).setPreferredWidth(100);
-        }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
 

@@ -45,8 +45,8 @@ public class FormAdd extends JPanel {
 
     private void initRoleMap() {
         roleMap = new HashMap<>();
-        roleMap.put("Staff", 2);    
-        roleMap.put("Customer", 3);
+        roleMap.put("Manager", 2);    
+        roleMap.put("Staff", 3);
     }
 
     private void initComponents() {
@@ -81,7 +81,7 @@ public class FormAdd extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[]{"Staff", "Customer"});
+        positionComboBox = new JComboBox<>(new String[]{"Manager", "Staff"});
         phoneField = new JTextField();
         emailField = new JTextField();
         passwordField = new JPasswordField();
@@ -119,7 +119,7 @@ public class FormAdd extends JPanel {
         gbc.gridy = 8;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.weighty = 1.0; // Add weight to push the form upwards
+        gbc.weighty = 1.0; 
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonPanel.setBackground(Color.WHITE);
         formPanel.add(buttonPanel, gbc);

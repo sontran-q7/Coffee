@@ -6,6 +6,8 @@ package com.app.coffee.Login;
 
 import com.app.coffee.Database.AdminAccountManager;
 import com.app.coffee.Login.LoginAccount.LoginForm;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
 
 /**
  *
@@ -13,6 +15,9 @@ import com.app.coffee.Login.LoginAccount.LoginForm;
  */
 public class Login {
     public static void main(String[] args) {
+        FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
+        //FlatMacDarkLaf.setup();
+        FlatIntelliJLaf.setup();
         AdminAccountManager.createAdminAccount();
         showLoginForm();
     }

@@ -37,9 +37,9 @@ public class demo extends JFrame{
     }
     
     public static void main(String[] args) {
-        FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
+        //FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
         //FlatMacDarkLaf.setup();
-        FlatIntelliJLaf.setup();
+        //FlatIntelliJLaf.setup();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
