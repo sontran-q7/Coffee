@@ -171,25 +171,53 @@ public class UserDAO implements DAOInterface<UsersModel> {
     return user;
 }
     
-     public int DeleteByStatus(int userId) {
-    try (Connection conn = ConnectionCoffee.getConnection();
-         PreparedStatement ps = conn.prepareStatement("DELETE FROM account WHERE account_id =?")) {
-        
-        ps.setInt(1, userId);
-        
-        int results = ps.executeUpdate();
-        
-        return results;
-        
-    } catch (SQLException e) {
-        e.printStackTrace();
-       
-    } catch (Exception e) {
-        e.printStackTrace();
-       
+    public UsersModel selectByEmail(String email) {
+        UsersModel user = null;
+        String sql = "SELECT * FROM account WHERE email = ?";
+        try (Connection conn = ConnectionCoffee.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new UsersModel(
+                    rs.getInt("account_id"),
+                    rs.getString("username"),
+                    rs.getString("image"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    new Role(rs.getInt("role_id"), "role_name"),
+                    rs.getInt("status"),
+                    rs.getString("email")
+                );
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
-    return 0;
-}
+
+    
+    public int DeleteByStatus(String email) {
+        try (Connection conn = ConnectionCoffee.getConnection();    
+             PreparedStatement ps = conn.prepareStatement("UPDATE account SET status = 0 WHERE email = ?")) {
+
+            ps.setString(1, email);
+
+            int results = ps.executeUpdate();
+
+            return results;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return 0;
+    }
+
 
     @Override
     public ArrayList<UsersModel> selectByCondition(String condition) {
@@ -220,10 +248,24 @@ public class UserDAO implements DAOInterface<UsersModel> {
 
     @Override
     public boolean restoreAccount(int userId) {
-        String sql = "UPDATE Account SET status = 1 WHERE account_id = ?";
+     String sql = "UPDATE Account SET status = 1 WHERE account_id = ?";
         try (Connection connection = ConnectionCoffee.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, userId);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean restoreAccountByEmail(String email) {
+            String sql = "UPDATE Account SET status = 1 WHERE email = ?";
+        try (Connection connection = ConnectionCoffee.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException ex) {

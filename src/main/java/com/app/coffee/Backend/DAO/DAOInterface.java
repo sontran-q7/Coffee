@@ -23,4 +23,5 @@ public interface DAOInterface<T> {
     
     public boolean deleteAccount(int userId);
     public boolean restoreAccount(int userId);
+    public boolean restoreAccountByEmail(String email);
 }

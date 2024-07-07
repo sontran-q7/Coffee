@@ -56,10 +56,10 @@ public class FormAdd extends JPanel {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(255, 102, 0));
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         titleLabel.setSize(590, 550);
         add(topPanel, BorderLayout.NORTH);
 
@@ -152,7 +152,8 @@ public class FormAdd extends JPanel {
         btnAction = new JButton("Register");
         btnAction.setBackground(new Color(255, 51, 0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setPreferredSize(new Dimension(100, 27));
+        btnAction.setPreferredSize(new Dimension(150, 35));
+        btnAction.setMinimumSize(new Dimension(150, 35));
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

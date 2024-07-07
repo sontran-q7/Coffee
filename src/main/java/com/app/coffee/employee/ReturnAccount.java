@@ -41,36 +41,35 @@ public class ReturnAccount extends javax.swing.JPanel {
         //setDefTable();
         
         GetList();
-        
-         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+        SetColumn();
+         
+    }
+    
+     private void SetColumn() {
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer()
+        {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Font font = c.getFont(); // Lấy font hiện tại
-                c.setFont(font);
-                return c;
-            }
-        };
+            c.setFont(font);
+            return c;
+        }
+    };
         headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-
-        // Set header renderer for all columns
+            // Lặp qua từng cột và đặt renderer cho tiêu đề cột
         JTableHeader productTable = tableListUser.getTableHeader();
+
         productTable.setDefaultRenderer(headerRenderer);
 
-        // Center align text in all columns except the image column
+
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
 
         for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-            // Skip the image column (assuming the image column index is 1)
-            if (i != 1) {
-                tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-            }
+            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-
-        // Set custom renderer for image column
-        tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
-        
     }
     
     private void setDefTable() {
@@ -85,6 +84,10 @@ public class ReturnAccount extends javax.swing.JPanel {
                 + "border:3,0,3,0,$Table.background,10,10");
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
                 + "hoverTrackColor:null");
+    }  
+    
+    public void refresh() {
+        GetList();
     }
     
     public void GetList() {
@@ -101,12 +104,12 @@ public class ReturnAccount extends javax.swing.JPanel {
 
     DefaultTableModel table = (DefaultTableModel) tableListUser.getModel();
     table.setRowCount(0);
+    int count=1;
 
     for (UsersModel user : listUser) {
         if (user.getStatus() == 0) {
             Object[] row = {
-                user.getAccount_id(),   
-                user.getImage()!= null ? user.getImage() : "no-image.png",
+                count++,
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
                 user.getPhone() != null ? user.getPhone() : "",
@@ -116,8 +119,8 @@ public class ReturnAccount extends javax.swing.JPanel {
         }
     }
     // image
-    tableListUser.setRowHeight(50);
-    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
+//    tableListUser.setRowHeight(50);
+//    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
 }
 
     
@@ -132,33 +135,33 @@ public class ReturnAccount extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         BackManager = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1350, 650));
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        tableListUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 2));
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "No", "Image", "Name", "Position", "Phone", "Email"
+                "No", "Name", "Position", "Phone", "Email"
             }
         ));
         tableListUser.setRowHeight(30);
@@ -169,9 +172,9 @@ public class ReturnAccount extends javax.swing.JPanel {
         scroll.setViewportView(tableListUser);
         if (tableListUser.getColumnModel().getColumnCount() > 0) {
             tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableListUser.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tableListUser.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tableListUser.getColumnModel().getColumn(3).setPreferredWidth(100);
             tableListUser.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tableListUser.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
@@ -224,6 +227,10 @@ public class ReturnAccount extends javax.swing.JPanel {
                 .addGap(21, 21, 21))
         );
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel2.setText("Restore Table:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,8 +239,9 @@ public class ReturnAccount extends javax.swing.JPanel {
                 .addGap(83, 83, 83)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1187, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(RestoreEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(79, 79, 79)))
                 .addGap(80, 80, 80))
@@ -243,8 +251,10 @@ public class ReturnAccount extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(RestoreEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RestoreEmploy, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addGap(39, 39, 39))
@@ -266,14 +276,14 @@ public class ReturnAccount extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please select a user to restore.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int userId = (int) tableListUser.getValueAt(selectedRow, 0);
+        String email = (String) tableListUser.getValueAt(selectedRow, 4);
         int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to restore this account?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response != JOptionPane.YES_OPTION) {
             return;
         }
 
         UserDAO userdao = new UserDAO();
-        if (userdao.restoreAccount(userId)) {
+        if (userdao.restoreAccountByEmail(email)) {
             JOptionPane.showMessageDialog(this, "User status set to inactive.", "Success", JOptionPane.INFORMATION_MESSAGE);
             GetList();
         } else {
@@ -313,6 +323,7 @@ public class ReturnAccount extends javax.swing.JPanel {
     private javax.swing.JButton BackManager;
     private javax.swing.JButton RestoreEmploy;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane scroll;

@@ -32,6 +32,9 @@ import javax.swing.JLabel;
 public class Dashboard extends javax.swing.JFrame {
     
     private JLabel currentButton;
+    private ReturnAccount returnAccount;
+    private StaffSchedule staffSchedule; 
+    private EmployeeManager employeeManager;
     /**
      * Creates new form Dashboard
      */
@@ -416,13 +419,13 @@ public class Dashboard extends javax.swing.JFrame {
     // setup Panel của các package khác 
   private void loadPanels() {
         DashboardPage dashboardPage = new DashboardPage();
-        EmployeeManager employeeManager = new EmployeeManager();
+        employeeManager = new EmployeeManager();
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
         MenuPanel menu = new MenuPanel();
         CategoryForm categoryForm = new CategoryForm();
-        ReturnAccount returnAccount = new ReturnAccount();
-        StaffSchedule staffSchedule = new StaffSchedule();
+        returnAccount = new ReturnAccount();
+        staffSchedule = new StaffSchedule();
         
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
@@ -434,8 +437,20 @@ public class Dashboard extends javax.swing.JFrame {
         DislayPanel.add(returnAccount, "returnAccount");
         DislayPanel.add(staffSchedule, "staffSchedule");
     }
-    public void showPanel(String panelName) {
-        ((CardLayout)DislayPanel.getLayout()).show(DislayPanel, panelName);
+    public void showPanel(String panelName) {  
+         switch (panelName) {
+            case "returnAccount":
+                returnAccount.refresh(); 
+                break;
+            case "staffSchedule":
+                staffSchedule.refresh();
+                break;
+            case "employee":
+                employeeManager.refresh();
+                break;
+            // Thêm các case khác nếu cần
+        }
+        ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);
     }
     
     private void setFullScreen() {

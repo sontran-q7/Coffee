@@ -59,11 +59,11 @@ public class FormEdit extends JPanel {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(255, 102, 0));
         JLabel titleLabel = new JLabel("Edit Employee", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        titleLabel.setSize(490, 550);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        titleLabel.setSize(590, 550);
         add(topPanel, BorderLayout.NORTH);
 
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -148,15 +148,16 @@ public class FormEdit extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 50
-        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 50
+        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 40
+        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 40
     }
 
     private void initEditComponents() {
         btnAction = new JButton("Save");
         btnAction.setBackground(new Color(255, 51, 0));
         btnAction.setForeground(Color.WHITE);
-        btnAction.setPreferredSize(new Dimension(100, 27));
+        btnAction.setPreferredSize(new Dimension(150, 35));
+        btnAction.setMinimumSize(new Dimension(150, 35));
         btnAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
