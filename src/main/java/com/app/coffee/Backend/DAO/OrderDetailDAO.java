@@ -215,5 +215,10 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     public ArrayList<OrderDetailModel> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public boolean restoreAccountByEmail(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
  
 }
