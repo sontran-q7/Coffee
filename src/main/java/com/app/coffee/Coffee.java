@@ -4,7 +4,7 @@
 
 package com.app.coffee;
 
-import com.app.coffee.Database.AdminAccountManager;
+//import com.app.coffee.Database.AdminAccountManager;
 import com.app.coffee.Login.LoginAccount.LoginForm;
 
 /**
@@ -14,7 +14,7 @@ import com.app.coffee.Login.LoginAccount.LoginForm;
 public class Coffee {
 
       public static void main(String[] args) {
-        AdminAccountManager.createAdminAccount();
+//        AdminAccountManager.createAdminAccount();
         showLoginForm();
     }
 

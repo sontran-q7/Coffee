@@ -6,7 +6,8 @@ package com.app.coffee.Login.LoginAccount;
 
 
 import com.app.coffee.Backend.Model.UsersModel;
-import static com.app.coffee.Database.AdminAccountManager.hashPassword;
+//import com.app.coffee.Database.AdminAccountManager;
+//import static com.app.coffee.Database.AdminAccountManager.hashPassword;
 import com.app.coffee.Database.PasswordUtils;
 import java.awt.Color;
 import com.app.coffee.Login.CustomDialog;
@@ -15,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.app.coffee.dashboard.*;
 import com.app.coffee.hashpassword.PasswordHash;
+import java.awt.Component;
+import java.awt.Window;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -24,6 +30,7 @@ public class LoginForm extends javax.swing.JFrame {
     private final UserController userController;
     private UsersModel user;
     private  Dashboard dashboard;
+    
 //    private final VirtualKeyboard virtualKeyboard;
 
     /**
@@ -35,9 +42,9 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         userController = new UserController();
         setLocationRelativeTo(null);
-                setResizable(true);
-        
+        setResizable(true);
 }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +61,7 @@ public class LoginForm extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +100,21 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel4.setText("forgot Password?");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ClickForgot(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                HoverForgot(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                UnHoverForgot(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -109,7 +132,11 @@ public class LoginForm extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,46 +153,43 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jButton1)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  
-  
-    
-    
-    
-    
-    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    java.lang.String enteredEmail = jTextField1.getText();
+   java.lang.String enteredEmail = jTextField1.getText();
     String enteredPassword = new String(jPasswordField1.getPassword());
     user = userController.getUserByEmail(enteredEmail);
     
         if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
 
-            System.out.println("Success");
-           showDashboard(user.getUserName());
-           
-           dispose();
+           System.out.println("Success");
+            UserSession session = UserSession.getInstance();
+        session.setUserName(user.getUserName());
+        session.setAccountId(user.getAccount_id());
+        showDashboard(user.getUserName());
+
+        dispose();
 
 //            System.out.println("Success");
           //  new Dashboard().setVisible(true);
@@ -176,19 +200,43 @@ public class LoginForm extends javax.swing.JFrame {
             new CustomDialog(this, "Error", "Email and password don't exist!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-   
-           
-    
-    public static void main(String args[]) {
-      
 
-        /* Create and display the form */
+    private void ClickForgot(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClickForgot
+     Component source = (Component) evt.getSource();
+    Window ancestor = SwingUtilities.getWindowAncestor(source);
+    
+    if (ancestor != null) {
+        JFrame forgotPasswordFrame = new JFrame("Send Code");
+        SendCode sendCodePanel = new SendCode();
+        forgotPasswordFrame.setContentPane(sendCodePanel);
+        forgotPasswordFrame.pack(); 
+        forgotPasswordFrame.setLocationRelativeTo(ancestor); 
+        forgotPasswordFrame.setVisible(true);
+        
+        // Dispose the current window if needed
+        ancestor.dispose();
+    } else {
+        System.err.println("Ancestor window is null. Cannot proceed.");
+    }
+        
+    }//GEN-LAST:event_ClickForgot
+
+    private void HoverForgot(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoverForgot
+        // TODO add your handling code here:
+         jLabel4.setForeground(Color.BLACK);
+    }//GEN-LAST:event_HoverForgot
+
+    private void UnHoverForgot(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UnHoverForgot
+        // TODO add your handling code here:
+        jLabel4.setForeground(Color.BLUE);
+    }//GEN-LAST:event_UnHoverForgot
+
+    public static void main(String args[]) {
+     /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run(){
                 new LoginForm().setVisible(true);
                 
-
             }
         });
     }
@@ -196,8 +244,7 @@ public class LoginForm extends javax.swing.JFrame {
         if (dashboard == null) {
             dashboard = new Dashboard();
         }
-        dashboard.setUserName(userName);
-       // dashboard.setUserId(user.getAccount_id());
+         dashboard.setUserName(userName);
         dashboard.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -205,6 +252,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;

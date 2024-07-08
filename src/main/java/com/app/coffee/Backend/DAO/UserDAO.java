@@ -25,18 +25,17 @@ public class UserDAO implements DAOInterface<UsersModel> {
     @Override
     public int Create(UsersModel t) {
         try (Connection conn = ConnectionCoffee.getConnection()) {
-            String sql = "INSERT INTO account (username, password, phone,role_id, email, status) VALUES (?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO account ( email, password, role_id, username) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            String hashedPassword = hashPassword(t.getPassword());
-            ps.setString(1, t.getUserName());
+            
+            String hashedPassword = PasswordUtils.hashPassword(t.getPassword());
+            ps.setString(1, t.getEmail());
             ps.setString(2, hashedPassword);
-            ps.setString(3, t.getPhone());
-            ps.setInt(4,t.getRole().getRole_id());
-            ps.setString(5,t.getEmail());          
-            ps.setInt(6,t.getStatus());
-
+            ps.setInt(3, 1);
+            ps.setString(4, "Admin");
+            
             int results = ps.executeUpdate();
-            System.out.println("Successfully created user: " + t);
+            System.out.println("Successfully created user with email: " + t.getEmail());
 
             ps.close();
             ConnectionCoffee.closeConnection(conn);
@@ -45,10 +44,9 @@ public class UserDAO implements DAOInterface<UsersModel> {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    
     }
 
     @Override
@@ -73,8 +71,6 @@ public class UserDAO implements DAOInterface<UsersModel> {
             return results;
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -171,53 +167,25 @@ public class UserDAO implements DAOInterface<UsersModel> {
     return user;
 }
     
-    public UsersModel selectByEmail(String email) {
-        UsersModel user = null;
-        String sql = "SELECT * FROM account WHERE email = ?";
-        try (Connection conn = ConnectionCoffee.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                user = new UsersModel(
-                    rs.getInt("account_id"),
-                    rs.getString("username"),
-                    rs.getString("image"),
-                    rs.getString("password"),
-                    rs.getString("phone"),
-                    new Role(rs.getInt("role_id"), "role_name"),
-                    rs.getInt("status"),
-                    rs.getString("email")
-                );
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
+     public int DeleteByStatus(int userId) {
+    try (Connection conn = ConnectionCoffee.getConnection();
+         PreparedStatement ps = conn.prepareStatement("DELETE FROM account WHERE account_id =?")) {
+        
+        ps.setInt(1, userId);
+        
+        int results = ps.executeUpdate();
+        
+        return results;
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+       
+    } catch (Exception e) {
+        e.printStackTrace();
+       
     }
-
-    
-    public int DeleteByStatus(String email) {
-        try (Connection conn = ConnectionCoffee.getConnection();    
-             PreparedStatement ps = conn.prepareStatement("UPDATE account SET status = 0 WHERE email = ?")) {
-
-            ps.setString(1, email);
-
-            int results = ps.executeUpdate();
-
-            return results;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return 0;
-    }
-
+    return 0;
+}
 
     @Override
     public ArrayList<UsersModel> selectByCondition(String condition) {
@@ -245,8 +213,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             return false;
         }
     }
-
-    @Override
+      @Override
     public boolean restoreAccount(int userId) {
      String sql = "UPDATE Account SET status = 1 WHERE account_id = ?";
         try (Connection connection = ConnectionCoffee.getConnection();
@@ -259,8 +226,7 @@ public class UserDAO implements DAOInterface<UsersModel> {
             return false;
         }
     }
-
-    @Override
+    
     public boolean restoreAccountByEmail(String email) {
             String sql = "UPDATE Account SET status = 1 WHERE email = ?";
         try (Connection connection = ConnectionCoffee.getConnection();
@@ -273,7 +239,54 @@ public class UserDAO implements DAOInterface<UsersModel> {
             return false;
         }
     }
+    
+    public UsersModel selectByEmail(String email) {
+        UsersModel user = null;
+        String sql = "SELECT * FROM account WHERE email = ?";
+        try (Connection conn = ConnectionCoffee.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new UsersModel(
+                    rs.getInt("account_id"),
+                    rs.getString("username"),
+                    rs.getString("image"),
+                    rs.getString("password"),
+                    rs.getString("phone"),
+                    new Role(rs.getInt("role_id"), "role_name"),
+                    rs.getInt("status"),
+                    rs.getString("email")
+                );
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
+    public int DeleteByStatus(String email) {
+        try (Connection conn = ConnectionCoffee.getConnection();    
+             PreparedStatement ps = conn.prepareStatement("UPDATE account SET status = 0 WHERE email = ?")) {
+
+            ps.setString(1, email);
+
+            int results = ps.executeUpdate();
+
+            return results;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return 0;
+    }
+
+    
     
     
     public class RoleDAO {

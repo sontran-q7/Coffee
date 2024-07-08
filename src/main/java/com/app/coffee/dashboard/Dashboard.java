@@ -30,7 +30,7 @@ import javax.swing.JLabel;
  * @author anhso
  */
 public class Dashboard extends javax.swing.JFrame {
-    
+    private String userName;
     private JLabel currentButton;
     private ReturnAccount returnAccount;
     private StaffSchedule staffSchedule; 
@@ -48,7 +48,10 @@ public class Dashboard extends javax.swing.JFrame {
     
     // lấy tên người mới đăng nhập thành công
     public void setUserName(String userName) {
-        NameStaff.setText(userName);
+        this.userName = userName;
+        // Cập nhật giao diện nếu cần, ví dụ:
+         NameStaff.setText(userName);
+        System.out.println("nem"+userName);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -419,6 +422,7 @@ public class Dashboard extends javax.swing.JFrame {
     // setup Panel của các package khác 
   private void loadPanels() {
         DashboardPage dashboardPage = new DashboardPage();
+        
         employeeManager = new EmployeeManager();
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
@@ -429,7 +433,6 @@ public class Dashboard extends javax.swing.JFrame {
         
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee"); 
-        //DislayPanel.add(user,"member");
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product"); 
         DislayPanel.add(categoryForm, "category"); 
@@ -489,6 +492,7 @@ public class Dashboard extends javax.swing.JFrame {
         // Bắt đầu Timer
         timer.start();
     }
+     
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

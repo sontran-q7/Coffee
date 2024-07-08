@@ -189,7 +189,10 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     }
     return orderModel;
 }
-
+    
+    
+    
+    
     @Override
     public OrderDetailModel selectById(OrderDetailModel t) {
         OrderDetailModel orderDetailModel = null;
@@ -213,11 +216,6 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
 
     @Override
     public ArrayList<OrderDetailModel> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean restoreAccountByEmail(String email) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
  

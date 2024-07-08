@@ -18,7 +18,6 @@ public class Connection {
         final String url = "jdbc:mysql://localhost:3306/coffehouse";
         final String user = "root";
         final String password = "";
-        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(url, user, password);
@@ -28,16 +27,12 @@ public class Connection {
             e.printStackTrace();
         }
         return null;
-     }
-     
+     }    
      public static void main(String[] args) {
-        java.sql.Connection connection = getJDBConnection();
-         
+        java.sql.Connection connection = getJDBConnection();        
         if(connection != null){
-            AdminAccountManager.createAdminAccount();
-         
-            System.out.println("success"); 
-            
+//            AdminAccountManager.createAdminAccount();
+            System.out.println("success");      
         }else{
             System.out.println("false");
         }

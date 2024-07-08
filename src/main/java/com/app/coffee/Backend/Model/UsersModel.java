@@ -35,8 +35,10 @@ public class UsersModel {
         
     }
 
-    public UsersModel(int aInt, String string, String string0, int aInt0, String string1, int aInt1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UsersModel(String email,String password,Role role) {
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     public UsersModel() {
@@ -101,11 +103,20 @@ public class UsersModel {
             this.image = image;
         }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void setPassword(String password) {
         this.password = password;
     }
-        
+
+    public String getUsername() {
+        return username;
+    }
+        public void setPassWord(String password){
+            this.password = password;
+        }
 
        
       
