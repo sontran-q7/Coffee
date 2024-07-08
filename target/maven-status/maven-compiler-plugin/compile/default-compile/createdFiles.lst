@@ -69,9 +69,11 @@ com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
 com\app\coffee\dashboard\DashboardPage$4.class
 com\app\coffee\employee\StaffSchedule$3.class
+com\app\coffee\product\AddProductDetail$4.class
 com\app\coffee\Backend\Connect\ConnectionCoffee.class
 com\app\coffee\product\AddProduct$2.class
 com\app\coffee\product\EditProduct$5.class
+com\app\coffee\category\CustomHeaderRenderer.class
 com\app\coffee\dashboard\AddShift$1.class
 com\app\coffee\employee\ReturnAccount$1.class
 com\app\coffee\menu\CustomScrollBarUI.class

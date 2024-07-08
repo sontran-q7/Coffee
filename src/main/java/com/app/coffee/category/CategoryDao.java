@@ -37,7 +37,7 @@ public class CategoryDao {
             pstmt.setString(3, "1"); //status mac dinh la 1 khi them moi
 
             pstmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Thêm mới danh mục thành công!");
+            JOptionPane.showMessageDialog(null, "Successfully added new category!");
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error adding category: " + e.getMessage());
@@ -137,7 +137,7 @@ public class CategoryDao {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(parentComponent, "Lỗi khi xóa sản phẩm");
+            JOptionPane.showMessageDialog(parentComponent, "Error when deleting the product.");
             e.printStackTrace();
         }
         return false;

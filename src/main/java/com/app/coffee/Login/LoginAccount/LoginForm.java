@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
  * @author Admin
  */
 public class LoginForm extends javax.swing.JFrame {
+   
     private final UserController userController;
     private UsersModel user;
     private  Dashboard dashboard;
@@ -41,6 +42,7 @@ public class LoginForm extends javax.swing.JFrame {
         
         initComponents();
         userController = new UserController();
+        
         setLocationRelativeTo(null);
         setResizable(true);
 }
@@ -243,6 +245,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void showDashboard(String userName) {
         if (dashboard == null) {
             dashboard = new Dashboard();
+            
         }
          dashboard.setUserName(userName);
         dashboard.setVisible(true);
