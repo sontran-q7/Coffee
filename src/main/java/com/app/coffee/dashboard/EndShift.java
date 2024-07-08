@@ -5,6 +5,8 @@
 package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
+import com.app.coffee.Backend.DAO.BillDAO;
+import com.app.coffee.Backend.DAO.ControlDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -16,6 +18,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -32,12 +35,14 @@ public class EndShift extends javax.swing.JDialog {
      * A return status code - returned if OK button has been pressed
      */
     public static final int RET_OK = 1;
-
+    private int controlId;
+    
     /**
      * Creates new form EndShift
      */
-    public EndShift(java.awt.Frame parent, boolean modal) {
+    public EndShift(java.awt.Frame parent, boolean modal, int controlId) {
         super(parent, modal);
+         this.controlId = controlId;
         initComponents();
 
         // Close the dialog when Esc is pressed
@@ -52,6 +57,7 @@ public class EndShift extends javax.swing.JDialog {
         });
 
         fetchLatestControlData();
+         updateCheckoutPayLabel();
     }
 
     /**
@@ -254,6 +260,8 @@ public class EndShift extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        updateControlData();
+        JOptionPane.showMessageDialog(this, "Chốt ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -275,6 +283,13 @@ public class EndShift extends javax.swing.JDialog {
     }
 
        // Lấy tên quản lý và tên ca làm việc
+     private void updateControlData() {
+        // Lấy giá trị hiện tại từ nhãn checkoutPay
+        float checkOutPay = Float.parseFloat(checkoutPay.getText());
+        // Gọi phương thức updateControl từ ControlDAO
+        ControlDAO.updateControl(controlId, checkOutPay);
+    }
+
     private String getManagerName(int accountId, Connection conn) throws SQLException {
         String query = "SELECT username FROM account WHERE account_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
@@ -300,24 +315,25 @@ public class EndShift extends javax.swing.JDialog {
         }
         return "Unknown";
     }
-    
+
     private void fetchLatestControlData() {
-    Connection conn = null;
+         Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     try {
         conn = ConnectionCoffee.getConnection();
-        String query = "SELECT * FROM control ORDER BY created_at DESC LIMIT 1";
+        String query = "SELECT * FROM control WHERE control_id = ?";
         ps = conn.prepareStatement(query);
+        ps.setInt(1, controlId);
         rs = ps.executeQuery();
-        
+
         if (rs.next()) {
             int accountId = rs.getInt("account_id");
             int workingTimeId = rs.getInt("working_time_id");
-            
-            managerLable.setText(getManagerName(accountId, conn)); // Chuyển account_id thành tên quản lý
-            wordTimeLable.setText(getWorkingTimeName(workingTimeId, conn)); // Chuyển working_time_id thành tên ca làm việc
+
+            managerLable.setText(getManagerName(accountId, conn));
+            wordTimeLable.setText(getWorkingTimeName(workingTimeId, conn));
             StartLable.setText(rs.getString("check_in"));
             endLable.setText(rs.getString("check_out"));
             checkinPay.setText(rs.getString("check_in_pay"));
@@ -334,15 +350,14 @@ public class EndShift extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-}
+    }
 
+    private void updateCheckoutPayLabel() {
+        float totalSumOfDay = BillDAO.getTotalSumOfDay();
+        checkoutPay.setText(String.valueOf(totalSumOfDay));
+    }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -359,12 +374,10 @@ public class EndShift extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EndShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EndShift dialog = new EndShift(new javax.swing.JFrame(), true);
+                EndShift dialog = new EndShift(new javax.swing.JFrame(), true, /*controlId*/ 1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

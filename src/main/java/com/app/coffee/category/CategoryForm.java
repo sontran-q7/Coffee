@@ -45,16 +45,16 @@ public class CategoryForm extends javax.swing.JPanel {
         loadPanels();
         refreshCategoryTable();
 
-        // Đặt căn giữa cho stt
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        CategoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        // Đặt căn giữa cho stt
+//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+//        CategoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 
         // Đặt căn giữa tất cả các cột
-//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-//        for (int i = 0; i < CategoryTable.getColumnCount(); i++) {
-//            CategoryTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-//        }
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < CategoryTable.getColumnCount(); i++) {
+            CategoryTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
 
         // TRONG DESIGN Propreties tìm SHOWGRID ĐỂ HIỂN THỊ ĐƯỜNG VIỀN
         JTableHeader header = CategoryTable.getTableHeader();
@@ -323,26 +323,11 @@ public class CategoryForm extends javax.swing.JPanel {
                 // Kiểm tra xem danh mục có sản phẩm liên quan không
                 if (productDao.hasProductsForCategory(category_id)) {
                     int option2 = JOptionPane.showConfirmDialog(this, "Cannot delete! There are products currently associated with this category!", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-
-//                    if (option2 == JOptionPane.YES_OPTION) {
-//                        // Xóa sản phẩm của danh mục này trước
-//                        if (productDao.deleteProductsForCategory(category_id)) {
-//                            // Sau khi xóa thành công sản phẩm, tiến hành xóa danh mục
-//                            if (categoryDao.deleteCategory(category_id)) {
-//                                model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
-//                                JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//                            } else {
-//                                JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                            }
-//                        } else {
-//                            JOptionPane.showMessageDialog(this, "Xóa sản phẩm không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//                        }
-//                    }
                 } else {
                     // Không có sản phẩm liên quan, chỉ cần xóa danh mục
                     if (categoryDao.deleteCategory(category_id)) {
                         model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
-                        
+                        updateTableSTT(); // Cập nhật lại STT
                         JOptionPane.showMessageDialog(this, "Successfully deleted!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "Failed to delete category!", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -403,5 +388,12 @@ public class CategoryForm extends javax.swing.JPanel {
             }
         }
         return -1; // Nếu không tìm thấy, trả về -1 hoặc xử lý khác phù hợp
+    }
+    
+    private void updateTableSTT() {
+        DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.setValueAt(i + 1, i, 0); // Cập nhật lại STT
+        }
     }
 }

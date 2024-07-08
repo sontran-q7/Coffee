@@ -69,8 +69,10 @@ public class CategoryDao {
 
     //kiem tra category
     public boolean isCategoryExists(String category_name) {
-        String sql = "SELECT COUNT(*) FROM category WHERE category_name = ?";
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+//        String sql = "SELECT COUNT(*) FROM category WHERE category_name = ?";
+    String sql = "SELECT COUNT(*) FROM category WHERE category_name = ? AND status = 1";
+        try (Connection con = DatabaseConnection.getJDBConnection(); 
+            PreparedStatement pstmt = con.prepareStatement(sql)) {
 
             pstmt.setString(1, category_name);
             try (ResultSet rs = pstmt.executeQuery()) {

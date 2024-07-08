@@ -6,6 +6,7 @@ package com.app.coffee.dashboard;
 
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
+import com.app.coffee.Backend.DAO.ControlDAO;
 import com.app.coffee.Login.LoginAccount.UserSession;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -54,22 +55,22 @@ public class AddShift extends javax.swing.JDialog {
         }
     }
        
-         // Phương thức để truy xuất dữ liệu cho BoxManager
-    private void loadManager() {
-        String sql = "SELECT * FROM `account` WHERE role_id =2;"; 
-        try (Connection conn = ConnectionCoffee.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            BoxManager.removeAllItems();
-            while (rs.next()) {
-                String managerName = rs.getString("username"); //username lấy từ tên cột trong database account
-                BoxManager.addItem(managerName);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//         // Phương thức để truy xuất dữ liệu cho BoxManager
+//    private void loadManager() {
+//        String sql = "SELECT * FROM `account` WHERE role_id =2;"; 
+//        try (Connection conn = ConnectionCoffee.getConnection();
+//             PreparedStatement pstmt = conn.prepareStatement(sql);
+//             ResultSet rs = pstmt.executeQuery()) {
+//
+//            BoxManager.removeAllItems();
+//            while (rs.next()) {
+//                String managerName = rs.getString("username"); //username lấy từ tên cột trong database account
+//                BoxManager.addItem(managerName);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
     /**
      * Creates new form ListStaff
      */
@@ -77,10 +78,10 @@ public class AddShift extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initShiftMap();
-        initManagerMap();
+        //initManagerMap();
         updateCheckInTimeLabel();
         loadBoxShift();
-        loadManager();
+        //loadManager();
 
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -131,9 +132,7 @@ public class AddShift extends javax.swing.JDialog {
         InPayField = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
         nameFiled = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         nametest = new javax.swing.JLabel();
-        BoxManager = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -222,7 +221,8 @@ public class AddShift extends javax.swing.JDialog {
         jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel44.setText("Check-in time:");
 
-        CheckInTime.setText("giờ hiện tại luc dang nhap");
+        CheckInTime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CheckInTime.setText("time");
 
         jLabel46.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(51, 51, 51));
@@ -238,9 +238,8 @@ public class AddShift extends javax.swing.JDialog {
         jLabel47.setForeground(new java.awt.Color(51, 51, 51));
         jLabel47.setText("Manager Shitf:");
 
-        jLabel1.setText("user name");
-
-        BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nametest.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nametest.setText("Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,9 +267,7 @@ public class AddShift extends javax.swing.JDialog {
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,10 +275,7 @@ public class AddShift extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nametest, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(BoxManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nameFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -294,23 +288,21 @@ public class AddShift extends javax.swing.JDialog {
                     .addComponent(BoxShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CheckInTime, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(InPayField)
-                        .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BoxManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nameFiled, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(nameFiled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nametest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(InPayField)
+                            .addComponent(jLabel47)
+                            .addComponent(nametest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -338,41 +330,38 @@ public class AddShift extends javax.swing.JDialog {
         }
     }
 
-    private void initManagerMap() {
-        managerMap = new HashMap<>();
-        try (Connection conn = ConnectionCoffee.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT account_id, username FROM account WHERE role_id = 2")) {
-            while (rs.next()) {
-                managerMap.put(rs.getString("username"), rs.getInt("account_id"));
-            }
-            BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(managerMap.keySet().toArray(new String[0])));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void initManagerMap() {
+//        managerMap = new HashMap<>();
+//        try (Connection conn = ConnectionCoffee.getConnection();
+//             Statement stmt = conn.createStatement();
+//             ResultSet rs = stmt.executeQuery("SELECT account_id, username FROM account WHERE role_id = 2")) {
+//            while (rs.next()) {
+//                managerMap.put(rs.getString("username"), rs.getInt("account_id"));
+//            }
+//            BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(managerMap.keySet().toArray(new String[0])));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 //    
 //      public void setUserName(String userName) {
 //    nametest.setText(userName);
 //}
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     // Lấy dữ liệu từ các trường nhập liệu
-    String selectedShift = (String) BoxShift.getSelectedItem();
+      String selectedShift = (String) BoxShift.getSelectedItem();
     Integer workingTimeId = shiftMap.get(selectedShift);
     if (workingTimeId == null) {
         JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    
+
     LocalDateTime now = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String checkIn = now.format(formatter);
-    
-  
     String checkOut = now.format(formatter); 
-    
-    // Kiểm tra và chuyển đổi giá trị của InPayField
-    float checkInPay ;
+
+    float checkInPay;
     try {
         checkInPay = Float.parseFloat(InPayField.getText());
     } catch (NumberFormatException e) {
@@ -381,16 +370,22 @@ public class AddShift extends javax.swing.JDialog {
     }
 
     float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
-     
+
     Integer accountId = UserSession.getInstance().getAccountId();
-        if (accountId == null) {
-            JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-    
-    // Thêm ca làm việc
-    addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
-     doClose(RET_OK);
+    if (accountId == null) {
+        JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Thêm ca làm việc và lưu controlId vào SessionData
+    int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
+    if (controlId != -1) {
+        JOptionPane.showMessageDialog(this, "Tạo ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Tạo ca thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+    doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
     
     // Phương thức updateCheckInTimeLabel
@@ -402,25 +397,35 @@ public class AddShift extends javax.swing.JDialog {
     }
     
     // Phương thức addControl
-    public void addControl(int workingTimeId, String checkIn, String checkOut, float checkInPay, float checkOutPay, int accountId) {
-     String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";
-    
-    try (Connection conn = ConnectionCoffee.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        
-        pstmt.setInt(1, workingTimeId);
-        pstmt.setString(2, checkIn);
-        pstmt.setString(3, checkOut);
-        pstmt.setFloat(4, checkInPay);
-        pstmt.setFloat(5, checkOutPay);
-        pstmt.setInt(6, accountId);
-        
-        pstmt.executeUpdate();
-    } catch (SQLException e) {
-       // e.printStackTrace();
-       // JOptionPane.showMessageDialog(this, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }
-    }
+//   public int addControl(int workingTimeId, String checkIn, String checkOut, float checkInPay, float checkOutPay, int accountId) {
+//    String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";
+//    int controlId = -1;
+//    try (Connection conn = ConnectionCoffee.getConnection();
+//         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+//        
+//        pstmt.setInt(1, workingTimeId);
+//        pstmt.setString(2, checkIn);
+//        pstmt.setString(3, checkOut);
+//        pstmt.setFloat(4, checkInPay);
+//        pstmt.setFloat(5, checkOutPay);
+//        pstmt.setInt(6, accountId);
+//        
+//        int affectedRows = pstmt.executeUpdate();
+//
+//        if (affectedRows > 0) {
+//            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+//                if (generatedKeys.next()) {
+//                    controlId = generatedKeys.getInt(1);
+//                }
+//            }
+//        }
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//        JOptionPane.showMessageDialog(null, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//    }
+//    return controlId;
+//}
+
     
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
@@ -502,13 +507,11 @@ public class AddShift extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> BoxManager;
     private javax.swing.JComboBox<String> BoxShift;
     private javax.swing.JLabel CheckInTime;
     private javax.swing.JTextField InPayField;
     private javax.swing.JTable ListUserTable;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel46;

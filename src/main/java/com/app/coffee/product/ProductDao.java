@@ -80,7 +80,23 @@ public class ProductDao {
         }
         return listProduct;
     }
-
+    // kiem tra product
+    public boolean isProductExists(String productName) {
+        String sql = "SELECT COUNT(*) FROM product WHERE product_name = ? AND status = 1";
+        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, productName);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0; // Trả về true nếu product_name đã tồn tại với status = 1
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public Integer insertProduct(Product p) {
         Integer productId = null;
         String sql = "INSERT INTO `product` ( `category_id`, `product_name`, `image`, `description`, \n"
@@ -159,34 +175,7 @@ public class ProductDao {
         }
         return listProductDt;
     }
-    ///test
-    public ArrayList<ProductDetail> fillAllProductDetailByName(String productName) {
-        ArrayList<ProductDetail> listProductDt = new ArrayList<>();
-        String sql = """
-                     select pd.`size`,pd.price from product_detail pd join product p on pd.product_name =p.product_name
-                                     where p.product_name =? and pd.status = 1 and p.status =1
-                     """;
-        try ( Connection con = DatabaseConnection.getJDBConnection();  
-                PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-            pstmt.setObject(1, productName);
-            pstmt.executeQuery();
-            try ( ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    String size = rs.getString(1);
-                    int price = rs.getInt(2);
-                    ProductDetail pd = new ProductDetail(size, price);
-                    listProductDt.add(pd);
-
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return listProductDt;
-    }
-
-    // end test
+    
     public ArrayList<ProductDetail> showDataProductDetail(int idProduct) {
         ArrayList<ProductDetail> listProductDt = new ArrayList<>();
         String sql = """

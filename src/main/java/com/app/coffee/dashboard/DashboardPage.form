@@ -307,9 +307,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace pref="465" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="255" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="nameT" min="-2" pref="117" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
                   <Component id="AddStaff" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="EndShift" min="-2" max="-2" attributes="0"/>
@@ -325,7 +323,6 @@
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="AddStaff" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="EndShift" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nameT" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
@@ -375,13 +372,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EndShiftActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="nameT">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

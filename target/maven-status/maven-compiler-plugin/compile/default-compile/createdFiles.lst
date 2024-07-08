@@ -51,6 +51,7 @@ com\app\coffee\product\ProductForm$8.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\bill\ButtonRenderer.class
 com\app\coffee\Login\LoginAccount\Reset$1.class
+com\app\coffee\product\ProductForm$11.class
 com\app\coffee\employee\StaffSchedule$1.class
 com\app\coffee\menu\CenterTableCellRenderer.class
 com\app\coffee\dashboard\DashboardPage$5.class
@@ -67,6 +68,7 @@ com\app\coffee\bill\Bill$5.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
+com\app\coffee\dashboard\SessionData.class
 com\app\coffee\dashboard\DashboardPage$4.class
 com\app\coffee\employee\StaffSchedule$3.class
 com\app\coffee\product\AddProductDetail$4.class

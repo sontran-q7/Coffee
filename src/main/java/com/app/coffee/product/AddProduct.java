@@ -229,40 +229,6 @@ public class AddProduct extends javax.swing.JPanel {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnChooseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseImageActionPerformed
-//        JFileChooser fileChooser = new JFileChooser("src/main/java/com/app/coffee/image"); // Không đặt đường dẫn cố định
-//        fileChooser.setDialogTitle("Choose an image file");
-//        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Image files", "jpg", "jpeg", "png", "gif"));
-//        int returnValue = fileChooser.showOpenDialog(null);
-//
-//        if (returnValue == JFileChooser.APPROVE_OPTION) {
-//            File selectedFile = fileChooser.getSelectedFile();
-//            anh = selectedFile;
-//            String imageName = selectedFile.getName(); // Lấy tên của hình ảnh
-//
-//            // Đường dẫn đích bạn muốn sao chép tới
-//            String destinationPath = "src/main/java/com/app/coffee/image/" + imageName;
-//            File destinationFile = new File(destinationPath);
-//
-//            try {
-//                // Sao chép tệp tin
-//                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//
-//                // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
-//                ImageIcon originalImage = new ImageIcon(destinationFile.getAbsolutePath());
-//                Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
-//                ImageIcon selectedImage = new ImageIcon(scaledImage);
-//                lblImage.setIcon(selectedImage);
-//
-//                // Hiển thị tên tệp tin đã sao chép vào JTextField
-//                txtImage.setText(imageName);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
-
-        // Đường dẫn tương đối tới thư mục hình ảnh
         String initialDir = System.getProperty("user.dir") + "/src/main/java/com/app/coffee/image";
 
         // Tạo JFileChooser và thiết lập thư mục mặc định

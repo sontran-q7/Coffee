@@ -9,6 +9,7 @@ import com.app.coffee.category.CustomHeaderRenderer;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,17 +64,23 @@ public class ProductForm extends javax.swing.JPanel {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         ProductTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        ProductTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        ProductTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        ProductTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         ProductTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         ProductTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-//        ProductTable.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
-
+        // Đặt căn giữa tất cả các cột
+//        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+//        for (int i = 0; i < ProductTable.getColumnCount(); i++) {
+//            ProductTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+//        }
         // TRONG DESIGN Propreties tìm SHOWGRID ĐỂ HIỂN THỊ ĐƯỜNG VIỀN
-        JTableHeader header = ProductTable.getTableHeader();
+//        JTableHeader header = ProductTable.getTableHeader();
         // Tạo đường viền cho tiêu đề
 //        Border headerBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // Đường viền, độ dày
 //        header.setBorder(headerBorder);
         // Đặt đường viền cho tiêu đề của từng cột
-        header.setDefaultRenderer(new CustomHeaderRenderer());
+//        header.setDefaultRenderer(new CustomHeaderRenderer());
         // Tạo đường viền cho bảng
 //        Border tableBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // Đường viền, độ dày
 //        ProductTable.setBorder(tableBorder);
@@ -86,9 +93,9 @@ public class ProductForm extends javax.swing.JPanel {
 //        ProductTable.setSelectionForeground(Color.BLACK); // màu chữ của ô được chọn
     }
 
-//    ProductForm(Object object, boolean b) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
+    ProductForm(Object object, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private void customJtable() {
         ProductTable.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
@@ -100,6 +107,18 @@ public class ProductForm extends javax.swing.JPanel {
                 } else {
                     setHorizontalAlignment(JLabel.CENTER);
                 }
+                
+                // Đặt căn giữa cho tiêu đề của cột
+                setHorizontalAlignment(SwingConstants.CENTER);
+
+                // Đặt đường viền cho từng cột trong tiêu đề
+                JTableHeader header = ProductTable.getTableHeader();
+                if (header != null) {
+                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); // Đường viền đen giữa các cột
+                }
+                // Đặt cỡ chữ cho tiêu đề của cột
+                setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
+
                 return this;
             }
         });
@@ -114,21 +133,21 @@ public class ProductForm extends javax.swing.JPanel {
             sizePriceMap.put(c.getSize(), c.getPrice());
         }
         comboSize.setModel(comboBoxModel);
-//        comboSize.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                if (e.getStateChange() == ItemEvent.SELECTED) {
-//                    int selectedRow = ProductTable.getSelectedRow();
-//                    if (selectedRow != -1) {
-//                        // Lấy dữ liệu từ dòng được chọn
-//                        int productId = (int) ProductTable.getValueAt(selectedRow, 7);
-//                        String selectedSize = (String) e.getItem();
-//                        int price = sizePriceMap.get(selectedSize);
-//                        ProductTable.setValueAt(price, selectedRow, 6);
-//                    }
-//                }
-//            }
-//        });
+        comboSize.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    int selectedRow = ProductTable.getSelectedRow();
+                    if (selectedRow != -1) {
+                        // Lấy dữ liệu từ dòng được chọn
+                        int productId = (int) ProductTable.getValueAt(selectedRow, 7);
+                        String selectedSize = (String) e.getItem();
+                        int price = sizePriceMap.get(selectedSize);
+                        ProductTable.setValueAt(price, selectedRow, 6);
+                    }
+                }
+            }
+        });
         comboSize.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -331,7 +350,7 @@ public class ProductForm extends javax.swing.JPanel {
         ProductTable.setMinimumSize(new java.awt.Dimension(110, 1500));
         ProductTable.setPreferredSize(new java.awt.Dimension(375, 1500));
         ProductTable.setRowHeight(60);
-        ProductTable.setShowGrid(false);
+        ProductTable.setShowGrid(true);
         ProductTable.setShowHorizontalLines(false);
         ProductTable.setShowVerticalLines(false);
         ProductTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -590,4 +609,3 @@ public class ProductForm extends javax.swing.JPanel {
     }
 
 }
-//11111

@@ -547,8 +547,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel timeLable;
     private javax.swing.JLabel timeLable2;
     // End of variables declaration//GEN-END:variables
-
-    public void setUserId(int account_id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+//
+//    public void setUserId(int account_id) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
 }
