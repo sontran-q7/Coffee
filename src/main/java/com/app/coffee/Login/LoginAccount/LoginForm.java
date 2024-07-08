@@ -21,6 +21,7 @@ import com.app.coffee.hashpassword.PasswordHash;
  * @author Admin
  */
 public class LoginForm extends javax.swing.JFrame {
+   
     private final UserController userController;
     private UsersModel user;
     private  Dashboard dashboard;
@@ -34,6 +35,7 @@ public class LoginForm extends javax.swing.JFrame {
         
         initComponents();
         userController = new UserController();
+        
         setLocationRelativeTo(null);
                 setResizable(true);
         
@@ -162,10 +164,13 @@ public class LoginForm extends javax.swing.JFrame {
     
         if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
 
-            System.out.println("Success");
-           showDashboard(user.getUserName());
-           
-           dispose();
+           System.out.println("Success");
+            UserSession session = UserSession.getInstance();
+        session.setUserName(user.getUserName());
+        session.setAccountId(user.getAccount_id());
+        showDashboard(user.getUserName());
+
+        dispose();
 
 //            System.out.println("Success");
           //  new Dashboard().setVisible(true);
@@ -176,10 +181,7 @@ public class LoginForm extends javax.swing.JFrame {
             new CustomDialog(this, "Error", "Email and password don't exist!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-   
-           
-    
+
     public static void main(String args[]) {
       
 
@@ -195,9 +197,9 @@ public class LoginForm extends javax.swing.JFrame {
     private void showDashboard(String userName) {
         if (dashboard == null) {
             dashboard = new Dashboard();
+            
         }
         dashboard.setUserName(userName);
-       // dashboard.setUserId(user.getAccount_id());
         dashboard.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

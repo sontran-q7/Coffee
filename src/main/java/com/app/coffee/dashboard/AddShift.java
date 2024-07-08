@@ -6,6 +6,7 @@ package com.app.coffee.dashboard;
 
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
+import com.app.coffee.Login.LoginAccount.UserSession;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -30,7 +31,7 @@ import javax.swing.text.PlainDocument;
  */
 public class AddShift extends javax.swing.JDialog {
 
-    
+    private String userName;
     public static final int RET_CANCEL = 0;
     
     public static final int RET_OK = 1;
@@ -92,7 +93,14 @@ public class AddShift extends javax.swing.JDialog {
         });
     }
     
-  
+      public void setUserName(String userName) {
+        this.userName = userName;
+        // Cập nhật giao diện nếu cần, ví dụ:
+         nametest.setText(userName);
+       
+    }
+
+
 //    AddShift() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
@@ -122,10 +130,10 @@ public class AddShift extends javax.swing.JDialog {
         jLabel46 = new javax.swing.JLabel();
         InPayField = new javax.swing.JTextField();
         jLabel47 = new javax.swing.JLabel();
-        BoxManager = new javax.swing.JComboBox<>();
         nameFiled = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         nametest = new javax.swing.JLabel();
+        BoxManager = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -175,6 +183,7 @@ public class AddShift extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jPanel1);
 
         jPanel10.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel10.setPreferredSize(new java.awt.Dimension(463, 60));
 
         shiftpanel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         shiftpanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,7 +203,7 @@ public class AddShift extends javax.swing.JDialog {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(shiftpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addComponent(shiftpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -229,16 +238,9 @@ public class AddShift extends javax.swing.JDialog {
         jLabel47.setForeground(new java.awt.Color(51, 51, 51));
         jLabel47.setText("Manager Shitf:");
 
-        BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        BoxManager.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoxManagerActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("user name");
 
-        nametest.setText("jLabel2");
+        BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,7 +253,7 @@ public class AddShift extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(111, 111, 111))
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,18 +268,20 @@ public class AddShift extends javax.swing.JDialog {
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CheckInTime, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(nametest, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nameFiled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(BoxManager, 0, 142, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nametest, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(BoxManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -299,13 +303,13 @@ public class AddShift extends javax.swing.JDialog {
                         .addComponent(BoxManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(nameFiled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(nametest)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(selectStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(nameFiled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nametest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -347,8 +351,10 @@ public class AddShift extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
-    
+//    
+//      public void setUserName(String userName) {
+//    nametest.setText(userName);
+//}
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     // Lấy dữ liệu từ các trường nhập liệu
     String selectedShift = (String) BoxShift.getSelectedItem();
@@ -375,13 +381,12 @@ public class AddShift extends javax.swing.JDialog {
     }
 
     float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
-
-    String selectedManager = (String) BoxManager.getSelectedItem();
-    Integer accountId = managerMap.get(selectedManager);
-    if (accountId == null) {
-        JOptionPane.showMessageDialog(this, "Quản lý không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+     
+    Integer accountId = UserSession.getInstance().getAccountId();
+        if (accountId == null) {
+            JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     
     // Thêm ca làm việc
     addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
@@ -448,11 +453,7 @@ public class AddShift extends javax.swing.JDialog {
     } catch (NumberFormatException e) {
         return false;
     }
-}
-    private void BoxManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoxManagerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BoxManagerActionPerformed
-    
+}    
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);

@@ -159,7 +159,34 @@ public class ProductDao {
         }
         return listProductDt;
     }
+    ///test
+    public ArrayList<ProductDetail> fillAllProductDetailByName(String productName) {
+        ArrayList<ProductDetail> listProductDt = new ArrayList<>();
+        String sql = """
+                     select pd.`size`,pd.price from product_detail pd join product p on pd.product_name =p.product_name
+                                     where p.product_name =? and pd.status = 1 and p.status =1
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  
+                PreparedStatement pstmt = con.prepareStatement(sql)) {
 
+            pstmt.setObject(1, productName);
+            pstmt.executeQuery();
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String size = rs.getString(1);
+                    int price = rs.getInt(2);
+                    ProductDetail pd = new ProductDetail(size, price);
+                    listProductDt.add(pd);
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listProductDt;
+    }
+
+    // end test
     public ArrayList<ProductDetail> showDataProductDetail(int idProduct) {
         ArrayList<ProductDetail> listProductDt = new ArrayList<>();
         String sql = """

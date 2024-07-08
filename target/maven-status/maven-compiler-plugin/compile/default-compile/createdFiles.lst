@@ -15,6 +15,7 @@ com\app\coffee\product\EditProduct$1.class
 com\app\coffee\menu\CategoryDaoMenu.class
 com\app\coffee\Backend\DAO\UserDAO.class
 com\app\coffee\employee\EmployeeManager$6.class
+com\app\coffee\employee\StaffSchedule$5.class
 com\app\coffee\employee\EmployeeManager$5.class
 com\app\coffee\Login\LoginAccount\LoginForm$3.class
 com\app\coffee\bill\DetailForm.class
@@ -50,7 +51,6 @@ com\app\coffee\dashboard\AddShift$4.class
 com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
-com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
 com\app\coffee\bill\Bill$5.class
 com\app\coffee\dateformat\DateLabelFormatter.class
@@ -58,9 +58,11 @@ com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
 com\app\coffee\dashboard\DashboardPage$4.class
 com\app\coffee\employee\StaffSchedule$3.class
+com\app\coffee\product\AddProductDetail$4.class
 com\app\coffee\Backend\Connect\ConnectionCoffee.class
 com\app\coffee\product\AddProduct$2.class
 com\app\coffee\product\EditProduct$5.class
+com\app\coffee\category\CustomHeaderRenderer.class
 com\app\coffee\dashboard\AddShift$1.class
 com\app\coffee\employee\ReturnAccount$1.class
 com\app\coffee\menu\CustomScrollBarUI.class
@@ -114,11 +116,11 @@ com\app\coffee\product\ProductForm.class
 com\app\coffee\dashboard\DashboardPage$6.class
 com\app\coffee\menu\CardProductPanel.class
 com\app\coffee\product\AddProductDetail$2.class
+com\app\coffee\Login\LoginAccount\UserSession.class
 com\app\coffee\Backend\DAO\DAOInterface.class
 com\app\coffee\dashboard\EndShift$1.class
 com\app\coffee\dashboard\MoneyFilter.class
 com\app\coffee\dashboard\DashboardPage.class
-com\app\coffee\dashboard\AddShift$7.class
 com\app\coffee\employee\EmployeeManager$ImageRenderTest.class
 com\app\coffee\Backend\Model\OrderDetailModel.class
 com\app\coffee\employee\FormAdd$2.class
@@ -160,5 +162,6 @@ com\app\coffee\dashboard\Dashboard$5.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
+com\app\coffee\dashboard\AddShift$6$1.class
 com\app\coffee\menu\MenuPanel$3.class
 com\app\coffee\employee\FormEdit$2.class

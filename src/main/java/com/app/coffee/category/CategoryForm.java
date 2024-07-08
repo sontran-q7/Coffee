@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.category;
+
 import com.app.coffee.bill.Bill;
 import com.app.coffee.dashboard.DashboardPage;
 import com.app.coffee.employee.EmployeeManager;
@@ -11,15 +12,21 @@ import com.app.coffee.product.Product;
 import com.app.coffee.product.ProductDao;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -42,12 +49,30 @@ public class CategoryForm extends javax.swing.JPanel {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         CategoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        
+
         // Đặt căn giữa tất cả các cột
 //        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 //        for (int i = 0; i < CategoryTable.getColumnCount(); i++) {
 //            CategoryTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 //        }
+
+        // TRONG DESIGN Propreties tìm SHOWGRID ĐỂ HIỂN THỊ ĐƯỜNG VIỀN
+        JTableHeader header = CategoryTable.getTableHeader();
+        // Tạo đường viền cho tiêu đề
+//        Border headerBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // Đường viền, độ dày
+//        header.setBorder(headerBorder);
+        // Đặt đường viền cho tiêu đề của từng cột
+        header.setDefaultRenderer(new CustomHeaderRenderer());
+        // Tạo đường viền cho bảng
+//        Border tableBorder = BorderFactory.createLineBorder(Color.BLACK, 1); // Đường viền, độ dày
+//        CategoryTable.setBorder(tableBorder);
+        // Đặt màu sắc cho đường viền giữa các ô trong bảng
+//        CategoryTable.setGridColor(Color.BLACK); // màu đường viền
+        //  màu nền và màu chữ cho bảng
+//        CategoryTable.setBackground(Color.WHITE);
+//        CategoryTable.setForeground(Color.BLACK); // màu nền 
+//        CategoryTable.setSelectionBackground(Color.LIGHT_GRAY); // màu nền của ô được chọn
+//        CategoryTable.setSelectionForeground(Color.BLACK); // màu chữ của ô được chọn
     }
 
     /**
@@ -73,6 +98,7 @@ public class CategoryForm extends javax.swing.JPanel {
         EditCategoryButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1350, 81));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -89,10 +115,7 @@ public class CategoryForm extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
         );
 
         jPanel3.setPreferredSize(new java.awt.Dimension(1344, 718));
@@ -101,6 +124,7 @@ public class CategoryForm extends javax.swing.JPanel {
         CategoryPanel01.setBackground(new java.awt.Color(255, 255, 255));
         CategoryPanel01.setLayout(new java.awt.BorderLayout());
 
+        CategoryTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CategoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -155,39 +179,53 @@ public class CategoryForm extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "STT", "Category name", "Description"
+                "No", "Category name", "Description"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        CategoryTable.setToolTipText("");
         CategoryTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         CategoryTable.setRowHeight(30);
+        CategoryTable.setShowGrid(false);
+        CategoryTable.setShowHorizontalLines(false);
+        CategoryTable.setShowVerticalLines(false);
         jScrollPane1.setViewportView(CategoryTable);
         if (CategoryTable.getColumnModel().getColumnCount() > 0) {
-            CategoryTable.getColumnModel().getColumn(0).setMinWidth(80);
+            CategoryTable.getColumnModel().getColumn(0).setMinWidth(100);
             CategoryTable.getColumnModel().getColumn(0).setPreferredWidth(100);
             CategoryTable.getColumnModel().getColumn(0).setMaxWidth(100);
-            CategoryTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-            CategoryTable.getColumnModel().getColumn(1).setMaxWidth(200);
+            CategoryTable.getColumnModel().getColumn(1).setMinWidth(300);
+            CategoryTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+            CategoryTable.getColumnModel().getColumn(1).setMaxWidth(300);
         }
 
         CategoryPanel01.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jPanel3.add(CategoryPanel01, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 800, 520));
+        jPanel3.add(CategoryPanel01, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 800, 640));
 
         CategoryFormPanel.setBackground(new java.awt.Color(255, 255, 255));
         CategoryFormPanel.setLayout(new java.awt.CardLayout());
-        jPanel3.add(CategoryFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 430, 520));
+        jPanel3.add(CategoryFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 430, 640));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Category Table :");
+        jLabel1.setMaximumSize(new java.awt.Dimension(110, 22));
+        jLabel1.setMinimumSize(new java.awt.Dimension(110, 22));
+        jLabel1.setPreferredSize(new java.awt.Dimension(110, 22));
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 160, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -195,7 +233,7 @@ public class CategoryForm extends javax.swing.JPanel {
         jLabel2.setText("Category Form :");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 30));
 
-        DeleteCategory.setBackground(new java.awt.Color(102, 102, 102));
+        DeleteCategory.setBackground(new java.awt.Color(0, 0, 0));
         DeleteCategory.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DeleteCategory.setForeground(new java.awt.Color(255, 255, 255));
         DeleteCategory.setText("Delete");
@@ -231,23 +269,22 @@ public class CategoryForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCategoryButtonActionPerformed
         AddCategory newCategory = new AddCategory(this); // Truyền tham chiếu của CategoryForm vào AddCategory
         showPanel("addCategory");
-        
+
     }//GEN-LAST:event_AddCategoryButtonActionPerformed
 
     private void EditCategoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditCategoryButtonActionPerformed
@@ -266,7 +303,7 @@ public class CategoryForm extends javax.swing.JPanel {
             CategoryFormPanel.add(editCategory, "editCategory");
             showPanel("editCategory");
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để chỉnh sửa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an item to edit.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_EditCategoryButtonActionPerformed
 
@@ -274,19 +311,18 @@ public class CategoryForm extends javax.swing.JPanel {
         int selectedRow = CategoryTable.getSelectedRow(); // Lấy hàng được chọn trong bảng
 
         if (selectedRow != -1) { // Kiểm tra xem có hàng nào được chọn không
-            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
 
             if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
                 DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
-                String category_id= model.getValueAt(selectedRow, 0).toString(); // Lấy ID của category từ model của bảng
-                
-                
+                String category_id = model.getValueAt(selectedRow, 0).toString(); // Lấy ID của category từ model của bảng
+
                 CategoryDao categoryDao = new CategoryDao();
                 ProductDao productDao = new ProductDao();
 
                 // Kiểm tra xem danh mục có sản phẩm liên quan không
                 if (productDao.hasProductsForCategory(category_id)) {
-                    int option2 = JOptionPane.showConfirmDialog(this, "Không thể xóa! Có sản phẩm hiện đang liên quan đến danh mục này", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+                    int option2 = JOptionPane.showConfirmDialog(this, "Cannot delete! There are products currently associated with this category!", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
 
 //                    if (option2 == JOptionPane.YES_OPTION) {
 //                        // Xóa sản phẩm của danh mục này trước
@@ -306,21 +342,22 @@ public class CategoryForm extends javax.swing.JPanel {
                     // Không có sản phẩm liên quan, chỉ cần xóa danh mục
                     if (categoryDao.deleteCategory(category_id)) {
                         model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
-                        JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        JOptionPane.showMessageDialog(this, "Successfully deleted!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Xóa danh mục không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Failed to delete category!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một hàng để xóa.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an item to delete.", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_DeleteCategoryActionPerformed
 
     private void loadPanels() {
         AddCategory addCategory = new AddCategory(this);
         CategoryFormPanel.add(addCategory, "addCategory");
-        
+
     }
 
     private void showPanel(String panelName) {

@@ -7,6 +7,7 @@ package com.app.coffee.dashboard;
 import com.app.coffee.Backend.DAO.BillDAO;
 
 import com.app.coffee.Backend.Model.PendingBill;
+import com.app.coffee.Login.LoginAccount.UserSession;
 import com.app.coffee.bill.ButtonEditor;
 import com.app.coffee.bill.ButtonRenderer;
 import com.app.coffee.employee.FormAdd;
@@ -26,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -33,14 +35,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class DashboardPage extends javax.swing.JPanel {
-
+    public String userName;
+    
     /**
      * Creates new form DashboardPage
      */
     public DashboardPage() {
         initComponents();
         
-        
+        userName = UserSession.getInstance().getUserName();
+        nameT.setText(userName);
+        System.out.println("tên" +userName);
         setCellRenderer(PendingBillTabel1);
         updatePendingBillTable();
         displayTotalSumOfMonth();
@@ -48,7 +53,9 @@ public class DashboardPage extends javax.swing.JPanel {
         //showDetailDialog();
         //refreshDayNow();
     }
-
+    
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +81,7 @@ public class DashboardPage extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JButton();
         EndShift = new javax.swing.JButton();
+        nameT = new javax.swing.JLabel();
         StaffPanel = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         PositionCard = new javax.swing.JLabel();
@@ -262,6 +270,8 @@ public class DashboardPage extends javax.swing.JPanel {
             }
         });
 
+        nameT.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -269,7 +279,9 @@ public class DashboardPage extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(465, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(226, 226, 226)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameT, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116)
                 .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +294,8 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameT, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -480,7 +493,8 @@ public class DashboardPage extends javax.swing.JPanel {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
-               
+                dialog.setUserName(userName);
+                
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -648,5 +662,6 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel nameT;
     // End of variables declaration//GEN-END:variables
 }
