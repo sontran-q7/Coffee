@@ -43,27 +43,25 @@ public class ButtonEditor extends DefaultCellEditor {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow = table.convertRowIndexToModel(table.getEditingRow());
-            int orderDetailId = (Integer) table.getModel().getValueAt(selectedRow, 0);
-
-            // Assuming OrderDetailDAO and OrderDetailModel are properly defined
+            int orderId = (Integer) table.getModel().getValueAt(selectedRow, 0);
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-            OrderModel ordermodel = orderDetailDAO.selectById(orderDetailId);
+            OrderModel ordermodel = orderDetailDAO.selectById(orderId);
 
             if (ordermodel != null) {
-                DetailForm detailForm = new DetailForm(); // Create DetailForm instance
-                detailForm.updateDetails(ordermodel); // Update details in the form
+                DetailForm detailForm = new DetailForm(); 
+                detailForm.updateDetails(ordermodel); 
 
                 JDialog dialog = new JDialog((Frame) null, "Detail Form", true);
                 dialog.getContentPane().add(detailForm);
                 dialog.pack();
-                dialog.setLocationRelativeTo(null); // Đặt vị trí của JDialog ở bên trái màn hình
+                dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(button, "Order detail not found.");
             }
 
             if (bill != null) {
-                bill.refreshListBill(); // Refresh the bill if necessary
+                bill.refreshListBill(); 
             }
         }
     });
