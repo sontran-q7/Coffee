@@ -431,6 +431,8 @@ public class ProductForm extends javax.swing.JPanel {
         jPanel2.add(AddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 90, 30));
 
         btnLoadData.setBackground(new java.awt.Color(255, 102, 0));
+        btnLoadData.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLoadData.setForeground(new java.awt.Color(255, 255, 255));
         btnLoadData.setText("Refresh");
         btnLoadData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

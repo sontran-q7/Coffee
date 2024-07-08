@@ -64,7 +64,6 @@ com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
 com\app\coffee\product\AddProduct$1.class
-com\app\coffee\bill\Bill$5.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
