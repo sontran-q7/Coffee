@@ -111,13 +111,13 @@ public class ProductForm extends javax.swing.JPanel {
                 // Đặt căn giữa cho tiêu đề của cột
                 setHorizontalAlignment(SwingConstants.CENTER);
 
-                // Đặt đường viền cho từng cột trong tiêu đề
+//                // Đặt đường viền cho từng cột trong tiêu đề
                 JTableHeader header = ProductTable.getTableHeader();
                 if (header != null) {
-                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); // Đường viền đen giữa các cột
+                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(220, 220, 220))); // Đường viền đen giữa các cột
                 }
                 // Đặt cỡ chữ cho tiêu đề của cột
-                setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
+               // setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
 
                 return this;
             }
@@ -351,8 +351,6 @@ public class ProductForm extends javax.swing.JPanel {
         ProductTable.setPreferredSize(new java.awt.Dimension(375, 1500));
         ProductTable.setRowHeight(60);
         ProductTable.setShowGrid(true);
-        ProductTable.setShowHorizontalLines(false);
-        ProductTable.setShowVerticalLines(false);
         ProductTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ProductTableMouseClicked(evt);
@@ -388,15 +386,14 @@ public class ProductForm extends javax.swing.JPanel {
 
         ProductFormPanel.setBackground(new java.awt.Color(255, 255, 255));
         ProductFormPanel.setLayout(new java.awt.CardLayout());
-        jPanel2.add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 430, 640));
+        jPanel2.add(ProductFormPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 70, 430, 640));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Product form:");
         jLabel2.setMaximumSize(new java.awt.Dimension(120, 22));
         jLabel2.setMinimumSize(new java.awt.Dimension(120, 22));
         jLabel2.setPreferredSize(new java.awt.Dimension(120, 22));
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 30));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 30, 120, 30));
 
         EditProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         EditProduct.setForeground(new java.awt.Color(255, 102, 0));
@@ -406,7 +403,7 @@ public class ProductForm extends javax.swing.JPanel {
                 EditProductActionPerformed(evt);
             }
         });
-        jPanel2.add(EditProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, 90, 30));
+        jPanel2.add(EditProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 30, 90, 30));
 
         DeleteProduct.setBackground(new java.awt.Color(51, 51, 51));
         DeleteProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -417,7 +414,7 @@ public class ProductForm extends javax.swing.JPanel {
                 DeleteProductActionPerformed(evt);
             }
         });
-        jPanel2.add(DeleteProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 30, 90, 30));
+        jPanel2.add(DeleteProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 30, 90, 30));
 
         AddProduct.setBackground(new java.awt.Color(255, 102, 0));
         AddProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -428,7 +425,7 @@ public class ProductForm extends javax.swing.JPanel {
                 AddProductActionPerformed(evt);
             }
         });
-        jPanel2.add(AddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 90, 30));
+        jPanel2.add(AddProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 90, 30));
 
         btnLoadData.setBackground(new java.awt.Color(255, 102, 0));
         btnLoadData.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -446,14 +443,14 @@ public class ProductForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1350, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

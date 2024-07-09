@@ -29,10 +29,10 @@ public class CustomHeaderRenderer extends DefaultTableCellRenderer {
         // Đặt đường viền cho từng cột trong tiêu đề
         JTableHeader header = table.getTableHeader();
         if (header != null) {
-            setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); // Đường viền đen giữa các cột
+            setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(220, 220, 220))); // Đường viền đen giữa các cột
         }
         // Đặt cỡ chữ cho tiêu đề của cột
-        setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
+        //setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
         
         return this;
     }

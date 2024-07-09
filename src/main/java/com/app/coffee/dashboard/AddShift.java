@@ -200,7 +200,7 @@ public class AddShift extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "User name", "Image", "Position"
+                "ID", "Image", "Name", "Position"
             }
         ));
         ListUserTable.setRowHeight(50);

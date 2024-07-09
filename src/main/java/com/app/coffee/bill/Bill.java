@@ -12,6 +12,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -33,7 +34,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -47,24 +51,24 @@ public class Bill extends javax.swing.JPanel {
     public Bill() {
         initComponents();
         setCellRenderer(tableBill);
-        setDefTable();
+       // setDefTable();
         refreshListBill();
     }
     
     
-       private void setDefTable() {
-        tableBill.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
-        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
-                + "border:4,4,4,4,$TableHeader.bottomSeparatorColor,,10");
-        tableBill.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
-                + "hoverBackground:null;"
-                + "pressedBackground:null;"
-                + "separatorColor:$TableHeader.background");
-//        scroll.putClientProperty(FlatClientProperties.STYLE, ""
-//                + "border:9,0,9,0,$Table.background,10,10");
-//        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
-//                + "hoverTrackColor:null");
-    }
+//       private void setDefTable() {
+//        tableBill.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
+//        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
+//                + "border:4,4,4,4,$TableHeader.bottomSeparatorColor,,10");
+//        tableBill.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
+//                + "hoverBackground:null;"
+//                + "pressedBackground:null;"
+//                + "separatorColor:$TableHeader.background");
+////        scroll.putClientProperty(FlatClientProperties.STYLE, ""
+////                + "border:9,0,9,0,$Table.background,10,10");
+////        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
+////                + "hoverTrackColor:null");
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -291,7 +295,9 @@ public class Bill extends javax.swing.JPanel {
         // TODO add your handling code here:
         refreshListBill();
     }//GEN-LAST:event_ButtonRefresh
-
+    
+   
+    
     public void refreshDayNow() {
     OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
     ArrayList<OrderModel> listBill = orderDetailDAO.selectAll1Bill();
@@ -354,6 +360,13 @@ public class Bill extends javax.swing.JPanel {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+         JTableHeader header = tableBill.getTableHeader();
+                if (header != null) {
+                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); // Đường viền đen giữa các cột
+                }
+                // Đặt cỡ chữ cho tiêu đề của cột
+                setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
+
       }
     public void refreshListBillByDate(LocalDateTime  fromDate, LocalDateTime  toDate) {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
@@ -375,9 +388,7 @@ public class Bill extends javax.swing.JPanel {
             defaultTableModel.addRow(row);
         }
 }
-    
-  
-    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
