@@ -7,9 +7,15 @@ package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.DAO.ControlDAO;
+import com.app.coffee.Backend.DAO.UserDAO;
+import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.Login.LoginAccount.UserSession;
+import com.app.coffee.employee.EmployeeManager;
+import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,13 +23,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.text.PlainDocument;
 
 /**
@@ -54,23 +70,7 @@ public class AddShift extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-       
-//         // Phương thức để truy xuất dữ liệu cho BoxManager
-//    private void loadManager() {
-//        String sql = "SELECT * FROM `account` WHERE role_id =2;"; 
-//        try (Connection conn = ConnectionCoffee.getConnection();
-//             PreparedStatement pstmt = conn.prepareStatement(sql);
-//             ResultSet rs = pstmt.executeQuery()) {
-//
-//            BoxManager.removeAllItems();
-//            while (rs.next()) {
-//                String managerName = rs.getString("username"); //username lấy từ tên cột trong database account
-//                BoxManager.addItem(managerName);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    
     /**
      * Creates new form ListStaff
      */
@@ -78,11 +78,26 @@ public class AddShift extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initShiftMap();
-        //initManagerMap();
         updateCheckInTimeLabel();
         loadBoxShift();
-        //loadManager();
+        GetList();
+        // Đặt các renderers
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        ListUserTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer); // Cột ID
+        ListUserTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); // Cột User name
+        ListUserTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer); // Cột Role
+        //ListUserTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer); // Cột Phone
+        
 
+        // Đặt ImageRenderer cho cột chứa ảnh
+        ListUserTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+
+        
+       
+        
+        
+        
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
@@ -94,6 +109,23 @@ public class AddShift extends javax.swing.JDialog {
         });
     }
     
+    
+    public class ImageRenderer extends DefaultTableCellRenderer {
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = new JLabel();
+            label.setHorizontalAlignment(JLabel.CENTER); // Căn giữa ảnh và văn bản
+            String photoName = value != null ? value.toString() : "no-image.png";
+            File imageFile = new File("src/image/" + photoName);
+            if (!imageFile.exists()) {
+                imageFile = new File("src/image/no-image.png");
+            }
+            ImageIcon imageIcon = new ImageIcon(
+                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));          
+            return new JLabel(imageIcon);
+    }
+}
+    
       public void setUserName(String userName) {
         this.userName = userName;
         // Cập nhật giao diện nếu cần, ví dụ:
@@ -101,10 +133,6 @@ public class AddShift extends javax.swing.JDialog {
        
     }
 
-
-//    AddShift() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
 
     public int getReturnStatus() {
         return returnStatus;
@@ -175,6 +203,7 @@ public class AddShift extends javax.swing.JDialog {
                 "ID", "User name", "Image", "Position"
             }
         ));
+        ListUserTable.setRowHeight(50);
         jScrollPane2.setViewportView(ListUserTable);
 
         jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
@@ -330,23 +359,6 @@ public class AddShift extends javax.swing.JDialog {
         }
     }
 
-//    private void initManagerMap() {
-//        managerMap = new HashMap<>();
-//        try (Connection conn = ConnectionCoffee.getConnection();
-//             Statement stmt = conn.createStatement();
-//             ResultSet rs = stmt.executeQuery("SELECT account_id, username FROM account WHERE role_id = 2")) {
-//            while (rs.next()) {
-//                managerMap.put(rs.getString("username"), rs.getInt("account_id"));
-//            }
-//            BoxManager.setModel(new javax.swing.DefaultComboBoxModel<>(managerMap.keySet().toArray(new String[0])));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    
-//      public void setUserName(String userName) {
-//    nametest.setText(userName);
-//}
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
     // Lấy dữ liệu từ các trường nhập liệu
       String selectedShift = (String) BoxShift.getSelectedItem();
@@ -395,45 +407,12 @@ public class AddShift extends javax.swing.JDialog {
         String currentTime = now.format(formatter);
         CheckInTime.setText(currentTime);
     }
-    
-    // Phương thức addControl
-//   public int addControl(int workingTimeId, String checkIn, String checkOut, float checkInPay, float checkOutPay, int accountId) {
-//    String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";
-//    int controlId = -1;
-//    try (Connection conn = ConnectionCoffee.getConnection();
-//         PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-//        
-//        pstmt.setInt(1, workingTimeId);
-//        pstmt.setString(2, checkIn);
-//        pstmt.setString(3, checkOut);
-//        pstmt.setFloat(4, checkInPay);
-//        pstmt.setFloat(5, checkOutPay);
-//        pstmt.setInt(6, accountId);
-//        
-//        int affectedRows = pstmt.executeUpdate();
-//
-//        if (affectedRows > 0) {
-//            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-//                if (generatedKeys.next()) {
-//                    controlId = generatedKeys.getInt(1);
-//                }
-//            }
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//        JOptionPane.showMessageDialog(null, "Lỗi khi thêm ca làm việc vào cơ sở dữ liệu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//    }
-//    return controlId;
-//}
 
     
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    /**
-     * Closes the dialog
-     */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
@@ -441,7 +420,6 @@ public class AddShift extends javax.swing.JDialog {
     private void InPayFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InPayFieldActionPerformed
         String input = InPayField.getText();
     if (!isNumeric(input)) {
-        // Hiển thị thông báo lỗi
         JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ.(ví dụ :12345.05)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
         // Xóa nội dung của InPayField
         InPayField.setText("");
@@ -464,8 +442,45 @@ public class AddShift extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
+  
+   public void GetList() {
+        UserDAO userdao = new UserDAO();    
+        ArrayList<UsersModel> listUser = userdao.selectAll();
 
-   
+        // Sort users by account_id
+        Collections.sort(listUser, new Comparator<UsersModel>() {
+            @Override
+            public int compare(UsersModel u1, UsersModel u2) {
+                return u1.getAccount_id() - u2.getAccount_id();
+            }
+        });
+
+        DefaultTableModel table = (DefaultTableModel) ListUserTable.getModel();
+        table.setRowCount(0);
+        int count = 1;
+
+        for (UsersModel user : listUser) {
+            if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
+                Object[] row = {
+                    count++,
+                    user.getImage() != null ? user.getImage() : "no-image.png",
+                    user.getUserName() != null ? user.getUserName() : "",
+                    user.getRole() != null ? user.getRole().getName() : "", 
+                    user.getPhone() != null ? user.getPhone() : "",
+                    user.getEmail() != null ? user.getEmail() : ""     
+                };
+                table.addRow(row);
+            }
+        }
+        // image
+        ListUserTable.setRowHeight(60);
+        
+        // Đặt ImageRenderer cho cột chứa ảnh
+        ListUserTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+    }
+
+
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

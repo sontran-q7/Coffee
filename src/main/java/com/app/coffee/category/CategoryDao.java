@@ -49,7 +49,9 @@ public class CategoryDao {
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String sql = "SELECT * FROM category WHERE status = 1";
-        try (Connection con = DatabaseConnection.getJDBConnection(); PreparedStatement pstmt = con.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+        try (Connection con = DatabaseConnection.getJDBConnection(); 
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 int category_id = rs.getInt("category_id");

@@ -127,66 +127,66 @@ public class CategoryForm extends javax.swing.JPanel {
         CategoryTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CategoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "Category name", "Description"
+                "No", "Category name", "Description", "Title 4"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -201,8 +201,6 @@ public class CategoryForm extends javax.swing.JPanel {
         CategoryTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         CategoryTable.setRowHeight(30);
         CategoryTable.setShowGrid(false);
-        CategoryTable.setShowHorizontalLines(false);
-        CategoryTable.setShowVerticalLines(false);
         jScrollPane1.setViewportView(CategoryTable);
         if (CategoryTable.getColumnModel().getColumnCount() > 0) {
             CategoryTable.getColumnModel().getColumn(0).setMinWidth(100);
@@ -211,6 +209,9 @@ public class CategoryForm extends javax.swing.JPanel {
             CategoryTable.getColumnModel().getColumn(1).setMinWidth(300);
             CategoryTable.getColumnModel().getColumn(1).setPreferredWidth(300);
             CategoryTable.getColumnModel().getColumn(1).setMaxWidth(300);
+            CategoryTable.getColumnModel().getColumn(3).setMinWidth(0);
+            CategoryTable.getColumnModel().getColumn(3).setPreferredWidth(0);
+            CategoryTable.getColumnModel().getColumn(3).setMaxWidth(0);
         }
 
         CategoryPanel01.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -315,7 +316,7 @@ public class CategoryForm extends javax.swing.JPanel {
 
             if (option == JOptionPane.YES_OPTION) { // Nếu người dùng xác nhận muốn xóa
                 DefaultTableModel model = (DefaultTableModel) CategoryTable.getModel();
-                String category_id = model.getValueAt(selectedRow, 0).toString(); // Lấy ID của category từ model của bảng
+                String category_id = model.getValueAt(selectedRow, 3).toString(); // Lấy ID của category từ model của bảng
 
                 CategoryDao categoryDao = new CategoryDao();
                 ProductDao productDao = new ProductDao();
@@ -327,6 +328,7 @@ public class CategoryForm extends javax.swing.JPanel {
                     // Không có sản phẩm liên quan, chỉ cần xóa danh mục
                     if (categoryDao.deleteCategory(category_id)) {
                         model.removeRow(selectedRow); // Xóa hàng được chọn khỏi bảng
+//                        refreshCategoryTable();
                         updateTableSTT(); // Cập nhật lại STT
                         JOptionPane.showMessageDialog(this, "Successfully deleted!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -374,7 +376,7 @@ public class CategoryForm extends javax.swing.JPanel {
         // Thêm các hàng mới vào bảng với stt tự động tăng
         int stt = 1;
         for (Category category : categories) {
-            Object[] row = {stt++, category.getCategory_name(), category.getDescription()}; //category.getCategory_id(), 
+            Object[] row = {stt++, category.getCategory_name(), category.getDescription(), category.getCategory_id()}; //category.getCategory_id(), 
             model.addRow(row);
         }
     }

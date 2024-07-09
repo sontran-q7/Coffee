@@ -355,25 +355,14 @@ private boolean checkvalidate() {
         String priceL = txtPriceL.getText();
         String priceS = txtPriceS.getText();
 
-        ProductDao productDao = new ProductDao();
 
         if (product.isEmpty() || description.isEmpty() || priceL.isEmpty() || priceS.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fields cannot be empty!");
             return false;
         }
-
-        if (productDao.isProductExists(product)) {
-            JOptionPane.showMessageDialog(null, "Product name already exists!");
-            return false;
-        }
         
         if (!isNumeric(priceL) || !isNumeric(priceS)) {
             JOptionPane.showMessageDialog(null, "Price must be numeric!");
-            return false;
-        }
-        
-        if (!isImageFile(imagePath)) {
-            JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
             return false;
         }
          
@@ -397,16 +386,6 @@ private boolean checkvalidate() {
         return true;
     }
 
-    private boolean isImageFile(String path) {
-        String[] imageExtensions = { "jpg", "jpeg", "png", "gif", "bmp" };
-        for (String extension : imageExtensions) {
-            if (path.toLowerCase().endsWith("." + extension)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
     private boolean isNumeric(String str) {
         if (str == null || str.isEmpty()) {
             return false;

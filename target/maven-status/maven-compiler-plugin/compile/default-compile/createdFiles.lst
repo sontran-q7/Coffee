@@ -58,11 +58,13 @@ com\app\coffee\dashboard\DashboardPage$5.class
 com\app\coffee\design\GradientPanel.class
 com\app\coffee\employee\EmployeeManager$7.class
 com\app\coffee\Login\LoginAccount\VerifyCode$1.class
+com\app\coffee\dashboard\AddShift$ImageRenderer.class
 com\app\coffee\product\Product.class
 com\app\coffee\dashboard\AddShift$4.class
 com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
+com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\Login.class
@@ -141,6 +143,7 @@ com\app\coffee\Backend\DAO\DAOInterface.class
 com\app\coffee\dashboard\EndShift$1.class
 com\app\coffee\dashboard\MoneyFilter.class
 com\app\coffee\dashboard\DashboardPage.class
+com\app\coffee\dashboard\AddShift$7.class
 com\app\coffee\employee\EmployeeManager$ImageRenderTest.class
 com\app\coffee\Backend\Model\OrderDetailModel.class
 com\app\coffee\employee\FormAdd$2.class
@@ -184,6 +187,5 @@ com\app\coffee\Login\LoginAccount\RegisterAdmin.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
-com\app\coffee\dashboard\AddShift$6$1.class
 com\app\coffee\menu\MenuPanel$3.class
 com\app\coffee\employee\FormEdit$2.class

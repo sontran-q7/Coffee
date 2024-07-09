@@ -312,6 +312,8 @@ public class AddProduct extends javax.swing.JPanel {
     }
 
     private boolean checkvalidate() {
+        ProductDao productDao = new ProductDao();
+        String imagePath = txtImage.getText();  // Assuming you have a text field for the image path
         String image = txtImage.getText();
         String product = txtProduct.getText();
         String description = txtDesscription.getText();
@@ -319,7 +321,27 @@ public class AddProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Cannot be empty!");
             return false;
         }
+        
+        if (!isImageFile(imagePath)) {
+            JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
+            return false;
+        }
+        
+        if (productDao.isProductExists(product)) {
+            JOptionPane.showMessageDialog(null, "Product name already exists!");
+            return false;
+        }
         return true;
+    }
+    
+    private boolean isImageFile(String path) {
+        String[] imageExtensions = { "jpg", "jpeg", "png", "gif", "bmp" };
+        for (String extension : imageExtensions) {
+            if (path.toLowerCase().endsWith("." + extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Product addProduct() {

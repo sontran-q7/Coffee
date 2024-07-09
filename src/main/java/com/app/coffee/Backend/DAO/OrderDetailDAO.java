@@ -89,10 +89,10 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     ArrayList<OrderModel> list = new ArrayList<>();
     try (Connection conn = ConnectionCoffee.getConnection()) {
         String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
-                     "a.username AS account_username, a.email AS account_email " +
-                     "FROM orders o " +
-                     "LEFT JOIN account a ON o.account_id = a.account_id " +
-                     "WHERE o.updated_at >= ? AND o.updated_at <= ?";
+             "a.username AS account_username, a.email AS account_email " +
+             "FROM orders o " +
+             "LEFT JOIN account a ON o.account_id = a.account_id " +
+             "WHERE o.updated_at >= ? AND o.updated_at <= ? + INTERVAL 1 DAY";
                      
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setTimestamp(1, Timestamp.valueOf(fromDate));
