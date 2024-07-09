@@ -30,7 +30,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="Show" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jPanel1" pref="760" max="32767" attributes="0"/>
+                  <Component id="jPanel1" pref="909" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
           </Group>
@@ -55,13 +55,13 @@
                   <Component id="jLabel3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" pref="399" max="-2" attributes="0"/>
-              <EmptySpace pref="82" max="32767" attributes="0"/>
+              <Component id="jPanel1" pref="437" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="566" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="572" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -138,6 +138,7 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="rowHeight" type="int" value="30"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
@@ -174,7 +175,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="219" max="-2" attributes="0"/>
-                  <EmptySpace pref="404" max="32767" attributes="0"/>
+                  <EmptySpace pref="553" max="32767" attributes="0"/>
                   <Component id="BackManager" min="-2" pref="149" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               </Group>

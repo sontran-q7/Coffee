@@ -6,6 +6,7 @@ package com.app.coffee.employee;
 
 import com.app.coffee.Backend.Model.ControlModel;
 import com.app.coffee.Backend.Service.ControlService;
+import com.app.coffee.category.CustomHeaderRenderer;
 import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -42,12 +43,17 @@ public class StaffSchedule extends javax.swing.JPanel {
         initComponents();
         //setDefTable();
         
+        
         controlService = new ControlService();
         timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
         GetList();
         SetColumn();
+        
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new CustomHeaderRenderer());
+        
         Search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,6 +191,7 @@ public class StaffSchedule extends javax.swing.JPanel {
                 "Shift", "Name", "Arrival time", "Time to leave", "First money", "End money", "Date"
             }
         ));
+        table.setRowHeight(30);
         scroll.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -221,7 +228,7 @@ public class StaffSchedule extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 404, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 553, Short.MAX_VALUE)
                 .addComponent(BackManager, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
@@ -265,7 +272,7 @@ public class StaffSchedule extends javax.swing.JPanel {
                         .addComponent(SearchToday, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Show, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE))
                 .addGap(41, 41, 41))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -283,12 +290,12 @@ public class StaffSchedule extends javax.swing.JPanel {
                         .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                .addGap(50, 50, 50))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 566, Short.MAX_VALUE)))
+                    .addGap(0, 572, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 

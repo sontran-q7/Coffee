@@ -43,7 +43,6 @@ public class demo extends JFrame{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
                 demo frame = new demo();
                 frame.setVisible(true);
             }

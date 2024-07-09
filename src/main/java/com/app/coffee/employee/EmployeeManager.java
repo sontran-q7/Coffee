@@ -6,6 +6,7 @@ package com.app.coffee.employee;
 
 import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
+import com.app.coffee.category.CustomHeaderRenderer;
 import com.app.coffee.dashboard.Dashboard;
 import com.app.coffee.design.TableGradient;
 import com.formdev.flatlaf.FlatClientProperties;
@@ -48,10 +49,14 @@ public class EmployeeManager extends javax.swing.JPanel {
     initComponents();
     //setDefTable();
     
-     
+    
     loadPanels();
     SetColumn();
     GetList();
+    
+    
+    JTableHeader header = tableListUser.getTableHeader();
+    header.setDefaultRenderer(new CustomHeaderRenderer());
         
 }
     private void SetColumn() {
@@ -77,8 +82,12 @@ public class EmployeeManager extends javax.swing.JPanel {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
         
     for (int i = 0; i < tableListUser.getColumnCount(); i++) {
-        tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        if (i != 1) {
+            tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
+    
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest()); 
     }
 
 //    private void setDefTable() {
@@ -119,6 +128,7 @@ public class EmployeeManager extends javax.swing.JPanel {
         if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
             Object[] row = {
                 count++,
+                user.getImage() != null ? user.getImage() : "no-image.png",
                 user.getUserName() != null ? user.getUserName() : "",
                 user.getRole() != null ? user.getRole().getName() : "", 
                 user.getPhone() != null ? user.getPhone() : "",
@@ -128,8 +138,8 @@ public class EmployeeManager extends javax.swing.JPanel {
         }
     }
     // image
-//    tableListUser.setRowHeight(50);
-//    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
+    tableListUser.setRowHeight(60);
+    tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
 }
 
 
@@ -160,17 +170,21 @@ public class EmployeeManager extends javax.swing.JPanel {
 
         tableListUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Name", "Position", "Phone", "Email"
+                "No", "Image", "Name", "Position", "Phone", "Email"
             }
         ));
+        tableListUser.setRowHeight(30);
         tableListUser.getTableHeader().setReorderingAllowed(false);
         scroll.setViewportView(tableListUser);
+        if (tableListUser.getColumnModel().getColumnCount() > 0) {
+            tableListUser.getColumnModel().getColumn(0).setPreferredWidth(10);
+        }
 
         jPanel1.add(scroll, java.awt.BorderLayout.CENTER);
 
@@ -316,7 +330,7 @@ public class EmployeeManager extends javax.swing.JPanel {
             return;
         }
 
-        String email = (String) tableListUser.getValueAt(selectedRow, 4); // Assuming email is in the 5th column (index 4)
+        String email = (String) tableListUser.getValueAt(selectedRow, 5); 
         UserDAO userdao = new UserDAO();
         UsersModel userModel = userdao.selectByEmail(email);
 
@@ -352,7 +366,7 @@ public class EmployeeManager extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please select a user to delete.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String email = (String) tableListUser.getValueAt(selectedRow, 4); 
+        String email = (String) tableListUser.getValueAt(selectedRow, 5); 
         int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this account?", "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response != JOptionPane.YES_OPTION) {
             return;
