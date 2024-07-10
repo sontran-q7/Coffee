@@ -35,6 +35,8 @@ public class Dashboard extends javax.swing.JFrame {
     private ReturnAccount returnAccount;
     private StaffSchedule staffSchedule; 
     private EmployeeManager employeeManager;
+    private MenuPanel menu;
+    private DashboardPage dashboardPage;
     /**
      * Creates new form Dashboard
      */
@@ -421,12 +423,12 @@ public class Dashboard extends javax.swing.JFrame {
 
     // setup Panel của các package khác 
   private void loadPanels() {
-        DashboardPage dashboardPage = new DashboardPage();
+        dashboardPage = new DashboardPage();
         
         employeeManager = new EmployeeManager();
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
-        MenuPanel menu = new MenuPanel();
+        menu = new MenuPanel();
         CategoryForm categoryForm = new CategoryForm();
         returnAccount = new ReturnAccount();
         staffSchedule = new StaffSchedule();
@@ -450,6 +452,9 @@ public class Dashboard extends javax.swing.JFrame {
                 break;
             case "employee":
                 employeeManager.refresh();
+                break;
+            case "dashboard":
+                dashboardPage.refresh();
                 break;
             // Thêm các case khác nếu cần
         }

@@ -104,7 +104,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel4.setText("forgot Password?");
+        jLabel4.setText("Forgot Password?");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ClickForgot(evt);

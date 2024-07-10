@@ -12,7 +12,10 @@ public class HeaderPanel extends javax.swing.JPanel {
     private List<Integer> categoryIdList; 
     private CategoryClickListener categoryClickListener; 
     private CategoryMenu categoryMenu;
-   
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1,jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+
     
     public HeaderPanel() {
         initComponents();
@@ -45,7 +48,7 @@ public class HeaderPanel extends javax.swing.JPanel {
 
         int x = 24;
         int y = 20;
-        int buttonWidth = 109;
+        int buttonWidth = 115;
         int buttonHeight = 40;
         int gap = 24;
 
@@ -117,21 +120,7 @@ public class HeaderPanel extends javax.swing.JPanel {
             button.setForeground(Color.WHITE); 
         }
     }
-    
-    
-    public void printProducts(List<ProductMenu> products) {
-    for (ProductMenu product : products) {
-        System.out.println("Product ID: " + product.getProductId());
-        System.out.println("Product Name: " + product.getProductName());
-        System.out.println("Price: " + product.getPrice());
-        System.out.println("Category ID: " + product.getCategoryId());
-        System.out.println("Description: " + product.getDescription());
-        System.out.println("Size: " + product.getSize());
-        System.out.println("Status: " + product.getStatus());
-        System.out.println("----------------------------------");
-    }
-}
-
+  
     @SuppressWarnings("unchecked")
     private void initComponents() {
         jPanel6 = new javax.swing.JPanel();
@@ -177,23 +166,11 @@ public class HeaderPanel extends javax.swing.JPanel {
     }
     
     public void refreshUI() {
-    jPanel1.revalidate();
-    jPanel1.repaint();
-}
-
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
 
     public interface CategoryClickListener {
         void onCategoryClick(int categoryId);
     }
-    
 }
