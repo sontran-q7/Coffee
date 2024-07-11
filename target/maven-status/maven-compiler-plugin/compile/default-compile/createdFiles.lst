@@ -38,6 +38,7 @@ com\app\coffee\product\EditProduct$2.class
 com\app\coffee\bill\Bill$1.class
 com\app\coffee\Backend\Model\UsersModel.class
 com\app\coffee\Login\LoginAccount\VerifyCode$3.class
+com\app\coffee\employee\StaffSchedule$6.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$3.class
 com\app\coffee\category\AddCategory$3.class
 com\app\coffee\Login\LoginAccount\SendAdmin$1.class
