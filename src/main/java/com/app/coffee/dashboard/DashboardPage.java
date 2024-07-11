@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,7 +46,7 @@ public class DashboardPage extends javax.swing.JPanel {
         initComponents();
         
         userName = UserSession.getInstance().getUserName();
-        setCellRenderer(PendingBillTabel1);
+        setCellRenderer(PendingBill);
         updatePendingBillTable();
         displayTotalSumOfMonth();
         displayTotalSumOfDay();
@@ -64,7 +65,7 @@ public class DashboardPage extends javax.swing.JPanel {
         Money_Month = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        PendingBillTabel1 = new javax.swing.JTable();
+        PendingBill = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         finishBill = new javax.swing.JButton();
@@ -177,7 +178,7 @@ public class DashboardPage extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.setLayout(new java.awt.BorderLayout());
 
-        PendingBillTabel1.setModel(new javax.swing.table.DefaultTableModel(
+        PendingBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -193,8 +194,8 @@ public class DashboardPage extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        PendingBillTabel1.setRowHeight(30);
-        jScrollPane1.setViewportView(PendingBillTabel1);
+        PendingBill.setRowHeight(30);
+        jScrollPane1.setViewportView(PendingBill);
 
         jPanel5.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -520,15 +521,25 @@ public class DashboardPage extends javax.swing.JPanel {
     }//GEN-LAST:event_EndShiftActionPerformed
 
     private void finishBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishBillActionPerformed
-        DefaultTableModel model = (DefaultTableModel) PendingBillTabel1.getModel();
-        for (int i = model.getRowCount() - 1; i >= 0; i--) {
-            Boolean status = (Boolean) model.getValueAt(i, 5); // Assuming column 5 is the status column
-            if (status != null && status) {
-                model.removeRow(i);
-            }
+        DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+    for (int i = model.getRowCount() - 1; i >= 0; i--) {
+        Boolean status = (Boolean) model.getValueAt(i, 5); // Assuming column 5 is the status column
+        if (status != null && status) {
+            int orderId = getOrderIDFromSerialNo(i + 1); // Map serial number back to order_id
+            BillDAO.markBillAsFinished(orderId);
+            model.removeRow(i);
         }
+    }
     }//GEN-LAST:event_finishBillActionPerformed
- 
+    
+    private int getOrderIDFromSerialNo(int serialNo) {
+    List<PendingBill> pendingBills = BillDAO.getPendingBills();
+    if (serialNo > 0 && serialNo <= pendingBills.size()) {
+        return pendingBills.get(serialNo - 1).getOrder_id();
+    }
+    return -1; // Return an invalid order_id if not found
+}
+
     // chỉnh form detail
     private void showDetailDialog() {
     JDialog detailDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Detail Dialog", true);
@@ -545,39 +556,79 @@ public class DashboardPage extends javax.swing.JPanel {
     
     public void refresh(){
         updatePendingBillTable();
-    }
+        displayTotalSumOfDay();
+        displayTotalSumOfMonth();
+   }
+    
+//     private void updatePendingBillTable() {
+// List<PendingBill> pendingBills = BillDAO.getPendingBills();
+//    DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+//    model.setRowCount(0);
+//    
+//    JButton detailButton = new JButton("Detail");
+//    detailButton.addActionListener(new ActionListener() {
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            showDetailDialog(); // Call the method to show dialog on button click
+//        }
+//    });
+//
+//    int no = 1;
+//    for (PendingBill bill : pendingBills) {
+//        Object[] row = new Object[]{
+//            no++,
+//            bill.getTotal(),
+//            bill.getDescription(),
+//            bill.getTable_number(),
+//            bill.getDay(),
+//            bill.getStatus(),
+//            detailButton
+//        };
+//        model.addRow(row);
+//    }
+//
+//    PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+//    PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
+//     }
+    
     
      private void updatePendingBillTable() {
-        List<PendingBill> pendingBills = BillDAO.getPendingBills();
-        DefaultTableModel model = (DefaultTableModel) PendingBillTabel1.getModel();
-        model.setRowCount(0);
-        
-        JButton detailButton = new JButton();
+    List<PendingBill> pendingBills = BillDAO.getPendingBills();
+    DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+    model.setRowCount(0); // Clear the table before adding new rows
+
+    JButton detailButton = new JButton("Detail");
     detailButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             showDetailDialog(); // Call the method to show dialog on button click
-            
         }
-    });   
-        for (PendingBill bill : pendingBills) {
-            Object[] row = new Object[]{
-                bill.getOrder_id(),
-               // bill.getQuantity(),
-                bill.getTotal(),
-                bill.getDescription(),
-                bill.getTable_number(),
-                bill.getDay(),
-                bill.getStatus(),
-                detailButton
-            };
-            model.addRow(row);
-        }
-        PendingBillTabel1.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+    });
 
-        PendingBillTabel1.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));   
+    int serialNo = 1;
+    for (PendingBill bill : pendingBills) {
+        Object[] row = new Object[]{
+            serialNo++, // Add serial number instead of order_id
+            bill.getTotal(),
+            bill.getDescription(),
+            bill.getTable_number(),
+            bill.getDay(),
+            bill.isStatus(),
+            detailButton
+        };
+        model.addRow(row);
     }
-    
+
+    PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+    PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
+}
+
+     private void updateTableSTT() {
+        DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.setValueAt(i + 1, i, 0); // Cập nhật lại STT
+        }
+    }
      private void displayTotalSumOfMonth() {
     float totalSum = BillDAO.getTotalSumOfMonth(); 
     DecimalFormat df = new DecimalFormat("#,##0.00"+" USD");
@@ -614,7 +665,7 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel Money_day;
     private javax.swing.JLabel MonthPanel;
-    private javax.swing.JTable PendingBillTabel1;
+    private javax.swing.JTable PendingBill;
     private javax.swing.JLabel PositionCard;
     private javax.swing.JLabel PositionCard10;
     private javax.swing.JLabel PositionCard11;
