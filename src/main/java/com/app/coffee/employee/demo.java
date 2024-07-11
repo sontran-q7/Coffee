@@ -29,8 +29,8 @@ public class demo extends JFrame{
         setLocationRelativeTo(null);
 
         // Create an instance of demo panel
-        EmployeeManager panel = new EmployeeManager();
-        //StaffSchedule panel = new StaffSchedule();
+        //EmployeeManager panel = new EmployeeManager();
+        StaffSchedule panel = new StaffSchedule();
         //ReturnAccount panel = new ReturnAccount();
         // Add the demo panel to the frame
         add(panel);
