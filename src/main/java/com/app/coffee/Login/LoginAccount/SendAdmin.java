@@ -41,11 +41,14 @@ public class SendAdmin extends javax.swing.JPanel {
     private VerifyAdmin verifyCodeAmdmin;
     private Timer timer;
     boolean isCodeValid = false;
+    private String email;
+    
     /**
      * Creates new form SendAdmin
      */
     public SendAdmin() {
         initComponents();
+        
     }
 
     /**
@@ -63,9 +66,13 @@ public class SendAdmin extends javax.swing.JPanel {
         EnterEmail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new java.awt.BorderLayout());
+
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(243, 114, 44)));
         jPanel3.setForeground(new java.awt.Color(51, 255, 51));
+        jPanel3.setPreferredSize(new java.awt.Dimension(430, 320));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(73, 80, 87));
@@ -85,7 +92,7 @@ public class SendAdmin extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(243, 114, 44));
         jButton1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Send Email");
+        jButton1.setText("Send");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1SendEmail(evt);
@@ -97,47 +104,37 @@ public class SendAdmin extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(0, 21, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(86, 86, 86))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(45, 45, 45))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel3)
-                .addGap(73, 73, 73)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void EnterEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterEmailActionPerformed
@@ -156,7 +153,6 @@ public class SendAdmin extends javax.swing.JPanel {
             Random rand = new Random();
             randomCode = rand.nextInt(999999);
 
-            // Send email
             String host = "smtp.gmail.com";
             String user = "tainhokhem48@gmail.com";
             String pass = "kqmr stcs skwv mmmr";
@@ -193,51 +189,20 @@ public class SendAdmin extends javax.swing.JPanel {
             transport.close();
             
             isCodeValid = true;
-
-            // Set up Timer to invalidate the code after 60 seconds
-            int countdownTime = 60;
-            timer = new Timer(1000, new ActionListener() {
-                int timeRemaining = countdownTime;
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (timeRemaining > 0) {
-                        timeRemaining--;
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (verifyCodeAmdmin != null) {
-                                    verifyCodeAmdmin.updateSeconds(timeRemaining, email); // Update secondsLabel
-                                } else {
-                                    System.err.println("verifyCodePanel is null");
-                                }
-                            }
-                        });
-                    } else {
-                        timer.stop();
-                        isCodeValid = false;
-                    }
-                }
-            });
-            timer.start();
-            
+            startTimer();           
             if (verifyCodeAmdmin == null) {
                 verifyCodeAmdmin = new VerifyAdmin(randomCode, email);
                 setVerifyCodeAdmin(verifyCodeAmdmin);
                 } else {
                     verifyCodeAmdmin.updateSeconds(randomCode, email);
                 }
-            
-            // Switch to VerifyCode panel
+
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
             if (frame != null) {
-//                VerifyAdmin verifyCodeAmdmin = new VerifyAdmin(randomCode, email);
-                
-                frame.setContentPane(verifyCodeAmdmin);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-                setVerifyCodeAdmin(verifyCodeAmdmin);
+            frame.setContentPane(verifyCodeAmdmin);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
             } else {
                 new CustomDialog(null, "Error", "Didn't find the parent window to show the VerifyCode panel.");
             }
@@ -254,7 +219,72 @@ public class SendAdmin extends javax.swing.JPanel {
     public void setVerifyCodeAdmin(VerifyAdmin verifyCodeAmdmin) {
         this.verifyCodeAmdmin = verifyCodeAmdmin;
     }
-    
+
+    public void sendMail(String email, int randomCode) {
+        
+        try {
+            String host = "smtp.gmail.com";
+            String user = "tainhokhem48@gmail.com";
+            String pass = "kqmr stcs skwv mmmr";
+            String to = email;
+            String subject = "Reseting Code";
+            String message = "Your reset code is " + randomCode;
+            boolean sessionDebug = false;
+
+            Properties props = System.getProperties();
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.host", host);
+            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.required", "true");
+
+            Session mailSession = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(user, pass);
+                }
+            });
+
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(user));
+            InternetAddress[] address = {new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject);
+            msg.setSentDate(new java.util.Date());
+            msg.setText(message);
+
+            Transport transport = mailSession.getTransport("smtp");
+            transport.connect(host, user, pass);
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            new CustomDialog(null, "Error", "Failed to send email.");
+        }
+    }
+
+    public void startTimer() {
+        int countdownTime = 60;
+        timer = new Timer(1000, new ActionListener() {
+            int timeRemaining = countdownTime;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    SwingUtilities.invokeLater(() -> {
+                        if (verifyCodeAmdmin != null) {
+                            verifyCodeAmdmin.updateSeconds(timeRemaining, email);
+                        }
+                    });
+                } else {
+                    timer.stop();
+                    isCodeValid = false;
+                }
+            }
+        });
+        timer.start();
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

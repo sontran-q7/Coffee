@@ -6,9 +6,12 @@ package com.app.coffee.Login.LoginAccount;
 
 import com.app.coffee.Login.CustomDialog;
 import com.app.coffee.Login.LoginAccount.Reset;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 /**
  *
@@ -20,6 +23,9 @@ public class VerifyCode extends javax.swing.JPanel {
     private JLabel secondsLabel;
     private VerifyCode verifyCodePanel;
     private boolean isCodeValid;
+    private SendCode sendCode;
+    private Timer timer;
+    private int countdownTime;
     
     /**
      * Creates new form VerifyCode
@@ -32,6 +38,7 @@ public class VerifyCode extends javax.swing.JPanel {
         add(secondsLabel);
         this.verifyCodePanel = this;
         this.isCodeValid = true;
+        this.sendCode = sendCode;
     }
 
     /**
@@ -50,6 +57,9 @@ public class VerifyCode extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         Seconds = new javax.swing.JLabel();
         Refresh = new javax.swing.JButton();
+        Back = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(243, 114, 44)));
@@ -81,10 +91,20 @@ public class VerifyCode extends javax.swing.JPanel {
         Refresh.setBackground(new java.awt.Color(243, 114, 44));
         Refresh.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         Refresh.setForeground(new java.awt.Color(255, 255, 255));
-        Refresh.setText("refresh ");
+        Refresh.setText("Resend");
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Refresh(evt);
+            }
+        });
+
+        Back.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        Back.setForeground(new java.awt.Color(243, 114, 44));
+        Back.setText("Back");
+        Back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Back(evt);
             }
         });
 
@@ -92,43 +112,44 @@ public class VerifyCode extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(114, 114, 114))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jLabel3))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VerifyCode)
-                            .addComponent(Refresh))))
-                .addGap(0, 83, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(VerifyCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel3)
-                .addGap(68, 68, 68)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Refresh)
-                    .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(VerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Refresh))
+                .addGap(15, 15, 15)
+                .addComponent(Back)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -178,27 +199,91 @@ public class VerifyCode extends javax.swing.JPanel {
     }//GEN-LAST:event_VerifyCode
 
     private void Refresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh
-        // TODO add your handling code here:
-//       if (email != null && !email.isEmpty()) {
-//        RefreshCode refresh =  new RefreshCode();
-//    } else {
-//        new CustomDialog(null, "Error", "Email is not set.");
-//    }
+    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+       if (frame != null) {
+           frame.getContentPane().removeAll();
+           VerifyCode newVerifyCodePanel = new VerifyCode(generateRandomCode(), email);
+           if (newVerifyCodePanel.sendCode == null) {
+               newVerifyCodePanel.sendCode = new SendCode();
+           }
+           newVerifyCodePanel.sendCode.sendMail(email, newVerifyCodePanel.randomCode);
+           newVerifyCodePanel.countdownTime = 60;
+           newVerifyCodePanel.setSecondsLabelText(newVerifyCodePanel.countdownTime + "(s)");
+           frame.setContentPane(newVerifyCodePanel);
+           frame.pack();
+           frame.setLocationRelativeTo(null);
+           frame.setVisible(true);
+           newVerifyCodePanel.startTimer();
+           
+           if (newVerifyCodePanel.countdownTime == 0) {
+                newVerifyCodePanel.isCodeValid = false;
+            }
+       } else {
+           new CustomDialog(null, "Error", "VerifyCode panel doesn't exist.");
+       }
     }//GEN-LAST:event_Refresh
     
-   public void updateSeconds(int seconds) {
-    Seconds.setText(String.valueOf(seconds +"(s)"));
-    if (seconds == 0) {
-        isCodeValid = false; 
-        randomCode = -1; 
+    private int generateRandomCode() {
+        return (int) (Math.random() * 900000) + 100000; 
     }
-}
+    
+    private void Back(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Back
+        // TODO add your handling code here:     
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (frame != null) {
+            SendCode sendCodePanel = new SendCode();
+            frame.getContentPane().removeAll(); 
+            frame.setContentPane(sendCodePanel);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        } else {
+            new CustomDialog(null, "Error", "Don't esixt SendCode panel.");
+        }   
+    }//GEN-LAST:event_Back
+    
+   public void updateSeconds(int seconds) {
+   JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (frame != null && frame.getContentPane() instanceof VerifyCode) {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Seconds.setText(seconds + "(s)");
+                    System.out.println("tututut");
+                }
+            });
 
-   
-   
+            if (seconds == 0) {
+                isCodeValid = false;
+                randomCode = -1;
+            }
+        }
+} 
+    private void startTimer() {
+        timer = new Timer(1000, new ActionListener() {
+            int timeRemaining = countdownTime;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    setSecondsLabelText(timeRemaining + "(s)");
+                } else {
+                    timer.stop();
+                    isCodeValid = false;
+                }
+            }
+        });
+        timer.start();
+    }
+    
+    public void setSecondsLabelText(String text) {
+    Seconds.setText(text);
+}
    
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Back;
     private javax.swing.JButton Refresh;
     private javax.swing.JLabel Seconds;
     private javax.swing.JButton VerifyCode;

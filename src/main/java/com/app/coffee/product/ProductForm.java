@@ -455,28 +455,42 @@ public class ProductForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
-        // TODO add your handling code here:
+        
         int row = ProductTable.getSelectedRow();
-        // Kiểm tra nếu double-click vào dòng hợp lệ
-        Product p = pd.fillAllProduct().get(row);
-        product_id_select = p.getProduct_id();
-        System.out.println("Pro_form:" + product_id_select);
-        customJtable();
-        if (evt.getClickCount() == 2) {
-            // Nếu chưa có editProduct, tạo mới và thêm vào ProductFormPanel
-            if (editProduct == null) {
-                editProduct = new EditProduct(this, product_id_select);
-                ProductFormPanel.add(editProduct, "editProduct");
-                editProduct.getDataTable();
-            } else {
-                editProduct = new EditProduct(this, product_id_select);
-                ProductFormPanel.add(editProduct, "editProduct");
-                editProduct.getDataTable();
-            }
 
-            // Hiển thị panel editProduct và gọi getDataTable()
+        // Kiểm tra nếu row hợp lệ
+        if (row >= 0) {
+            // Lấy danh sách sản phẩm từ ProductDao
+            List<Product> productList = pd.fillAllProduct();
+
+            // Kiểm tra nếu row không vượt quá kích thước của danh sách
+            if (row < productList.size()) {
+                Product p = productList.get(row);
+                product_id_select = p.getProduct_id();
+                customJtable();
+
+                if (evt.getClickCount() == 1) {
+                    // Nếu chưa có editProduct, tạo mới và thêm vào ProductFormPanel
+                    if (editProduct == null) {
+                        editProduct = new EditProduct(this, product_id_select);
+                        ProductFormPanel.add(editProduct, "editProduct");
+//                        editProduct.getDataTable();
+                    } else {
+                        editProduct = new EditProduct(this, product_id_select);
+                        ProductFormPanel.add(editProduct, "editProduct");
+//                        editProduct.getDataTable();
+                    }
+
+                    // Hiển thị panel editProduct và gọi getDataTable()
+//                    showPanel("editProduct");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid row selection! Row exceeds product list size.");
+            }
+        } else {
+//            JOptionPane.showMessageDialog(null, "Invalid row selection! No row selected.");
         }
-        showPanel("editProduct");
+                                        
     }//GEN-LAST:event_ProductTableMouseClicked
 
     private void ProductTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseEntered
@@ -484,8 +498,9 @@ public class ProductForm extends javax.swing.JPanel {
     }//GEN-LAST:event_ProductTableMouseEntered
 
     private void EditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProductActionPerformed
-        int row = ProductTable.getSelectedRow();
-        if (row != -1) {
+         int selectedRow = ProductTable.getSelectedRow();
+        
+        if (selectedRow != -1) {
             //            product_id_select = (int) ProductTable.getValueAt(row, 7);
             EditProduct editProduct = new EditProduct(this, product_id_select);
             //        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
@@ -494,9 +509,11 @@ public class ProductForm extends javax.swing.JPanel {
             showPanel("editProduct");
         } else {
             EditProduct editProduct = new EditProduct(this, product_id_select);
-            //        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
+//            //        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
             ProductFormPanel.add(editProduct, "editProduct");
-            showPanel("editProduct");
+//            showPanel("editProduct");
+            JOptionPane.showMessageDialog(this, "Please select an item to edit.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+
         }
     }//GEN-LAST:event_EditProductActionPerformed
 
