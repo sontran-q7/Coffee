@@ -66,6 +66,7 @@ com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
 com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
+com\app\coffee\dashboard\DashboardPage$5$1.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
@@ -118,6 +119,7 @@ com\app\coffee\menu\CategoryMenu.class
 com\app\coffee\dashboard\Dashboard$1.class
 com\app\coffee\Login\LoginAccount\Reset.class
 com\app\coffee\employee\FormAdd.class
+com\app\coffee\dashboard\DashboardPage$7.class
 com\app\coffee\category\CategoryForm.class
 com\app\coffee\category\CategoryForm$3.class
 com\app\coffee\category\AddCategory$2.class
@@ -179,7 +181,6 @@ com\app\coffee\dashboard\CardName.class
 com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\Login\LoginAccount\SendAdmin$3.class
 com\app\coffee\Database\Connection.class
-com\app\coffee\dashboard\DashboardPage$4$1.class
 com\app\coffee\Login\LoginAccount\SendAdmin$4.class
 com\app\coffee\dashboard\EndShift$2.class
 com\app\coffee\dashboard\Dashboard$5.class

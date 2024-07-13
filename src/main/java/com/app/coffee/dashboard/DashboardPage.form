@@ -284,6 +284,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Finish"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishBillActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
