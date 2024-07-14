@@ -46,7 +46,7 @@ public class DashboardPage extends javax.swing.JPanel {
         initComponents();
         
         userName = UserSession.getInstance().getUserName();
-        setCellRenderer(PendingBill);
+        setCellRenderer(PendingBillTabel1);
         updatePendingBillTable();
         displayTotalSumOfMonth();
         displayTotalSumOfDay();
@@ -545,15 +545,7 @@ public class DashboardPage extends javax.swing.JPanel {
         }
     }
     }//GEN-LAST:event_finishBillActionPerformed
-    
-    private int getOrderIDFromSerialNo(int serialNo) {
-    List<PendingBill> pendingBills = BillDAO.getPendingBills();
-    if (serialNo > 0 && serialNo <= pendingBills.size()) {
-        return pendingBills.get(serialNo - 1).getOrder_id();
-    }
-    return -1; // Return an invalid order_id if not found
-}
-
+ 
     // chỉnh form detail
     private void showDetailDialog() {
     JDialog detailDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Detail Dialog", true);
@@ -612,6 +604,9 @@ public class DashboardPage extends javax.swing.JPanel {
         for (int i = 0; i < model.getRowCount(); i++) {
             model.setValueAt(i + 1, i, 0); // Cập nhật lại STT
         }
+        PendingBillTabel1.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+
+        PendingBillTabel1.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));   
     }
      private void displayTotalSumOfMonth() {
     float totalSum = BillDAO.getTotalSumOfMonth(); 
