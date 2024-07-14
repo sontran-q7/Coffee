@@ -8,16 +8,18 @@ package com.app.coffee.Login.LoginAccount;
  *
  * @author anhso
  */
+
 public class UserSession {
-    public static UserSession instance;
+    private static UserSession instance;
     private String userName;
-    private Integer accountId; // Thêm thuộc tính accountId
+    private int accountId;
+    private int roleId;
+    private int controlId  ;// moi sua
+    private boolean shiftEnded;
 
-    private UserSession() {
-        // Private constructor to prevent instantiation from outside
-    }
+    private UserSession() {}
 
-    public static synchronized UserSession getInstance() {
+    public static UserSession getInstance() {
         if (instance == null) {
             instance = new UserSession();
         }
@@ -32,12 +34,43 @@ public class UserSession {
         this.userName = userName;
     }
 
-    public Integer getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Integer accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getControlId() {
+        return controlId;
+    }
+
+    public void setControlId(int controlId) {
+        this.controlId = controlId;
+    }
+
+    public boolean isShiftEnded() {
+        return shiftEnded;
+    }
+
+    public void setShiftEnded(boolean shiftEnded) {
+        this.shiftEnded = shiftEnded;
+    }
+     public void reset() {
+        userName = null;
+        accountId = -1;
+        roleId = -1;
+        controlId = -1;
+        shiftEnded = true;
     }
 }
 

@@ -7,6 +7,7 @@ package com.app.coffee.dashboard;
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.DAO.BillDAO;
 import com.app.coffee.Backend.DAO.ControlDAO;
+import com.app.coffee.Login.LoginAccount.UserSession;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -260,9 +261,15 @@ public class EndShift extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        updateControlData();
-        JOptionPane.showMessageDialog(this, "Chốt ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        doClose(RET_OK);
+      updateControlData();
+    JOptionPane.showMessageDialog(this, "Chốt ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+
+    // Cập nhật lại controlId về -1 và đặt shiftEnded là true sau khi kết ca thành công
+    UserSession session = UserSession.getInstance();
+    session.setControlId(-1);
+    session.setShiftEnded(true);
+
+    doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -331,7 +338,9 @@ public class EndShift extends javax.swing.JDialog {
         if (rs.next()) {
             int accountId = rs.getInt("account_id");
             int workingTimeId = rs.getInt("working_time_id");
+            
 
+    
             managerLable.setText(getManagerName(accountId, conn));
             wordTimeLable.setText(getWorkingTimeName(workingTimeId, conn));
             StartLable.setText(rs.getString("check_in"));

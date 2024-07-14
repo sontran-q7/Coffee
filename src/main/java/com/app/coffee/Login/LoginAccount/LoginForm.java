@@ -5,6 +5,7 @@
 package com.app.coffee.Login.LoginAccount;
 
 
+import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.Model.UsersModel;
 //import com.app.coffee.Database.AdminAccountManager;
 //import static com.app.coffee.Database.AdminAccountManager.hashPassword;
@@ -18,6 +19,10 @@ import com.app.coffee.dashboard.*;
 import com.app.coffee.hashpassword.PasswordHash;
 import java.awt.Component;
 import java.awt.Window;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -179,30 +184,65 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   java.lang.String enteredEmail = jTextField1.getText();
+      String enteredEmail = jTextField1.getText();
     String enteredPassword = new String(jPasswordField1.getPassword());
     user = userController.getUserByEmail(enteredEmail);
     
-        if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
-
-           System.out.println("Success");
-            UserSession session = UserSession.getInstance();
+    if (user != null && PasswordHash.checkPassword(enteredPassword, user.getPassword())) {
+        System.out.println("Success");
+        UserSession session = UserSession.getInstance();
         session.setUserName(user.getUserName());
         session.setAccountId(user.getAccount_id());
-        showDashboard(user.getUserName());
+        session.setRoleId(user.getRole().getRole_id());
+        
+        // Thiết lập controlId dựa trên ca làm việc hiện tại
+        int controlId = getActiveControlIdForUser(user.getAccount_id());
+        session.setControlId(controlId);
+        
+        session.setShiftEnded(false);
+
+        // Lấy roleId từ user
+        int roleId = user.getRole().getRole_id();
+        showDashboard(user.getUserName(), roleId, controlId);
 
         dispose();
-
-//            System.out.println("Success");
-          //  new Dashboard().setVisible(true);
-
-        } else {
-            JLabel message = new JLabel("Email and password don't exist");
-            message.setForeground(Color.RED);
-            new CustomDialog(this, "Error", "Email and password don't exist!");
-        }
+    } else {
+        JLabel message = new JLabel("Email and password don't exist");
+        message.setForeground(Color.RED);
+        new CustomDialog(this, "Error", "Email and password don't exist!");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private int getActiveControlIdForUser(int accountId) {
+     int activeControlId = -1;
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = ConnectionCoffee.getConnection();
+        String query = "SELECT control_id FROM control WHERE account_id = ? AND check_out_pay = 0";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, accountId);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            activeControlId = rs.getInt("control_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            ConnectionCoffee.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    return activeControlId;
+}
     private void ClickForgot(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClickForgot
      Component source = (Component) evt.getSource();
     Window ancestor = SwingUtilities.getWindowAncestor(source);
@@ -242,12 +282,12 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-    private void showDashboard(String userName) {
+    private void showDashboard(String userName,int roleId,int ControlId) {
         if (dashboard == null) {
             dashboard = new Dashboard();
             
         }
-         dashboard.setUserName(userName);
+         dashboard.setUserName(userName, roleId,ControlId);
         dashboard.setVisible(true);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

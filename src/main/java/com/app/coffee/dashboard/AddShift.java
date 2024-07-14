@@ -360,8 +360,7 @@ public class AddShift extends javax.swing.JDialog {
     }
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-    // Lấy dữ liệu từ các trường nhập liệu
-      String selectedShift = (String) BoxShift.getSelectedItem();
+    String selectedShift = (String) BoxShift.getSelectedItem();
     Integer workingTimeId = shiftMap.get(selectedShift);
     if (workingTimeId == null) {
         JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -392,6 +391,8 @@ public class AddShift extends javax.swing.JDialog {
     // Thêm ca làm việc và lưu controlId vào SessionData
     int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
     if (controlId != -1) {
+         UserSession.getInstance().setControlId(controlId);
+         
         JOptionPane.showMessageDialog(this, "Tạo ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
     } else {
         JOptionPane.showMessageDialog(this, "Tạo ca thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);

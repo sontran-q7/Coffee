@@ -4,6 +4,8 @@
  */
 package com.app.coffee.dashboard;
 
+import com.app.coffee.Login.LoginAccount.UserSession;
+
 /**
  *
  * @author anhso
@@ -15,7 +17,11 @@ public class SessionData {
         return controlId;
     }
 
-    public static void setControlId(int controlId) {
-        SessionData.controlId = controlId;
+     public static void setControlId(int id) {
+        controlId = id;
+    }
+
+    public static void reset() {
+        controlId = -1;
     }
 }

@@ -480,34 +480,47 @@ public class DashboardPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
-                dialog.setUserName(userName);
-                
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        dialog.setVisible(false);
-                        
-                        dialog.dispose();
-                    }
-                });
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-            }
-        });
+          UserSession session = UserSession.getInstance();
+    int controlId = session.getControlId();
+    
+    // Kiểm tra xem có ca làm việc nào đang hoạt động không
+    if (controlId != 0 && !session.isShiftEnded()) {
+        JOptionPane.showMessageDialog(this, "Bạn không thể tạo ca mới khi chưa chốt ca hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
+            dialog.setUserName(userName);
+            
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    dialog.setVisible(false);
+                    dialog.dispose();
+                }
+            });
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+    });
     }//GEN-LAST:event_AddStaffActionPerformed
 
     private void EndShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndShiftActionPerformed
-        int controlId = SessionData.getControlId();
-    if (controlId == -1) {
+      UserSession session = UserSession.getInstance();
+    int controlId = session.getControlId();
+        System.out.println("control :" + controlId);
+        // lỗi vì để == -1
+    if (controlId == 0) {
         JOptionPane.showMessageDialog(this, "Không có ca làm việc nào để chốt.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    EndShift dialog = new EndShift(new javax.swing.JFrame(), true, controlId);
-
+    // Lấy tham chiếu tới JFrame chứa JPanel này
+    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+    EndShift dialog = new EndShift(parentFrame, true, controlId);
+    
     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosing(java.awt.event.WindowEvent e) {
@@ -516,18 +529,19 @@ public class DashboardPage extends javax.swing.JPanel {
         }
     });
 
-    dialog.setLocationRelativeTo(null);
+    dialog.setLocationRelativeTo(parentFrame); // Hiển thị dialog ở giữa cửa sổ hiện tại
     dialog.setVisible(true);
     }//GEN-LAST:event_EndShiftActionPerformed
 
     private void finishBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishBillActionPerformed
         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
     for (int i = model.getRowCount() - 1; i >= 0; i--) {
-        Boolean status = (Boolean) model.getValueAt(i, 5); // Assuming column 5 is the status column
+        Boolean status = (Boolean) model.getValueAt(i, 5); 
         if (status != null && status) {
-            int orderId = getOrderIDFromSerialNo(i + 1); // Map serial number back to order_id
+            int orderId = getOrderIDFromSerialNo(i + 1); 
             BillDAO.markBillAsFinished(orderId);
             model.removeRow(i);
+            updateTableSTT();
         }
     }
     }//GEN-LAST:event_finishBillActionPerformed
@@ -560,38 +574,7 @@ public class DashboardPage extends javax.swing.JPanel {
         displayTotalSumOfMonth();
    }
     
-//     private void updatePendingBillTable() {
-// List<PendingBill> pendingBills = BillDAO.getPendingBills();
-//    DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
-//    model.setRowCount(0);
-//    
-//    JButton detailButton = new JButton("Detail");
-//    detailButton.addActionListener(new ActionListener() {
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            showDetailDialog(); // Call the method to show dialog on button click
-//        }
-//    });
-//
-//    int no = 1;
-//    for (PendingBill bill : pendingBills) {
-//        Object[] row = new Object[]{
-//            no++,
-//            bill.getTotal(),
-//            bill.getDescription(),
-//            bill.getTable_number(),
-//            bill.getDay(),
-//            bill.getStatus(),
-//            detailButton
-//        };
-//        model.addRow(row);
-//    }
-//
-//    PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-//    PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
-//     }
-    
-    
+
      private void updatePendingBillTable() {
     List<PendingBill> pendingBills = BillDAO.getPendingBills();
     DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
@@ -617,6 +600,7 @@ public class DashboardPage extends javax.swing.JPanel {
             detailButton
         };
         model.addRow(row);
+        updateTableSTT();
     }
 
     PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());

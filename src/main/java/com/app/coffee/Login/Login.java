@@ -10,11 +10,15 @@ import com.app.coffee.Login.LoginAccount.SendAdmin;
 import com.app.coffee.Login.LoginAccount.SendCode;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -29,10 +33,10 @@ public class Login {
         FlatIntelliJLaf.setup();
 //        AdminAccountManager.createAdminAccount();
        if (!checkAdminRoleExists()) {
-        // If admin exists, show SendAdmin panel
+        
             showRegisterAdmin();
         } else {
-            // If admin doesn't exist, show login form
+            
             showLoginForm();
         }
 
@@ -75,4 +79,6 @@ public class Login {
         }
         return exists;
     }
+    
+   
 }

@@ -23,14 +23,14 @@ public class BillDAO {
     public static List<PendingBill> getPendingBills() {
         List<PendingBill> pendingBills = new ArrayList<>();
     Connection conn = ConnectionCoffee.getConnection();
-    String query = "SELECT o.order_id, SUM(o.total) as total, GROUP_CONCAT(o.description SEPARATOR ', ') as description, " +
-                   "o.day, o.created_at AS order_created_at, o.updated_at AS order_updated_at, " +
-                   "GROUP_CONCAT(od.product_detail_id) AS product_details, SUM(od.quantity) AS total_quantity, " +
-                   "od.table_number, od.status, od.created_at AS order_detail_created_at, od.updated_at AS order_detail_updated_at " +
-                   "FROM orders o " +
-                   "JOIN order_detail od ON o.order_id = od.order_id " +
-                   "WHERE od.status = 1 " +
-                   "GROUP BY o.order_id, od.table_number";
+    String query = "SELECT o.order_id, o.total, GROUP_CONCAT(o.description SEPARATOR ', ') as description, " +
+               "o.day, o.created_at AS order_created_at, o.updated_at AS order_updated_at, " +
+               "GROUP_CONCAT(od.product_detail_id) AS product_details, SUM(od.quantity) AS total_quantity, " +
+               "od.table_number, od.status, od.created_at AS order_detail_created_at, od.updated_at AS order_detail_updated_at " +
+               "FROM orders o " +
+               "JOIN order_detail od ON o.order_id = od.order_id " +
+               "WHERE od.status = 1 " +
+               "GROUP BY o.order_id, od.table_number";
     try {
         PreparedStatement stmt = conn.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();

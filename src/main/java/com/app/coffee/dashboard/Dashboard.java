@@ -5,6 +5,8 @@
 package com.app.coffee.dashboard;
 import static com.app.coffee.Coffee.showLoginForm;
 import com.app.coffee.Login.*;
+import com.app.coffee.Login.LoginAccount.LoginForm;
+import com.app.coffee.Login.LoginAccount.UserSession;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
 import com.app.coffee.category.*;
@@ -31,6 +33,8 @@ import javax.swing.JLabel;
  */
 public class Dashboard extends javax.swing.JFrame {
     private String userName;
+    private int roleId;
+    private int controlId;
     private JLabel currentButton;
     private ReturnAccount returnAccount;
     private StaffSchedule staffSchedule; 
@@ -49,8 +53,10 @@ public class Dashboard extends javax.swing.JFrame {
     
     
     // lấy tên người mới đăng nhập thành công
-    public void setUserName(String userName) {
+    public void setUserName(String userName, int roleId,int ControlId) {
         this.userName = userName;
+        this.roleId = roleId;
+        UserSession.getInstance().setControlId(controlId);
         // Cập nhật giao diện nếu cần, ví dụ:
          NameStaff.setText(userName);
         System.out.println("nem"+userName);
@@ -314,8 +320,24 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignoutButtonActionPerformed
-         this.dispose(); // Close the current dashboard
-        showLoginForm(); // Show the login form again
+         UserSession session = UserSession.getInstance();
+    if (session.getRoleId() == 1 || session.getRoleId() == 2) {
+        int controlId = session.getControlId();
+        if (controlId != -1 && !session.isShiftEnded()) {
+            JOptionPane.showMessageDialog(this, "Bạn không thể đăng xuất khi chưa kết thúc ca làm việc.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    }
+
+    // Reset lại UserSession
+    session.reset();
+
+    // Đóng dashboard hiện tại
+    this.dispose();
+
+    // Hiển thị form đăng nhập
+    LoginForm loginForm = new LoginForm();
+    loginForm.setVisible(true);
     }//GEN-LAST:event_SignoutButtonActionPerformed
 
     private void HomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseClicked
