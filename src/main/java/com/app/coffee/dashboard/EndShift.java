@@ -19,6 +19,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
@@ -37,13 +38,14 @@ public class EndShift extends javax.swing.JDialog {
      */
     public static final int RET_OK = 1;
     private int controlId;
-    
+     private DashboardPage dashboardPage;
     /**
      * Creates new form EndShift
      */
-    public EndShift(java.awt.Frame parent, boolean modal, int controlId) {
+    public EndShift(java.awt.Frame parent, boolean modal, int controlId, DashboardPage dashboardPage) {
         super(parent, modal);
          this.controlId = controlId;
+         this.dashboardPage = dashboardPage;
         initComponents();
 
         // Close the dialog when Esc is pressed
@@ -266,8 +268,14 @@ public class EndShift extends javax.swing.JDialog {
 
     // Cập nhật lại controlId về -1 và đặt shiftEnded là true sau khi kết ca thành công
     UserSession session = UserSession.getInstance();
-    session.setControlId(-1);
+    session.setControlId(0);
     session.setShiftEnded(true);
+    
+      // Xóa các card cũ trong PanelShift của DashboardPage
+    if (dashboardPage != null) {
+        dashboardPage.clearPanelShift();
+    }
+
 
     doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
@@ -386,16 +394,27 @@ public class EndShift extends javax.swing.JDialog {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EndShift dialog = new EndShift(new javax.swing.JFrame(), true, /*controlId*/ 1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+            // Khởi tạo DashboardPage trước
+            DashboardPage dashboardPage = new DashboardPage();
+
+            // Tạo một JFrame để chứa DashboardPage
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.getContentPane().add(dashboardPage);
+            frame.pack();
+            frame.setVisible(true);
+
+            // Tạo EndShift và truyền DashboardPage vào
+            EndShift dialog = new EndShift(frame, true, /*controlId*/ 1, dashboardPage);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

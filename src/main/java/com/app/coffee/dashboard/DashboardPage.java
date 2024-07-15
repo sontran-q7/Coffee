@@ -105,6 +105,11 @@ public class DashboardPage extends javax.swing.JPanel {
     PanelShift.repaint();
 }
 
+     public void clearPanelShift() {
+        PanelShift.removeAll();
+        PanelShift.revalidate();
+        PanelShift.repaint();
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -360,7 +365,7 @@ public class DashboardPage extends javax.swing.JPanel {
     }
     // Lấy tham chiếu tới JFrame chứa JPanel này
     JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-    EndShift dialog = new EndShift(parentFrame, true, controlId);
+    EndShift dialog = new EndShift(parentFrame, true, controlId,this);
     
     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override

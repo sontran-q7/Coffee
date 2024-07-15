@@ -69,7 +69,7 @@ public class UserSession {
         userName = null;
         accountId = -1;
         roleId = -1;
-        controlId = -1;
+        controlId = 0;
         shiftEnded = true;
     }
 }
