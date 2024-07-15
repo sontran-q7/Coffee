@@ -10,29 +10,32 @@ import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
 import com.app.coffee.bill.ButtonEditor;
 import com.app.coffee.bill.ButtonRenderer;
-import com.app.coffee.employee.FormAdd;
-import java.awt.Button;
-import javax.swing.Timer;
+//import com.app.coffee.employee.FormAdd;
+//import java.awt.Button;
+import java.awt.FlowLayout;
+//import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
+//import java.text.SimpleDateFormat;
+//import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+//import java.util.Collections;
+//import java.util.Comparator;
+//import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelEvent;
+//import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -46,12 +49,62 @@ public class DashboardPage extends javax.swing.JPanel {
         initComponents();
         
         userName = UserSession.getInstance().getUserName();
-        setCellRenderer(PendingBillTabel1);
+        setCellRenderer(PendingBill);
         updatePendingBillTable();
         displayTotalSumOfMonth();
         displayTotalSumOfDay();
-
+        
+         PanelShift.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
     }
+    
+     public void updateStaffPanel(ArrayList<String[]> selectedData) {
+    PanelShift.removeAll(); // Xóa tất cả các thẻ cũ trong StaffPanel
+
+    for (String[] rowData : selectedData) {
+        JPanel card = new JPanel();
+        card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+        card.setPreferredSize(new java.awt.Dimension(143, 210)); // Tăng chiều cao của card để chứa thêm thông tin
+        card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        JLabel imageLabel = new JLabel();
+        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
+        card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
+
+        JLabel nameLabelHeader = new JLabel("Name");
+        nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
+
+        JLabel nameLabel = new JLabel(rowData[2]);
+        nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        card.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, 20));
+
+        JLabel positionLabelHeader = new JLabel("Position");
+        positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
+
+        JLabel positionLabel = new JLabel(rowData[3]);
+        positionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        card.add(positionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 20));
+
+        JLabel phoneLabelHeader = new JLabel("Phone");
+        phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
+
+        JLabel phoneLabel = new JLabel(rowData[4]);
+        phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
+
+        PanelShift.add(card);
+    }
+
+    PanelShift.revalidate();
+    PanelShift.repaint();
+}
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -73,42 +126,9 @@ public class DashboardPage extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JButton();
         EndShift = new javax.swing.JButton();
+        PanelShift = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         StaffPanel = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        PositionCard = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        PositionCard9 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jPanel17 = new javax.swing.JPanel();
-        PositionCard10 = new javax.swing.JLabel();
-        jLabel57 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel60 = new javax.swing.JLabel();
-        jLabel61 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        PositionCard11 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        jPanel19 = new javax.swing.JPanel();
-        PositionCard12 = new javax.swing.JLabel();
-        jLabel67 = new javax.swing.JLabel();
-        jLabel68 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
-        jLabel70 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -289,194 +309,15 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 1190, -1));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 1190, 60));
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        jPanel15.setPreferredSize(new java.awt.Dimension(143, 186));
-        jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelShift.setLayout(new java.awt.BorderLayout());
 
-        PositionCard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel15.add(PositionCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 131, 91, 56));
+        jScrollPane2.setViewportView(StaffPanel);
 
-        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel49.setText("Image");
-        jLabel49.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel15.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
+        PanelShift.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel50.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel50.setText("Name");
-        jPanel15.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, -1));
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("TRAN ANH SON");
-        jPanel15.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, -1));
-
-        jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel51.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel51.setText("Position");
-        jPanel15.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 130, 70, -1));
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Manager");
-        jPanel15.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
-
-        jPanel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        jPanel16.setPreferredSize(new java.awt.Dimension(143, 186));
-        jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        PositionCard9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel16.add(PositionCard9, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 131, 91, 56));
-
-        jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel52.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel52.setText("Image");
-        jLabel52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel16.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
-
-        jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel53.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel53.setText("Name");
-        jPanel16.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, -1));
-
-        jLabel54.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel54.setText("TRAN ANH SON");
-        jPanel16.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, -1));
-
-        jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel55.setText("Position");
-        jPanel16.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 130, 70, -1));
-
-        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel56.setText("Manager");
-        jPanel16.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        jPanel17.setPreferredSize(new java.awt.Dimension(143, 186));
-        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        PositionCard10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel17.add(PositionCard10, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 131, 91, 56));
-
-        jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel57.setText("Image");
-        jLabel57.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel17.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
-
-        jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel58.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel58.setText("Name");
-        jPanel17.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, -1));
-
-        jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel59.setText("TRAN ANH SON");
-        jPanel17.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, -1));
-
-        jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel60.setText("Position");
-        jPanel17.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 130, 70, -1));
-
-        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel61.setText("Manager");
-        jPanel17.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
-
-        jPanel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        jPanel18.setPreferredSize(new java.awt.Dimension(143, 186));
-        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        PositionCard11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel18.add(PositionCard11, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 131, 91, 56));
-
-        jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel62.setText("Image");
-        jLabel62.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel18.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
-
-        jLabel63.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel63.setText("Name");
-        jPanel18.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, -1));
-
-        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel64.setText("TRAN ANH SON");
-        jPanel18.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, -1));
-
-        jLabel65.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel65.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel65.setText("Position");
-        jPanel18.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 130, 70, -1));
-
-        jLabel66.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel66.setText("Manager");
-        jPanel18.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
-
-        jPanel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        jPanel19.setPreferredSize(new java.awt.Dimension(143, 186));
-        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        PositionCard12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel19.add(PositionCard12, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 131, 91, 56));
-
-        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel67.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel67.setText("Image");
-        jLabel67.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel19.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
-
-        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel68.setText("Name");
-        jPanel19.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 50, -1));
-
-        jLabel69.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel69.setText("TRAN ANH SON");
-        jPanel19.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 120, -1));
-
-        jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel70.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel70.setText("Position");
-        jPanel19.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 130, 70, -1));
-
-        jLabel71.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel71.setText("Manager");
-        jPanel19.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 90, -1));
-
-        javax.swing.GroupLayout StaffPanelLayout = new javax.swing.GroupLayout(StaffPanel);
-        StaffPanel.setLayout(StaffPanelLayout);
-        StaffPanelLayout.setHorizontalGroup(
-            StaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StaffPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(383, Short.MAX_VALUE))
-        );
-        StaffPanelLayout.setVerticalGroup(
-            StaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(StaffPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(StaffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        add(StaffPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 1190, 210));
+        add(PanelShift, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 1190, 230));
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
@@ -491,7 +332,8 @@ public class DashboardPage extends javax.swing.JPanel {
     
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
+            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this); // Truyền tham chiếu DashboardPage
             dialog.setUserName(userName);
             
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -516,7 +358,6 @@ public class DashboardPage extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Không có ca làm việc nào để chốt.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
     // Lấy tham chiếu tới JFrame chứa JPanel này
     JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
     EndShift dialog = new EndShift(parentFrame, true, controlId);
@@ -546,20 +387,24 @@ public class DashboardPage extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_finishBillActionPerformed
  
+    private int getOrderIDFromSerialNo(int serialNo) {
+    List<PendingBill> pendingBills = BillDAO.getPendingBills();
+    if (serialNo > 0 && serialNo <= pendingBills.size()) {
+        return pendingBills.get(serialNo - 1).getOrder_id();
+    }
+    return -1; // Return an invalid order_id if not found
+}
     // chỉnh form detail
     private void showDetailDialog() {
     JDialog detailDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Detail Dialog", true);
-
     int centerX = this.getWidth() / 2 - detailDialog.getWidth() / 6;
     int centerY = this.getHeight() / 2 - detailDialog.getHeight() / 6;
-    
     // Set the dialog location
     detailDialog.setLocation(centerX, centerY);  
     // Show the dialog
     detailDialog.setVisible(true);
     detailDialog.setLocationRelativeTo(null);
 }
-    
     public void refresh(){
         updatePendingBillTable();
         displayTotalSumOfDay();
@@ -599,14 +444,11 @@ public class DashboardPage extends javax.swing.JPanel {
     PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
 }
 
-     private void updateTableSTT() {
+      private void updateTableSTT() {
         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             model.setValueAt(i + 1, i, 0); // Cập nhật lại STT
         }
-        PendingBillTabel1.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-
-        PendingBillTabel1.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));   
     }
      private void displayTotalSumOfMonth() {
     float totalSum = BillDAO.getTotalSumOfMonth(); 
@@ -644,52 +486,19 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel Money_day;
     private javax.swing.JLabel MonthPanel;
+    private javax.swing.JPanel PanelShift;
     private javax.swing.JTable PendingBill;
-    private javax.swing.JLabel PositionCard;
-    private javax.swing.JLabel PositionCard10;
-    private javax.swing.JLabel PositionCard11;
-    private javax.swing.JLabel PositionCard12;
-    private javax.swing.JLabel PositionCard9;
     private javax.swing.JPanel StaffPanel;
     private javax.swing.JButton finishBill;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

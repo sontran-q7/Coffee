@@ -466,6 +466,9 @@ public class Dashboard extends javax.swing.JFrame {
     }
     public void showPanel(String panelName) {  
          switch (panelName) {
+              case "dashboard":
+                dashboardPage.refresh();
+                break;
             case "returnAccount":
                 returnAccount.refresh(); 
                 break;
@@ -475,9 +478,7 @@ public class Dashboard extends javax.swing.JFrame {
             case "employee":
                 employeeManager.refresh();
                 break;
-            case "dashboard":
-                dashboardPage.refresh();
-                break;
+           
             // Thêm các case khác nếu cần
         }
         ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);

@@ -4,7 +4,6 @@
  */
 package com.app.coffee.dashboard;
 
-
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.DAO.ControlDAO;
 import com.app.coffee.Backend.DAO.UserDAO;
@@ -32,6 +31,7 @@ import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -50,16 +50,15 @@ public class AddShift extends javax.swing.JDialog {
 
     private String userName;
     public static final int RET_CANCEL = 0;
-    
+
     public static final int RET_OK = 1;
-    
+    private DashboardPage dashboardPage;
     private HashMap<String, Integer> shiftMap;
     private HashMap<String, Integer> managerMap;
-       private void loadBoxShift() {
-        String sql = "SELECT * FROM working_time"; 
-        try (Connection conn = ConnectionCoffee.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+
+    private void loadBoxShift() {
+        String sql = "SELECT * FROM working_time";
+        try (Connection conn = ConnectionCoffee.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
             BoxShift.removeAllItems();
             while (rs.next()) {
@@ -70,13 +69,14 @@ public class AddShift extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Creates new form ListStaff
      */
-    public AddShift(java.awt.Frame parent, boolean modal) {
+    public AddShift(java.awt.Frame parent, boolean modal, DashboardPage dashboardPage) {
         super(parent, modal);
         initComponents();
+        this.dashboardPage = dashboardPage;
         initShiftMap();
         updateCheckInTimeLabel();
         loadBoxShift();
@@ -84,20 +84,14 @@ public class AddShift extends javax.swing.JDialog {
         // Đặt các renderers
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        ListUserTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer); // Cột ID
-        ListUserTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer); // Cột User name
-        ListUserTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer); // Cột Role
-        //ListUserTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer); // Cột Phone
-        
+        ListName.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        ListName.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        ListName.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        ListName.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
 
         // Đặt ImageRenderer cho cột chứa ảnh
-        ListUserTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+        ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
 
-        
-       
-        
-        
-        
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
@@ -108,11 +102,11 @@ public class AddShift extends javax.swing.JDialog {
             }
         });
     }
-    
-    
+
     public class ImageRenderer extends DefaultTableCellRenderer {
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel label = new JLabel();
             label.setHorizontalAlignment(JLabel.CENTER); // Căn giữa ảnh và văn bản
             String photoName = value != null ? value.toString() : "no-image.png";
@@ -121,24 +115,21 @@ public class AddShift extends javax.swing.JDialog {
                 imageFile = new File("src/image/no-image.png");
             }
             ImageIcon imageIcon = new ImageIcon(
-                new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));          
+                    new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));
             return new JLabel(imageIcon);
-    }
-}
-    
-      public void setUserName(String userName) {
-        this.userName = userName;
-        // Cập nhật giao diện nếu cần, ví dụ:
-         nametest.setText(userName);
-       
+        }
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+        // Cập nhật giao diện nếu cần, ví dụ:
+        nametest.setText(userName);
+    }
 
     public int getReturnStatus() {
         return returnStatus;
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -148,7 +139,7 @@ public class AddShift extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListUserTable = new javax.swing.JTable();
+        ListName = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
         shiftpanel = new javax.swing.JLabel();
         selectStaff = new javax.swing.JLabel();
@@ -192,19 +183,19 @@ public class AddShift extends javax.swing.JDialog {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        ListUserTable.setModel(new javax.swing.table.DefaultTableModel(
+        ListName.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Image", "Name", "Position"
+                "ID", "Image", "Name", "Position", "Phone"
             }
         ));
-        ListUserTable.setRowHeight(50);
-        jScrollPane2.setViewportView(ListUserTable);
+        ListName.setRowHeight(50);
+        jScrollPane2.setViewportView(ListName);
 
         jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
@@ -345,11 +336,9 @@ public class AddShift extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void initShiftMap() {
+    private void initShiftMap() {
         shiftMap = new HashMap<>();
-        try (Connection conn = ConnectionCoffee.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT working_time_id, name FROM working_time")) {
+        try (Connection conn = ConnectionCoffee.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT working_time_id, name FROM working_time")) {
             while (rs.next()) {
                 shiftMap.put(rs.getString("name"), rs.getInt("working_time_id"));
             }
@@ -358,50 +347,61 @@ public class AddShift extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-    String selectedShift = (String) BoxShift.getSelectedItem();
-    Integer workingTimeId = shiftMap.get(selectedShift);
-    if (workingTimeId == null) {
-        JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        String selectedShift = (String) BoxShift.getSelectedItem();
+        Integer workingTimeId = shiftMap.get(selectedShift);
+        if (workingTimeId == null) {
+            JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String checkIn = now.format(formatter);
+        String checkOut = now.format(formatter);
+        float checkInPay;
+        try {
+            checkInPay = Float.parseFloat(InPayField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Check In Pay.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
+        Integer accountId = UserSession.getInstance().getAccountId();
+        if (accountId == null) {
+            JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Thêm ca làm việc và lưu controlId 
+        int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
+        if (controlId != 0) {
+            UserSession.getInstance().setControlId(controlId);
 
-    LocalDateTime now = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String checkIn = now.format(formatter);
-    String checkOut = now.format(formatter); 
+            int[] selectedRows = ListName.getSelectedRows();
+            DefaultTableModel model = (DefaultTableModel) ListName.getModel();
+            ArrayList<String[]> selectedData = new ArrayList<>();
+            for (int row : selectedRows) {
+                int columnCount = model.getColumnCount();
+                String[] rowData = new String[columnCount];
+                for (int column = 0; column < columnCount; column++) {
+                    rowData[column] = model.getValueAt(row, column).toString();
+                }
+                selectedData.add(rowData);
+            }
 
-    float checkInPay;
-    try {
-        checkInPay = Float.parseFloat(InPayField.getText());
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Check In Pay.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+            if (dashboardPage != null) {
+                dashboardPage.updateStaffPanel(selectedData);
+            } else {
+                System.out.println("DashboardPage reference is null");
+            }
 
-    float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
+            JOptionPane.showMessageDialog(this, "Tạo ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tạo ca thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
 
-    Integer accountId = UserSession.getInstance().getAccountId();
-    if (accountId == null) {
-        JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Thêm ca làm việc và lưu controlId vào SessionData
-    int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
-    if (controlId != -1) {
-         UserSession.getInstance().setControlId(controlId);
-         
-        JOptionPane.showMessageDialog(this, "Tạo ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "Tạo ca thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }
-
-    doClose(RET_OK);
+        doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
-    
-    // Phương thức updateCheckInTimeLabel
+
     private void updateCheckInTimeLabel() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -409,7 +409,6 @@ public class AddShift extends javax.swing.JDialog {
         CheckInTime.setText(currentTime);
     }
 
-    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
@@ -420,35 +419,35 @@ public class AddShift extends javax.swing.JDialog {
 
     private void InPayFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InPayFieldActionPerformed
         String input = InPayField.getText();
-    if (!isNumeric(input)) {
-        JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ.(ví dụ :12345.05)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-        // Xóa nội dung của InPayField
-        InPayField.setText("");
-    }
+        if (!isNumeric(input)) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ.(ví dụ :12345.05)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            // Xóa nội dung của InPayField
+            InPayField.setText("");
+        }
     }//GEN-LAST:event_InPayFieldActionPerformed
-    
+
     private boolean isNumeric(String str) {
-    if (str == null || str.isEmpty()) {
-        return false;
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
-    try {
-        Double.parseDouble(str);
-        return true;
-    } catch (NumberFormatException e) {
-        return false;
-    }
-}    
+
     private void doClose(int retStatus) {
         returnStatus = retStatus;
         setVisible(false);
         dispose();
     }
-  
-   public void GetList() {
-        UserDAO userdao = new UserDAO();    
+
+    public void GetList() {
+        UserDAO userdao = new UserDAO();
         ArrayList<UsersModel> listUser = userdao.selectAll();
 
-        // Sort users by account_id
         Collections.sort(listUser, new Comparator<UsersModel>() {
             @Override
             public int compare(UsersModel u1, UsersModel u2) {
@@ -456,7 +455,7 @@ public class AddShift extends javax.swing.JDialog {
             }
         });
 
-        DefaultTableModel table = (DefaultTableModel) ListUserTable.getModel();
+        DefaultTableModel table = (DefaultTableModel) ListName.getModel();
         table.setRowCount(0);
         int count = 1;
 
@@ -464,53 +463,32 @@ public class AddShift extends javax.swing.JDialog {
             if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
                 Object[] row = {
                     count++,
-                    user.getImage() != null ? user.getImage() : "no-image.png",
+                    user.getImage() != null ? user.getImage() : "no-image.png",// kiểm tra hình ảnh lại
                     user.getUserName() != null ? user.getUserName() : "",
-                    user.getRole() != null ? user.getRole().getName() : "", 
+                    user.getRole() != null ? user.getRole().getName() : "",
                     user.getPhone() != null ? user.getPhone() : "",
-                    user.getEmail() != null ? user.getEmail() : ""     
+                    user.getEmail() != null ? user.getEmail() : ""
                 };
                 table.addRow(row);
             }
         }
         // image
-        ListUserTable.setRowHeight(60);
-        
-        // Đặt ImageRenderer cho cột chứa ảnh
-        ListUserTable.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+        ListName.setRowHeight(60);
+        ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
     }
 
-
- 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddShift dialog = new AddShift(new javax.swing.JFrame(), true);
+                JFrame parentFrame = new JFrame();
+                DashboardPage dashboardPage = new DashboardPage();
+                parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                parentFrame.setSize(1350, 740);
+                parentFrame.add(dashboardPage);
+                parentFrame.setVisible(true);
+
+                AddShift dialog = new AddShift(parentFrame, true, dashboardPage);
+                dialog.setUserName(UserSession.getInstance().getUserName());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -526,7 +504,7 @@ public class AddShift extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> BoxShift;
     private javax.swing.JLabel CheckInTime;
     private javax.swing.JTextField InPayField;
-    private javax.swing.JTable ListUserTable;
+    private javax.swing.JTable ListName;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
