@@ -43,7 +43,7 @@ public class ButtonEditor extends DefaultCellEditor {
         @Override
         public void actionPerformed(ActionEvent e) {
             int selectedRow = table.convertRowIndexToModel(table.getEditingRow());
-            int orderId = (Integer) table.getModel().getValueAt(selectedRow, 0);
+            int orderId = (Integer) table.getModel().getValueAt(selectedRow, 1);
             OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
             OrderModel ordermodel = orderDetailDAO.selectById(orderId);
 

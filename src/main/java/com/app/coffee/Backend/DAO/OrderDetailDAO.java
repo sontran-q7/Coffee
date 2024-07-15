@@ -55,7 +55,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     public ArrayList<OrderModel> selectAll1Bill() {
         ArrayList<OrderModel> ListBill = new ArrayList<>();
         try (Connection conn = ConnectionCoffee.getConnection()) {
-            String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
+            String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.created_at, " +
                          "a.username AS account_username, a.email AS account_email " +
                          "FROM orders o " +
                          "LEFT JOIN account a ON o.account_id = a.account_id";
@@ -69,7 +69,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
                     orderModel.setAccount_id(rs.getInt("account_id"));
                     orderModel.setTotal(rs.getFloat("total"));
                     orderModel.setDescription(rs.getString("order_description"));
-                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    Timestamp timestamp = rs.getTimestamp("created_at");
                     if (timestamp != null) {
                         orderModel.setDay(timestamp.toLocalDateTime());
                     }
@@ -88,12 +88,12 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     public ArrayList<OrderModel> selectByDateRange(LocalDateTime  fromDate, LocalDateTime  toDate) {
     ArrayList<OrderModel> list = new ArrayList<>();
     try (Connection conn = ConnectionCoffee.getConnection()) {
-        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
-             "a.username AS account_username, a.email AS account_email " +
-             "FROM orders o " +
-             "LEFT JOIN account a ON o.account_id = a.account_id " +
-             "WHERE o.updated_at >= ? AND o.updated_at <= ? + INTERVAL 1 DAY";
-                     
+        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.created_at, " +
+                     "a.username AS account_username, a.email AS account_email " +
+                     "FROM orders o " +
+                     "LEFT JOIN account a ON o.account_id = a.account_id " +
+                     "WHERE o.created_at >= ? AND o.created_at < ?";
+             LocalDateTime endOfToDate = toDate.plusDays(1).toLocalDate().atStartOfDay();         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setTimestamp(1, Timestamp.valueOf(fromDate));
             stmt.setTimestamp(2, Timestamp.valueOf(toDate));
@@ -105,7 +105,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
                     orderModel.setAccount_id(rs.getInt("account_id"));
                     orderModel.setTotal(rs.getFloat("total"));
                     orderModel.setDescription(rs.getString("order_description"));
-                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    Timestamp timestamp = rs.getTimestamp("created_at");
                     if (timestamp != null) {
                         orderModel.setDay(timestamp.toLocalDateTime());
                     }
@@ -124,7 +124,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
 
     public OrderModel  selectById(int orderId) {
         OrderModel orderModel = null;
-        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.updated_at, " +
+        String sql = "SELECT o.order_id, o.account_id, o.total, o.description AS order_description, o.created_at, " +
                  "od.order_detail_id, od.product_detail_id, od.quantity, od.table_number, od.status AS order_detail_status, " +
                  "a.username AS account_username, a.email AS account_email, " +
                  "pd.size, pd.price, " +
@@ -150,7 +150,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
                     orderModel.setAccount_id(rs.getInt("account_id"));
                     orderModel.setTotal(rs.getFloat("total"));
                     orderModel.setDescription(rs.getString("order_description"));
-                    Timestamp timestamp = rs.getTimestamp("updated_at");
+                    Timestamp timestamp = rs.getTimestamp("created_at");
                     if (timestamp != null) {
                         orderModel.setDay(timestamp.toLocalDateTime());
                     }
@@ -191,6 +191,71 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
 }
     
     
+    public ArrayList<OrderModel> selectByUsernameAndDate(String username, LocalDateTime fromDate, LocalDateTime toDate) {
+    ArrayList<OrderModel> list = new ArrayList<>();
+    try (Connection conn = ConnectionCoffee.getConnection()) {
+        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
+             "FROM orders o " +
+             "LEFT JOIN account a ON o.account_id = a.account_id " +
+             "WHERE a.username = ? AND o.created_at >= ? AND o.created_at <= ? + INTERVAL 1 DAY";
+                   
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setTimestamp(2, Timestamp.valueOf(fromDate));
+            stmt.setTimestamp(3, Timestamp.valueOf(toDate));
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    OrderModel orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("order_description"));
+                    Timestamp timestamp = rs.getTimestamp("created_at");
+                    if (timestamp != null) {
+                        orderModel.setDay(timestamp.toLocalDateTime());
+                    }
+
+                    list.add(orderModel);
+                }
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return list;
+}
+    
+    public ArrayList<OrderModel> selectByUsername(String username) {
+    ArrayList<OrderModel> list = new ArrayList<>();
+    try (Connection conn = ConnectionCoffee.getConnection()) {
+        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
+                     "FROM orders o " +
+                     "LEFT JOIN account a ON o.account_id = a.account_id " +
+                     "WHERE a.username = ?";
+                   
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    OrderModel orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("order_description"));
+                    Timestamp timestamp = rs.getTimestamp("created_at");
+                    if (timestamp != null) {
+                        orderModel.setDay(timestamp.toLocalDateTime());
+                    }
+
+                    list.add(orderModel);
+                }
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return list;
+}
     
     
     @Override

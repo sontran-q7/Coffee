@@ -285,6 +285,25 @@ public class UserDAO implements DAOInterface<UsersModel> {
         }
         return 0;
     }
+    
+    public static List<String> getUsernamesFromDatabase() {
+        List<String> usernames = new ArrayList<>();
+        
+        try (Connection conn = ConnectionCoffee.getConnection()) {
+        String sql = "SELECT username FROM account";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            String username = rs.getString("username");
+            usernames .add(username);
+        }
+        rs.close();
+        ps.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return usernames;
+    }
 
     
     

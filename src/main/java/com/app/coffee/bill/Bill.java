@@ -5,6 +5,7 @@
 package com.app.coffee.bill;
 
 import com.app.coffee.Backend.DAO.OrderDetailDAO;
+import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.OrderDetailModel;
 import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.design.TableGradient;
@@ -34,6 +35,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -44,7 +46,7 @@ import javax.swing.table.JTableHeader;
  * @author Admin
  */
 public class Bill extends javax.swing.JPanel {
-    
+    private double totalBillValue = 0.0;
     /**
      * Creates new form Bill
      */
@@ -52,23 +54,9 @@ public class Bill extends javax.swing.JPanel {
         initComponents();
         setCellRenderer(tableBill);
        // setDefTable();
+        populateComboBox();
         refreshListBill();
     }
-    
-    
-//       private void setDefTable() {
-//        tableBill.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
-//        jPanel2.putClientProperty(FlatClientProperties.STYLE, ""
-//                + "border:4,4,4,4,$TableHeader.bottomSeparatorColor,,10");
-//        tableBill.getTableHeader().putClientProperty(FlatClientProperties.STYLE, ""
-//                + "hoverBackground:null;"
-//                + "pressedBackground:null;"
-//                + "separatorColor:$TableHeader.background");
-////        scroll.putClientProperty(FlatClientProperties.STYLE, ""
-////                + "border:9,0,9,0,$Table.background,10,10");
-////        scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
-////                + "hoverTrackColor:null");
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +71,8 @@ public class Bill extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableBill = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        TotalBill = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
@@ -91,6 +81,7 @@ public class Bill extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        JcomboBoxUserName = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,22 +92,22 @@ public class Bill extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44)));
         jPanel1.setPreferredSize(new java.awt.Dimension(1340, 720));
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         tableBill.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tableBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Description", "Total", "Day", "Detail"
+                "No", "Order", "Description", "Total", "Day", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, true, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -128,25 +119,52 @@ public class Bill extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tableBill);
         if (tableBill.getColumnModel().getColumnCount() > 0) {
             tableBill.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableBill.getColumnModel().getColumn(1).setResizable(false);
-            tableBill.getColumnModel().getColumn(1).setPreferredWidth(500);
-            tableBill.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tableBill.getColumnModel().getColumn(4).setPreferredWidth(5);
+            tableBill.getColumnModel().getColumn(2).setResizable(false);
+            tableBill.getColumnModel().getColumn(2).setPreferredWidth(500);
+            tableBill.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableBill.getColumnModel().getColumn(5).setPreferredWidth(5);
         }
 
-        jPanel2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel5.setText("Total Bill:");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
+        TotalBill.setBackground(new java.awt.Color(255, 255, 255));
+        TotalBill.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TotalBill.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TotalBill, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TotalBill, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("From :");
 
         jDateChooser1.setDate(new java.util.Date(1718996884000L));
         jDateChooser1.setDateFormatString(" yyyy , MMMMM d");
         jDateChooser1.setDoubleBuffered(false);
+        jDateChooser1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jDateChooser1.setOpaque(false);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("To :");
 
@@ -189,49 +207,61 @@ public class Bill extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("Bill Lable:");
 
+        JcomboBoxUserName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        JcomboBoxUserName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        JcomboBoxUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JcomboBoxUserNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(90, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(93, 93, 93)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(93, 93, 93)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(28, 28, 28)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(33, 33, 33)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JcomboBoxUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(JcomboBoxUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jButton2.getAccessibleContext().setAccessibleName("Refesh");
@@ -267,9 +297,9 @@ public class Bill extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Search(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search
-        Date fromDate = jDateChooser1.getDate();
+    Date fromDate = jDateChooser1.getDate();
     Date toDate = jDateChooser2.getDate();
-
+    String selectedUserName = (String) JcomboBoxUserName.getSelectedItem();
     if (fromDate == null || toDate == null) {
         JOptionPane.showMessageDialog(this, "Please select both dates.", "Error!!", JOptionPane.ERROR_MESSAGE);
         return;
@@ -278,11 +308,15 @@ public class Bill extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "The start date cannot be greater than the end date.", "Error!!!", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
+    
     LocalDateTime fromDateLocalDateTime = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     LocalDateTime toDateLocalDateTime = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-    refreshListBillByDate(fromDateLocalDateTime, toDateLocalDateTime);
+    if ( "All".equals(selectedUserName)) {
+        refreshListBillByDate(fromDateLocalDateTime, toDateLocalDateTime);
+    } else {
+        refreshListBillByUsernameAndDate(selectedUserName, fromDateLocalDateTime, toDateLocalDateTime);
+    }
+    
     }//GEN-LAST:event_Search
     
     private void JbuttonDayNow(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbuttonDayNow
@@ -295,36 +329,61 @@ public class Bill extends javax.swing.JPanel {
         // TODO add your handling code here:
         refreshListBill();
     }//GEN-LAST:event_ButtonRefresh
+
+    private void JcomboBoxUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JcomboBoxUserNameActionPerformed
+                // TODO add your handling code here:
+        String selectedUserName = (String) JcomboBoxUserName.getSelectedItem();   
+        if (selectedUserName != null && !selectedUserName.isEmpty() && !"All".equals(selectedUserName)) {
+            refreshListBillByUsername(selectedUserName);
+        } else {
+            refreshListBill();
+        }        
+    }//GEN-LAST:event_JcomboBoxUserNameActionPerformed
     
+    private void populateComboBox() {
+        JcomboBoxUserName.removeAllItems(); 
+        JcomboBoxUserName.addItem("All");
+        List<String> usernames = UserDAO.getUsernamesFromDatabase(); 
+        for (String username : usernames) {
+            JcomboBoxUserName.addItem(username);
+        }
+    }
    
     
     public void refreshDayNow() {
     OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
     ArrayList<OrderModel> listBill = orderDetailDAO.selectAll1Bill();
     
-
     LocalDate today = LocalDate.now();
+    String selectedUserName = (String) JcomboBoxUserName.getSelectedItem();
     
     DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
     defaultTableModel.setRowCount(0);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     JButton button = new JButton("Detail");
-    
+    totalBillValue = 0.0;
+    int index = 1;
     for (OrderModel order : listBill) {
         if (order.getDay().toLocalDate().isEqual(today)) {
-            Object[] row = {
-                order.getOrder_id(),
-                order.getDescription(),
-                order.getTotal(),
-                order.getDay().format(formatter),
-                button
-            };
-            defaultTableModel.addRow(row);
+            if ("All".equals(selectedUserName) || selectedUserName.equals(order.getUsername())) {
+                Object[] row = {
+                    index,
+                    order.getOrder_id(),
+                    order.getDescription(),
+                    order.getTotal(),
+                    order.getDay().format(formatter),
+                    button
+                };
+                defaultTableModel.addRow(row);
+                totalBillValue += order.getTotal();
+                index++;
+            }
         }
     }
 
-    tableBill.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
-    tableBill.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
+    tableBill.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+    tableBill.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+    TotalBill.setText(" "+String.valueOf(totalBillValue));
 }
     
     
@@ -335,10 +394,12 @@ public class Bill extends javax.swing.JPanel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
-       
+        totalBillValue = 0.0;
+        int index = 1;
         JButton button = new JButton("Detail");
         for(OrderModel list: ListBill ){
             Object[] row = {
+                index ,
                 list.getOrder_id(),
                 list.getDescription(),
                 list.getTotal(),
@@ -346,10 +407,13 @@ public class Bill extends javax.swing.JPanel {
                 button
             };
             defaultTableModel.addRow(row);
+            totalBillValue += list.getTotal();
+            index++;
         }
-        tableBill.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        tableBill.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
 
-        tableBill.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
+        tableBill.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+        TotalBill.setText(" "+String.valueOf(totalBillValue));
         
     }
 
@@ -362,10 +426,10 @@ public class Bill extends javax.swing.JPanel {
         }
          JTableHeader header = tableBill.getTableHeader();
                 if (header != null) {
-                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); // Đường viền đen giữa các cột
+                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.LIGHT_GRAY)); 
                 }
-                // Đặt cỡ chữ cho tiêu đề của cột
-                setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
+                
+                setFont(new Font("Arial", Font.BOLD, 14)); 
 
       }
     public void refreshListBillByDate(LocalDateTime  fromDate, LocalDateTime  toDate) {
@@ -377,19 +441,76 @@ public class Bill extends javax.swing.JPanel {
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
-
+        totalBillValue = 0.0;
+        int index = 1;
         for (OrderModel order : listBill) {
             Object[] row = {
+                index,
                 order.getOrder_id(),
                 order.getDescription(),
                 order.getTotal(),
                 order.getDay().format(formatter)
             };
             defaultTableModel.addRow(row);
+            totalBillValue += order.getTotal();
+            index++;
         }
+        TotalBill.setText(" "+String.valueOf(totalBillValue));
 }
-   
+    public void refreshListBillByUsernameAndDate(String username, LocalDateTime  fromDate, LocalDateTime  toDate) {
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+
+        ArrayList<OrderModel> listBill = orderDetailDAO.selectByUsernameAndDate(username,fromDate, toDate);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
+        defaultTableModel.setRowCount(0);
+        totalBillValue = 0.0;
+        int index = 1;
+        for (OrderModel order : listBill) {
+            Object[] row = {
+                index,
+                order.getOrder_id(),
+                order.getDescription(),
+                order.getTotal(),
+                order.getDay().format(formatter)
+            };
+            defaultTableModel.addRow(row);
+            totalBillValue += order.getTotal();
+            index++ ;
+        }
+        TotalBill.setText(" "+String.valueOf(totalBillValue));
+        
+}
+    public void refreshListBillByUsername(String userName) {
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+
+        ArrayList<OrderModel> listBill = orderDetailDAO.selectByUsername(userName);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
+        defaultTableModel.setRowCount(0);
+        totalBillValue = 0.0;
+        int index = 1;
+        for (OrderModel order : listBill) {
+            Object[] row = {
+                index,
+                order.getOrder_id(),
+                order.getDescription(),
+                order.getTotal(),
+                order.getDay().format(formatter)
+            };
+            defaultTableModel.addRow(row);
+            totalBillValue += order.getTotal();
+             index++ ;
+        }
+        TotalBill.setText(" "+String.valueOf(totalBillValue));
+}   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> JcomboBoxUserName;
+    private javax.swing.JLabel TotalBill;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -399,6 +520,7 @@ public class Bill extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

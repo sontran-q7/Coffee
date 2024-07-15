@@ -73,6 +73,7 @@ com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
 com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
+com\app\coffee\bill\Bill$5.class
 com\app\coffee\dashboard\DashboardPage$5$1.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$2.class
