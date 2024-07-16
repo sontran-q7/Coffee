@@ -118,6 +118,7 @@ com\app\coffee\Login\LoginAccount\SendCode$4.class
 com\app\coffee\product\ProductForm$4.class
 com\app\coffee\category\AddCategory$1.class
 com\app\coffee\dashboard\DashboardPage$1.class
+com\app\coffee\employee\StaffSchedule$8.class
 com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\product\EditProduct$4.class
 com\app\coffee\Login\CustomDialog.class
@@ -129,6 +130,7 @@ com\app\coffee\Login\LoginAccount\Reset.class
 com\app\coffee\menu\MenuPanel$6.class
 com\app\coffee\employee\FormAdd.class
 com\app\coffee\dashboard\DashboardPage$7.class
+com\app\coffee\employee\StaffSchedule$7.class
 com\app\coffee\category\CategoryForm.class
 com\app\coffee\category\CategoryForm$3.class
 com\app\coffee\category\AddCategory$2.class

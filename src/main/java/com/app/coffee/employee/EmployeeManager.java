@@ -217,7 +217,7 @@ public class EmployeeManager extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1)
-                .addContainerGap(1041, Short.MAX_VALUE))
+                .addContainerGap(1047, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,10 +354,10 @@ public class EmployeeManager extends javax.swing.JPanel {
         UserDAO userdao = new UserDAO();
         int result = userdao.DeleteByStatus(email);
         if (result > 0) {
-            JOptionPane.showMessageDialog(this, "User status set to inactive.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Account delete success.", "Success", JOptionPane.INFORMATION_MESSAGE);
             GetList();
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to set user status to inactive.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Account delete failed.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
