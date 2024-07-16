@@ -16,6 +16,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -478,7 +479,19 @@ public class Dashboard extends javax.swing.JFrame {
             case "employee":
                 employeeManager.refresh();
                 break;
-           
+           case "bill":
+                Bill billPanel = null;
+                Component[] components = DislayPanel.getComponents();
+                for (Component component : components) {
+                    if (component instanceof Bill) {
+                        billPanel = (Bill) component;
+                        break;
+                    }
+                }
+                if (billPanel != null) {
+                    billPanel.refreshListBill();
+                }
+                break;  
             // Thêm các case khác nếu cần
         }
         ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);

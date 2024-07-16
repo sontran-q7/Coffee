@@ -3,44 +3,45 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.app.coffee.Login.LoginAccount;
-
 import com.app.coffee.Login.CustomDialog;
 import com.app.coffee.Login.LoginAccount.Reset;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-
 /**
  *
  * @author Admin
  */
-public class VerifyCode extends javax.swing.JPanel {
+public class VerifyAdmin extends javax.swing.JPanel {
     private int randomCode;
     private String email;
     private JLabel secondsLabel;
-    private VerifyCode verifyCodePanel;
+    private VerifyAdmin verifyCodeAmdmin;
     private boolean isCodeValid;
-    private SendCode sendCode;
+    private SendAdmin sendAdminPanel;
+    
     private Timer timer;
     private int countdownTime;
     
     /**
-     * Creates new form VerifyCode
+     * Creates new form VerifyAdmin
      */
-    public VerifyCode(int randomCode, String email) {
+    public VerifyAdmin(int randomCode, String email) {
         initComponents();
         this.randomCode = randomCode;
         this.email = email;
-        secondsLabel = new JLabel();
-        add(secondsLabel);
-        this.verifyCodePanel = this;
         this.isCodeValid = true;
-        this.sendCode = sendCode;
+        this.sendAdminPanel = sendAdminPanel;
+        
     }
-
+    
+    public int getCode() {
+        return randomCode;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,11 +56,12 @@ public class VerifyCode extends javax.swing.JPanel {
         txtVer = new javax.swing.JTextField();
         VerifyCode = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        Seconds = new javax.swing.JLabel();
-        Refresh = new javax.swing.JButton();
         Back = new javax.swing.JButton();
+        Refresh = new javax.swing.JButton();
+        Seconds = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new java.awt.BorderLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(243, 114, 44)));
@@ -72,9 +74,9 @@ public class VerifyCode extends javax.swing.JPanel {
         txtVer.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         VerifyCode.setBackground(new java.awt.Color(243, 114, 44));
-        VerifyCode.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        VerifyCode.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         VerifyCode.setForeground(new java.awt.Color(255, 255, 255));
-        VerifyCode.setText("Verify ");
+        VerifyCode.setText("Verify");
         VerifyCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VerifyCode(evt);
@@ -85,8 +87,15 @@ public class VerifyCode extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(73, 80, 87));
         jLabel3.setText("Verify Code");
 
-        Seconds.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Seconds.setForeground(new java.awt.Color(255, 51, 51));
+        Back.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        Back.setForeground(new java.awt.Color(243, 114, 44));
+        Back.setText("Back");
+        Back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Back(evt);
+            }
+        });
 
         Refresh.setBackground(new java.awt.Color(243, 114, 44));
         Refresh.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
@@ -98,38 +107,34 @@ public class VerifyCode extends javax.swing.JPanel {
             }
         });
 
-        Back.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        Back.setForeground(new java.awt.Color(243, 114, 44));
-        Back.setText("Back");
-        Back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
-        Back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Back(evt);
-            }
-        });
+        Seconds.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Seconds.setForeground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(114, 114, 114))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(VerifyCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(VerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtVer)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Refresh)))))))
+                .addGap(30, 30, 30))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,75 +143,73 @@ public class VerifyCode extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(6, 6, 6)
+                .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(VerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtVer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(Refresh))
-                .addGap(15, 15, 15)
-                .addComponent(Back)
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(Seconds, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(VerifyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jPanel4, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void VerifyCode(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerifyCode
         // TODO add your handling code here:
-        
-         try {
-        int enteredCode = Integer.parseInt(txtVer.getText());
-        if (enteredCode == randomCode && isCodeValid) {
+        try {
+        int userCode = Integer.parseInt(txtVer.getText().trim());
+
+        if (userCode == randomCode && isCodeValid) {
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
             if (frame != null) {
-                Reset resetPanel = new Reset(email); 
-                System.out.println("Setting VerifyCode panel...");
+                RegisterAdmin resetPanel = new RegisterAdmin(email);               
                 frame.setContentPane(resetPanel);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.revalidate();
                 frame.repaint();
-                isCodeValid = false;
-            } else {
-                new CustomDialog(null, "Error", "Didn't find the parent window to show the Reset panel.");
+                isCodeValid = false; 
+                
             }
         } else {
-            new CustomDialog(null, "Error", "Invalid code. Please try again.");
+            new CustomDialog(null, "Error", "Invalid code or code expired.");
         }
     } catch (NumberFormatException e) {
-        new CustomDialog(null, "Error", "Please enter a valid code.");
+        new CustomDialog(null, "Error", "Invalid code format.");
     }
     }//GEN-LAST:event_VerifyCode
+
+    private void Back(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Back
+        // TODO add your handling code here:
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        if (frame != null) {
+            SendAdmin sendCodePanel = new SendAdmin();
+            frame.getContentPane().removeAll();
+            frame.setContentPane(sendCodePanel);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        } else {
+            new CustomDialog(null, "Error", "Don't esixt SendAdmin panel.");
+        }
+    }//GEN-LAST:event_Back
 
     private void Refresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh
     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
        if (frame != null) {
            frame.getContentPane().removeAll();
-           VerifyCode newVerifyCodePanel = new VerifyCode(generateRandomCode(), email);
-           if (newVerifyCodePanel.sendCode == null) {
-               newVerifyCodePanel.sendCode = new SendCode();
+           VerifyAdmin newVerifyCodePanel = new VerifyAdmin(generateRandomCode(), email);
+           if (newVerifyCodePanel.sendAdminPanel == null) {
+               newVerifyCodePanel.sendAdminPanel = new SendAdmin();
            }
-           newVerifyCodePanel.sendCode.sendMail(email, newVerifyCodePanel.randomCode);
+           newVerifyCodePanel.sendAdminPanel.sendMail(email, newVerifyCodePanel.randomCode);
            newVerifyCodePanel.countdownTime = 60;
            newVerifyCodePanel.setSecondsLabelText(newVerifyCodePanel.countdownTime + "(s)");
            frame.setContentPane(newVerifyCodePanel);
@@ -220,45 +223,29 @@ public class VerifyCode extends javax.swing.JPanel {
             }
        } else {
            new CustomDialog(null, "Error", "VerifyCode panel doesn't exist.");
-       }
+       }  
     }//GEN-LAST:event_Refresh
     
     private int generateRandomCode() {
         return (int) (Math.random() * 900000) + 100000; 
     }
     
-    private void Back(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Back
-        // TODO add your handling code here:     
+    public void updateSeconds(int seconds, String email) {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        if (frame != null) {
-            SendCode sendCodePanel = new SendCode();
-            frame.getContentPane().removeAll(); 
-            frame.setContentPane(sendCodePanel);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-        } else {
-            new CustomDialog(null, "Error", "Don't esixt SendCode panel.");
-        }   
-    }//GEN-LAST:event_Back
-    
-   public void updateSeconds(int seconds) {
-   JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        if (frame != null && frame.getContentPane() instanceof VerifyCode) {
+        if (frame != null && frame.getContentPane() instanceof VerifyAdmin) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
                     Seconds.setText(seconds + "(s)");
-                    System.out.println("tututut");
                 }
             });
-
             if (seconds == 0) {
                 isCodeValid = false;
                 randomCode = -1;
             }
         }
-} 
+    }
+      
     private void startTimer() {
         timer = new Timer(1000, new ActionListener() {
             int timeRemaining = countdownTime;
@@ -280,8 +267,6 @@ public class VerifyCode extends javax.swing.JPanel {
     public void setSecondsLabelText(String text) {
     Seconds.setText(text);
 }
-   
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Refresh;

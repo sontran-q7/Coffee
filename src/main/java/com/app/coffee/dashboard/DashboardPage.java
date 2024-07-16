@@ -10,19 +10,20 @@ import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
 import com.app.coffee.bill.ButtonEditor;
 import com.app.coffee.bill.ButtonRenderer;
-//import com.app.coffee.employee.FormAdd;
-//import java.awt.Button;
+import com.app.coffee.employee.FormAdd;
+import java.awt.Button;
 import java.awt.FlowLayout;
-//import javax.swing.Timer;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-//import java.text.SimpleDateFormat;
-//import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-//import java.util.Collections;
-//import java.util.Comparator;
-//import java.util.Date;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,7 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-//import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -417,37 +418,50 @@ public class DashboardPage extends javax.swing.JPanel {
    }
     
 
-     private void updatePendingBillTable() {
-    List<PendingBill> pendingBills = BillDAO.getPendingBills();
-    DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
-    model.setRowCount(0); // Clear the table before adding new rows
+   
+   private void updatePendingBillTable() {
+    try {
+        List<PendingBill> pendingBills = BillDAO.getPendingBills();
+        DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+        model.setRowCount(0); // Clear the table before adding new rows
 
-    JButton detailButton = new JButton("Detail");
-    detailButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            showDetailDialog(); // Call the method to show dialog on button click
+        int serialNo = 1;
+        for (PendingBill bill : pendingBills) {
+            JButton detailButton = new JButton("Detail");
+            detailButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showDetailDialog(); // Call the method to show dialog on button click
+                }
+            });
+              // Kiểm tra và in ra các giá trị trước khi thêm vào hàng
+        System.out.println("Serial No: " + serialNo);
+        System.out.println("Total: " + bill.getTotal());
+        System.out.println("Description: " + bill.getDescription());
+        System.out.println("Table Number: " + bill.getTable_number());
+        System.out.println("Day: " + bill.getDay());
+        System.out.println("Status: " + bill.isStatus());
+            Object[] row = new Object[]{
+                serialNo++, // Add serial number instead of order_id
+                bill.getTotal(), // In ra total trước khi thêm vào hàng
+                bill.getDescription(),
+                bill.getTable_number(),
+                bill.getDay(),
+                bill.isStatus(),
+                detailButton
+            };
+            System.out.println("Adding row: " + Arrays.toString(row)); // In ra thông tin hàng
+            model.addRow(row);
+            updateTableSTT();
         }
-    });
 
-    int serialNo = 1;
-    for (PendingBill bill : pendingBills) {
-        Object[] row = new Object[]{
-            serialNo++, // Add serial number instead of order_id
-            bill.getTotal(),
-            bill.getDescription(),
-            bill.getTable_number(),
-            bill.getDay(),
-            bill.isStatus(),
-            detailButton
-        };
-        model.addRow(row);
-        updateTableSTT();
+        PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
+    } catch (ClassCastException e) {
+        e.printStackTrace(); // In ra chi tiết lỗi
     }
-
-    PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-    PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
 }
+
 
       private void updateTableSTT() {
         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();

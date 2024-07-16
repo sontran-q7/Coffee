@@ -96,8 +96,8 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
              LocalDateTime endOfToDate = toDate.plusDays(1).toLocalDate().atStartOfDay();         
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setTimestamp(1, Timestamp.valueOf(fromDate));
-            stmt.setTimestamp(2, Timestamp.valueOf(toDate));
-            
+            stmt.setTimestamp(2, Timestamp.valueOf(endOfToDate));
+
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     OrderModel orderModel = new OrderModel();
@@ -197,13 +197,13 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
         String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
              "FROM orders o " +
              "LEFT JOIN account a ON o.account_id = a.account_id " +
-             "WHERE a.username = ? AND o.created_at >= ? AND o.created_at <= ? + INTERVAL 1 DAY";
+             "WHERE a.username = ? AND o.created_at >= ? AND o.created_at < ?";
                    
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             stmt.setTimestamp(2, Timestamp.valueOf(fromDate));
-            stmt.setTimestamp(3, Timestamp.valueOf(toDate));
-            
+//            stmt.setTimestamp(3, Timestamp.valueOf(toDate));
+            stmt.setTimestamp(3, Timestamp.valueOf(toDate.plusDays(1))); 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     OrderModel orderModel = new OrderModel();

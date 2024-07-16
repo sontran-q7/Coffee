@@ -21,16 +21,16 @@ import java.util.List;
 public class BillDAO {
 
     public static List<PendingBill> getPendingBills() {
-        List<PendingBill> pendingBills = new ArrayList<>();
+    List<PendingBill> pendingBills = new ArrayList<>();
     Connection conn = ConnectionCoffee.getConnection();
     String query = "SELECT o.order_id, o.total, GROUP_CONCAT(o.description SEPARATOR ', ') as description, " +
-               "o.day, o.created_at AS order_created_at, o.updated_at AS order_updated_at, " +
-               "GROUP_CONCAT(od.product_detail_id) AS product_details, SUM(od.quantity) AS total_quantity, " +
-               "od.table_number, od.status, od.created_at AS order_detail_created_at, od.updated_at AS order_detail_updated_at " +
-               "FROM orders o " +
-               "JOIN order_detail od ON o.order_id = od.order_id " +
-               "WHERE od.status = 1 " +
-               "GROUP BY o.order_id, od.table_number";
+                   "o.day, o.created_at AS order_created_at, o.updated_at AS order_updated_at, " +
+                   "GROUP_CONCAT(od.product_detail_id) AS product_details, SUM(od.quantity) AS total_quantity, " +
+                   "od.table_number, od.status, od.created_at AS order_detail_created_at, od.updated_at AS order_detail_updated_at " +
+                   "FROM orders o " +
+                   "JOIN order_detail od ON o.order_id = od.order_id " +
+                   "WHERE od.status = 1 " +
+                   "GROUP BY o.order_id, od.table_number";
     try {
         PreparedStatement stmt = conn.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
@@ -38,7 +38,9 @@ public class BillDAO {
         while (rs.next()) {
             PendingBill bill = new PendingBill();
             bill.setOrder_id(rs.getInt("order_id"));
-            bill.setTotal(rs.getFloat("total"));
+           
+            bill.setTotal(rs.getInt("total"));
+            
             bill.setTable_number(rs.getInt("table_number"));
             bill.setDescription(rs.getString("description"));
             bill.setDay(rs.getDate("day"));
@@ -55,7 +57,8 @@ public class BillDAO {
     }
 
     return pendingBills;
-    }
+}
+
     
       // Phương thức để tính tổng total từ các đơn hàng trong tháng hiện tại
     public static float getTotalSumOfMonth() {

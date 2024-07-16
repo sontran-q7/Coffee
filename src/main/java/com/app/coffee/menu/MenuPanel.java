@@ -423,8 +423,8 @@ public class MenuPanel extends JPanel {
                         detail1.setSugar(sugar);
 
                         if (!orderNo.isEmpty()) {
-                            float tableNumber = Float.parseFloat(orderNo);
-                            detail1.setTableNumber(tableNumber);
+                            int tableNumber = (int) Float.parseFloat(orderNo);
+                            detail1.setTableNumber((int) tableNumber);
                         } else {
                             detail1.setTableNumber(0);
                         }

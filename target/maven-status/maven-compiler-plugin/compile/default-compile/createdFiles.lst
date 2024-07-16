@@ -191,6 +191,7 @@ com\app\coffee\dashboard\EndShift$3.class
 com\app\coffee\employee\EmployeeManager.class
 com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\Login\LoginAccount\SendAdmin$3.class
+com\app\coffee\Login\LoginAccount\VerifyCode$6.class
 com\app\coffee\Login\LoginAccount\VerifyCode$5.class
 com\app\coffee\Database\Connection.class
 com\app\coffee\Login\LoginAccount\SendAdmin$4.class

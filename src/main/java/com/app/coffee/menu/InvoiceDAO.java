@@ -55,7 +55,7 @@ public class InvoiceDAO {
             statement.setInt(2, detail.getProductId());
             statement.setString(3, detail.getSize());
             statement.setInt(4, detail.getQuantity());
-            statement.setFloat(5, detail.getTableNumber());
+            statement.setInt(5, detail.getTableNumber());
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
