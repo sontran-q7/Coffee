@@ -4,27 +4,6 @@
  */
 package com.app.coffee.dashboard;
 
-
-
-/**
- *
- * @author Admin
- */
-import com.app.coffee.Backend.DAO.OrderDetailDAO;
-import com.app.coffee.Backend.Model.OrderDetailModel;
-import com.app.coffee.Backend.Model.OrderModel;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JTable;
-import javax.swing.JOptionPane;
-
 import com.app.coffee.Backend.DAO.OrderDetailDAO;
 import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.bill.Bill;

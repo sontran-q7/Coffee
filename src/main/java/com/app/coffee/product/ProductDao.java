@@ -9,16 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.awt.Component;
-import javax.swing.JOptionPane;
 import java.util.ArrayList;
-import java.util.List;
-
-import java.io.File;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import javax.swing.table.DefaultTableModel;
 
 public class ProductDao {
 
@@ -121,7 +114,6 @@ public class ProductDao {
         }
         return productId;
     }
-
 //ProductDetail
     public Product fillAllAddProductDetail(int idProduct) {
         Product p = new Product();

@@ -5,9 +5,7 @@
 package com.app.coffee.product;
 
 import com.app.coffee.category.Category;
-import java.nio.channels.Pipe;
 import java.time.LocalDateTime;
-import javax.swing.ImageIcon;
 
 public class Product {
 
