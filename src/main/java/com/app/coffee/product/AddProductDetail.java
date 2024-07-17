@@ -27,8 +27,8 @@ public class AddProductDetail extends javax.swing.JDialog {
 
     private void setScreen() {
         setDefaultLookAndFeelDecorated(true);
-        setMinimumSize(new java.awt.Dimension(450, 530));
-        setPreferredSize(new java.awt.Dimension(450, 530));
+        setMinimumSize(new java.awt.Dimension(450, 630));
+        setPreferredSize(new java.awt.Dimension(450, 630));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -93,7 +93,6 @@ public class AddProductDetail extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(430, 640));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

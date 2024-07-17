@@ -5,11 +5,14 @@
 package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.DAO.BillDAO;
+import com.app.coffee.Backend.DAO.OrderDetailDAO;
+import com.app.coffee.Backend.Model.OrderModel;
 
 import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
-import com.app.coffee.bill.ButtonEditor;
-import com.app.coffee.bill.ButtonRenderer;
+
+//import com.app.coffee.bill.ButtonEditor;
+//import com.app.coffee.bill.ButtonRenderer;
 import com.app.coffee.employee.FormAdd;
 import java.awt.Button;
 import java.awt.FlowLayout;
@@ -209,11 +212,11 @@ public class DashboardPage extends javax.swing.JPanel {
 
             },
             new String [] {
-                "No", "Total", "Description", "Table number", "Day", "Status", "Detail"
+                "No", "Order", "Total", "Description", "Table number", "Day", "Status", "Detail"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -339,7 +342,7 @@ public class DashboardPage extends javax.swing.JPanel {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
-            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this); // Truyền tham chiếu DashboardPage
+            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this); 
             dialog.setUserName(userName);
             
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -381,35 +384,35 @@ public class DashboardPage extends javax.swing.JPanel {
     }//GEN-LAST:event_EndShiftActionPerformed
 
     private void finishBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishBillActionPerformed
-        DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
     for (int i = model.getRowCount() - 1; i >= 0; i--) {
-        Boolean status = (Boolean) model.getValueAt(i, 5); 
+        Boolean status = (Boolean) model.getValueAt(i, 6); 
         if (status != null && status) {
-            int orderId = getOrderIDFromSerialNo(i + 1); 
+            int orderId = (int) model.getValueAt(i, 1); // Truy cập order_id từ mô hình bảng
             BillDAO.markBillAsFinished(orderId);
             model.removeRow(i);
-            updateTableSTT();
+            updateSerialNo();
         }
     }
     }//GEN-LAST:event_finishBillActionPerformed
  
-    private int getOrderIDFromSerialNo(int serialNo) {
-    List<PendingBill> pendingBills = BillDAO.getPendingBills();
-    if (serialNo > 0 && serialNo <= pendingBills.size()) {
-        return pendingBills.get(serialNo - 1).getOrder_id();
+    private void showDetailForm(int orderId) {
+    OrderModel orderModel = BillDAO.getOrderById(orderId);
+
+    if (orderModel != null) {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        JDialog detailDialog = new JDialog(parentFrame, "Order Details", true);
+        DetailForm detailForm = new DetailForm(); // Sử dụng DetailForm từ package bill
+
+        detailForm.updateDetails(orderModel); // Cập nhật chi tiết đơn hàng vào form
+
+        detailDialog.add(detailForm);
+        detailDialog.pack();
+        detailDialog.setLocationRelativeTo(parentFrame);
+        detailDialog.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng", "Error", JOptionPane.ERROR_MESSAGE);
     }
-    return -1; // Return an invalid order_id if not found
-}
-    // chỉnh form detail
-    private void showDetailDialog() {
-    JDialog detailDialog = new JDialog((JFrame) SwingUtilities.getWindowAncestor(this), "Detail Dialog", true);
-    int centerX = this.getWidth() / 2 - detailDialog.getWidth() / 6;
-    int centerY = this.getHeight() / 2 - detailDialog.getHeight() / 6;
-    // Set the dialog location
-    detailDialog.setLocation(centerX, centerY);  
-    // Show the dialog
-    detailDialog.setVisible(true);
-    detailDialog.setLocationRelativeTo(null);
 }
     public void refresh(){
         updatePendingBillTable();
@@ -420,50 +423,49 @@ public class DashboardPage extends javax.swing.JPanel {
 
    
    private void updatePendingBillTable() {
-    try {
-        List<PendingBill> pendingBills = BillDAO.getPendingBills();
-        DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
-        model.setRowCount(0); // Clear the table before adding new rows
+    List<PendingBill> pendingBills = BillDAO.getPendingBills();
+    DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
+    model.setRowCount(0); // Clear the table before adding new rows
 
-        int serialNo = 1;
-        for (PendingBill bill : pendingBills) {
-            JButton detailButton = new JButton("Detail");
-            detailButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showDetailDialog(); // Call the method to show dialog on button click
-                }
-            });
-              // Kiểm tra và in ra các giá trị trước khi thêm vào hàng
-        System.out.println("Serial No: " + serialNo);
-        System.out.println("Total: " + bill.getTotal());
-        System.out.println("Description: " + bill.getDescription());
-        System.out.println("Table Number: " + bill.getTable_number());
-        System.out.println("Day: " + bill.getDay());
-        System.out.println("Status: " + bill.isStatus());
-            Object[] row = new Object[]{
-                serialNo++, // Add serial number instead of order_id
-                bill.getTotal(), // In ra total trước khi thêm vào hàng
-                bill.getDescription(),
-                bill.getTable_number(),
-                bill.getDay(),
-                bill.isStatus(),
-                detailButton
-            };
-            System.out.println("Adding row: " + Arrays.toString(row)); // In ra thông tin hàng
-            model.addRow(row);
-            updateTableSTT();
-        }
+    int serialNo = 1;
+    for (PendingBill bill : pendingBills) {
+        JButton button = new JButton("Detail");
+        final int orderId = bill.getOrder_id(); // Lưu trữ orderId tại thời điểm hiện tại
 
-        PendingBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        PendingBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
-    } catch (ClassCastException e) {
-        e.printStackTrace(); // In ra chi tiết lỗi
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showDetailForm(orderId); // Gọi phương thức showDetailForm với orderId tương ứng
+            }
+        });
+
+        Object[] row = new Object[]{
+            serialNo, // Add serial number for display purposes
+            bill.getOrder_id(),
+            bill.getTotal(),
+            bill.getDescription(),
+            bill.getTable_number(),
+            bill.getDay(),
+            bill.isStatus(),
+            button
+            // Thêm order_id vào mô hình bảng
+        };
+
+        model.addRow(row);
+        serialNo++;
     }
+
+    PendingBill.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+    PendingBill.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));
+    
+    // Ẩn cột order_id
+    PendingBill.getColumnModel().getColumn(1).setMinWidth(0);
+    PendingBill.getColumnModel().getColumn(1).setMaxWidth(0);
+    PendingBill.getColumnModel().getColumn(1).setWidth(0);
 }
 
 
-      private void updateTableSTT() {
+      private void updateSerialNo() {
         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             model.setValueAt(i + 1, i, 0); // Cập nhật lại STT

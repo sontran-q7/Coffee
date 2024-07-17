@@ -93,4 +93,8 @@ public class OrderModel {
     public void setOrderDetails(List<OrderDetailModel> orderDetails) {
         this.orderDetails = orderDetails;
     }    
+
+    public String getTable_number() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

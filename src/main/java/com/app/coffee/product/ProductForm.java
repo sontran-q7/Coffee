@@ -100,73 +100,25 @@ public class ProductForm extends javax.swing.JPanel {
     private void customJtable() {
         ProductTable.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
-                super.getTableCellRendererComponent(jtable, o, bln, bln1, row, column);
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column != 4) {
                     setHorizontalAlignment(JLabel.CENTER);
                 } else {
                     setHorizontalAlignment(JLabel.CENTER);
                 }
-                
                 // Đặt căn giữa cho tiêu đề của cột
                 setHorizontalAlignment(SwingConstants.CENTER);
-
 //                // Đặt đường viền cho từng cột trong tiêu đề
                 JTableHeader header = ProductTable.getTableHeader();
                 if (header != null) {
-                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(220, 220, 220))); // Đường viền đen giữa các cột
+                    setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, new Color(204, 204, 204))); // Đường viền giữa các cột
                 }
                 // Đặt cỡ chữ cho tiêu đề của cột
-               // setFont(new Font("Arial", Font.BOLD, 14)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
-
+                setFont(new Font("Segoe ui", Font.PLAIN, 12)); // Thay "Arial" và 14 bằng font và kích thước mong muốn
                 return this;
             }
         });
-        //set combobox for table
-        JComboBox<String> comboSize = new JComboBox();
-        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-        ArrayList<ProductDetail> listProductSizeByID = pd.fillAllProductDetailByID(product_id_select);
-        // Khởi tạo một map để lưu giá theo kích thước
-        Map<String, Integer> sizePriceMap = new HashMap<>();
-        for (ProductDetail c : listProductSizeByID) {
-            comboBoxModel.addElement(c.getSize());
-            sizePriceMap.put(c.getSize(), c.getPrice());
-        }
-        comboSize.setModel(comboBoxModel);
-        comboSize.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    int selectedRow = ProductTable.getSelectedRow();
-                    if (selectedRow != -1) {
-                        // Lấy dữ liệu từ dòng được chọn
-                        int productId = (int) ProductTable.getValueAt(selectedRow, 7);
-                        String selectedSize = (String) e.getItem();
-                        int price = sizePriceMap.get(selectedSize);
-                        ProductTable.setValueAt(price, selectedRow, 6);
-                    }
-                }
-            }
-        });
-        comboSize.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int selectedRow = ProductTable.getSelectedRow();
-                if (selectedRow != -1) {
-                    String selectedSize = (String) comboSize.getSelectedItem();
-                    int price = sizePriceMap.get(selectedSize);
-                    ProductTable.setValueAt(price, selectedRow, 6);
-                }
-            }
-        });
-        ProductTable.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(comboSize));
-
-    // Lấy mô hình cột của JTable
-//    TableColumnModel columnModel = ProductTable.getColumnModel();
-
-    // Ẩn cột có chỉ số 7
-//    TableColumn column = columnModel.getColumn(7);
-//    columnModel.removeColumn(column);
         //set image for column
         ProductTable.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -182,12 +134,7 @@ public class ProductForm extends javax.swing.JPanel {
                 } else {
                     //  Has Image
                     if (o instanceof ImageIcon) {
-//                        Icon image = (ImageIcon) o;
-//                        JLabel label = new JLabel(image);
-//                        label.setHorizontalAlignment(JLabel.CENTER);
-//                        label.setOpaque(selected);
-//                        label.setBackground(com.getBackground());
-//                        return label;
+//                       
                         ImageIcon imageIcon = (ImageIcon) o;
                         int rowHeight = jtable.getRowHeight();
                         Image img = imageIcon.getImage().getScaledInstance(rowHeight, rowHeight, Image.SCALE_SMOOTH);
@@ -203,19 +150,6 @@ public class ProductForm extends javax.swing.JPanel {
                 }
             }
         });
-//         Thêm MouseListener để lắng nghe sự kiện click vào bảng
-        ProductTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int selectedRow = ProductTable.getSelectedRow();
-                if (selectedRow != -1) {
-                    // Lấy idProduct từ cột tương ứng (giả sử là cột thứ 7)
-                    int productId = (int) ProductTable.getValueAt(selectedRow, 7);
-                }
-            }
-        });
-        
-//        ProductTable.setRowHeight(80);
     }
 
     /**
@@ -327,7 +261,7 @@ public class ProductForm extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Image", "Category name", "Product name", "Description", "Size", "Price", "Title 8"
+                "No", "Image", "Category name", "Product name", "Description", "Price S", "Price L", "Title 8"
             }
         ) {
             Class[] types = new Class [] {
@@ -455,21 +389,17 @@ public class ProductForm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProductTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductTableMouseClicked
-        
         int row = ProductTable.getSelectedRow();
-
         // Kiểm tra nếu row hợp lệ
         if (row >= 0) {
             // Lấy danh sách sản phẩm từ ProductDao
             List<Product> productList = pd.fillAllProduct();
-
             // Kiểm tra nếu row không vượt quá kích thước của danh sách
             if (row < productList.size()) {
                 Product p = productList.get(row);
                 product_id_select = p.getProduct_id();
                 customJtable();
-
-                if (evt.getClickCount() == 1) {
+                if (evt.getClickCount() == 2) {
                     // Nếu chưa có editProduct, tạo mới và thêm vào ProductFormPanel
                     if (editProduct == null) {
                         editProduct = new EditProduct(this, product_id_select);
@@ -480,7 +410,6 @@ public class ProductForm extends javax.swing.JPanel {
                         ProductFormPanel.add(editProduct, "editProduct");
 //                        editProduct.getDataTable();
                     }
-
                     // Hiển thị panel editProduct và gọi getDataTable()
 //                    showPanel("editProduct");
                 }
@@ -503,7 +432,6 @@ public class ProductForm extends javax.swing.JPanel {
         if (selectedRow != -1) {
             //            product_id_select = (int) ProductTable.getValueAt(row, 7);
             EditProduct editProduct = new EditProduct(this, product_id_select);
-            //        EditProduct editProduct = new EditProduct(this, product_id, image, description, name, price, catego_id, size);
             ProductFormPanel.add(editProduct, "editProduct");
             editProduct.getDataTable();
             showPanel("editProduct");
@@ -580,14 +508,47 @@ public class ProductForm extends javax.swing.JPanel {
                 p.getCategory().getCategory_name(),
                 p.getProduct_name(),
                 p.getDescription(),
-                p.getProductDetail().getSize(),
-                p.getProductDetail().getPrice(),
+                "",
+                "",
                 p.getProduct_id()
             });
+        }
+        fillAllPriceL();
+        fillAllPriceS();
+    }
 
+    private void fillAllPriceS() {
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+        ArrayList<ProductDetail> listProductDetailPriceS = pd.fillAllPriceS();
+
+        int rowCount = model.getRowCount();
+        int detailCount = listProductDetailPriceS.size();
+
+        // Sử dụng kích thước nhỏ hơn giữa rowCount và detailCount để tránh lỗi ArrayIndexOutOfBoundsException
+        int minSize = Math.min(rowCount, detailCount);
+
+        for (int i = 0; i < minSize; i++) {
+            ProductDetail pd = listProductDetailPriceS.get(i);
+            model.setValueAt(pd.getPrice(), i, 5); // Cột 5 là cột PriceS
         }
     }
 
+    private void fillAllPriceL() {
+        DefaultTableModel model = (DefaultTableModel) ProductTable.getModel();
+        ArrayList<ProductDetail> listProductDetailPriceL = pd.fillAllPriceL();
+
+        int rowCount = model.getRowCount();
+        int detailCount = listProductDetailPriceL.size();
+
+        // Sử dụng kích thước nhỏ hơn giữa rowCount và detailCount để tránh lỗi ArrayIndexOutOfBoundsException
+        int minSize = Math.min(rowCount, detailCount);
+
+        for (int i = 0; i < minSize; i++) {
+            ProductDetail pd = listProductDetailPriceL.get(i);
+            model.setValueAt(pd.getPrice(), i, 6); // Cột 6 là cột PriceL
+        }
+    }
+    
     public void reloadTable() {
         try {
             // Xóa hết dữ liệu trên bảng

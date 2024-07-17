@@ -200,7 +200,6 @@ public class AddProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetupProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetupProductActionPerformed
-
         if (!checkvalidate()) { // Kiểm tra nếu không hợp lệ
             return;
         } else {
@@ -240,7 +239,6 @@ public class AddProduct extends javax.swing.JPanel {
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            anh = selectedFile;
             String imageName = selectedFile.getName(); // Lấy tên của hình ảnh
 
             // Đường dẫn đích bạn muốn sao chép tới
@@ -252,38 +250,62 @@ public class AddProduct extends javax.swing.JPanel {
                 destinationDirFile.mkdirs();
             }
 
-            // Đường dẫn đích bạn muốn sao chép tới
-            String destinationPath = destinationDir + "/" + imageName;
-            File destinationFile = new File(destinationPath);
+            //Xử lý tên file duy nhất nếu nó không nằm trong thư mục /src/main/java/com/app/coffee/image
+            if (!selectedFile.getParent().equals(destinationDirFile.getAbsolutePath())) {
+                String baseFileName = imageName.substring(0, imageName.lastIndexOf("."));
+                String extension = imageName.substring(imageName.lastIndexOf(".") + 1);
+                int counter = 1;
+                File destinationFile = new File(destinationDir, imageName);
+                while (destinationFile.exists()) {
+                    String newFileName = baseFileName + "_" + counter + "." + extension;
+                    destinationFile = new File(destinationDir, newFileName);
+                    counter++;
+                }
+                try {
+                    // Sao chép tệp tin
+                    Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            try {
-                // Sao chép tệp tin
-                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-                // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
-//                ImageIcon originalImage = new ImageIcon(destinationFile.getAbsolutePath());
-//                Image scaledImage = originalImage.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
-//                ImageIcon selectedImage = new ImageIcon(scaledImage);
-//                lblImage.setIcon(selectedImage);
+                    // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
                     ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
-                  // Thay đổi kích thước của hình ảnh
                     Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
                     ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
 
-                    // Xem trước hình ảnh đã chọn với kích thước cố định
+                    // Hiển thị trước hình ảnh đã chọn với kích thước cố định
                     JLabel imageLabel = new JLabel();
                     imageLabel.setIcon(resizedImageIcon);
                     JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
 
-                // Hiển thị tên tệp tin đã sao chép vào JTextField
-                txtImage.setText(imageName);
-            } catch (IOException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+                    // Hiển thị tên tệp tin đã sao chép vào JTextField
+                    txtImage.setText(destinationFile.getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Nếu nằm trong thư mục /src/main/java/com/app/coffee/image, không thay đổi tên file
+                try {
+                    // Sao chép tệp tin
+                    Files.copy(selectedFile.toPath(), new File(destinationDir, imageName).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                    // Thay đổi kích thước ảnh trước khi hiển thị trên JLabel
+                    ImageIcon selectedImageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+                    Image selectedImage = selectedImageIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+                    ImageIcon resizedImageIcon = new ImageIcon(selectedImage);
+
+                    // Hiển thị trước hình ảnh đã chọn với kích thước cố định
+                    JLabel imageLabel = new JLabel();
+                    imageLabel.setIcon(resizedImageIcon);
+                    JOptionPane.showMessageDialog(null, imageLabel, "Selected Image", JOptionPane.PLAIN_MESSAGE);
+
+                    // Hiển thị tên tệp tin đã sao chép vào JTextField
+                    txtImage.setText(imageName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Failed to copy the image!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_btnChooseImageActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChooseImage;
@@ -321,21 +343,21 @@ public class AddProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Cannot be empty!");
             return false;
         }
-        
+
         if (!isImageFile(imagePath)) {
             JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
             return false;
         }
-        
+
         if (productDao.isProductExists(product)) {
             JOptionPane.showMessageDialog(null, "Product name already exists!");
             return false;
         }
         return true;
     }
-    
+
     private boolean isImageFile(String path) {
-        String[] imageExtensions = { "jpg", "jpeg", "png", "gif", "bmp" };
+        String[] imageExtensions = {"jpg", "jpeg", "png", "gif", "bmp"};
         for (String extension : imageExtensions) {
             if (path.toLowerCase().endsWith("." + extension)) {
                 return true;

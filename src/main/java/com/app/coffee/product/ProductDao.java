@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.app.coffee.product.DatabaseConnection; // Import lớp Connection từ gói com.app.coffee.product
 import java.io.File;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -280,6 +279,51 @@ public class ProductDao {
         return row;
     }
 
+    public ArrayList<ProductDetail> fillAllPriceS() {
+        ArrayList<ProductDetail> listProductD = new ArrayList<>();
+        String sql = """
+                     select price from product_detail where size LIKE "S" ORDER BY  created_at DESC
+                     
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int price = rs.getInt(1);
+                    ProductDetail pd = new ProductDetail();
+                    pd.setPrice(price);
+                    listProductD.add(pd);
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listProductD;
+    }
+    public ArrayList<ProductDetail> fillAllPriceL() {
+        ArrayList<ProductDetail> listProductD = new ArrayList<>();
+        String sql = """
+                     select price from product_detail where size LIKE "L" ORDER BY  created_at DESC
+                     
+                     """;
+        try ( Connection con = DatabaseConnection.getJDBConnection();  PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            try ( ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int price = rs.getInt(1);
+                    ProductDetail pd = new ProductDetail();
+                    pd.setPrice(price);
+                    listProductD.add(pd);
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listProductD;
+    }
+    
     //Xoa mem
     public Integer DeleteMem(int idProduct) {
         Integer row = null;

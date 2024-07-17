@@ -1,9 +1,11 @@
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\HeaderPanel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\ReturnAccount.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\DetailForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO\BillDAO.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\LoginAccount\LoginForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\CustomHeaderRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ProductForm.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\ButtonEditor.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\DAO\OrderDetailDAO.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\Invoice.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\demo.java
@@ -19,6 +21,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\Ca
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\LoginAccount\UserController.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\EditProduct.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\AddShift.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\ButtonRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\hashpassword\PasswordHash.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\ButtonRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CategoryMenu.java
@@ -47,6 +50,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\Catego
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\DatabaseConnection.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\GradientPanel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\design\TableGradient.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ImageUtils.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\PendingBill.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ProductDetail.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\EditCategory.java

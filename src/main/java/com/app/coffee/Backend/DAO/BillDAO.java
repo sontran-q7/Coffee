@@ -9,13 +9,19 @@ package com.app.coffee.Backend.DAO;
  * @author anhso
  */
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
+import com.app.coffee.Backend.Model.OrderDetailModel;
+import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.Backend.Model.PendingBill;
+import com.app.coffee.Backend.Model.ProductDetailModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class BillDAO {
@@ -38,9 +44,7 @@ public class BillDAO {
         while (rs.next()) {
             PendingBill bill = new PendingBill();
             bill.setOrder_id(rs.getInt("order_id"));
-           
-            bill.setTotal(rs.getInt("total"));
-            
+            bill.setTotal(rs.getFloat("total"));      
             bill.setTable_number(rs.getInt("table_number"));
             bill.setDescription(rs.getString("description"));
             bill.setDay(rs.getDate("day"));
@@ -135,5 +139,144 @@ public class BillDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static OrderModel getOrderById(int orderId) {
+        
+        OrderModel orderModel = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionCoffee.getConnection();
+            String query = "SELECT o.order_id, o.total, o.description, o.day, " +
+                           "a.username AS account_username, a.email AS account_email, " +
+                           "od.order_detail_id, od.product_detail_id, od.quantity, od.table_number, od.status AS order_detail_status, " +
+                           "pd.size, pd.price, p.product_name " +
+                           "FROM orders o " +
+                           "LEFT JOIN account a ON o.account_id = a.account_id " +
+                           "LEFT JOIN order_detail od ON o.order_id = od.order_id " +
+                           "LEFT JOIN product_detail pd ON od.product_detail_id = pd.product_detail_id " +
+                           "LEFT JOIN product p ON pd.product_id = p.product_id " +
+                           "WHERE o.order_id = ? AND od.status = 1"; // Thêm điều kiện WHERE cho status
+
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1, orderId);
+            rs = stmt.executeQuery();
+
+            Map<Integer, OrderDetailModel> orderDetailsMap = new HashMap<>();
+
+            while (rs.next()) {
+                if (orderModel == null) {
+                    orderModel = new OrderModel();
+                    orderModel.setOrder_id(rs.getInt("order_id"));
+                    orderModel.setTotal(rs.getFloat("total"));
+                    orderModel.setDescription(rs.getString("description"));
+                    orderModel.setDay(rs.getDate("day").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                    orderModel.setUsername(rs.getString("account_username"));
+                    orderModel.setEmail(rs.getString("account_email"));
+                }
+
+                int orderDetailId = rs.getInt("order_detail_id");
+                OrderDetailModel orderDetail = orderDetailsMap.get(orderDetailId);
+                if (orderDetail == null) {
+                    orderDetail = new OrderDetailModel();
+                    orderDetail.setOrder_detail_id(orderDetailId);
+                    orderDetail.setQuantity(rs.getInt("quantity"));
+                    orderDetail.setTable_number(rs.getInt("table_number"));
+                    orderDetail.setStatus(rs.getInt("order_detail_status"));
+                    orderDetail.setProductDetails(new ArrayList<>());
+                    orderDetailsMap.put(orderDetailId, orderDetail);
+                }
+
+                ProductDetailModel productDetail = new ProductDetailModel();
+                productDetail.setProduct_detail_id(rs.getInt("product_detail_id"));
+                productDetail.setSize(rs.getString("size"));
+                productDetail.setPrice(rs.getFloat("price"));
+                productDetail.setProduct_name(rs.getString("product_name"));
+
+                orderDetail.getProductDetails().add(productDetail);
+            }
+
+            if (orderModel != null) {
+                orderModel.setOrderDetails(new ArrayList<>(orderDetailsMap.values()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) ConnectionCoffee.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return orderModel;
+    }
+    
+
+    private static List<ProductDetailModel> getProductDetails(String productDetailIds) {
+        List<ProductDetailModel> productDetails = new ArrayList<>();
+        Connection conn = ConnectionCoffee.getConnection();
+        String query = "SELECT product_detail_id, product_name, price, size FROM product_detail WHERE product_detail_id IN (" + productDetailIds + ")";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ProductDetailModel productDetail = new ProductDetailModel();
+                productDetail.setProduct_detail_id(rs.getInt("product_detail_id"));
+                productDetail.setProduct_name(rs.getString("product_name"));
+                productDetail.setPrice(rs.getFloat("price"));
+                productDetail.setSize(rs.getString("size"));
+                productDetails.add(productDetail);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionCoffee.closeConnection(conn);
+        }
+
+        return productDetails;
+    }
+    
+     public static List<PendingBill> getPendingBillsByStatus(int status) {
+        List<PendingBill> pendingBills = new ArrayList<>();
+        Connection conn = ConnectionCoffee.getConnection();
+        String query = "SELECT o.order_id, o.total, o.description, o.day, " +
+                       "od.table_number, od.status " +
+                       "FROM orders o " +
+                       "JOIN order_detail od ON o.order_id = od.order_id " +
+                       "WHERE od.status = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                PendingBill bill = new PendingBill();
+                bill.setOrder_id(rs.getInt("order_id"));
+                bill.setTotal(rs.getFloat("total"));      
+                bill.setTable_number(rs.getInt("table_number"));
+                bill.setDescription(rs.getString("description"));
+                bill.setDay(rs.getDate("day"));
+                bill.setStatus(rs.getBoolean("status")); // Set status to false by default
+                pendingBills.add(bill);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionCoffee.closeConnection(conn);
+        }
+
+        return pendingBills;
     }
 }

@@ -58,7 +58,6 @@ com\app\coffee\product\ProductForm$8.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\bill\ButtonRenderer.class
 com\app\coffee\Login\LoginAccount\Reset$1.class
-com\app\coffee\product\ProductForm$11.class
 com\app\coffee\employee\StaffSchedule$1.class
 com\app\coffee\dashboard\DashboardPage$5.class
 com\app\coffee\design\GradientPanel.class
@@ -96,9 +95,8 @@ com\app\coffee\dashboard\DashboardPage$3.class
 com\app\coffee\employee\ReturnAccount$ImageRenderTest.class
 com\app\coffee\dashboard\AddShift$2.class
 com\app\coffee\product\EditProduct.class
-com\app\coffee\product\ProductForm$10.class
 com\app\coffee\category\AddCategory.class
-com\app\coffee\product\ProductForm$9.class
+com\app\coffee\dashboard\ButtonEditor.class
 com\app\coffee\Login\LoginAccount\SendAdmin$5.class
 com\app\coffee\dashboard\Dashboard$6.class
 com\app\coffee\dashboard\AddShift$3.class
@@ -111,9 +109,11 @@ com\app\coffee\dashboard\EndShift.class
 com\app\coffee\Login\LoginAccount\VerifyCode.class
 com\app\coffee\dashboard\EndShift$5.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$1.class
+com\app\coffee\dashboard\ButtonEditor$1.class
 com\app\coffee\product\AddProductDetail.class
 com\app\coffee\product\AddProductDetail$1.class
 com\app\coffee\employee\StaffSchedule$2.class
+com\app\coffee\dashboard\DetailForm.class
 com\app\coffee\Login\LoginAccount\SendCode$4.class
 com\app\coffee\product\ProductForm$4.class
 com\app\coffee\category\AddCategory$1.class
@@ -191,6 +191,7 @@ com\app\coffee\category\EditCategory$2.class
 com\app\coffee\menu\HeaderPanel$CategoryClickListener.class
 com\app\coffee\dashboard\EndShift$3.class
 com\app\coffee\employee\EmployeeManager.class
+com\app\coffee\dashboard\ButtonRenderer.class
 com\app\coffee\employee\EmployeeManager$2.class
 com\app\coffee\Login\LoginAccount\SendAdmin$3.class
 com\app\coffee\Login\LoginAccount\VerifyCode$6.class
@@ -201,6 +202,7 @@ com\app\coffee\dashboard\EndShift$2.class
 com\app\coffee\Login\LoginAccount\SendCode$6.class
 com\app\coffee\dashboard\Dashboard$5.class
 com\app\coffee\Login\LoginAccount\RegisterAdmin.class
+com\app\coffee\product\ImageUtils.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
