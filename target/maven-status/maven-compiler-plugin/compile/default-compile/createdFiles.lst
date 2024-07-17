@@ -72,10 +72,12 @@ com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
 com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
+com\app\coffee\menu\PrintableInvoice.class
 com\app\coffee\bill\Bill$5.class
 com\app\coffee\dashboard\DashboardPage$5$1.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$2.class
+com\app\coffee\menu\InvoicePDF.class
 com\app\coffee\Login\Login.class
 com\app\coffee\Login\CustomDialog$1.class
 com\app\coffee\dashboard\SessionData.class
@@ -166,6 +168,7 @@ com\app\coffee\category\EditCategory$1.class
 com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\employee\FormValidator.class
 com\app\coffee\employee\FormEdit$1.class
+com\app\coffee\menu\AccountDAO.class
 com\app\coffee\employee\demo.class
 com\app\coffee\hashpassword\PasswordHash.class
 com\app\coffee\Backend\Model\OrderModel.class

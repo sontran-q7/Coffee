@@ -12,11 +12,10 @@ public class HeaderPanel extends javax.swing.JPanel {
     private List<Integer> categoryIdList; 
     private CategoryClickListener categoryClickListener; 
     private CategoryMenu categoryMenu;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1,jPanel6;
+    private javax.swing.JLabel headerLabel;
+    private javax.swing.JPanel headerPanel,headerPanelMax;
     private javax.swing.JScrollPane jScrollPane1;
 
-    
     public HeaderPanel() {
         initComponents();
         customizeScrollBar();
@@ -43,9 +42,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         if (this.categoryMenu == null) {
             this.categoryMenu = new CategoryMenu();
         }
-
-        jPanel1.removeAll();
-
+        headerPanel.removeAll();
         int x = 24;
         int y = 20;
         int buttonWidth = 115;
@@ -56,8 +53,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         if (panelWidth < jScrollPane1.getWidth()) {
             panelWidth = jScrollPane1.getWidth();
         }
-
-        jPanel1.setPreferredSize(new Dimension(panelWidth, 60));
+        headerPanel.setPreferredSize(new Dimension(panelWidth, 60));
 
         allMenuButton = new JButton("All Menu");
         allMenuButton.setBackground(new Color(102, 102, 102));
@@ -75,14 +71,11 @@ public class HeaderPanel extends javax.swing.JPanel {
                 System.err.println("CategoryClickListener is not set!");
             }
         });
-
-        jPanel1.add(allMenuButton);
-
+        headerPanel.add(allMenuButton);
         categoryButtons = new ArrayList<>();
         categoryIdList = new ArrayList<>();
 
         x += buttonWidth + gap;
-
         for (CategoryMenu category : categories) {
             JButton button = new JButton(category.getCategoryName());
             button.setBackground(new Color(102, 102, 102));
@@ -101,15 +94,14 @@ public class HeaderPanel extends javax.swing.JPanel {
                     System.err.println("CategoryClickListener is not set!");
                 }
             });
-            jPanel1.add(button);
+            headerPanel.add(button);
             categoryButtons.add(button);
             categoryIdList.add(categoryId);
 
             x += buttonWidth + gap;
         }
-
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        headerPanel.revalidate();
+        headerPanel.repaint();
     }
 
     private void resetButtonColors() {
@@ -123,51 +115,51 @@ public class HeaderPanel extends javax.swing.JPanel {
   
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        headerPanelMax = new javax.swing.JPanel();
+        headerLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
+        headerPanel = new javax.swing.JPanel();
          
         setLayout(new BorderLayout()); 
         jScrollPane1 = new JScrollPane();
-        jPanel1 = new JPanel();
-        jPanel1.setLayout(null); 
-        jScrollPane1.setViewportView(jPanel1);
+        headerPanel = new JPanel();
+        headerPanel.setLayout(null); 
+        jScrollPane1.setViewportView(headerPanel);
         add(jScrollPane1, BorderLayout.CENTER); 
         
-        jPanel6.setBackground(new java.awt.Color(255, 102, 0));
-        jPanel6.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        headerPanelMax.setBackground(new java.awt.Color(255, 102, 0));
+        headerPanelMax.setForeground(new java.awt.Color(255, 255, 255));
+        headerPanelMax.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24));
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Select menu");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
+        headerLabel.setBackground(new java.awt.Color(255, 255, 255));
+        headerLabel.setFont(new java.awt.Font("Segoe UI", 1, 24));
+        headerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        headerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        headerLabel.setText("Select menu");
+        headerPanelMax.add(headerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 40));
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(918, 60));
-        jPanel1.setLayout(null);
+        headerPanel.setBackground(new java.awt.Color(255, 102, 0));
+        headerPanel.setPreferredSize(new java.awt.Dimension(918, 60));
+        headerPanel.setLayout(null);
 
-        jScrollPane1.setViewportView(jPanel1);
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 80));
+        jScrollPane1.setViewportView(headerPanel);
+        headerPanelMax.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(headerPanelMax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(headerPanelMax, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }
     
     public void refreshUI() {
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        headerPanel.revalidate();
+        headerPanel.repaint();
     }
 
     public interface CategoryClickListener {

@@ -3,23 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.app.coffee.dashboard;
-import static com.app.coffee.Coffee.showLoginForm;
-import com.app.coffee.Login.*;
+
 import com.app.coffee.Login.LoginAccount.LoginForm;
 import com.app.coffee.Login.LoginAccount.UserSession;
 import com.app.coffee.employee.*;
 import com.app.coffee.bill.*;
 import com.app.coffee.category.*;
 import com.app.coffee.product.*;
-import  com.app.coffee.menu.*;
+import com.app.coffee.menu.*;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,21 +24,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JLabel;
 
-
 /**
  *
- * @author anhso
+ * @author anhson
  */
 public class Dashboard extends javax.swing.JFrame {
+
     private String userName;
     private int roleId;
     private int controlId;
     private JLabel currentButton;
     private ReturnAccount returnAccount;
-    private StaffSchedule staffSchedule; 
+    private StaffSchedule staffSchedule;
     private EmployeeManager employeeManager;
     private MenuPanel menu;
     private DashboardPage dashboardPage;
+
     /**
      * Creates new form Dashboard
      */
@@ -51,17 +49,16 @@ public class Dashboard extends javax.swing.JFrame {
         loadPanels();
         startClock();
     }
-    
-    
-    // lấy tên người mới đăng nhập thành công
-    public void setUserName(String userName, int roleId,int ControlId) {
+
+    // user login sucssesfull
+    public void setUserName(String userName, int roleId, int ControlId) {
         this.userName = userName;
         this.roleId = roleId;
         UserSession.getInstance().setControlId(controlId);
-        // Cập nhật giao diện nếu cần, ví dụ:
-         NameStaff.setText(userName);
-        System.out.println("nem"+userName);
+        NameStaff.setText(userName);
+        //System.out.println("Name"+userName);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -321,24 +318,20 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignoutButtonActionPerformed
-         UserSession session = UserSession.getInstance();
-    if (session.getRoleId() == 1 || session.getRoleId() == 2) {
-        int controlId = session.getControlId();
-        if (controlId != -1 && !session.isShiftEnded()) {
-            JOptionPane.showMessageDialog(this, "Bạn không thể đăng xuất khi chưa kết thúc ca làm việc.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-            return;
+        UserSession session = UserSession.getInstance();
+        if (session.getRoleId() == 1 || session.getRoleId() == 2) {
+            int controlId = session.getControlId();
+            if (controlId != -1 && !session.isShiftEnded()) {
+                JOptionPane.showMessageDialog(this, "You cannot sign out before your shift ends.", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
-    }
+        // Reset  UserSession
+        session.reset();
+        this.dispose();
 
-    // Reset lại UserSession
-    session.reset();
-
-    // Đóng dashboard hiện tại
-    this.dispose();
-
-    // Hiển thị form đăng nhập
-    LoginForm loginForm = new LoginForm();
-    loginForm.setVisible(true);
+        LoginForm loginForm = new LoginForm();
+        loginForm.setVisible(true);
     }//GEN-LAST:event_SignoutButtonActionPerformed
 
     private void HomeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseClicked
@@ -347,31 +340,31 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_HomeButtonMouseClicked
 
     private void HomeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseEntered
-         if (currentButton != HomeButton) {
-         HomeButton.setForeground(new Color(255,153,0));
-       }
+        if (currentButton != HomeButton) {
+            HomeButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_HomeButtonMouseEntered
 
     private void HomeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HomeButtonMouseExited
         if (currentButton != HomeButton) {
-          HomeButton.setForeground(Color.white);
+            HomeButton.setForeground(Color.white);
         }
     }//GEN-LAST:event_HomeButtonMouseExited
 
     private void MenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseClicked
         showPanel("menu");
-         setButtonColor(MenuButton);
+        setButtonColor(MenuButton);
     }//GEN-LAST:event_MenuButtonMouseClicked
 
     private void MenuButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseEntered
         if (currentButton != MenuButton) {
-         MenuButton.setForeground(new Color(255,153,0));
-       }
+            MenuButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_MenuButtonMouseEntered
 
     private void MenuButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuButtonMouseExited
-          if (currentButton != MenuButton) {
-          MenuButton.setForeground(Color.white);
+        if (currentButton != MenuButton) {
+            MenuButton.setForeground(Color.white);
         }
     }//GEN-LAST:event_MenuButtonMouseExited
 
@@ -382,13 +375,13 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void BillButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseEntered
         if (currentButton != BillButton) {
-         BillButton.setForeground(new Color(255,153,0));
-       }
+            BillButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_BillButtonMouseEntered
 
     private void BillButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BillButtonMouseExited
         if (currentButton != BillButton) {
-          BillButton.setForeground(Color.white);
+            BillButton.setForeground(Color.white);
         }
     }//GEN-LAST:event_BillButtonMouseExited
 
@@ -399,32 +392,32 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void CategoryButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryButtonMouseEntered
         if (currentButton != CategoryButton) {
-         CategoryButton.setForeground(new Color(255,153,0));
-       }
+            CategoryButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_CategoryButtonMouseEntered
 
     private void CategoryButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CategoryButtonMouseExited
         if (currentButton != CategoryButton) {
-          CategoryButton.setForeground(Color.white);
+            CategoryButton.setForeground(Color.white);
         }
     }//GEN-LAST:event_CategoryButtonMouseExited
 
     private void EmployeeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseClicked
-       showPanel("employee");
-       setButtonColor(EmployeeButton);
+        showPanel("employee");
+        setButtonColor(EmployeeButton);
     }//GEN-LAST:event_EmployeeButtonMouseClicked
 
     private void EmployeeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseEntered
-       if (currentButton != EmployeeButton) {
-        EmployeeButton.setForeground(new Color(255,153,0));
-       }
+        if (currentButton != EmployeeButton) {
+            EmployeeButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_EmployeeButtonMouseEntered
 
     private void EmployeeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeButtonMouseExited
-         
-          if (currentButton != EmployeeButton) {
-        EmployeeButton.setForeground(Color.white);
-          }
+
+        if (currentButton != EmployeeButton) {
+            EmployeeButton.setForeground(Color.white);
+        }
     }//GEN-LAST:event_EmployeeButtonMouseExited
 
     private void ProductButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseClicked
@@ -433,21 +426,19 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductButtonMouseClicked
 
     private void ProductButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseEntered
-         if (currentButton != ProductButton) {
-        ProductButton.setForeground(new Color(255,153,0));
-    }
+        if (currentButton != ProductButton) {
+            ProductButton.setForeground(new Color(255, 153, 0));
+        }
     }//GEN-LAST:event_ProductButtonMouseEntered
 
     private void ProductButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductButtonMouseExited
-       if (currentButton != ProductButton) {
-        ProductButton.setForeground(Color.WHITE);
-    }
+        if (currentButton != ProductButton) {
+            ProductButton.setForeground(Color.WHITE);
+        }
     }//GEN-LAST:event_ProductButtonMouseExited
 
-    // setup Panel của các package khác 
-  private void loadPanels() {
+    private void loadPanels() {
         dashboardPage = new DashboardPage();
-        
         employeeManager = new EmployeeManager();
         Bill bill = new Bill();
         ProductForm product = new ProductForm();
@@ -455,23 +446,28 @@ public class Dashboard extends javax.swing.JFrame {
         CategoryForm categoryForm = new CategoryForm();
         returnAccount = new ReturnAccount();
         staffSchedule = new StaffSchedule();
-        
+
         DislayPanel.add(dashboardPage, "dashboard");
-        DislayPanel.add(employeeManager, "employee"); 
+        DislayPanel.add(employeeManager, "employee");
         DislayPanel.add(bill, "bill");
-        DislayPanel.add(product, "product"); 
-        DislayPanel.add(categoryForm, "category"); 
-        DislayPanel.add(menu,"menu");
+        DislayPanel.add(product, "product");
+        DislayPanel.add(categoryForm, "category");
+        DislayPanel.add(menu, "menu");
         DislayPanel.add(returnAccount, "returnAccount");
         DislayPanel.add(staffSchedule, "staffSchedule");
     }
-    public void showPanel(String panelName) {  
-         switch (panelName) {
-              case "dashboard":
+
+    public void showPanel(String panelName) {
+        switch (panelName) {
+            case "dashboard":
                 dashboardPage.refresh();
                 break;
+            case "menu":
+                menu.setUserName(UserSession.getInstance().getUserName());
+                menu.refresh();
+                break;
             case "returnAccount":
-                returnAccount.refresh(); 
+                returnAccount.refresh();
                 break;
             case "staffSchedule":
                 staffSchedule.refresh();
@@ -479,7 +475,7 @@ public class Dashboard extends javax.swing.JFrame {
             case "employee":
                 employeeManager.refresh();
                 break;
-           case "bill":
+            case "bill":
                 Bill billPanel = null;
                 Component[] components = DislayPanel.getComponents();
                 for (Component component : components) {
@@ -491,78 +487,40 @@ public class Dashboard extends javax.swing.JFrame {
                 if (billPanel != null) {
                     billPanel.refreshListBill();
                 }
-                break;  
-            // Thêm các case khác nếu cần
+                break;
         }
         ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);
     }
-    
+
     private void setFullScreen() {
-    // Kiểm tra xem phương thức có được gọi không
-    System.out.println("setFullScreen() method called");
-    
-    setExtendedState(JFrame.MAXIMIZED_BOTH);
-   
-    setResizable(false);
-    // Loại bỏ khả năng thu nhỏ cửa sổ bằng cách đặt undecorated
-    setUndecorated(true);
-}
-    private void setButtonColor(javax.swing.JLabel button) {
-    if (currentButton != null) {
-        currentButton.setForeground(Color.WHITE); // Set the previous button to white
+        System.out.println("setFullScreen() method called");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(false);
+        // Loại bỏ khả năng thu nhỏ cửa sổ 
+        setUndecorated(true);
     }
-    currentButton = button;
-    currentButton.setForeground(new Color(255,153,0)); // Set the current button to orange
-}
 
-
-        // chỉnh day time
-     private void startClock() {
-        // Định dạng ngày giờ
+    private void setButtonColor(javax.swing.JLabel button) {
+        if (currentButton != null) {
+            currentButton.setForeground(Color.WHITE);
+        }
+        currentButton = button;
+        currentButton.setForeground(new Color(255, 153, 0));
+    }
+    // Date time
+    private void startClock() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        // Tạo Timer để cập nhật mỗi giây
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lấy thời gian hiện tại
                 Date now = new Date();
-                // Định dạng và đặt vào timeLabel
                 timeLable2.setText(sdf.format(now));
             }
         });
-        // Bắt đầu Timer
         timer.start();
     }
-     
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        //FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
-        //FlatMacDarkLaf.setup();
         FlatIntelliJLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -570,7 +528,6 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BillButton;
     private javax.swing.JLabel CategoryButton;
@@ -588,8 +545,5 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel timeLable;
     private javax.swing.JLabel timeLable2;
     // End of variables declaration//GEN-END:variables
-//
-//    public void setUserId(int account_id) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
+
 }

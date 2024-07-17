@@ -19,7 +19,6 @@ public class Invoice {
         this.invoiceDetails = new ArrayList<>();
     }
 
-    // Getters and setters
     public int getAccountId() {
         return accountId;
     }

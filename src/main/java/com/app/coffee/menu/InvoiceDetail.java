@@ -10,7 +10,7 @@ public class InvoiceDetail {
     private float price;
     private int quantity;
     private String sugar;
-    private int tableNumber;
+    private float tableNumber;
 
     public int getProductId() {
         return productId;
@@ -52,11 +52,11 @@ public class InvoiceDetail {
         this.sugar = sugar;
     }
 
-    public int getTableNumber() {
+    public float getTableNumber() {
         return tableNumber;
     }
 
-    public void setTableNumber(int tableNumber) {
+    public void setTableNumber(float tableNumber) {
         this.tableNumber = tableNumber;
     }
 }

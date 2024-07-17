@@ -7,38 +7,34 @@ import java.awt.event.*;
 
 public class CardProduct extends javax.swing.JPanel {
     private int productCount = 0;
-    private JLabel jLabel133;
-    private JLabel jLabel140;
-    private JLabel jLabel137;
-    private JCheckBox jCheckBox71, jCheckBox73;
-    private JCheckBox jCheckBox72, jCheckBox74;
-    private float priceS;
-    private float priceL;
+    private JLabel productCountLabel,priceLabel,productNameLabel;
+    private JCheckBox checkBoxSizeS, checkBoxSugar50,checkBoxSizeL, checkBoxSugar100;
+    private float priceS, priceL;
 
     public CardProduct() {
     }
 
-    public static JPanel createProductPanel(DefaultTableModel tableModel, JPanel productPanel, String product_name, float priceS, float priceL, String image, int bienTam) {
+    public static JPanel createProductPanel(DefaultTableModel tableModel, JPanel productPanel, String product_name, float priceS, float priceL, String image) {
         CardProduct cardProductPanel = new CardProduct();
         cardProductPanel.priceS = priceS;
         cardProductPanel.priceL = priceL;
         JPanel jPanel20 = cardProductPanel.createPanel(Color.WHITE, new Dimension(260, 370));
         JButton MinusButton14 = cardProductPanel.createButton("-", new Color(102, 102, 102), new Font("Segoe UI", Font.ITALIC, 28));
         JButton PlusButton14 = cardProductPanel.createButton("+", new Color(255, 102, 0), new Font("Segoe UI", Font.ITALIC, 28));
-        cardProductPanel.jCheckBox71 = cardProductPanel.createCheckBox("S", new Font("Segoe UI", Font.PLAIN, 14));
-        cardProductPanel.jCheckBox72 = cardProductPanel.createCheckBox("L", new Font("Segoe UI", Font.PLAIN, 14));
-        cardProductPanel.jCheckBox73 = cardProductPanel.createCheckBox("50%", null);
-        cardProductPanel.jCheckBox74 = cardProductPanel.createCheckBox("100%", null);
+        cardProductPanel.checkBoxSizeS = cardProductPanel.createCheckBox("S", new Font("Segoe UI", Font.PLAIN, 14));
+        cardProductPanel.checkBoxSizeL = cardProductPanel.createCheckBox("L", new Font("Segoe UI", Font.PLAIN, 14));
+        cardProductPanel.checkBoxSugar50 = cardProductPanel.createCheckBox("50%", null);
+        cardProductPanel.checkBoxSugar100 = cardProductPanel.createCheckBox("100%", null);
 
         ButtonGroup sizeGroup = new ButtonGroup();
-        sizeGroup.add(cardProductPanel.jCheckBox71);
-        sizeGroup.add(cardProductPanel.jCheckBox72);
+        sizeGroup.add(cardProductPanel.checkBoxSizeS);
+        sizeGroup.add(cardProductPanel.checkBoxSizeL);
         ButtonGroup sugarGroup = new ButtonGroup();
-        sugarGroup.add(cardProductPanel.jCheckBox73);
-        sugarGroup.add(cardProductPanel.jCheckBox74);
+        sugarGroup.add(cardProductPanel.checkBoxSugar50);
+        sugarGroup.add(cardProductPanel.checkBoxSugar100);
         
-        cardProductPanel.jLabel133 = cardProductPanel.createLabel("0", new Font("Segoe UI", Font.PLAIN, 14), SwingConstants.CENTER);
-        cardProductPanel.jLabel133.setForeground(Color.WHITE);        
+        cardProductPanel.productCountLabel = cardProductPanel.createLabel("0", new Font("Segoe UI", Font.PLAIN, 14), SwingConstants.CENTER);
+        cardProductPanel.productCountLabel.setForeground(Color.WHITE);        
         JLabel jLabel134 = cardProductPanel.createLabel("Sugar :", new Font("Segoe UI", Font.BOLD, 14), null, new Color(51, 51, 51));
         JLabel jLabel135 = cardProductPanel.createLabel("Cup size :", new Font("Segoe UI", Font.BOLD, 14), SwingConstants.CENTER, new Color(51, 51, 51));
         
@@ -55,50 +51,44 @@ public class CardProduct extends javax.swing.JPanel {
         ImageIcon resizedImageIcon = new ImageIcon(scaledImage);
         jLabel136.setIcon(resizedImageIcon);
     
-        cardProductPanel.jLabel137 = cardProductPanel.createLabel(product_name, new Font("Segoe UI", Font.ITALIC, 18), SwingConstants.CENTER, new Color(255, 51, 0));
+        cardProductPanel.productNameLabel = cardProductPanel.createLabel(product_name, new Font("Segoe UI", Font.ITALIC, 18), SwingConstants.CENTER, new Color(255, 51, 0));
         JLabel jLabel138 = cardProductPanel.createLabel("Price", new Font("Segoe UI", Font.BOLD, 18), SwingConstants.CENTER, new Color(255, 102, 0));
-        cardProductPanel.jLabel140 = cardProductPanel.createLabel(String.format("%.2f USD", priceS), new Font("Segoe UI", Font.BOLD, 12), null);
+        cardProductPanel.priceLabel = cardProductPanel.createLabel(String.format("%.2f USD", priceS), new Font("Segoe UI", Font.BOLD, 12), null);
 
         PlusButton14.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!cardProductPanel.jCheckBox71.isSelected() && !cardProductPanel.jCheckBox72.isSelected()) {
-                    cardProductPanel.jCheckBox71.setSelected(true);
+                if (!cardProductPanel.checkBoxSizeS.isSelected() && !cardProductPanel.checkBoxSizeL.isSelected()) {
+                    cardProductPanel.checkBoxSizeS.setSelected(true);
                 }
-
-                if (!cardProductPanel.jCheckBox73.isSelected() && !cardProductPanel.jCheckBox74.isSelected()) {
-                    cardProductPanel.jCheckBox74.setSelected(true);
+                if (!cardProductPanel.checkBoxSugar50.isSelected() && !cardProductPanel.checkBoxSugar100.isSelected()) {
+                    cardProductPanel.checkBoxSugar100.setSelected(true);
                 }
-
                 cardProductPanel.productCount++;
-                cardProductPanel.jLabel133.setText(String.valueOf(cardProductPanel.productCount));
-
-                float price = cardProductPanel.jCheckBox71.isSelected() ? cardProductPanel.priceS : cardProductPanel.priceL;
-                String size = cardProductPanel.jCheckBox71.isSelected() ? "S" : "L";
-                String sugar = cardProductPanel.jCheckBox74.isSelected() ? "100%" : "50%";
-                
-                System.out.println("price " + price);
+                cardProductPanel.productCountLabel.setText(String.valueOf(cardProductPanel.productCount));
+                float price = cardProductPanel.checkBoxSizeS.isSelected() ? cardProductPanel.priceS : cardProductPanel.priceL;
+                String size = cardProductPanel.checkBoxSizeS.isSelected() ? "S" : "L";
+                String sugar = cardProductPanel.checkBoxSugar100.isSelected() ? "100%" : "50%";
                 addOrUpdateProductInTable(tableModel, product_name, size, sugar, price);
             }
         });
 
         MinusButton14.addActionListener(e -> {
-            if (cardProductPanel.productCount > 0) {
+            int rowCount = tableModel.getRowCount();       
+            if (rowCount > 0) {
                 cardProductPanel.productCount--;
-                cardProductPanel.jLabel133.setText(String.valueOf(cardProductPanel.productCount));
-
-                String productName = cardProductPanel.jLabel137.getText();
-                String size = cardProductPanel.jCheckBox71.isSelected() ? "S" : "L";
-                String sugar = cardProductPanel.jCheckBox74.isSelected() ? "100%" : "50%";
+                cardProductPanel.productCountLabel.setText(String.valueOf(cardProductPanel.productCount));
+                String productName = cardProductPanel.productNameLabel.getText();
+                String size = cardProductPanel.checkBoxSizeS.isSelected() ? "S" : "L";
+                String sugar = cardProductPanel.checkBoxSugar100.isSelected() ? "100%" : "50%";
                 float price = size.equals("S") ? cardProductPanel.priceS : cardProductPanel.priceL;
-
+                
                 int rowIndex = findProductInTable(tableModel, productName, size, sugar);
                 if (rowIndex != -1) {
                     int currentQuantity = (int) tableModel.getValueAt(rowIndex, 3);
                     if (currentQuantity > 1) {
                         tableModel.setValueAt(currentQuantity - 1, rowIndex, 3);
-
-                        float totalPrice = (currentQuantity - 1) * price;
+                        float totalPrice =  price;
                         tableModel.setValueAt(totalPrice, rowIndex, 5);
                     } else {
                         tableModel.removeRow(rowIndex);
@@ -110,8 +100,8 @@ public class CardProduct extends javax.swing.JPanel {
             }
         });
 
-        cardProductPanel.jCheckBox71.addActionListener(e -> cardProductPanel.updatePrice(priceS));
-        cardProductPanel.jCheckBox72.addActionListener(e -> cardProductPanel.updatePrice(priceL));
+        cardProductPanel.checkBoxSizeS.addActionListener(e -> cardProductPanel.updatePrice(priceS));
+        cardProductPanel.checkBoxSizeL.addActionListener(e -> cardProductPanel.updatePrice(priceL));
 
         GroupLayout jPanel20Layout = new GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -123,33 +113,33 @@ public class CardProduct extends javax.swing.JPanel {
                                                 .addGap(32, 32, 32)
                                                 .addComponent(jLabel134, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cardProductPanel.jCheckBox73)
+                                                .addComponent(cardProductPanel.checkBoxSugar50)
                                                 .addGap(20, 20, 20)
-                                                .addComponent(cardProductPanel.jCheckBox74))
+                                                .addComponent(cardProductPanel.checkBoxSugar100))
                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                                 .addGap(30, 30, 30)
                                                                 .addComponent(MinusButton14, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(0, 0, 0)
-                                                                .addComponent(cardProductPanel.jLabel133, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(cardProductPanel.productCountLabel, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                                 .addGap(12, 12, 12)
                                                                 .addComponent(jLabel135, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(cardProductPanel.jCheckBox71)))
+                                                                .addComponent(cardProductPanel.checkBoxSizeS)))
                                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(cardProductPanel.jCheckBox72, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(cardProductPanel.checkBoxSizeL, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(PlusButton14, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(cardProductPanel.jLabel137, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(cardProductPanel.productNameLabel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                 .addGap(10, 10, 10)
                                                 .addComponent(jLabel136, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(cardProductPanel.jLabel140, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(cardProductPanel.priceLabel, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(jLabel138, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))))
                                 .addContainerGap(10, Short.MAX_VALUE))
         );
@@ -162,23 +152,23 @@ public class CardProduct extends javax.swing.JPanel {
                                         .addGroup(jPanel20Layout.createSequentialGroup()
                                                 .addComponent(jLabel138, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(6, 6, 6)
-                                                .addComponent(cardProductPanel.jLabel140, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(cardProductPanel.priceLabel, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(cardProductPanel.jLabel137, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cardProductPanel.productNameLabel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel135)
-                                        .addComponent(cardProductPanel.jCheckBox71)
-                                        .addComponent(cardProductPanel.jCheckBox72))
+                                        .addComponent(cardProductPanel.checkBoxSizeS)
+                                        .addComponent(cardProductPanel.checkBoxSizeL))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel134)
-                                        .addComponent(cardProductPanel.jCheckBox73)
-                                        .addComponent(cardProductPanel.jCheckBox74))
+                                        .addComponent(cardProductPanel.checkBoxSugar50)
+                                        .addComponent(cardProductPanel.checkBoxSugar100))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel20Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(MinusButton14)
-                                        .addComponent(cardProductPanel.jLabel133, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cardProductPanel.productCountLabel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(PlusButton14))
                                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -225,10 +215,8 @@ public class CardProduct extends javax.swing.JPanel {
         if (rowIndex != -1) {
             int currentQuantity = (int) tableModel.getValueAt(rowIndex, 3);
             float totalPrice = (float) tableModel.getValueAt(rowIndex, 5);
-
             currentQuantity++;
             totalPrice = price;
-
             tableModel.setValueAt(currentQuantity, rowIndex, 3);
             tableModel.setValueAt(totalPrice, rowIndex, 5);
         } else {
@@ -244,7 +232,6 @@ public class CardProduct extends javax.swing.JPanel {
         }
     }
 
-
     private static void updateSTT(DefaultTableModel tableModel) {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             tableModel.setValueAt(i + 1, i, 0);
@@ -252,7 +239,7 @@ public class CardProduct extends javax.swing.JPanel {
     }
 
     private void updatePrice(float price) {
-        jLabel140.setText(String.format("%.2f USD", price));
+        priceLabel.setText(String.format("%.2f USD", price));
     }
 
     private JButton createButton(String text, Color background, Font font) {

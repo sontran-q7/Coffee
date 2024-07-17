@@ -23,6 +23,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\Edi
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\AddShift.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\ButtonRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\hashpassword\PasswordHash.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\PrintableInvoice.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\ButtonRenderer.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CategoryMenu.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\CardProduct.java
@@ -55,6 +56,8 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Mod
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\ProductDetail.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\EditCategory.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\InvoiceDetail.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\AccountDAO.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\menu\InvoicePDF.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\bill\DetailForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Model\OrderModel.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Coffee.java

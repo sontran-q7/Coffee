@@ -7,26 +7,13 @@ package com.app.coffee.dashboard;
 import com.app.coffee.Backend.DAO.BillDAO;
 import com.app.coffee.Backend.DAO.OrderDetailDAO;
 import com.app.coffee.Backend.Model.OrderModel;
-
 import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
-
-//import com.app.coffee.bill.ButtonEditor;
-//import com.app.coffee.bill.ButtonRenderer;
-import com.app.coffee.employee.FormAdd;
-import java.awt.Button;
 import java.awt.FlowLayout;
-import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -104,7 +90,6 @@ public class DashboardPage extends javax.swing.JPanel {
 
         PanelShift.add(card);
     }
-
     PanelShift.revalidate();
     PanelShift.repaint();
 }
@@ -332,10 +317,9 @@ public class DashboardPage extends javax.swing.JPanel {
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
           UserSession session = UserSession.getInstance();
     int controlId = session.getControlId();
-    
-    // Kiểm tra xem có ca làm việc nào đang hoạt động không
+    // check shift
     if (controlId != 0 && !session.isShiftEnded()) {
-        JOptionPane.showMessageDialog(this, "Bạn không thể tạo ca mới khi chưa chốt ca hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "You cannot create a new shift until the current shift is closed.", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
     
@@ -364,13 +348,12 @@ public class DashboardPage extends javax.swing.JPanel {
         System.out.println("control :" + controlId);
         // lỗi vì để == -1
     if (controlId == 0) {
-        JOptionPane.showMessageDialog(this, "Không có ca làm việc nào để chốt.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "You have not created a shift yet.", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    // Lấy tham chiếu tới JFrame chứa JPanel này
+ 
     JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-    EndShift dialog = new EndShift(parentFrame, true, controlId,this);
-    
+    EndShift dialog = new EndShift(parentFrame, true, controlId,this); 
     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosing(java.awt.event.WindowEvent e) {
@@ -379,7 +362,7 @@ public class DashboardPage extends javax.swing.JPanel {
         }
     });
 
-    dialog.setLocationRelativeTo(parentFrame); // Hiển thị dialog ở giữa cửa sổ hiện tại
+    dialog.setLocationRelativeTo(parentFrame); 
     dialog.setVisible(true);
     }//GEN-LAST:event_EndShiftActionPerformed
 
@@ -388,7 +371,7 @@ public class DashboardPage extends javax.swing.JPanel {
     for (int i = model.getRowCount() - 1; i >= 0; i--) {
         Boolean status = (Boolean) model.getValueAt(i, 6); 
         if (status != null && status) {
-            int orderId = (int) model.getValueAt(i, 1); // Truy cập order_id từ mô hình bảng
+            int orderId = (int) model.getValueAt(i, 1); 
             BillDAO.markBillAsFinished(orderId);
             model.removeRow(i);
             updateSerialNo();
@@ -402,16 +385,15 @@ public class DashboardPage extends javax.swing.JPanel {
     if (orderModel != null) {
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         JDialog detailDialog = new JDialog(parentFrame, "Order Details", true);
-        DetailForm detailForm = new DetailForm(); // Sử dụng DetailForm từ package bill
+        DetailForm detailForm = new DetailForm(); 
 
-        detailForm.updateDetails(orderModel); // Cập nhật chi tiết đơn hàng vào form
-
+        detailForm.updateDetails(orderModel);
         detailDialog.add(detailForm);
         detailDialog.pack();
         detailDialog.setLocationRelativeTo(parentFrame);
         detailDialog.setVisible(true);
     } else {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Order not found.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
     public void refresh(){
@@ -420,27 +402,24 @@ public class DashboardPage extends javax.swing.JPanel {
         displayTotalSumOfMonth();
    }
     
-
-   
    private void updatePendingBillTable() {
     List<PendingBill> pendingBills = BillDAO.getPendingBills();
     DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
-    model.setRowCount(0); // Clear the table before adding new rows
+    model.setRowCount(0);
 
     int serialNo = 1;
     for (PendingBill bill : pendingBills) {
         JButton button = new JButton("Detail");
-        final int orderId = bill.getOrder_id(); // Lưu trữ orderId tại thời điểm hiện tại
+        final int orderId = bill.getOrder_id();
 
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showDetailForm(orderId); // Gọi phương thức showDetailForm với orderId tương ứng
+                showDetailForm(orderId);
             }
         });
-
         Object[] row = new Object[]{
-            serialNo, // Add serial number for display purposes
+            serialNo++, 
             bill.getOrder_id(),
             bill.getTotal(),
             bill.getDescription(),
@@ -448,27 +427,20 @@ public class DashboardPage extends javax.swing.JPanel {
             bill.getDay(),
             bill.isStatus(),
             button
-            // Thêm order_id vào mô hình bảng
         };
-
         model.addRow(row);
-        serialNo++;
     }
-
     PendingBill.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
-    PendingBill.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));
-    
-    // Ẩn cột order_id
+    PendingBill.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));   
+    // Hiden row order_id
     PendingBill.getColumnModel().getColumn(1).setMinWidth(0);
     PendingBill.getColumnModel().getColumn(1).setMaxWidth(0);
     PendingBill.getColumnModel().getColumn(1).setWidth(0);
 }
-
-
       private void updateSerialNo() {
         DefaultTableModel model = (DefaultTableModel) PendingBill.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
-            model.setValueAt(i + 1, i, 0); // Cập nhật lại STT
+            model.setValueAt(i + 1, i, 0); 
         }
     }
      private void displayTotalSumOfMonth() {
@@ -480,16 +452,14 @@ public class DashboardPage extends javax.swing.JPanel {
     } else {
         System.out.println("Money_Month JLabel is null");
     }
-}
-     
+}    
       private void displayTotalSumOfDay() {
         float totalSum = BillDAO.getTotalSumOfDay(); 
         // Format số để hiển thị
         DecimalFormat df = new DecimalFormat("#,##0.00" + " USD");
         String formattedTotalSum = df.format(totalSum);
         Money_day.setText(formattedTotalSum);
-    }
-      
+    }     
       private void setCellRenderer(JTable table) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);

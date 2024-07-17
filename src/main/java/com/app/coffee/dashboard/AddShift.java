@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/OkCancelDialog.java to edit this template
- */
+
 package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
@@ -9,7 +6,6 @@ import com.app.coffee.Backend.DAO.ControlDAO;
 import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.Login.LoginAccount.UserSession;
-import com.app.coffee.employee.EmployeeManager;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -36,21 +32,18 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.text.PlainDocument;
+
 
 /**
  *
- * @author anhso
+ * @author anhson
  */
 public class AddShift extends javax.swing.JDialog {
 
     private String userName;
     public static final int RET_CANCEL = 0;
-
     public static final int RET_OK = 1;
     private DashboardPage dashboardPage;
     private HashMap<String, Integer> shiftMap;
@@ -59,17 +52,15 @@ public class AddShift extends javax.swing.JDialog {
     private void loadBoxShift() {
         String sql = "SELECT * FROM working_time";
         try (Connection conn = ConnectionCoffee.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-
             BoxShift.removeAllItems();
             while (rs.next()) {
-                String shiftName = rs.getString("name");// name này là tên của working_time
+                String shiftName = rs.getString("name");// name : working_time
                 BoxShift.addItem(shiftName);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
     /**
      * Creates new form ListStaff
      */
@@ -81,15 +72,14 @@ public class AddShift extends javax.swing.JDialog {
         updateCheckInTimeLabel();
         loadBoxShift();
         GetList();
-        // Đặt các renderers
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         ListName.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         ListName.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         ListName.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         ListName.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-
-        // Đặt ImageRenderer cho cột chứa ảnh
+        // ImageRenderer 
         ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
 
         String cancelName = "cancel";
@@ -108,7 +98,7 @@ public class AddShift extends javax.swing.JDialog {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel label = new JLabel();
-            label.setHorizontalAlignment(JLabel.CENTER); // Căn giữa ảnh và văn bản
+            label.setHorizontalAlignment(JLabel.CENTER);
             String photoName = value != null ? value.toString() : "no-image.png";
             File imageFile = new File("src/image/" + photoName);
             if (!imageFile.exists()) {
@@ -122,14 +112,12 @@ public class AddShift extends javax.swing.JDialog {
 
     public void setUserName(String userName) {
         this.userName = userName;
-        // Cập nhật giao diện nếu cần, ví dụ:
         nametest.setText(userName);
     }
 
     public int getReturnStatus() {
         return returnStatus;
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -348,60 +336,71 @@ public class AddShift extends javax.swing.JDialog {
         }
     }
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        String selectedShift = (String) BoxShift.getSelectedItem();
-        Integer workingTimeId = shiftMap.get(selectedShift);
-        if (workingTimeId == null) {
-            JOptionPane.showMessageDialog(this, "Ca làm việc không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String checkIn = now.format(formatter);
-        String checkOut = now.format(formatter);
-        float checkInPay;
-        try {
-            checkInPay = Float.parseFloat(InPayField.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Check In Pay.", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        float checkOutPay = 0; // Giá trị check out pay, nếu cần lấy từ giao diện
-        Integer accountId = UserSession.getInstance().getAccountId();
-        if (accountId == null) {
-            JOptionPane.showMessageDialog(this, "Không thể lấy được Account ID của người dùng hiện tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        // Thêm ca làm việc và lưu controlId 
-        int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
-        if (controlId != 0) {
-            UserSession.getInstance().setControlId(controlId);
-
-            int[] selectedRows = ListName.getSelectedRows();
-            DefaultTableModel model = (DefaultTableModel) ListName.getModel();
-            ArrayList<String[]> selectedData = new ArrayList<>();
-            for (int row : selectedRows) {
-                int columnCount = model.getColumnCount();
-                String[] rowData = new String[columnCount];
-                for (int column = 0; column < columnCount; column++) {
-                    rowData[column] = model.getValueAt(row, column).toString();
-                }
-                selectedData.add(rowData);
+         Float checkInPay = validateCheckInPay();
+    if (checkInPay == null) {
+        return; 
+    }
+    String selectedShift = (String) BoxShift.getSelectedItem();
+    Integer workingTimeId = shiftMap.get(selectedShift);
+    if (workingTimeId == null) {
+        JOptionPane.showMessageDialog(this, "Invalid shift.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String checkIn = now.format(formatter);
+    String checkOut = now.format(formatter);
+    float checkOutPay = 0; 
+    Integer accountId = UserSession.getInstance().getAccountId();
+    if (accountId == null) {
+        JOptionPane.showMessageDialog(this, "Unable to retrieve Account ID", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    // create shifft and save controlId 
+    int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
+    if (controlId != 0) {
+        UserSession.getInstance().setControlId(controlId);
+        int[] selectedRows = ListName.getSelectedRows();
+        DefaultTableModel model = (DefaultTableModel) ListName.getModel();
+        ArrayList<String[]> selectedData = new ArrayList<>();
+        for (int row : selectedRows) {
+            int columnCount = model.getColumnCount();
+            String[] rowData = new String[columnCount];
+            for (int column = 0; column < columnCount; column++) {
+                rowData[column] = model.getValueAt(row, column).toString();
             }
-
-            if (dashboardPage != null) {
-                dashboardPage.updateStaffPanel(selectedData);
-            } else {
-                System.out.println("DashboardPage reference is null");
-            }
-
-            JOptionPane.showMessageDialog(this, "Tạo ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+            selectedData.add(rowData);
+        }
+        if (dashboardPage != null) {
+            dashboardPage.updateStaffPanel(selectedData);
         } else {
-            JOptionPane.showMessageDialog(this, "Tạo ca thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            System.out.println("DashboardPage reference is null");
         }
 
-        doClose(RET_OK);
+        JOptionPane.showMessageDialog(this, "Shift successfully created.", "NFORMATION", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
+
+    doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    private Float validateCheckInPay() {
+    String input = InPayField.getText();
+    try {
+        float value = Float.parseFloat(input);
+        if (value < 0) {
+            JOptionPane.showMessageDialog(this, "Negative numbers are not allowed", "ERROR", JOptionPane.ERROR_MESSAGE);
+            InPayField.setText("");
+            return null;
+        }
+        return value;
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter the amount.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        InPayField.setText("");
+        return null;
+    }
+}  
     private void updateCheckInTimeLabel() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -418,12 +417,7 @@ public class AddShift extends javax.swing.JDialog {
     }//GEN-LAST:event_closeDialog
 
     private void InPayFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InPayFieldActionPerformed
-        String input = InPayField.getText();
-        if (!isNumeric(input)) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ.(ví dụ :12345.05)", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-            // Xóa nội dung của InPayField
-            InPayField.setText("");
-        }
+      validateCheckInPay();
     }//GEN-LAST:event_InPayFieldActionPerformed
 
     private boolean isNumeric(String str) {
@@ -443,7 +437,6 @@ public class AddShift extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
-
     public void GetList() {
         UserDAO userdao = new UserDAO();
         ArrayList<UsersModel> listUser = userdao.selectAll();
@@ -454,16 +447,14 @@ public class AddShift extends javax.swing.JDialog {
                 return u1.getAccount_id() - u2.getAccount_id();
             }
         });
-
         DefaultTableModel table = (DefaultTableModel) ListName.getModel();
         table.setRowCount(0);
         int count = 1;
-
         for (UsersModel user : listUser) {
             if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
                 Object[] row = {
                     count++,
-                    user.getImage() != null ? user.getImage() : "no-image.png",// kiểm tra hình ảnh lại
+                    user.getImage() != null ? user.getImage() : "no-image.png",
                     user.getUserName() != null ? user.getUserName() : "",
                     user.getRole() != null ? user.getRole().getName() : "",
                     user.getPhone() != null ? user.getPhone() : "",
@@ -499,7 +490,6 @@ public class AddShift extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BoxShift;
     private javax.swing.JLabel CheckInTime;

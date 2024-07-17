@@ -19,7 +19,7 @@ public class ProductDaoMenu {
         List<ProductMenu> products = new ArrayList<>();
         String sql = "SELECT p.product_id, p.category_id, p.product_name, " +
                      "pdS.price AS priceS, pdL.price AS priceL, " +
-                     "p.description, p.image, p.status " + // Thêm trường image vào câu truy vấn
+                     "p.description, p.image, p.status " + 
                      "FROM product p " +
                      "JOIN product_detail pdS ON p.product_id = pdS.product_id AND pdS.size = 'S' " +
                      "JOIN product_detail pdL ON p.product_id = pdL.product_id AND pdL.size = 'L' " +
@@ -35,7 +35,7 @@ public class ProductDaoMenu {
                 float priceS = rs.getFloat("priceS");
                 float priceL = rs.getFloat("priceL");
                 String description = rs.getString("description");
-                String image = rs.getString("image"); // Lấy thông tin ảnh từ cột image
+                String image = rs.getString("image"); 
                 int status = rs.getInt("status");
 
                 ProductMenu product = new ProductMenu(productId, productName, priceS, priceL, categoryId, description, sql, image, status);
@@ -46,8 +46,6 @@ public class ProductDaoMenu {
         }
         return products;
     }
-
-     
 
     public List<ProductMenu> getLengthProductsByCategoryId(int categoryId) {
         List<ProductMenu> products = new ArrayList<>();
@@ -96,7 +94,6 @@ public class ProductDaoMenu {
         return products;
     }
 
-
     public Integer insertOrderDetail(int orderId, String productName, String size, int quantity, String sugar, float price) {
         Integer orderDetailId = null;
 
@@ -116,7 +113,6 @@ public class ProductDaoMenu {
             if (rsProductDetailId.next()) {
                 int productDetailId = rsProductDetailId.getInt("product_detail_id");
 
-                // 2. Thêm dữ liệu vào bảng order_detail
                 String insertOrderDetailSql = "INSERT INTO `order_detail` (`order_id`, `product_detail_id`, `quantity`, `status`, `created_at`, `updated_at`) "
                                             + "VALUES (?, ?, ?, ?, 'pending', NOW(), NOW())";
 
@@ -131,7 +127,7 @@ public class ProductDaoMenu {
                     if (rowsInserted > 0) {
                         ResultSet generatedKeys = pstmtInsertOrderDetail.getGeneratedKeys();
                         if (generatedKeys.next()) {
-                            orderDetailId = generatedKeys.getInt(1); // Lấy order_detail_id từ generatedKeys
+                            orderDetailId = generatedKeys.getInt(1); 
                         } else {
                             throw new SQLException("Failed to retrieve generated order_detail_id.");
                         }
@@ -143,11 +139,9 @@ public class ProductDaoMenu {
             } else {
                 throw new SQLException("Product detail not found for productName: " + productName + " and size: " + size);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return orderDetailId;
     }
 
@@ -168,7 +162,6 @@ public class ProductDaoMenu {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return productId;
     }
 }

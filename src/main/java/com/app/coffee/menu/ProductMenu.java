@@ -6,8 +6,8 @@ public class ProductMenu {
 
     private int product_id;
     private String product_name;
-    private float priceS; // Price for size S
-    private float priceL; // Price for size L
+    private float priceS; 
+    private float priceL; 
     private int category_id;
     private String description;
     private String size;
