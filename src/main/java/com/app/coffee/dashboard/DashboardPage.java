@@ -48,12 +48,12 @@ public class DashboardPage extends javax.swing.JPanel {
     }
     
      public void updateStaffPanel(ArrayList<String[]> selectedData) {
-    PanelShift.removeAll(); // Xóa tất cả các thẻ cũ trong StaffPanel
+    PanelShift.removeAll();
 
     for (String[] rowData : selectedData) {
         JPanel card = new JPanel();
         card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        card.setPreferredSize(new java.awt.Dimension(143, 210)); // Tăng chiều cao của card để chứa thêm thông tin
+        card.setPreferredSize(new java.awt.Dimension(143, 210)); 
         card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JLabel imageLabel = new JLabel();
@@ -63,7 +63,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
         JLabel nameLabelHeader = new JLabel("Name");
         nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
         card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
 
         JLabel nameLabel = new JLabel(rowData[2]);
@@ -72,7 +72,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
         JLabel positionLabelHeader = new JLabel("Position");
         positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
         card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
 
         JLabel positionLabel = new JLabel(rowData[3]);
@@ -81,7 +81,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
         JLabel phoneLabelHeader = new JLabel("Phone");
         phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); // Set font to Bold, size 12
+        phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
         card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
 
         JLabel phoneLabel = new JLabel(rowData[4]);

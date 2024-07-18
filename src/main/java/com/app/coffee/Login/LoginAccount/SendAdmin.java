@@ -5,7 +5,6 @@
 package com.app.coffee.Login.LoginAccount;
 
 import com.app.coffee.Login.CustomDialog;
-import com.app.coffee.Login.Login;
 import com.app.coffee.Login.LoginAccount.Reset;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -33,22 +32,21 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import com.app.coffee.Login.LoginAccount.VerifyCode; 
-
 /**
  *
  * @author Admin
  */
-public class SendCode extends JPanel {
-    
-    boolean isCodeValid = false;
-    private int randomCode;
-    private VerifyCode verifyCodePanel;
+public class SendAdmin extends javax.swing.JPanel {
+    int randomCode;
+    private VerifyAdmin verifyCodeAmdmin;
     private Timer timer;
+    boolean isCodeValid = false;
+    private String email;
+    
     /**
-     * Creates new form ForgotPasswordForm
+     * Creates new form SendAdmin
      */
-    public SendCode() {
+    public SendAdmin() {
         initComponents();
         
     }
@@ -62,13 +60,11 @@ public class SendCode extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         EnterEmail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        Back = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
@@ -76,13 +72,13 @@ public class SendCode extends JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(243, 114, 44)));
         jPanel3.setForeground(new java.awt.Color(51, 255, 51));
-        jPanel3.setPreferredSize(new java.awt.Dimension(420, 430));
+        jPanel3.setPreferredSize(new java.awt.Dimension(430, 320));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(73, 80, 87));
-        jLabel3.setText("Send Code Forgot");
+        jLabel3.setText("Register Admin");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(73, 80, 87));
         jLabel5.setText("Email :");
 
@@ -99,17 +95,7 @@ public class SendCode extends JPanel {
         jButton1.setText("Send");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SendEmail(evt);
-            }
-        });
-
-        Back.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        Back.setForeground(new java.awt.Color(243, 114, 44));
-        Back.setText("Back");
-        Back.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(243, 114, 44), 2));
-        Back.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Back(evt);
+                jButton1SendEmail(evt);
             }
         });
 
@@ -118,52 +104,45 @@ public class SendCode extends JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
-                            .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EnterEmail))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(EnterEmail)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(118, 118, 118))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel3)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(EnterEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SendEmail(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendEmail
+    private void EnterEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterEmailActionPerformed
         // TODO add your handling code here:
-        try {
+    }//GEN-LAST:event_EnterEmailActionPerformed
+
+    private void jButton1SendEmail(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1SendEmail
+        // TODO add your handling code here:
+         try {
             String email = EnterEmail.getText();
             if (email.isEmpty()) {
                 new CustomDialog(null, "Error", "Email field is empty.");
-                return;
-            }
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/coffehouse", "root", "");
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM account WHERE email = ?");
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                new CustomDialog(null, "Error", "Email does not exist.");
                 return;
             }
             
@@ -203,73 +182,40 @@ public class SendCode extends JPanel {
             Transport transport = mailSession.getTransport("smtp");
             transport.connect(host, user, pass);
             transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();          
-            isCodeValid = true;
-            int countdownTime = 60;
-            timer = new Timer(1000, new ActionListener() {
-                int timeRemaining = countdownTime;
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (timeRemaining > 0) {
-                        timeRemaining--;
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (verifyCodePanel != null) {
-                                    verifyCodePanel.updateSeconds(timeRemaining); // Update secondsLabel
-                                } else {
-                                    System.err.println("verifyCodePanel is null");
-                                }
-                            }
-                        });
-                    } else {
-                        timer.stop();
-                        
-                    }
-                }
-            });
-            timer.start();
-
+            transport.close();
             
+            isCodeValid = true;
+            startTimer();           
+            if (verifyCodeAmdmin == null) {
+                verifyCodeAmdmin = new VerifyAdmin(randomCode, email);
+                setVerifyCodeAdmin(verifyCodeAmdmin);
+                } else {
+                    verifyCodeAmdmin.updateSeconds(randomCode, email);
+                }
+
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
             if (frame != null) {
-                VerifyCode verifyCodePanel = new VerifyCode(randomCode, email);
-                frame.setContentPane(verifyCodePanel);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-                setVerifyCodePanel(verifyCodePanel);
+            frame.setContentPane(verifyCodeAmdmin);
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
             } else {
                 new CustomDialog(null, "Error", "Didn't find the parent window to show the VerifyCode panel.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            new CustomDialog(null, "Error", "Database error: " + e.getMessage());
         } catch (MessagingException e) {
             e.printStackTrace();
             new CustomDialog(null, "Error", "Email error: " + e.getMessage());
         }
-
-    }//GEN-LAST:event_SendEmail
-     public void setVerifyCodePanel(VerifyCode verifyCodePanel) {
-        this.verifyCodePanel = verifyCodePanel;
+    }//GEN-LAST:event_jButton1SendEmail
+ 
+     public VerifyAdmin getVerifyCodeAdmin() {
+        return verifyCodeAmdmin;
     }
-    
-    private void EnterEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnterEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EnterEmailActionPerformed
 
-    private void Back(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Back
+    public void setVerifyCodeAdmin(VerifyAdmin verifyCodeAmdmin) {
+        this.verifyCodeAmdmin = verifyCodeAmdmin;
+    }
 
-    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-    if (frame != null) {
-        frame.dispose(); 
-    } 
-    LoginForm loginFrame = new LoginForm();
-    loginFrame.setVisible(true);
-    }//GEN-LAST:event_Back
-    
     public void sendMail(String email, int randomCode) {
         
         try {
@@ -312,15 +258,36 @@ public class SendCode extends JPanel {
             new CustomDialog(null, "Error", "Failed to send email.");
         }
     }
+
+    public void startTimer() {
+        int countdownTime = 60;
+        timer = new Timer(1000, new ActionListener() {
+            int timeRemaining = countdownTime;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    SwingUtilities.invokeLater(() -> {
+                        if (verifyCodeAmdmin != null) {
+                            verifyCodeAmdmin.updateSeconds(timeRemaining, email);
+                        }
+                    });
+                } else {
+                    timer.stop();
+                    isCodeValid = false;
+                }
+            }
+        });
+        timer.start();
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Back;
     private javax.swing.JTextField EnterEmail;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

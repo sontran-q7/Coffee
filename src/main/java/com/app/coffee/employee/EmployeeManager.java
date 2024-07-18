@@ -8,33 +8,20 @@ import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.category.CustomHeaderRenderer;
 import com.app.coffee.dashboard.Dashboard;
-import com.app.coffee.design.TableGradient;
-import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.AlphaComposite;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -48,13 +35,10 @@ public class EmployeeManager extends javax.swing.JPanel {
     public EmployeeManager() {
     initComponents();
     //setDefTable();
-    
-    
     loadPanels();
     SetColumn();
     GetList();
-    
-    
+     
     JTableHeader header = tableListUser.getTableHeader();
     header.setDefaultRenderer(new CustomHeaderRenderer());
         
@@ -69,23 +53,19 @@ public class EmployeeManager extends javax.swing.JPanel {
             return c;
         }
     };
-    headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
+    headerRenderer.setHorizontalAlignment(JLabel.CENTER); 
     JTableHeader productTable = tableListUser.getTableHeader();
        
     productTable.setDefaultRenderer(headerRenderer);
 
-
-        
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); 
         
     for (int i = 0; i < tableListUser.getColumnCount(); i++) {
         if (i != 1) {
             tableListUser.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-    }
-    
+    }    
     tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest()); 
     }
     
@@ -97,7 +77,6 @@ public class EmployeeManager extends javax.swing.JPanel {
     UserDAO userdao = new UserDAO();    
     ArrayList<UsersModel> listUser = userdao.selectAll();
 
-    // Sort users by account_id
     Collections.sort(listUser, new Comparator<UsersModel>() {
         @Override
         public int compare(UsersModel u1, UsersModel u2) {
@@ -394,8 +373,7 @@ public class EmployeeManager extends javax.swing.JPanel {
        
         ((CardLayout) FormEmployee.getLayout()).show(FormEmployee, panelName);
     }
-    
-    //không hiển thị khi mở lên được nên chưa biết nên làm không
+
     private class ImageRenderTest extends DefaultTableCellRenderer {
 
         @Override

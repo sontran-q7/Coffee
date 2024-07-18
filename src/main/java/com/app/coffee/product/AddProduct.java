@@ -191,7 +191,7 @@ public class AddProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSetupProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSetupProductActionPerformed
-        if (!checkvalidate()) { // Kiểm tra nếu không hợp lệ
+        if (!checkvalidate()) { 
             return;
         } else {
             try {

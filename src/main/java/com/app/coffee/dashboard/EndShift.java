@@ -30,13 +30,8 @@ import javax.swing.KeyStroke;
  */
 public class EndShift extends javax.swing.JDialog {
 
-    /**
-     * A return status code - returned if Cancel button has been pressed
-     */
     public static final int RET_CANCEL = 0;
-    /**
-     * A return status code - returned if OK button has been pressed
-     */
+   
     public static final int RET_OK = 1;
     private int controlId;
      private DashboardPage dashboardPage;
@@ -274,7 +269,7 @@ public class EndShift extends javax.swing.JDialog {
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
       updateControlData();
-    JOptionPane.showMessageDialog(this, "Chốt ca thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+    JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 
     UserSession session = UserSession.getInstance();
     session.setControlId(0);
@@ -314,7 +309,7 @@ private float parseCurrency(String value) throws NumberFormatException {
         ControlDAO.updateControl(controlId, checkOutPay);
     } catch (NumberFormatException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Giá trị Check Out Pay không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Invalid Check Out Pay amount.", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }
 
@@ -368,7 +363,6 @@ private float parseCurrency(String value) throws NumberFormatException {
             checkinPay.setText(formatCurrency(rs.getFloat("check_in_pay")));
             checkoutPay.setText(formatCurrency(rs.getFloat("check_out_pay")));
 
-            // Cập nhật doanh thu sau khi cập nhật checkinPay và checkoutPay
             updateRevenueLabel();
         }
     } catch (SQLException e) {
@@ -390,7 +384,6 @@ private float parseCurrency(String value) throws NumberFormatException {
     float totalSumOfDay = BillDAO.getTotalSumOfDay();
     checkoutPay.setText(formatCurrency(totalSumOfDay));
 
-    // Cập nhật doanh thu sau khi cập nhật checkoutPay
     updateRevenueLabel();
 }
 

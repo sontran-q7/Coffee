@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -40,8 +38,6 @@ public class ReturnAccount extends javax.swing.JPanel {
     public ReturnAccount() {
         initComponents();
         //setDefTable();
-        
-        
         GetList();
         SetColumn();
          
@@ -63,11 +59,7 @@ public class ReturnAccount extends javax.swing.JPanel {
         headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
             // Lặp qua từng cột và đặt renderer cho tiêu đề cột
         JTableHeader productTable = tableListUser.getTableHeader();
-
         productTable.setDefaultRenderer(headerRenderer);
-
-
-
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
 
@@ -131,7 +123,6 @@ public class ReturnAccount extends javax.swing.JPanel {
     tableListUser.setRowHeight(60);
     tableListUser.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderTest());
 }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -275,7 +266,6 @@ public class ReturnAccount extends javax.swing.JPanel {
     private void BackManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackManagerActionPerformed
         backEmployeePanel();
     }//GEN-LAST:event_BackManagerActionPerformed
-   
     
     private void restoreAccount() {
         int selectedRow = tableListUser.getSelectedRow();
@@ -309,7 +299,6 @@ public class ReturnAccount extends javax.swing.JPanel {
         }
     }
     
-    //không hiển thị khi mở lên được nên chưa biết nên làm không
     private class ImageRenderTest extends DefaultTableCellRenderer {
 
         @Override
@@ -322,8 +311,7 @@ public class ReturnAccount extends javax.swing.JPanel {
             ImageIcon imageIcon = new ImageIcon(
                 new ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT));          
             return new JLabel(imageIcon);
-        }
-        
+        }   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

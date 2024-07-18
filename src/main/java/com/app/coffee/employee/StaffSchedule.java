@@ -41,12 +41,9 @@ public class StaffSchedule extends javax.swing.JPanel {
     private DateTimeFormatter timeFormatter;
     private DateTimeFormatter dateFormatter;
       
-    
     public StaffSchedule() {
         initComponents();
-        //setDefTable();
-        
-        
+        //setDefTable();  
         controlService = new ControlService();
         timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -103,13 +100,10 @@ public class StaffSchedule extends javax.swing.JPanel {
         }
     };
     headerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt căn cho tiêu đề
-        // Lặp qua từng cột và đặt renderer cho tiêu đề cột
     JTableHeader productTable = table.getTableHeader();
        
     productTable.setDefaultRenderer(headerRenderer);
 
-
-        
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Đặt căn cho văn bản
         
@@ -274,11 +268,8 @@ public class StaffSchedule extends javax.swing.JPanel {
     
     private void updateTotal() {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        double total = 0.0;
-
-        
+        double total = 0.0;   
         int totalColumnIndex = 7;
-
         for (int row = 0; row < model.getRowCount(); row++) {
             Double value = (Double) model.getValueAt(row, totalColumnIndex);
             total += value;
@@ -287,9 +278,6 @@ public class StaffSchedule extends javax.swing.JPanel {
         countTotal.setText(String.valueOf(total));
     }
 
-
-    
-    
     private void setDefTable() {
         table.setDefaultRenderer(Object.class, new TableGradient(new Color(23,161,115),new Color(132,22,232)));
         jPanel1.putClientProperty(FlatClientProperties.STYLE, ""
@@ -303,8 +291,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         scroll.getVerticalScrollBar().putClientProperty(FlatClientProperties.STYLE, ""
                 + "hoverTrackColor:null");
     }
-    
-    
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

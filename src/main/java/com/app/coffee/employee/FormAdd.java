@@ -144,8 +144,8 @@ public class FormAdd extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 50
-        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 50
+        component.setPreferredSize(new Dimension(300, 40)); 
+        component.setMinimumSize(new Dimension(300, 40)); 
         }
 
     private void initAddComponents() {

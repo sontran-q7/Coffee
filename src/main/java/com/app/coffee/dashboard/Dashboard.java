@@ -438,59 +438,70 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductButtonMouseExited
 
     private void loadPanels() {
-        dashboardPage = new DashboardPage();
-        employeeManager = new EmployeeManager();
-        Bill bill = new Bill();
-        ProductForm product = new ProductForm();
-        menu = new MenuPanel();
-        CategoryForm categoryForm = new CategoryForm();
-        returnAccount = new ReturnAccount();
-        staffSchedule = new StaffSchedule();
+    dashboardPage = new DashboardPage();
+    employeeManager = new EmployeeManager();
+    Bill bill = new Bill();
+    ProductForm product = new ProductForm();
+    menu = new MenuPanel();
+    CategoryForm categoryForm = new CategoryForm();
+    returnAccount = new ReturnAccount();
+    staffSchedule = new StaffSchedule();
 
+    int roleId = UserSession.getInstance().getRoleId();
+    if (roleId != 3) {
         DislayPanel.add(dashboardPage, "dashboard");
         DislayPanel.add(employeeManager, "employee");
         DislayPanel.add(bill, "bill");
         DislayPanel.add(product, "product");
         DislayPanel.add(categoryForm, "category");
-        DislayPanel.add(menu, "menu");
         DislayPanel.add(returnAccount, "returnAccount");
         DislayPanel.add(staffSchedule, "staffSchedule");
     }
+    DislayPanel.add(menu, "menu");
+}
 
-    public void showPanel(String panelName) {
-        switch (panelName) {
-            case "dashboard":
-                dashboardPage.refresh();
-                break;
-            case "menu":
-                menu.setUserName(UserSession.getInstance().getUserName());
-                menu.refresh();
-                break;
-            case "returnAccount":
-                returnAccount.refresh();
-                break;
-            case "staffSchedule":
-                staffSchedule.refresh();
-                break;
-            case "employee":
-                employeeManager.refresh();
-                break;
-            case "bill":
-                Bill billPanel = null;
-                Component[] components = DislayPanel.getComponents();
-                for (Component component : components) {
-                    if (component instanceof Bill) {
-                        billPanel = (Bill) component;
-                        break;
-                    }
-                }
-                if (billPanel != null) {
-                    billPanel.refreshListBill();
-                }
-                break;
-        }
-        ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);
+
+   public void showPanel(String panelName) {
+    int roleId = UserSession.getInstance().getRoleId();
+    if (roleId == 3 && !panelName.equals("menu")) {
+        JOptionPane.showMessageDialog(this, "You do not have permission to access this page.", "WARNING", JOptionPane.WARNING_MESSAGE);
+        return;
     }
+
+    switch (panelName) {
+        case "dashboard":
+            dashboardPage.refresh();
+            break;
+        case "menu":
+            menu.setUserName(UserSession.getInstance().getUserName());
+            menu.refresh();
+            break;
+        case "returnAccount":
+            returnAccount.refresh();
+            break;
+        case "staffSchedule":
+            staffSchedule.refresh();
+            break;
+        case "employee":
+            employeeManager.refresh();
+            break;
+        case "bill":
+            Bill billPanel = null;
+            Component[] components = DislayPanel.getComponents();
+            for (Component component : components) {
+                if (component instanceof Bill) {
+                    billPanel = (Bill) component;
+                    break;
+                }
+            }
+            if (billPanel != null) {
+                billPanel.refreshListBill();
+            }
+            break;
+    }
+    ((CardLayout) DislayPanel.getLayout()).show(DislayPanel, panelName);
+}
+
 
     private void setFullScreen() {
         System.out.println("setFullScreen() method called");
@@ -519,7 +530,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
         timer.start();
     }
-
     public static void main(String args[]) {
         FlatIntelliJLaf.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
