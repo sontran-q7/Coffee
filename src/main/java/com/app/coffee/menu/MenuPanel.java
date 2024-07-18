@@ -16,8 +16,8 @@ import javax.swing.table.*;
 public class MenuPanel extends JPanel {
 
     private String userName;
-    private javax.swing.JLabel tableLable, staffTextField, staffLable, customerLable, totalLabel, noteLabel, orderDetailsLabel;
-    private javax.swing.JTextField customerTextField, tableNoTextField, totalTextField;
+    private javax.swing.JLabel tableLable, staffTextField, staffLable, customerLable, totalLabel, noteLabel, orderDetailsLabel , guestsBroughtLable , changeLable;
+    private javax.swing.JTextField tableNoTextField, totalTextField, guestsBroughtTextField, changeTextField;
     private javax.swing.JTextArea noteTextArea;
     private javax.swing.JScrollPane orderTableScrollPane, noteScrollPane;
     private javax.swing.JTable orderTable, table;
@@ -69,14 +69,33 @@ public class MenuPanel extends JPanel {
                 return column == 3; 
             }
         };
-
-        table = new JTable(tableModel);
-
+                
+        tableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int row = e.getFirstRow();
+                    int column = e.getColumn();
+                    if (column == 3) {
+                        Object value = tableModel.getValueAt(row, column);
+                        try {
+                            int quantity = Integer.parseInt(value.toString());
+                            if (quantity < 0) {
+                                throw new NumberFormatException("Negative number");
+                            }
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Please enter a valid number for Quantity", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                            tableModel.setValueAt(0, row, column);
+                        }
+                    }
+                }
+            }
+        });
+        
         tableModel.addTableModelListener(e -> {
             if (e.getType() == TableModelEvent.INSERT || e.getType() == TableModelEvent.DELETE) {
                 updateTotal();
-            }
-            
+            }          
             if (e.getType() == TableModelEvent.UPDATE) {
                 int row = e.getFirstRow();
                 int column = e.getColumn();
@@ -92,7 +111,6 @@ public class MenuPanel extends JPanel {
                             } else {
                                 tableModel.setValueAt(0.0f, row, 5);
                             }
-
                             updateTotal();
                         }
                     } catch (NumberFormatException ex) {
@@ -101,6 +119,9 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
+        
+        table = new JTable(tableModel);
+        
         table.setRowHeight(25);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setPreferredWidth(15);
@@ -131,12 +152,15 @@ public class MenuPanel extends JPanel {
         totalTextField = new JTextField();
         orderDetailsLabel = new JLabel();
         staffLable = new JLabel();
-        customerTextField = new JTextField();
         customerLable = new JLabel();
         staffTextField = new JLabel();
         tableNoTextField = new JTextField();
         noteLabel = new JLabel();
         tableLable = new JLabel();
+        guestsBroughtLable = new JLabel();
+        guestsBroughtTextField = new JTextField();
+        changeLable = new JLabel();
+        changeTextField = new JTextField();
         orderTableScrollPane.setViewportView(orderTable);
         
         JButton deleteRowButton = new JButton("Delete Row");
@@ -150,7 +174,7 @@ public class MenuPanel extends JPanel {
         deleteRowButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
         deleteRowButton.setForeground(new java.awt.Color(255, 102, 0));
         deleteRowButton.setBorder(null);
-        panel.add(deleteRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, 50));
+        panel.add(deleteRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 680, 100, 50));
 
         printBillButton.setBackground(new java.awt.Color(255, 102, 0));
         printBillButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
@@ -162,7 +186,7 @@ public class MenuPanel extends JPanel {
                 printBillButtonActionPerformed(evt);
             }
         });
-        panel.add(printBillButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 640, 100, 50));
+        panel.add(printBillButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 680, 100, 50));
 
         cancelOrderButton.setBackground(new java.awt.Color(51, 51, 51));
         cancelOrderButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
@@ -174,18 +198,13 @@ public class MenuPanel extends JPanel {
                 cancelOrderButtonActionPerformed(evt);
             }
         });
-        panel.add(cancelOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 640, 100, 50));
+        panel.add(cancelOrderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 680, 100, 50));
 
         noteLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
         noteLabel.setText("Note:");
-        panel.add(noteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 50, 50));
+        panel.add(noteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 50, 50));
 
         panel.add(tableNoTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 300, 35));
-        panel.add(customerTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 300, 35));
-
-        customerLable.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        customerLable.setText("Customer:");
-        panel.add(customerLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 80, 35));
 
         staffLable.setFont(new java.awt.Font("Segoe UI", 1, 14));
         staffLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,26 +222,82 @@ public class MenuPanel extends JPanel {
         noteTextArea.setColumns(20);
         noteTextArea.setRows(5);
         noteScrollPane.setViewportView(noteTextArea);
-        panel.add(noteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 330, 50));
+        panel.add(noteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 330, 50));
 
-        panel.add(orderTableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 380, 260));
+        panel.add(orderTableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 380, 260));
 
         totalLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
         totalLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         totalLabel.setText("Total:");
-        panel.add(totalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 570, 60, 35));
+        panel.add(totalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 510, 60, 35));
 
         totalTextField.setEditable(false);
         totalTextField.setFont(new java.awt.Font("Segoe UI", 1, 14));
         totalTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         totalTextField.setText("0.0");
-        panel.add(totalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 570, 330, 35));
+        panel.add(totalTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, 330, 35));
 
+        guestsBroughtLable.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        guestsBroughtLable.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        guestsBroughtLable.setText("Give:");
+        panel.add(guestsBroughtLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 560, 60, 35));
+
+        guestsBroughtTextField.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        guestsBroughtTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        guestsBroughtTextField.setText("");
+        panel.add(guestsBroughtTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 330, 35));
+                
+        changeLable.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        changeLable.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        changeLable.setText("Pay:");
+        panel.add(changeLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 610, 60, 35));
+
+        changeTextField.setEditable(false);
+        changeTextField.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        changeTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        changeTextField.setText("0");
+        panel.add(changeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 330, 35));
+        
         orderDetailsLabel.setFont(new java.awt.Font("Segoe UI", 1, 26));
         orderDetailsLabel.setForeground(new java.awt.Color(255, 102, 0));
         orderDetailsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         orderDetailsLabel.setText("Order Details");
         panel.add(orderDetailsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 220, 40));
+
+        guestsBroughtTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateChange();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateChange();
+            }
+
+            private void updateChange() {
+                String totalStr = totalTextField.getText().trim();
+                String guestsBroughtStr = guestsBroughtTextField.getText().trim();
+                if (!guestsBroughtStr.isEmpty()) {
+                    try {
+                        double total = Double.parseDouble(totalStr);
+                        double guestsBrought = Double.parseDouble(guestsBroughtStr);
+
+                        double change = guestsBrought - total;
+                        changeTextField.setText(String.format("%.2f", change));
+                    } catch (NumberFormatException ex) {
+                        changeTextField.setText("");
+                    }
+                } else {
+                    changeTextField.setText("");
+                }
+            }
+        });
 
         return panel;
     }
@@ -373,16 +448,35 @@ public class MenuPanel extends JPanel {
     private void printBillButtonActionPerformed(ActionEvent evt) {
         if (tableModel.getRowCount() == 0) {
             JOptionPane.showMessageDialog(MenuPanel.this, "Empty invoice.", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else if(tableNoTextField.getText() == null || tableNoTextField.getText().isEmpty()){
-            tableNoTextField.setText("0");
+        } else if (tableNoTextField.getText() == null || tableNoTextField.getText().isEmpty() && guestsBroughtTextField.getText() == null || guestsBroughtTextField.getText().isEmpty()) {
+            setTextField();
             printBill();
-        }  else if (!checkvalidate()) { 
-            return;
-        }  else {
-            printBill();
+        } else {
+            try {
+                double total = Double.parseDouble(totalTextField.getText().trim());
+                double guestsBrought = Double.parseDouble(guestsBroughtTextField.getText().trim());
+                if(guestsBrought == 0){
+                    printBill();
+                }
+                if (total > guestsBrought) {
+                    JOptionPane.showMessageDialog(MenuPanel.this, "The amount given by the customer must be greater than or equal to the value of the order.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    setTextField();
+                } else {
+                    printBill();
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(MenuPanel.this, "Table numbers & Guests brought must be numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+                setTextField();
+            }
         }
     }
 
+    private void setTextField(){
+        tableNoTextField.setText("0");
+        guestsBroughtTextField.setText("0");
+        changeTextField.setText("0");
+    }
+    
     private void printBill(){
         int option = JOptionPane.showConfirmDialog(MenuPanel.this, "Do you want to print invoices?", "Confirm invoice printing", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
@@ -391,7 +485,11 @@ public class MenuPanel extends JPanel {
             String note = noteTextArea.getText();
             String initialNote = noteTextArea.getText();
             String total = totalTextField.getText();
-
+            String guestsBrought = guestsBroughtTextField.getText();
+            String change = changeTextField.getText();
+            float guestsBroughtAmount = Float.parseFloat(guestsBrought);
+            float changeAmount = Float.parseFloat(change);
+            
             AccountDAO accountDAO = new AccountDAO();
             Optional<Integer> optionalAccountId = accountDAO.getAccountIdByUsername(textStaff);
 
@@ -450,7 +548,7 @@ public class MenuPanel extends JPanel {
                     }
                 }
 
-                InvoicePDF invoicePdf = new InvoicePDF(textStaff, products, totalAmount, textTable, initialNote);
+                InvoicePDF invoicePdf = new InvoicePDF(textStaff, products, totalAmount, textTable, initialNote, guestsBroughtAmount, changeAmount);
                 invoicePdf.generateInvoicePDF();
 
                 if (Desktop.isDesktopSupported()) {
@@ -466,11 +564,10 @@ public class MenuPanel extends JPanel {
             }
 
             tableModel.setRowCount(0);
-            customerTextField.setText("");
             tableNoTextField.setText("");
             noteTextArea.setText("");
-            totalTextField.setText("");
-
+            guestsBroughtTextField.setText("");
+            changeTextField.setText("");
             updateProductPanels();
 
             JOptionPane.showMessageDialog(MenuPanel.this, "Success.", "Notification", JOptionPane.WARNING_MESSAGE);
@@ -509,21 +606,23 @@ public class MenuPanel extends JPanel {
     public void refresh(){
         if (tableModel.getRowCount() == 0) {
             updateProductPanels();
-            customerTextField.setText("");
             tableNoTextField.setText("");
             noteTextArea.setText("");
+            guestsBroughtTextField.setText("");
+            changeTextField.setText("");
         }
     }
     
     private boolean checkvalidate() {
         String textTable = tableNoTextField.getText();
+        String textGuestsBrought = guestsBroughtTextField.getText();
            
-        if (!isNumericFloat(textTable)) {
-            JOptionPane.showMessageDialog(null, "Table numbers must be numbers!");
+        if (!isNumericFloat(textTable) || !isNumericFloat(textGuestsBrought)) {
+            JOptionPane.showMessageDialog(null, "Table numbers & Guests brought must be numbers!");
             tableNoTextField.setText("");
+            guestsBroughtTextField.setText("");
             return false;
         }
-         
         return true;
     }
 

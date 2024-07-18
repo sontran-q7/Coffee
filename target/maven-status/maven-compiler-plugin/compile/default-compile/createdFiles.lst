@@ -50,6 +50,7 @@ com\app\coffee\category\EditCategory.class
 com\app\coffee\dashboard\AddShift$5.class
 com\app\coffee\category\CategoryForm$2.class
 com\app\coffee\dashboard\Dashboard$2.class
+com\app\coffee\menu\MenuPanel$8.class
 com\app\coffee\category\CategoryDao.class
 com\app\coffee\employee\FormEdit.class
 com\app\coffee\Backend\DAO\BillDAO.class
@@ -139,6 +140,7 @@ com\app\coffee\category\AddCategory$2.class
 com\app\coffee\Login\LoginAccount\SendCode$3.class
 com\app\coffee\menu\HeaderPanel.class
 com\app\coffee\Coffee.class
+com\app\coffee\menu\MenuPanel$7.class
 com\app\coffee\employee\EmployeeManager$4.class
 com\app\coffee\Backend\Model\WorkingTimeModel.class
 com\app\coffee\employee\ReturnAccount$3.class

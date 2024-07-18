@@ -18,13 +18,17 @@ public class InvoicePDF {
     private double totalAmount;
     private String tableNumber;
     private String note;
-
-    public InvoicePDF(String staffName, Object[][] products, double totalAmount, String tableNumber, String note) {
+    private float guestsBroughtAmount;
+    private float changeAmount;
+    
+    public InvoicePDF(String staffName, Object[][] products, double totalAmount, String tableNumber, String note, float guestsBroughtAmount, float changeAmount) {
         this.staffName = staffName;
         this.products = products;
         this.totalAmount = totalAmount;
         this.tableNumber = tableNumber;
         this.note = note;
+        this.guestsBroughtAmount = guestsBroughtAmount;
+        this.changeAmount = changeAmount;
     }
 
     public void generateInvoicePDF() throws IOException, DocumentException {
@@ -144,6 +148,14 @@ public class InvoicePDF {
         totalAmountParagraph.setAlignment(Element.ALIGN_LEFT);
         document.add(totalAmountParagraph);
 
+        Paragraph guestsBroughtAmountParagraph = new Paragraph("Guests brought: " + guestsBroughtAmount, font);
+        guestsBroughtAmountParagraph.setAlignment(Element.ALIGN_LEFT);
+        document.add(guestsBroughtAmountParagraph);
+        
+        Paragraph changeAmountParagraph = new Paragraph("Change: " + changeAmount, font);
+        changeAmountParagraph.setAlignment(Element.ALIGN_LEFT);
+        document.add(changeAmountParagraph);
+            
         document.add(Chunk.NEWLINE);
 
         Paragraph thankYouParagraph = new Paragraph("Thank you. See you again.", font);
