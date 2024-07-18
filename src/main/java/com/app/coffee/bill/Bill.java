@@ -492,6 +492,9 @@ public class Bill extends javax.swing.JPanel {
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
+         if (listBill.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No order data for users: " + userName, "Announcement", JOptionPane.INFORMATION_MESSAGE);
+    } else {
         totalBillValue = 0.0;
         int index = 1;
         for (OrderModel order : listBill) {
@@ -505,8 +508,9 @@ public class Bill extends javax.swing.JPanel {
             defaultTableModel.addRow(row);
             totalBillValue += order.getTotal();
              index++ ;
-        }
-        TotalBill.setText(" "+String.valueOf(totalBillValue));
+        }       
+         TotalBill.setText(" "+String.valueOf(totalBillValue));
+         }
 }   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JcomboBoxUserName;

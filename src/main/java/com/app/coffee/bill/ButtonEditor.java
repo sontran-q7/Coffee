@@ -92,6 +92,11 @@ public class ButtonEditor extends DefaultCellEditor {
 
     @Override
     protected void fireEditingStopped() {
-        super.fireEditingStopped();
+        int editingRow = table.getEditingRow();
+        if (editingRow != -1 && editingRow < table.getRowCount()) {
+            super.fireEditingStopped();
+        } else {
+            cancelCellEditing(); 
+        }
     }
 }

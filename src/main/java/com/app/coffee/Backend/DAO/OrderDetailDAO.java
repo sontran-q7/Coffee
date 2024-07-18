@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.time.LocalDateTime;
-
+import java.time.LocalTime;
 /**
  *
  * @author Admin
@@ -197,13 +197,12 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
         String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
              "FROM orders o " +
              "LEFT JOIN account a ON o.account_id = a.account_id " +
-             "WHERE a.username = ? AND o.created_at >= ? AND o.created_at < ?";
+             "WHERE a.username = ? AND o.created_at >= ? AND o.created_at <= ?";
                    
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             stmt.setTimestamp(2, Timestamp.valueOf(fromDate));
-//            stmt.setTimestamp(3, Timestamp.valueOf(toDate));
-            stmt.setTimestamp(3, Timestamp.valueOf(toDate.plusDays(1))); 
+            stmt.setTimestamp(3, Timestamp.valueOf(toDate.with(LocalTime.of(23, 59, 59))));
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     OrderModel orderModel = new OrderModel();
