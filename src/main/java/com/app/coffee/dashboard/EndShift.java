@@ -24,6 +24,22 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 /**
  *
  * @author anhso
@@ -268,16 +284,28 @@ public class EndShift extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-      updateControlData();
-    JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+      try {
+            byte[] pdfData = createPdf();
+            displayPdf(pdfData);
 
-    UserSession session = UserSession.getInstance();
-    session.setControlId(0);
-    session.setShiftEnded(true);
-    if (dashboardPage != null) {
-        dashboardPage.clearPanelShift();
-    }
-    doClose(RET_OK);
+            updateControlData();
+            JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+
+            UserSession session = UserSession.getInstance();
+            session.setControlId(0);
+            session.setShiftEnded(true);
+            if (dashboardPage != null) {
+                dashboardPage.clearPanelShift();
+            }
+            doClose(RET_OK);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error creating PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error displaying PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -378,8 +406,6 @@ private float parseCurrency(String value) throws NumberFormatException {
     }
 }
 
-
-
    private void updateCheckoutPayLabel() {
     float totalSumOfDay = BillDAO.getTotalSumOfDay();
     checkoutPay.setText(formatCurrency(totalSumOfDay));
@@ -398,6 +424,103 @@ private void updateRevenueLabel() {
     }
 }
 
+
+ private byte[] createPdf() throws DocumentException {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+    Document document = new Document();
+    PdfWriter.getInstance(document, baos);
+    document.open();
+
+    Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+    Paragraph title = new Paragraph("End of Shift Summary", titleFont);
+    title.setAlignment(Element.ALIGN_CENTER);
+    title.setSpacingAfter(20);
+    document.add(title);
+
+    PdfPTable table = new PdfPTable(2);
+    table.setWidthPercentage(100);
+    table.setSpacingBefore(10f);
+    table.setSpacingAfter(10f);
+
+    Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+    Font regularFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+
+    table.addCell(createCell("Manager:", boldFont));
+    table.addCell(createCell(managerLable.getText(), regularFont));
+
+    table.addCell(createCell("Working Time:", boldFont));
+    table.addCell(createCell(wordTimeLable.getText(), regularFont));
+
+    table.addCell(createCell("Start Time:", boldFont));
+    table.addCell(createCell(StartLable.getText(), regularFont));
+
+    table.addCell(createCell("End Time:", boldFont));
+    table.addCell(createCell(endLable.getText(), regularFont));
+
+    table.addCell(createCell("Beginning shift cash:", boldFont));
+    table.addCell(createCell(checkinPay.getText(), regularFont));
+
+    table.addCell(createCell("End shift cash:", boldFont));
+    table.addCell(createCell(checkoutPay.getText(), regularFont));
+
+    table.addCell(createCell("Revenue shift:", boldFont));
+    table.addCell(createCell(revenueField.getText(), regularFont));
+
+    document.add(table);
+
+    // Dòng nhắn
+    Paragraph message = new Paragraph("Please check the money before handing over or receiving, and sign to confirm.", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+    message.setAlignment(Element.ALIGN_CENTER);
+    message.setSpacingAfter(20);
+    document.add(message);
+
+    // Thông tin người giao và người nhận tiền
+    PdfPTable signTable = new PdfPTable(2);
+    signTable.setWidthPercentage(100);
+    signTable.setSpacingBefore(10f);
+    signTable.setSpacingAfter(10f);
+    signTable.setWidths(new int[]{1, 1});
+
+    PdfPCell cell = new PdfPCell(new Phrase("Money handler.", boldFont));
+    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    cell.setBorderWidthTop(1);
+    signTable.addCell(cell);
+
+    cell = new PdfPCell(new Phrase("Money recipient.", boldFont));
+    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+    cell.setBorderWidthTop(1);
+    signTable.addCell(cell);
+
+    document.add(signTable);
+
+    document.close();
+
+    return baos.toByteArray();
+}
+
+    private PdfPCell createCell(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+       
+        return cell;
+    }
+
+
+    private void displayPdf(byte[] pdfData) throws IOException {
+        // Lưu dữ liệu PDF vào một tệp tạm thời
+        File tempFile = File.createTempFile("EndShiftReport", ".pdf");
+        tempFile.deleteOnExit();
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(pdfData);
+        }
+
+        // Mở tệp PDF tạm thời
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(tempFile);
+        } else {
+            JOptionPane.showMessageDialog(this, "Desktop is not supported.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     public static void main(String args[]) {
         try {
