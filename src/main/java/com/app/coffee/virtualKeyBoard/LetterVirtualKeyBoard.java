@@ -9,7 +9,7 @@ public class LetterVirtualKeyBoard extends JPanel implements ActionListener {
     private String[] keysRow1 = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
     private String[] keysRow2 = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"};
     private String[] keysRow3 = {"A", "S", "D", "F", "G", "H", "J", "K", "L", ";"};
-    private String[] keysRow4 = {"Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"};
+    private String[] keysRow4 = {"Z", "X", "C", "V", "B", "N", "M", ",", ".", "@"};
     private String[] keysRow5 = {"Shift", "Caps", "Space", "Backspace", "Clear"};
 
     private JButton[] buttonList;
