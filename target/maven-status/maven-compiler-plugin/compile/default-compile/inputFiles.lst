@@ -20,6 +20,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Mod
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\DashboardPage.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\CustomDialog.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\CategoryDao.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\virtualKeyBoard\NumericVirtualKeyBoard.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\Reset.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\product\EditProduct.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\dashboard\AddShift.java
@@ -74,6 +75,7 @@ C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\Login
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Connect\ConnectionCoffee.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\category\CategoryForm.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Backend\Service\UserService.java
+C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\virtualKeyBoard\LetterVirtualKeyBoard.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\employee\FormAdd.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\Login.java
 C:\Users\anhso\Desktop\APP_COFFE\Coffee\src\main\java\com\app\coffee\Login\LoginAccount\VerifyCode.java

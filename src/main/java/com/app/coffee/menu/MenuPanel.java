@@ -1,5 +1,7 @@
 package com.app.coffee.menu;
 
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
+import com.app.coffee.virtualKeyBoard.NumericVirtualKeyBoard;
 import com.itextpdf.text.DocumentException;
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +12,15 @@ import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.*;
+import javax.swing.border.LineBorder;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
 public class MenuPanel extends JPanel {
 
     private String userName;
-    private javax.swing.JLabel tableLable, staffTextField, staffLable, customerLable, totalLabel, noteLabel, orderDetailsLabel , guestsBroughtLable , changeLable;
-    private javax.swing.JTextField tableNoTextField, totalTextField, guestsBroughtTextField, changeTextField;
-    private javax.swing.JTextArea noteTextArea;
+    private javax.swing.JLabel tableLable, staffTextField, staffLable, totalLabel, noteLabel, orderDetailsLabel , guestsBroughtLable , changeLable;
+    private javax.swing.JTextField tableNoTextField, totalTextField, guestsBroughtTextField, changeTextField, noteTextField;
     private javax.swing.JScrollPane orderTableScrollPane, noteScrollPane;
     private javax.swing.JTable orderTable, table;
     private javax.swing.JButton printBillButton, cancelOrderButton;
@@ -145,14 +147,13 @@ public class MenuPanel extends JPanel {
         printBillButton = new JButton();
         cancelOrderButton = new JButton();
         noteScrollPane = new JScrollPane();
-        noteTextArea = new JTextArea();
+        noteTextField = new JTextField(); 
         orderTableScrollPane = new JScrollPane();
         orderTable = createOrderTable();
         totalLabel = new JLabel();
         totalTextField = new JTextField();
         orderDetailsLabel = new JLabel();
         staffLable = new JLabel();
-        customerLable = new JLabel();
         staffTextField = new JLabel();
         tableNoTextField = new JTextField();
         noteLabel = new JLabel();
@@ -219,11 +220,10 @@ public class MenuPanel extends JPanel {
         staffTextField.setText("");
         panel.add(staffTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 60, 300, 35));
 
-        noteTextArea.setColumns(20);
-        noteTextArea.setRows(5);
-        noteScrollPane.setViewportView(noteTextArea);
+        noteTextField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         panel.add(noteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 330, 50));
-
+        noteScrollPane.setViewportView(noteTextField);
+            
         panel.add(orderTableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 380, 260));
 
         totalLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
@@ -246,10 +246,10 @@ public class MenuPanel extends JPanel {
         guestsBroughtTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         guestsBroughtTextField.setText("");
         panel.add(guestsBroughtTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 330, 35));
-                
+
         changeLable.setFont(new java.awt.Font("Segoe UI", 1, 14));
         changeLable.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        changeLable.setText("Pay:");
+        changeLable.setText("Change:");
         panel.add(changeLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 610, 60, 35));
 
         changeTextField.setEditable(false);
@@ -257,7 +257,7 @@ public class MenuPanel extends JPanel {
         changeTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         changeTextField.setText("0");
         panel.add(changeTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 330, 35));
-        
+
         orderDetailsLabel.setFont(new java.awt.Font("Segoe UI", 1, 26));
         orderDetailsLabel.setForeground(new java.awt.Color(255, 102, 0));
         orderDetailsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -298,8 +298,103 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
+        // tạo lable ảo cho bàn phím
+        JLabel dummyComponent = new JLabel();
+        panel.add(dummyComponent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 0, 0)); 
+
+        guestsBroughtTextField.addFocusListener(new NumericTextFieldFocusListener(dummyComponent)); 
+        tableNoTextField.addFocusListener(new NumericTextFieldFocusListener(dummyComponent)); 
+        noteTextField.addFocusListener(new TextFieldFocusListener(dummyComponent)); 
+        
+        tableNoTextField.setName("Table Number");
+        noteTextField.setName("Note");
+        guestsBroughtTextField.setName("Guests Brought");
 
         return panel;
+    }
+    // gọi hàm lấy bàn phím số
+    private class NumericTextFieldFocusListener extends FocusAdapter {
+        private Component dummyComponent;               
+        private boolean keyboardClosed = true; 
+
+        public NumericTextFieldFocusListener(Component dummyComponent) {
+            this.dummyComponent = dummyComponent;
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (keyboardClosed) {
+                keyboardClosed = false; 
+                JTextField source = (JTextField) e.getSource();
+                NumericVirtualKeyBoard keyboard = new NumericVirtualKeyBoard();
+                keyboard.setText(source.getText());
+                keyboard.setTitle(source.getName());
+                
+                JDialog dialog = new JDialog((Frame) null, true);
+                dialog.setUndecorated(true);  
+
+                JPanel contentPanel = new JPanel(new BorderLayout());
+                contentPanel.setBorder(new LineBorder(Color.BLACK, 3));  
+                contentPanel.add(keyboard, BorderLayout.CENTER);
+
+                dialog.getContentPane().add(contentPanel);
+                dialog.pack();
+                dialog.setLocation(620, 300);
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        source.setText(keyboard.getSavedText());
+                        SwingUtilities.invokeLater(() -> {
+                            dummyComponent.requestFocusInWindow();
+                            keyboardClosed = true;
+                        });
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        }
+    }
+        // hàm bàn phím chữ
+    private class TextFieldFocusListener extends FocusAdapter {
+        private Component dummyComponent;               
+        private boolean keyboardClosed = true; 
+
+        public TextFieldFocusListener(Component dummyComponent) {
+            this.dummyComponent = dummyComponent;
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            if (keyboardClosed) {
+                keyboardClosed = false; 
+                JTextField source = (JTextField) e.getSource();
+                LetterVirtualKeyBoard keyboard = new LetterVirtualKeyBoard();
+                keyboard.setText(source.getText());
+                keyboard.setTitle(source.getName());
+                
+                JDialog dialog = new JDialog((Frame) null, true);
+                dialog.setUndecorated(true);  
+
+                JPanel contentPanel = new JPanel(new BorderLayout());
+                contentPanel.setBorder(new LineBorder(Color.BLACK, 3)); 
+                contentPanel.add(keyboard, BorderLayout.CENTER);
+
+                dialog.getContentPane().add(contentPanel);
+                dialog.pack();
+                dialog.setLocation(200, 230);
+                dialog.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        source.setText(keyboard.getSavedText());
+                        SwingUtilities.invokeLater(() -> {
+                            dummyComponent.requestFocusInWindow();
+                            keyboardClosed = true;
+                        });
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        }
     }
 
     private void deleteRowButtonActionPerformed(ActionEvent evt) {
@@ -413,7 +508,6 @@ public class MenuPanel extends JPanel {
 
     private void updateProductPanels() {
         CardProductPanel.removeAll();
-
         int currentCategoryId = categoryMenu.getCategoryId();
 
         List<ProductMenu> products;
@@ -482,8 +576,8 @@ public class MenuPanel extends JPanel {
         if (option == JOptionPane.YES_OPTION) {
             String textTable = tableNoTextField.getText();
             String textStaff = staffTextField.getText();
-            String note = noteTextArea.getText();
-            String initialNote = noteTextArea.getText();
+            String note = noteTextField.getText();
+            String initialNote = noteTextField.getText();
             String total = totalTextField.getText();
             String guestsBrought = guestsBroughtTextField.getText();
             String change = changeTextField.getText();
@@ -501,7 +595,6 @@ public class MenuPanel extends JPanel {
 
                 float totalAmount = Float.parseFloat(total);
                 invoice.setTotal(totalAmount);
-
                 invoice.setDay(new Timestamp(System.currentTimeMillis()));
 
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -539,8 +632,7 @@ public class MenuPanel extends JPanel {
                     invoice.getInvoiceDetails().add(detail);
                 }
                 
-                invoice.setDescription(note);
-                
+                invoice.setDescription(note);              
                 Object[][] products = new Object[tableModel.getRowCount()][6];
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
                     for (int j = 0; j < 6; j++) {
@@ -565,11 +657,10 @@ public class MenuPanel extends JPanel {
 
             tableModel.setRowCount(0);
             tableNoTextField.setText("");
-            noteTextArea.setText("");
+            noteTextField.setText("");
             guestsBroughtTextField.setText("");
             changeTextField.setText("");
             updateProductPanels();
-
             JOptionPane.showMessageDialog(MenuPanel.this, "Success.", "Notification", JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -590,7 +681,6 @@ public class MenuPanel extends JPanel {
     private void centerTableCells() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
         for (int i = 0; i < orderTable.getColumnCount(); i++) {
             orderTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
@@ -607,7 +697,7 @@ public class MenuPanel extends JPanel {
         if (tableModel.getRowCount() == 0) {
             updateProductPanels();
             tableNoTextField.setText("");
-            noteTextArea.setText("");
+            noteTextField.setText("");
             guestsBroughtTextField.setText("");
             changeTextField.setText("");
         }
@@ -616,7 +706,6 @@ public class MenuPanel extends JPanel {
     private boolean checkvalidate() {
         String textTable = tableNoTextField.getText();
         String textGuestsBrought = guestsBroughtTextField.getText();
-           
         if (!isNumericFloat(textTable) || !isNumericFloat(textGuestsBrought)) {
             JOptionPane.showMessageDialog(null, "Table numbers & Guests brought must be numbers!");
             tableNoTextField.setText("");

@@ -95,7 +95,7 @@ public class ProductForm extends javax.swing.JPanel {
 //                       
                         ImageIcon imageIcon = (ImageIcon) o;
                         int rowHeight = jtable.getRowHeight();
-                        Image img = imageIcon.getImage().getScaledInstance(rowHeight, rowHeight, Image.SCALE_SMOOTH);
+                        Image img = imageIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                         JLabel label = new JLabel(new ImageIcon(img));
                         label.setHorizontalAlignment(JLabel.CENTER);
                         label.setOpaque(selected);

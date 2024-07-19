@@ -45,7 +45,7 @@ public class HeaderPanel extends javax.swing.JPanel {
         headerPanel.removeAll();
         int x = 24;
         int y = 20;
-        int buttonWidth = 115;
+        int buttonWidth = 113;
         int buttonHeight = 40;
         int gap = 24;
 

@@ -37,7 +37,6 @@ public class InvoicePDF {
         document.open();
 
         String rootPath = Paths.get("").toAbsolutePath().toString();
-        System.out.println("Root path: " + rootPath);
 
         FontFactory.register(rootPath + "/src/main/java/com/app/coffee/fonts/Arial.ttf", "Arial Unicode");
         Font font = FontFactory.getFont("Arial Unicode", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);

@@ -25,7 +25,9 @@ com\app\coffee\Login\LoginAccount\SendAdmin$2.class
 com\app\coffee\employee\StaffSchedule$5.class
 com\app\coffee\menu\CardProduct$1.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin.class
+com\app\coffee\menu\MenuPanel$NumericTextFieldFocusListener.class
 com\app\coffee\employee\EmployeeManager$5.class
+com\app\coffee\menu\MenuPanel$TextFieldFocusListener.class
 com\app\coffee\Login\LoginAccount\LoginForm$3.class
 com\app\coffee\bill\DetailForm.class
 com\app\coffee\dashboard\Dashboard$8.class
@@ -39,6 +41,7 @@ com\app\coffee\bill\Bill$1.class
 com\app\coffee\Backend\Model\UsersModel.class
 com\app\coffee\Login\LoginAccount\VerifyCode$3.class
 com\app\coffee\employee\StaffSchedule$6.class
+com\app\coffee\menu\MenuPanel$TextFieldFocusListener$1.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$3.class
 com\app\coffee\category\AddCategory$3.class
 com\app\coffee\Login\LoginAccount\SendAdmin$1.class
@@ -131,6 +134,7 @@ com\app\coffee\menu\CategoryMenu.class
 com\app\coffee\dashboard\Dashboard$1.class
 com\app\coffee\Login\LoginAccount\Reset.class
 com\app\coffee\menu\MenuPanel$6.class
+com\app\coffee\virtualKeyBoard\NumericVirtualKeyBoard.class
 com\app\coffee\employee\FormAdd.class
 com\app\coffee\dashboard\DashboardPage$7.class
 com\app\coffee\employee\StaffSchedule$7.class
@@ -164,6 +168,7 @@ com\app\coffee\dashboard\AddShift$7.class
 com\app\coffee\employee\EmployeeManager$ImageRenderTest.class
 com\app\coffee\Backend\Model\OrderDetailModel.class
 com\app\coffee\employee\FormAdd$2.class
+com\app\coffee\menu\MenuPanel$NumericTextFieldFocusListener$1.class
 com\app\coffee\employee\demo$1.class
 com\app\coffee\product\ProductForm$5.class
 com\app\coffee\category\EditCategory$1.class
@@ -188,6 +193,7 @@ com\app\coffee\dashboard\Dashboard$7.class
 com\app\coffee\bill\Bill.class
 com\app\coffee\menu\CardProduct.class
 com\app\coffee\Backend\Model\ProductDetailModel.class
+com\app\coffee\virtualKeyBoard\LetterVirtualKeyBoard.class
 com\app\coffee\employee\ReturnAccount.class
 com\app\coffee\product\ProductForm$3.class
 com\app\coffee\category\CategoryForm$4.class
