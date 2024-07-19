@@ -51,6 +51,7 @@ com\app\coffee\Login\LoginAccount\VerifyCode$2.class
 com\app\coffee\menu\ProductDaoMenu.class
 com\app\coffee\category\EditCategory.class
 com\app\coffee\dashboard\AddShift$5.class
+com\app\coffee\dashboard\DashboardPage$6$1.class
 com\app\coffee\category\CategoryForm$2.class
 com\app\coffee\dashboard\Dashboard$2.class
 com\app\coffee\menu\MenuPanel$8.class
@@ -61,6 +62,7 @@ com\app\coffee\Login\LoginAccount\SendCode$2.class
 com\app\coffee\product\ProductForm$8.class
 com\app\coffee\dashboard\DashboardPage$2.class
 com\app\coffee\bill\ButtonRenderer.class
+com\app\coffee\dashboard\DashboardPage$8$1.class
 com\app\coffee\Login\LoginAccount\Reset$1.class
 com\app\coffee\employee\StaffSchedule$1.class
 com\app\coffee\dashboard\DashboardPage$5.class
@@ -78,7 +80,6 @@ com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
 com\app\coffee\menu\PrintableInvoice.class
 com\app\coffee\bill\Bill$5.class
-com\app\coffee\dashboard\DashboardPage$5$1.class
 com\app\coffee\dateformat\DateLabelFormatter.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$2.class
 com\app\coffee\menu\InvoicePDF.class
@@ -176,6 +177,7 @@ com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\employee\FormValidator.class
 com\app\coffee\employee\FormEdit$1.class
 com\app\coffee\menu\AccountDAO.class
+com\app\coffee\dashboard\DashboardPage$8.class
 com\app\coffee\employee\demo.class
 com\app\coffee\hashpassword\PasswordHash.class
 com\app\coffee\Backend\Model\OrderModel.class
@@ -218,4 +220,5 @@ com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
 com\app\coffee\menu\MenuPanel$3.class
+com\app\coffee\dashboard\DashboardPage$9.class
 com\app\coffee\employee\FormEdit$2.class

@@ -120,6 +120,7 @@ public class DashboardPage extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         AddStaff = new javax.swing.JButton();
         EndShift = new javax.swing.JButton();
+        EditShift = new javax.swing.JButton();
         PanelShift = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         StaffPanel = new javax.swing.JPanel();
@@ -262,7 +263,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
         AddStaff.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         AddStaff.setForeground(new java.awt.Color(255, 102, 0));
-        AddStaff.setText("Add");
+        AddStaff.setText("Start");
         AddStaff.setPreferredSize(new java.awt.Dimension(90, 30));
         AddStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,12 +271,23 @@ public class DashboardPage extends javax.swing.JPanel {
             }
         });
 
+        EndShift.setBackground(new java.awt.Color(255, 102, 0));
         EndShift.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        EndShift.setText("Edit");
+        EndShift.setForeground(new java.awt.Color(255, 255, 255));
+        EndShift.setText("End Shift");
         EndShift.setPreferredSize(new java.awt.Dimension(90, 30));
         EndShift.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EndShiftActionPerformed(evt);
+            }
+        });
+
+        EditShift.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        EditShift.setForeground(new java.awt.Color(51, 51, 51));
+        EditShift.setText("Edit");
+        EditShift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditShiftActionPerformed(evt);
             }
         });
 
@@ -286,9 +298,11 @@ public class DashboardPage extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(452, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(239, 239, 239)
+                .addGap(157, 157, 157)
                 .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -299,7 +313,8 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(AddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EndShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditShift, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -326,7 +341,7 @@ public class DashboardPage extends javax.swing.JPanel {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
-            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this); 
+            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this,controlId); 
             dialog.setUserName(userName);
             
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -378,6 +393,36 @@ public class DashboardPage extends javax.swing.JPanel {
         }
     }
     }//GEN-LAST:event_finishBillActionPerformed
+
+    private void EditShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditShiftActionPerformed
+         UserSession session = UserSession.getInstance();
+    int controlId = session.getControlId();
+
+    // Kiểm tra xem ca đã được tạo hay chưa
+    if (controlId == 0) {
+        JOptionPane.showMessageDialog(this, "No shift has been created yet.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Mở lại form AddShift để chỉnh sửa ca hiện tại
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
+            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this, controlId); // Truyền controlId hiện tại
+            dialog.setUserName(userName);
+
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    dialog.setVisible(false);
+                    dialog.dispose();
+                }
+            });
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+        }
+    });
+    }//GEN-LAST:event_EditShiftActionPerformed
  
     private void showDetailForm(int orderId) {
     OrderModel orderModel = BillDAO.getOrderById(orderId);
@@ -473,6 +518,7 @@ public class DashboardPage extends javax.swing.JPanel {
       }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddStaff;
+    private javax.swing.JButton EditShift;
     private javax.swing.JButton EndShift;
     private javax.swing.JLabel Money_Month;
     private javax.swing.JLabel Money_day;

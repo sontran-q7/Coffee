@@ -41,7 +41,7 @@ import javax.swing.table.DefaultTableModel;
  * @author anhson
  */
 public class AddShift extends javax.swing.JDialog {
-
+      private int controlId;
     private String userName;
     public static final int RET_CANCEL = 0;
     public static final int RET_OK = 1;
@@ -64,34 +64,40 @@ public class AddShift extends javax.swing.JDialog {
     /**
      * Creates new form ListStaff
      */
-    public AddShift(java.awt.Frame parent, boolean modal, DashboardPage dashboardPage) {
-        super(parent, modal);
-        initComponents();
-        this.dashboardPage = dashboardPage;
-        initShiftMap();
-        updateCheckInTimeLabel();
-        loadBoxShift();
-        GetList();
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        ListName.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        ListName.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        ListName.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        ListName.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
-        // ImageRenderer 
-        ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
-
-        String cancelName = "cancel";
-        InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
-        ActionMap actionMap = getRootPane().getActionMap();
-        actionMap.put(cancelName, new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-                doClose(RET_CANCEL);
-            }
-        });
+   public AddShift(java.awt.Frame parent, boolean modal, DashboardPage dashboardPage, int controlId) {
+    super(parent, modal);
+    initComponents();
+    this.dashboardPage = dashboardPage;
+    this.controlId = controlId;
+    initShiftMap();
+    loadBoxShift();
+    
+    if (controlId != 0) {
+        loadShiftData(controlId); // Tải dữ liệu ca để chỉnh sửa
+    } else {
+        updateCheckInTimeLabel(); // Cập nhật thời gian check-in mới nếu tạo ca mới
     }
+    GetList();
+
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+    ListName.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+    ListName.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+    ListName.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+    ListName.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+    // ImageRenderer 
+    ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+
+    String cancelName = "cancel";
+    InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), cancelName);
+    ActionMap actionMap = getRootPane().getActionMap();
+    actionMap.put(cancelName, new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            doClose(RET_CANCEL);
+        }
+    });
+}
 
     public class ImageRenderer extends DefaultTableCellRenderer {
 
@@ -336,9 +342,9 @@ public class AddShift extends javax.swing.JDialog {
         }
     }
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-         Float checkInPay = validateCheckInPay();
+       Float checkInPay = validateCheckInPay();
     if (checkInPay == null) {
-        return; 
+        return;
     }
     String selectedShift = (String) BoxShift.getSelectedItem();
     Integer workingTimeId = shiftMap.get(selectedShift);
@@ -356,30 +362,45 @@ public class AddShift extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Unable to retrieve Account ID", "ERROR", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    // create shifft and save controlId 
-    int controlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
-    if (controlId != 0) {
-        UserSession.getInstance().setControlId(controlId);
-        int[] selectedRows = ListName.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel) ListName.getModel();
-        ArrayList<String[]> selectedData = new ArrayList<>();
-        for (int row : selectedRows) {
-            int columnCount = model.getColumnCount();
-            String[] rowData = new String[columnCount];
-            for (int column = 0; column < columnCount; column++) {
-                rowData[column] = model.getValueAt(row, column).toString();
-            }
-            selectedData.add(rowData);
-        }
-        if (dashboardPage != null) {
-            dashboardPage.updateStaffPanel(selectedData);
-        } else {
-            System.out.println("DashboardPage reference is null");
-        }
 
-        JOptionPane.showMessageDialog(this, "Shift successfully created.", "NFORMATION", JOptionPane.INFORMATION_MESSAGE);
+    // Khởi tạo selectedData
+    int[] selectedRows = ListName.getSelectedRows();
+    DefaultTableModel model = (DefaultTableModel) ListName.getModel();
+    ArrayList<String[]> selectedData = new ArrayList<>();
+    for (int row : selectedRows) {
+        int columnCount = model.getColumnCount();
+        String[] rowData = new String[columnCount];
+        for (int column = 0; column < columnCount; column++) {
+            rowData[column] = model.getValueAt(row, column).toString();
+        }
+        selectedData.add(rowData);
+    }
+
+    if (controlId == 0) {
+        // Tạo ca mới
+        int newControlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId);
+        if (newControlId != 0) {
+            UserSession.getInstance().setControlId(newControlId);
+            // Cập nhật bảng điều khiển nếu cần thiết
+            if (dashboardPage != null) {
+                dashboardPage.updateStaffPanel(selectedData);
+            }
+            JOptionPane.showMessageDialog(this, "Shift successfully created.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     } else {
-        JOptionPane.showMessageDialog(this, "Unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        // Cập nhật ca hiện tại
+        boolean success = ControlDAO.updateControl(controlId, workingTimeId, checkInPay);
+        if (success) {
+            // Cập nhật bảng điều khiển nếu cần thiết
+            if (dashboardPage != null) {
+                dashboardPage.updateStaffPanel(selectedData);
+            }
+            JOptionPane.showMessageDialog(this, "Shift successfully updated.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Update unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     doClose(RET_OK);
@@ -467,28 +488,83 @@ public class AddShift extends javax.swing.JDialog {
         ListName.setRowHeight(60);
         ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
     }
+    
+    private void loadShiftData(int controlId) {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    try {
+        conn = ConnectionCoffee.getConnection();
+        String query = "SELECT * FROM control WHERE control_id = ?";
+        ps = conn.prepareStatement(query);
+        ps.setInt(1, controlId);
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int workingTimeId = rs.getInt("working_time_id");
+            float checkInPay = rs.getFloat("check_in_pay");
+            String checkInTime = rs.getString("check_in");
+
+            // Set data to UI components
+            BoxShift.setSelectedItem(getShiftNameById(workingTimeId));
+            InPayField.setText(String.valueOf(checkInPay));
+            CheckInTime.setText(checkInTime);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            ConnectionCoffee.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+private String getShiftNameById(int workingTimeId) {
+    for (String shiftName : shiftMap.keySet()) {
+        if (shiftMap.get(shiftName) == workingTimeId) {
+            return shiftName;
+        }
+    }
+    return null;
+}
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JFrame parentFrame = new JFrame();
-                DashboardPage dashboardPage = new DashboardPage();
-                parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                parentFrame.setSize(1350, 740);
-                parentFrame.add(dashboardPage);
-                parentFrame.setVisible(true);
+         java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            JFrame parentFrame = new JFrame();
+            DashboardPage dashboardPage = new DashboardPage();
+            parentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            parentFrame.setSize(1350, 740);
+            parentFrame.add(dashboardPage);
+            parentFrame.setVisible(true);
 
-                AddShift dialog = new AddShift(parentFrame, true, dashboardPage);
-                dialog.setUserName(UserSession.getInstance().getUserName());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+            UserSession session = UserSession.getInstance();
+            int controlId = session.getControlId();
+
+            AddShift dialog;
+            if (controlId == 0) {
+                // Mở form AddShift để tạo ca mới
+                dialog = new AddShift(parentFrame, true, dashboardPage, 0); // 0 là giá trị mặc định cho ca mới
+            } else {
+                // Mở form AddShift để chỉnh sửa ca hiện tại
+                dialog = new AddShift(parentFrame, true, dashboardPage, controlId);
             }
-        });
+
+            dialog.setUserName(session.getUserName());
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
+        }
+    });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> BoxShift;

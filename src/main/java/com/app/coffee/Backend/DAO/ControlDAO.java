@@ -52,4 +52,19 @@ public class ControlDAO {
         }
         return controlId;
     }
+    
+      public static boolean updateControl(int controlId, int workingTimeId, float checkInPay) {
+        String query = "UPDATE control SET working_time_id = ?, check_in_pay = ? WHERE control_id = ?";
+        try (Connection conn = ConnectionCoffee.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, workingTimeId);
+            ps.setFloat(2, checkInPay);
+            ps.setInt(3, controlId);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
