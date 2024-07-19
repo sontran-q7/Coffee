@@ -10,17 +10,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class ControlDAO {
-    public static void updateControl(int controlId, float checkOutPay) {
-        String query = "UPDATE control SET check_out_pay = ? WHERE control_id = ?";
-        try (Connection conn = ConnectionCoffee.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setFloat(1, checkOutPay);
-            pstmt.setInt(2, controlId);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+   public static void updateControl(int controlId, float checkOutPay, String checkOutTime) {
+    String sql = "UPDATE control SET check_out_pay = ?, check_out = ? WHERE control_id = ?";
+    try (Connection conn = ConnectionCoffee.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setFloat(1, checkOutPay);
+        pstmt.setString(2, checkOutTime);
+        pstmt.setInt(3, controlId);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
+
 
     public static int addControl(int workingTimeId, String checkIn, String checkOut, float checkInPay, float checkOutPay, int accountId) {
         String sql = "INSERT INTO control (working_time_id, check_in, check_out, check_in_pay, check_out_pay, account_id) VALUES (?, ?, ?, ?, ?, ?)";

@@ -345,7 +345,7 @@ public class DashboardPage extends javax.swing.JPanel {
     private void EndShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EndShiftActionPerformed
       UserSession session = UserSession.getInstance();
     int controlId = session.getControlId();
-        System.out.println("control :" + controlId);
+        
         // lỗi vì để == -1
     if (controlId == 0) {
         JOptionPane.showMessageDialog(this, "You have not created a shift yet.", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author anhso
@@ -70,9 +72,9 @@ public class EndShift extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
-
+        endLable.setText(getCurrentTime());
         fetchLatestControlData();
-         updateCheckoutPayLabel();
+        updateCheckoutPayLabel();
     }
 
     public int getReturnStatus() {
@@ -284,27 +286,30 @@ public class EndShift extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-      try {
-            byte[] pdfData = createPdf();
-            displayPdf(pdfData);
+       try {
+        byte[] pdfData = createPdf();
+        displayPdf(pdfData);
 
-            updateControlData();
-            JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        String checkOutTime = endLable.getText();
+        updateCheckOutTimeInDatabase(checkOutTime);
 
-            UserSession session = UserSession.getInstance();
-            session.setControlId(0);
-            session.setShiftEnded(true);
-            if (dashboardPage != null) {
-                dashboardPage.clearPanelShift();
-            }
-            doClose(RET_OK);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error creating PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error displaying PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        updateControlData();
+        JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+
+        UserSession session = UserSession.getInstance();
+        session.setControlId(0);
+        session.setShiftEnded(true);
+        if (dashboardPage != null) {
+            dashboardPage.clearPanelShift();
         }
+        doClose(RET_OK);
+    } catch (DocumentException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error creating PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
+    } catch (IOException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error displaying PDF.", "ERROR", JOptionPane.ERROR_MESSAGE);
+    }
     
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -326,20 +331,32 @@ public class EndShift extends javax.swing.JDialog {
     DecimalFormat df = new DecimalFormat("0.00");
     return df.format(value) + " USD";
 }
-private float parseCurrency(String value) throws NumberFormatException {
-    return Float.parseFloat(value.replace(" USD", "").trim());
-}
+    private float parseCurrency(String value) throws NumberFormatException {
+        return Float.parseFloat(value.replace(" USD", "").trim());
+    }
 
-    
-   private void updateControlData() {
-    try {
-        float checkOutPay = parseCurrency(checkoutPay.getText());
-        ControlDAO.updateControl(controlId, checkOutPay);
-    } catch (NumberFormatException e) {
+    private void updateCheckOutTimeInDatabase(String checkOutTime) {
+    String sql = "UPDATE control SET check_out = ? WHERE control_id = ?";
+    try (Connection conn = ConnectionCoffee.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, checkOutTime);
+        pstmt.setInt(2, controlId);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Invalid Check Out Pay amount.", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }
+    
+    private void updateControlData() {
+     try {
+         String checkoutTime = endLable.getText(); // Lấy thời gian checkout từ endLable
+         float checkOutPay = parseCurrency(checkoutPay.getText());
+         ControlDAO.updateControl(controlId, checkOutPay, checkoutTime); // Giả sử phương thức này cập nhật cả thời gian checkout
+     } catch (NumberFormatException e) {
+         e.printStackTrace();
+         JOptionPane.showMessageDialog(this, "Invalid Check Out Pay amount.", "ERROR", JOptionPane.ERROR_MESSAGE);
+     }
+    }
 
 
     private String getManagerName(int accountId, Connection conn) throws SQLException {
@@ -368,7 +385,7 @@ private float parseCurrency(String value) throws NumberFormatException {
         return "Unknown";
     }
 
-   private void fetchLatestControlData() {
+  private void fetchLatestControlData() {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -387,7 +404,10 @@ private float parseCurrency(String value) throws NumberFormatException {
             managerLable.setText(getManagerName(accountId, conn));
             wordTimeLable.setText(getWorkingTimeName(workingTimeId, conn));
             StartLable.setText(rs.getString("check_in"));
-            endLable.setText(rs.getString("check_out"));
+            
+            // Cập nhật endLable với thời gian hiện tại
+            endLable.setText(getCurrentTime());
+            
             checkinPay.setText(formatCurrency(rs.getFloat("check_in_pay")));
             checkoutPay.setText(formatCurrency(rs.getFloat("check_out_pay")));
 
@@ -406,11 +426,18 @@ private float parseCurrency(String value) throws NumberFormatException {
     }
 }
 
+
    private void updateCheckoutPayLabel() {
     float totalSumOfDay = BillDAO.getTotalSumOfDay();
     checkoutPay.setText(formatCurrency(totalSumOfDay));
 
     updateRevenueLabel();
+}
+
+   private String getCurrentTime() {
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    return now.format(formatter);
 }
 
 private void updateRevenueLabel() {
