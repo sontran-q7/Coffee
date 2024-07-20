@@ -353,73 +353,73 @@ public class AddShift extends javax.swing.JDialog {
     }
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         Float checkInPay = validateCheckInPay();
-        if (checkInPay == null) {
-            return;
-        }
-        String selectedShift = (String) BoxShift.getSelectedItem();
-        Integer workingTimeId = shiftMap.get(selectedShift);
-        if (workingTimeId == null) {
-            JOptionPane.showMessageDialog(this, "Invalid shift.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String checkIn = now.format(formatter);
-        String checkOut = now.format(formatter);
-        float checkOutPay = 0;
-        Integer accountId = UserSession.getInstance().getAccountId();
-        if (accountId == null) {
-            JOptionPane.showMessageDialog(this, "Unable to retrieve Account ID", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    if (checkInPay == null) {
+        return;
+    }
+    String selectedShift = (String) BoxShift.getSelectedItem();
+    Integer workingTimeId = shiftMap.get(selectedShift);
+    if (workingTimeId == null) {
+        JOptionPane.showMessageDialog(this, "Invalid shift.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String checkIn = now.format(formatter);
+    String checkOut = now.format(formatter);
+    float checkOutPay = 0; 
+    Integer accountId = UserSession.getInstance().getAccountId();
+    if (accountId == null) {
+        JOptionPane.showMessageDialog(this, "Unable to retrieve Account ID", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Khởi tạo selectedData
-        int[] selectedRows = ListName.getSelectedRows();
-        DefaultTableModel model = (DefaultTableModel) ListName.getModel();
-        ArrayList<String[]> selectedData = new ArrayList<>();
-        for (int row : selectedRows) {
-            int columnCount = model.getColumnCount();
-            String[] rowData = new String[columnCount];
-            for (int column = 0; column < columnCount; column++) {
-                rowData[column] = model.getValueAt(row, column).toString();
+    // Khởi tạo selectedData
+    int[] selectedRows = ListName.getSelectedRows();
+    DefaultTableModel model = (DefaultTableModel) ListName.getModel();
+    ArrayList<String[]> selectedData = new ArrayList<>();
+    for (int row : selectedRows) {
+        int columnCount = model.getColumnCount();
+        String[] rowData = new String[columnCount];
+        for (int column = 0; column < columnCount; column++) {
+            rowData[column] = model.getValueAt(row, column).toString();
+        }
+        selectedData.add(rowData);
+        selectedStaffNamesList.add(rowData[2]); // Add to selected list
+    }
+
+    if (selectedData.isEmpty() && controlId == 0) {
+        JOptionPane.showMessageDialog(this, "Please select at least one staff member.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String selectedStaffNames = String.join(", ", selectedStaffNamesList); // Get selected staff names
+
+    if (controlId == 0) {
+        // Tạo ca mới
+        int newControlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId, selectedStaffNames);
+        if (newControlId != 0) {
+            UserSession.getInstance().setControlId(newControlId);
+            if (dashboardPage != null) {
+                dashboardPage.updateStaffPanel(selectedData);
             }
-            selectedData.add(rowData);
-            selectedStaffNamesList.add(rowData[2]); // Add to selected list
-        }
-
-        if (selectedData.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select at least one staff member.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String selectedStaffNames = String.join(", ", selectedStaffNamesList); // Get selected staff names
-
-        if (controlId == 0) {
-            // Tạo ca mới
-            int newControlId = ControlDAO.addControl(workingTimeId, checkIn, checkOut, checkInPay, checkOutPay, accountId, selectedStaffNames);
-            if (newControlId != 0) {
-                UserSession.getInstance().setControlId(newControlId);
-                if (dashboardPage != null) {
-                    dashboardPage.updateStaffPanel(selectedData);
-                }
-                JOptionPane.showMessageDialog(this, "Shift successfully created.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Shift successfully created.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // Cập nhật ca hiện tại
-            boolean success = ControlDAO.updateControl(controlId, workingTimeId, checkInPay, selectedStaffNames);
-            if (success) {
-                if (dashboardPage != null) {
-                    dashboardPage.updateStaffPanel(selectedData);
-                }
-                JOptionPane.showMessageDialog(this, "Shift successfully updated.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Update unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        // Cập nhật ca hiện tại
+        boolean success = ControlDAO.updateControl(controlId, workingTimeId, checkInPay, selectedStaffNames);
+        if (success) {
+            if (dashboardPage != null) {
+                dashboardPage.updateStaffPanel(selectedData);
+            }
+            JOptionPane.showMessageDialog(this, "Shift successfully updated.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Update unsuccessful.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-        doClose(RET_OK);
+    doClose(RET_OK);
 
     }//GEN-LAST:event_okButtonActionPerformed
 

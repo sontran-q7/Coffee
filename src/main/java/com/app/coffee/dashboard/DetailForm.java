@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class DetailForm extends javax.swing.JPanel {
     private DefaultTableModel tableModel;
-      
+    
+    
     /**
      * Creates new form DetailForm
      */
@@ -32,6 +33,7 @@ public class DetailForm extends javax.swing.JPanel {
     }
     
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labelUserName2 = new java.awt.Label();
@@ -114,24 +116,24 @@ public class DetailForm extends javax.swing.JPanel {
 
         OrderTable.setViewportView(jScrollPane1);
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Total:");
 
-        labelID.setFont(new java.awt.Font("Segoe UI", 3, 18));
+        labelID.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         labelID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 140, 140)));
 
         Total.setBackground(new java.awt.Color(255, 255, 255));
-        Total.setFont(new java.awt.Font("Segoe UI", 3, 18)); 
+        Total.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         Total.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 140, 140)));
 
-        labelUserName1.setFont(new java.awt.Font("Segoe UI", 3, 14)); 
+        labelUserName1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelUserName1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 140, 140)));
 
-        labelTableNumber.setFont(new java.awt.Font("Segoe UI", 3, 14)); 
+        labelTableNumber.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelTableNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 140, 140)));
 
-        labelDay.setFont(new java.awt.Font("Segoe UI", 3, 14)); 
+        labelDay.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelDay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(140, 140, 140)));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -255,17 +257,15 @@ public class DetailForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    public void updateDetails(OrderModel orderModel) {
+   public void updateDetails(OrderModel orderModel) {
         labelID.setText(" " + orderModel.getOrder_id());
         labelUserName1.setText(" " + orderModel.getUsername());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
         String formattedDate = orderModel.getDay().format(formatter);
         Total.setText(" " + orderModel.getTotal());
         labelDay.setText(formattedDate);
-        labelTableNumber.setText(" " + orderModel.getTable_number());
-
         tableModel.setRowCount(0);
         for (OrderDetailModel orderDetail : orderModel.getOrderDetails()) {
             for (ProductDetailModel productDetail : orderDetail.getProductDetails()) {
@@ -277,9 +277,10 @@ public class DetailForm extends javax.swing.JPanel {
                 };
                 tableModel.addRow(rowData);
             }
+            labelTableNumber.setText(" " + orderDetail.getTable_number());
         }
     }
-
+    
     private void setCellRenderer(JTable table) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -288,7 +289,9 @@ public class DetailForm extends javax.swing.JPanel {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+    
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane OrderTable;
     private javax.swing.JLabel Total;
     private javax.swing.JLabel jLabel12;
@@ -307,6 +310,7 @@ public class DetailForm extends javax.swing.JPanel {
     private javax.swing.JLabel labelTableNumber;
     private javax.swing.JLabel labelUserName1;
     private java.awt.Label labelUserName2;
- 
+    // End of variables declaration//GEN-END:variables
+   
 }
 
