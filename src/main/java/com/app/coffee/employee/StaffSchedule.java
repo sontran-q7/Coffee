@@ -48,7 +48,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        GetList();
+        filterByDate(LocalDate.now());
         SetColumn();
         
         JTableHeader header = table.getTableHeader();
@@ -63,18 +63,24 @@ public class StaffSchedule extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 Date startDate = jDateChooser1.getDate();
                 Date endDate = jDateChooser.getDate();
+                String selectedName = (String) jComboBox1.getSelectedItem();
                 if (startDate != null && endDate != null) {
                     LocalDate localStartDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    filterByDateRange(localStartDate, localEndDate);
+                    filterByDateRangeAndName(localStartDate, localEndDate, selectedName);
                 }
             }
-        });
+            });
         
         SearchToday.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                filterByDate(LocalDate.now());
+                String selectedName = (String) jComboBox1.getSelectedItem();
+                if ("All".equals(selectedName)) {
+                    filterByDateAndName(LocalDate.now(), "All");
+                } else {
+                    filterByDateAndName(LocalDate.now(), selectedName);
+                }
             }
         });
         
@@ -113,7 +119,7 @@ public class StaffSchedule extends javax.swing.JPanel {
     }
     
     public void refresh(){
-        GetList();
+        filterByDate(LocalDate.now());
     }
     
     public void GetList() {
@@ -163,6 +169,7 @@ public class StaffSchedule extends javax.swing.JPanel {
                 });
             }
         }
+        updateFindNameComboBox(controlService.getAllControls());
         updateTotal();
     }
     
@@ -193,10 +200,45 @@ public class StaffSchedule extends javax.swing.JPanel {
         updateTotal();
     }
     
+    private void filterByDateRangeAndName(LocalDate startDate, LocalDate endDate, String name) {
+        List<ControlModel> controlList = controlService.getControlsByDateRange(startDate, endDate);
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        int count = 1;
+
+        for (ControlModel control : controlList) {
+            LocalDate createdAt = control.getCreatedAt().toLocalDate();
+            if ((createdAt.isEqual(startDate) || createdAt.isAfter(startDate)) &&
+                (createdAt.isEqual(endDate) || createdAt.isBefore(endDate)) &&
+                ("All".equals(name) || control.getAccount().getUserName().equals(name))) {
+                double totalDifference = control.getCheckOutPay() - control.getCheckInPay();
+                model.addRow(new Object[]{
+                    count++,
+                    control.getWorkingTime().getName(),
+                    control.getAccount().getUserName(),
+                    control.getCheckIn().toLocalTime().format(timeFormatter),
+                    control.getCheckOut().toLocalTime().format(timeFormatter),
+                    control.getCheckInPay(),
+                    control.getCheckOutPay(),
+                    totalDifference,
+                    control.getCreatedAt().format(dateFormatter)
+                });
+            }
+        }
+        updateTotal();
+    }
+
+    
     private void filterByCurrentMonth() {
         LocalDate firstDayOfMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
         LocalDate lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
-        filterByDateRange(firstDayOfMonth, lastDayOfMonth);
+        filterByDateRangeAndName(firstDayOfMonth, lastDayOfMonth, "All");
+    }
+
+    private void filterByCurrentMonthAndName(String name) {
+        LocalDate firstDayOfMonth = LocalDate.now().with(TemporalAdjusters.firstDayOfMonth());
+        LocalDate lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+        filterByDateRangeAndName(firstDayOfMonth, lastDayOfMonth, name);
     }
     
     private void filterByDateAndName(LocalDate date, String name) {
@@ -206,19 +248,19 @@ public class StaffSchedule extends javax.swing.JPanel {
         int count = 1;
 
         for (ControlModel control : controlList) {
-            if (control.getCreatedAt().toLocalDate().equals(date) && 
-                (name == null || control.getAccount().getUserName().equals(name))) {
+            if (control.getCreatedAt().toLocalDate().equals(date) &&
+                    ("All".equals(name) || control.getAccount().getUserName().equals(name))) {
                 double totalDifference = control.getCheckOutPay() - control.getCheckInPay();
                 model.addRow(new Object[]{
-                    count++,
-                    control.getWorkingTime().getName(),
-                    control.getAccount().getUserName(),
-                    control.getCheckIn().format(timeFormatter),
-                    control.getCheckOut().format(timeFormatter),
-                    control.getCheckInPay(),
-                    control.getCheckOutPay(),
-                    totalDifference,
-                    control.getCreatedAt().format(dateFormatter)
+                        count++,
+                        control.getWorkingTime().getName(),
+                        control.getAccount().getUserName(),
+                        control.getCheckIn().format(timeFormatter),
+                        control.getCheckOut().format(timeFormatter),
+                        control.getCheckInPay(),
+                        control.getCheckOutPay(),
+                        totalDifference,
+                        control.getCreatedAt().format(dateFormatter)
                 });
             }
         }
@@ -275,7 +317,7 @@ public class StaffSchedule extends javax.swing.JPanel {
             total += value;
         }
 
-        countTotal.setText(String.valueOf(total));
+        //countTotal.setText(String.valueOf(total));
     }
 
     private void setDefTable() {
@@ -313,8 +355,6 @@ public class StaffSchedule extends javax.swing.JPanel {
         SearchToday = new javax.swing.JButton();
         ShowMonth = new javax.swing.JButton();
         Show = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        countTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -342,7 +382,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Staff Schedule");
+        jLabel2.setText("Lock Schedule");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -351,7 +391,7 @@ public class StaffSchedule extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jLabel2)
-                .addContainerGap(1345, Short.MAX_VALUE))
+                .addContainerGap(1349, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +402,9 @@ public class StaffSchedule extends javax.swing.JPanel {
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel3.setText("Staff Table:");
+        jLabel3.setText("Lock Table:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0" }));
 
         BackManager.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BackManager.setForeground(new java.awt.Color(255, 102, 0));
@@ -412,16 +452,6 @@ public class StaffSchedule extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Total:");
-
-        countTotal.setEditable(false);
-        countTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                countTotalActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -447,12 +477,7 @@ public class StaffSchedule extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ShowMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Show, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(countTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Show, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -472,15 +497,11 @@ public class StaffSchedule extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Search, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(jDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(150, 150, 150))
+                .addContainerGap(417, Short.MAX_VALUE))
         );
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel6.setText("Staff Form:");
+        jLabel6.setText("Lock Form:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -535,12 +556,10 @@ public class StaffSchedule extends javax.swing.JPanel {
     }//GEN-LAST:event_ShowActionPerformed
 
     private void ShowMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowMonthActionPerformed
-        filterByCurrentMonth();
+        String selectedName = (String) jComboBox1.getSelectedItem();
+        System.out.println("Selected name: " + selectedName); // Debugging line
+        filterByCurrentMonthAndName(selectedName);
     }//GEN-LAST:event_ShowMonthActionPerformed
-
-    private void countTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_countTotalActionPerformed
     
     
     private void backEmployeePanel() {
@@ -560,11 +579,9 @@ public class StaffSchedule extends javax.swing.JPanel {
     private javax.swing.JButton SearchToday;
     private javax.swing.JButton Show;
     private javax.swing.JButton ShowMonth;
-    private javax.swing.JTextField countTotal;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
