@@ -6,10 +6,15 @@ package com.app.coffee.Login.LoginAccount;
 
 import com.app.coffee.Login.CustomDialog;
 import com.app.coffee.Login.LoginAccount.Reset;
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
@@ -26,6 +31,9 @@ public class VerifyCode extends javax.swing.JPanel {
     private SendCode sendCode;
     private Timer timer;
     private int countdownTime;
+    private LetterVirtualKeyBoard virtualKeyboard;
+    private JDialog keyboardDialog;
+    private int remainingTime;
     
     /**
      * Creates new form VerifyCode
@@ -39,6 +47,18 @@ public class VerifyCode extends javax.swing.JPanel {
         this.verifyCodePanel = this;
         this.isCodeValid = true;
         this.sendCode = sendCode;
+        
+        virtualKeyboard = new LetterVirtualKeyBoard();
+        keyboardDialog = new JDialog((java.awt.Frame) SwingUtilities.getWindowAncestor(this), "Virtual Keyboard", true);
+        keyboardDialog.add(virtualKeyboard);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
+        
+        txtVer.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(txtVer);
+            }
+        });
     }
 
     /**
@@ -200,6 +220,11 @@ public class VerifyCode extends javax.swing.JPanel {
     private void Refresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refresh
     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
        if (frame != null) {
+            if (remainingTime > 0) {
+                setSecondsLabelText(remainingTime + "(s)");
+                new CustomDialog(null, "Error", " seconds before requesting a new code. " +  remainingTime);
+                return;
+            }
            frame.getContentPane().removeAll();
            VerifyCode newVerifyCodePanel = new VerifyCode(generateRandomCode(), email);
            if (newVerifyCodePanel.sendCode == null) {
@@ -217,6 +242,7 @@ public class VerifyCode extends javax.swing.JPanel {
            if (newVerifyCodePanel.countdownTime == 0) {
                 newVerifyCodePanel.isCodeValid = false;
             }
+           remainingTime = newVerifyCodePanel.countdownTime;
        } else {
            new CustomDialog(null, "Error", "VerifyCode panel doesn't exist.");
        }
@@ -252,7 +278,6 @@ public class VerifyCode extends javax.swing.JPanel {
                 @Override
                 public void run() {
                     Seconds.setText(seconds + "(s)");
-                    System.out.println("tututut");
                 }
             });
 
@@ -271,6 +296,7 @@ public class VerifyCode extends javax.swing.JPanel {
                 if (timeRemaining > 0) {
                     timeRemaining--;
                     setSecondsLabelText(timeRemaining + "(s)");
+                    remainingTime = timeRemaining;
                 } else {
                     timer.stop();
                     isCodeValid = false;
@@ -284,7 +310,12 @@ public class VerifyCode extends javax.swing.JPanel {
     Seconds.setText(text);
 }
    
-   
+   private void showVirtualKeyboard(JTextField textField) {
+        virtualKeyboard.setText(textField.getText());
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        textField.setText(virtualKeyboard.getSavedText());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
     private javax.swing.JButton Refresh;

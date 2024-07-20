@@ -34,6 +34,10 @@ import javax.swing.JSeparator;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import com.app.coffee.Login.LoginAccount.VerifyCode; 
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JDialog;
 
 /**
  *
@@ -45,12 +49,24 @@ public class SendCode extends JPanel {
     private int randomCode;
     private VerifyCode verifyCodePanel;
     private Timer timer;
+    private LetterVirtualKeyBoard virtualKeyboard;
+    private JDialog keyboardDialog;
     /**
      * Creates new form ForgotPasswordForm
      */
     public SendCode() {
         initComponents();
+        virtualKeyboard = new LetterVirtualKeyBoard();
+        keyboardDialog = new JDialog((java.awt.Frame) SwingUtilities.getWindowAncestor(this), "Virtual Keyboard", true);
+        keyboardDialog.add(virtualKeyboard);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
         
+        EnterEmail.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(EnterEmail);
+            }
+        });
     }
 
     /**
@@ -315,6 +331,12 @@ public class SendCode extends JPanel {
         }
     }
     
+    private void showVirtualKeyboard(JTextField textField) {
+        virtualKeyboard.setText(textField.getText());
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        textField.setText(virtualKeyboard.getSavedText());
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
