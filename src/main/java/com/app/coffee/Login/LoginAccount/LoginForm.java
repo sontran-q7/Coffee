@@ -17,14 +17,19 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.app.coffee.dashboard.*;
 import com.app.coffee.hashpassword.PasswordHash;
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
 import java.awt.Component;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
@@ -36,6 +41,8 @@ public class LoginForm extends javax.swing.JFrame {
     private final UserController userController;
     private UsersModel user;
     private  Dashboard dashboard;
+    private LetterVirtualKeyBoard virtualKeyboard;
+    private JDialog keyboardDialog;
     
 //    private final VirtualKeyboard virtualKeyboard;
 
@@ -50,6 +57,24 @@ public class LoginForm extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         setResizable(true);
+        
+        virtualKeyboard = new LetterVirtualKeyBoard();
+        keyboardDialog = new JDialog(this, "Virtual Keyboard", true);
+        keyboardDialog.add(virtualKeyboard);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
+
+        jTextField1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(jTextField1);
+            }
+        });
+
+        jPasswordField1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(jPasswordField1);
+            }
+        });
 }
    
     /**
@@ -290,6 +315,22 @@ public class LoginForm extends javax.swing.JFrame {
          dashboard.setUserName(userName, roleId,ControlId);
         dashboard.setVisible(true);
     }
+    
+    private void showVirtualKeyboard(JTextField textField1) {
+        virtualKeyboard.setText(textField1.getText());
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        textField1.setText(virtualKeyboard.getSavedText());
+    }
+
+    private void showVirtualKeyboard(JPasswordField passwordField) {
+        virtualKeyboard.setText(new String(passwordField.getPassword()));
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        passwordField.setText(virtualKeyboard.getSavedText());
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

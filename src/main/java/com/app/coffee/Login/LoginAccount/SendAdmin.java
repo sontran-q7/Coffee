@@ -6,9 +6,12 @@ package com.app.coffee.Login.LoginAccount;
 
 import com.app.coffee.Login.CustomDialog;
 import com.app.coffee.Login.LoginAccount.Reset;
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,6 +29,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -42,13 +46,25 @@ public class SendAdmin extends javax.swing.JPanel {
     private Timer timer;
     boolean isCodeValid = false;
     private String email;
+    private LetterVirtualKeyBoard virtualKeyboard;
+    private JDialog keyboardDialog;
     
     /**
      * Creates new form SendAdmin
      */
     public SendAdmin() {
         initComponents();
+        virtualKeyboard = new LetterVirtualKeyBoard();
+        keyboardDialog = new JDialog((java.awt.Frame) SwingUtilities.getWindowAncestor(this), "Virtual Keyboard", true);
+        keyboardDialog.add(virtualKeyboard);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
         
+        EnterEmail.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(EnterEmail);
+            }
+        });
     }
 
     /**
@@ -144,7 +160,7 @@ public class SendAdmin extends javax.swing.JPanel {
             if (email.isEmpty()) {
                 new CustomDialog(null, "Error", "Email field is empty.");
                 return;
-            }
+            }                        
             
             Random rand = new Random();
             randomCode = rand.nextInt(999999);
@@ -282,6 +298,12 @@ public class SendAdmin extends javax.swing.JPanel {
         timer.start();
     }
     
+    private void showVirtualKeyboard(JTextField textField) {
+        virtualKeyboard.setText(textField.getText());
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        textField.setText(virtualKeyboard.getSavedText());
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EnterEmail;

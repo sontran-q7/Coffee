@@ -77,17 +77,17 @@ public class Bill extends javax.swing.JPanel {
         tableBill.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tableBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Order", "Description", "Total", "Day", "Detail"
+                "No", "Order", "Name", "Description", "Total", "Day", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -99,10 +99,9 @@ public class Bill extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tableBill);
         if (tableBill.getColumnModel().getColumnCount() > 0) {
             tableBill.getColumnModel().getColumn(0).setPreferredWidth(10);
-            tableBill.getColumnModel().getColumn(2).setResizable(false);
-            tableBill.getColumnModel().getColumn(2).setPreferredWidth(500);
-            tableBill.getColumnModel().getColumn(4).setPreferredWidth(100);
-            tableBill.getColumnModel().getColumn(5).setPreferredWidth(5);
+            tableBill.getColumnModel().getColumn(3).setPreferredWidth(400);
+            tableBill.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tableBill.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -338,7 +337,7 @@ public class Bill extends javax.swing.JPanel {
     
     DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
     defaultTableModel.setRowCount(0);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
     JButton button = new JButton("Detail");
     totalBillValue = 0.0;
     int index = 1;
@@ -348,6 +347,7 @@ public class Bill extends javax.swing.JPanel {
                 Object[] row = {
                     index,
                     order.getOrder_id(),
+                    order.getUsername(),
                     order.getDescription(),
                     order.getTotal(),
                     order.getDay().format(formatter),
@@ -360,8 +360,8 @@ public class Bill extends javax.swing.JPanel {
         }
     }
 
-    tableBill.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
-    tableBill.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+    tableBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+    tableBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
     TotalBill.setText(" "+String.valueOf(totalBillValue));
 }
     
@@ -380,6 +380,7 @@ public class Bill extends javax.swing.JPanel {
             Object[] row = {
                 index ,
                 list.getOrder_id(),
+                list.getUsername(),
                 list.getDescription(),
                 list.getTotal(),
                 list.getDay().format(formatter),
@@ -389,9 +390,9 @@ public class Bill extends javax.swing.JPanel {
             totalBillValue += list.getTotal();
             index++;
         }
-        tableBill.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        tableBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
 
-        tableBill.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+        tableBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
         TotalBill.setText(" "+String.valueOf(totalBillValue));
         
     }
@@ -416,7 +417,7 @@ public class Bill extends javax.swing.JPanel {
 
         ArrayList<OrderModel> listBill = orderDetailDAO.selectByDateRange(fromDate, toDate);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
@@ -426,6 +427,7 @@ public class Bill extends javax.swing.JPanel {
             Object[] row = {
                 index,
                 order.getOrder_id(),
+                order.getUsername(),
                 order.getDescription(),
                 order.getTotal(),
                 order.getDay().format(formatter)
@@ -441,7 +443,7 @@ public class Bill extends javax.swing.JPanel {
 
         ArrayList<OrderModel> listBill = orderDetailDAO.selectByUsernameAndDate(username,fromDate, toDate);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
@@ -451,6 +453,7 @@ public class Bill extends javax.swing.JPanel {
             Object[] row = {
                 index,
                 order.getOrder_id(),
+                order.getUsername(),
                 order.getDescription(),
                 order.getTotal(),
                 order.getDay().format(formatter)
@@ -467,7 +470,7 @@ public class Bill extends javax.swing.JPanel {
 
         ArrayList<OrderModel> listBill = orderDetailDAO.selectByUsername(userName);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);
@@ -480,6 +483,7 @@ public class Bill extends javax.swing.JPanel {
             Object[] row = {
                 index,
                 order.getOrder_id(),
+                order.getUsername(),
                 order.getDescription(),
                 order.getTotal(),
                 order.getDay().format(formatter)

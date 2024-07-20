@@ -194,7 +194,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     public ArrayList<OrderModel> selectByUsernameAndDate(String username, LocalDateTime fromDate, LocalDateTime toDate) {
     ArrayList<OrderModel> list = new ArrayList<>();
     try (Connection conn = ConnectionCoffee.getConnection()) {
-        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
+        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at, a.username " +
              "FROM orders o " +
              "LEFT JOIN account a ON o.account_id = a.account_id " +
              "WHERE a.username = ? AND o.created_at >= ? AND o.created_at <= ?";
@@ -209,6 +209,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
                     orderModel.setOrder_id(rs.getInt("order_id"));
                     orderModel.setTotal(rs.getFloat("total"));
                     orderModel.setDescription(rs.getString("order_description"));
+                    orderModel.setUsername(rs.getString("username")); // Thêm dòng này để lấy giá trị `username`
                     Timestamp timestamp = rs.getTimestamp("created_at");
                     if (timestamp != null) {
                         orderModel.setDay(timestamp.toLocalDateTime());
@@ -223,11 +224,12 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
     }
     return list;
 }
+
     
     public ArrayList<OrderModel> selectByUsername(String username) {
     ArrayList<OrderModel> list = new ArrayList<>();
     try (Connection conn = ConnectionCoffee.getConnection()) {
-        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at " +
+        String sql = "SELECT o.order_id, o.total, o.description AS order_description, o.created_at, a.username " +
                      "FROM orders o " +
                      "LEFT JOIN account a ON o.account_id = a.account_id " +
                      "WHERE a.username = ?";
@@ -241,6 +243,7 @@ public class OrderDetailDAO implements DAOInterface<OrderDetailModel>{
                     orderModel.setOrder_id(rs.getInt("order_id"));
                     orderModel.setTotal(rs.getFloat("total"));
                     orderModel.setDescription(rs.getString("order_description"));
+                    orderModel.setUsername(rs.getString("username")); 
                     Timestamp timestamp = rs.getTimestamp("created_at");
                     if (timestamp != null) {
                         orderModel.setDay(timestamp.toLocalDateTime());

@@ -6,11 +6,15 @@ package com.app.coffee.Login.LoginAccount;
 
 import com.app.coffee.Database.PasswordUtils;
 import com.app.coffee.Login.CustomDialog;
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
 import java.awt.Window;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,6 +28,8 @@ import javax.swing.JTextField;
  */
 public class Reset extends JPanel  {
     private String user;
+    private LetterVirtualKeyBoard virtualKeyboard;
+    private JDialog keyboardDialog;
     /**
      * Creates new form Reset
      */
@@ -33,6 +39,24 @@ public class Reset extends JPanel  {
     public Reset(String email){
         this.user = email;
         initComponents();
+        
+        virtualKeyboard = new LetterVirtualKeyBoard();
+        keyboardDialog = new JDialog((java.awt.Frame) SwingUtilities.getWindowAncestor(this), "Virtual Keyboard", true);
+        keyboardDialog.add(virtualKeyboard);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
+        
+        TxtResetPassword.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(TxtResetPassword);
+            }
+        });
+
+        TxtVerResetPassword.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(TxtVerResetPassword);
+            }
+        });
     }
 
     /**
@@ -180,6 +204,20 @@ public class Reset extends JPanel  {
         if (window != null) {
             window.dispose();
         }
+    }
+    
+     private void showVirtualKeyboard(JPasswordField passwordField) {
+        virtualKeyboard.setText(new String(passwordField.getPassword()));
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        passwordField.setText(virtualKeyboard.getSavedText());
+    }
+
+    private void showVirtualKeyboard(JTextField textField) {
+        virtualKeyboard.setText(textField.getText());
+        virtualKeyboard.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        textField.setText(virtualKeyboard.getSavedText());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField TxtResetPassword;

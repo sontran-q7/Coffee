@@ -33,7 +33,6 @@ com\app\coffee\bill\DetailForm.class
 com\app\coffee\dashboard\Dashboard$8.class
 com\app\coffee\employee\ReturnAccount$4.class
 com\app\coffee\menu\OrderDetailProduct.class
-com\app\coffee\Login\LoginAccount\SendCode$5$1.class
 com\app\coffee\product\ProductForm$6.class
 com\app\coffee\product\ProductDetail.class
 com\app\coffee\product\EditProduct$2.class
@@ -41,6 +40,7 @@ com\app\coffee\bill\Bill$1.class
 com\app\coffee\Backend\Model\UsersModel.class
 com\app\coffee\Login\LoginAccount\VerifyCode$3.class
 com\app\coffee\employee\StaffSchedule$6.class
+com\app\coffee\product\AddProductDetail$3.class
 com\app\coffee\menu\MenuPanel$TextFieldFocusListener$1.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$3.class
 com\app\coffee\category\AddCategory$3.class
@@ -73,7 +73,7 @@ com\app\coffee\dashboard\AddShift$ImageRenderer.class
 com\app\coffee\product\Product.class
 com\app\coffee\menu\InvoiceDAO.class
 com\app\coffee\dashboard\AddShift$4.class
-com\app\coffee\dashboard\AddShift$CustomRenderer.class
+com\app\coffee\Login\LoginAccount\RegisterAdmin$2.class
 com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
@@ -89,6 +89,7 @@ com\app\coffee\Login\CustomDialog$1.class
 com\app\coffee\dashboard\SessionData.class
 com\app\coffee\dashboard\DashboardPage$4.class
 com\app\coffee\employee\StaffSchedule$3.class
+com\app\coffee\Login\LoginAccount\LoginForm$6.class
 com\app\coffee\product\AddProductDetail$4.class
 com\app\coffee\Backend\Connect\ConnectionCoffee.class
 com\app\coffee\product\AddProduct$2.class
@@ -99,11 +100,14 @@ com\app\coffee\employee\ReturnAccount$1.class
 com\app\coffee\menu\CustomScrollBarUI.class
 com\app\coffee\bill\Bill$4.class
 com\app\coffee\employee\StaffSchedule$4.class
+com\app\coffee\Login\LoginAccount\Reset$2.class
 com\app\coffee\dashboard\DashboardPage$3.class
 com\app\coffee\employee\ReturnAccount$ImageRenderTest.class
 com\app\coffee\dashboard\AddShift$2.class
 com\app\coffee\product\EditProduct.class
+com\app\coffee\Login\LoginAccount\LoginForm$5.class
 com\app\coffee\category\AddCategory.class
+com\app\coffee\Login\LoginAccount\RegisterAdmin$3.class
 com\app\coffee\dashboard\ButtonEditor.class
 com\app\coffee\Login\LoginAccount\SendAdmin$5.class
 com\app\coffee\dashboard\Dashboard$6.class
@@ -114,9 +118,11 @@ com\app\coffee\bill\Bill$3.class
 com\app\coffee\Login\LoginAccount\RegisterAdmin$1.class
 com\app\coffee\menu\MenuPanel$1.class
 com\app\coffee\dashboard\EndShift.class
+com\app\coffee\Login\LoginAccount\SendCode$6$1.class
 com\app\coffee\Login\LoginAccount\VerifyCode.class
 com\app\coffee\dashboard\EndShift$5.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$1.class
+com\app\coffee\Backend\DAO\ControlDAO.class
 com\app\coffee\dashboard\ButtonEditor$1.class
 com\app\coffee\product\AddProductDetail.class
 com\app\coffee\product\AddProductDetail$1.class
@@ -130,6 +136,7 @@ com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\product\EditProduct$4.class
 com\app\coffee\Login\CustomDialog.class
 com\app\coffee\employee\EmployeeManager$3.class
+com\app\coffee\Login\LoginAccount\Reset$3.class
 com\app\coffee\employee\ReturnAccount$2.class
 com\app\coffee\menu\CategoryMenu.class
 com\app\coffee\dashboard\Dashboard$1.class
@@ -176,6 +183,7 @@ com\app\coffee\category\EditCategory$1.class
 com\app\coffee\menu\MenuPanel$2.class
 com\app\coffee\employee\FormValidator.class
 com\app\coffee\employee\FormEdit$1.class
+com\app\coffee\Login\LoginAccount\SendAdmin$6.class
 com\app\coffee\menu\AccountDAO.class
 com\app\coffee\dashboard\DashboardPage$8.class
 com\app\coffee\employee\demo.class
@@ -187,6 +195,7 @@ com\app\coffee\employee\StaffSchedule.class
 com\app\coffee\menu\MenuPanel$5.class
 com\app\coffee\Backend\Service\ControlService.class
 com\app\coffee\bill\ButtonEditor.class
+com\app\coffee\Login\LoginAccount\VerifyCode$7.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$5.class
 com\app\coffee\category\Category.class
 com\app\coffee\dashboard\EndShift$4.class
@@ -195,6 +204,7 @@ com\app\coffee\dashboard\Dashboard$7.class
 com\app\coffee\bill\Bill.class
 com\app\coffee\menu\CardProduct.class
 com\app\coffee\Backend\Model\ProductDetailModel.class
+com\app\coffee\Login\LoginAccount\SendCode$7.class
 com\app\coffee\virtualKeyBoard\LetterVirtualKeyBoard.class
 com\app\coffee\employee\ReturnAccount.class
 com\app\coffee\product\ProductForm$3.class
@@ -203,6 +213,7 @@ com\app\coffee\dashboard\Dashboard$4.class
 com\app\coffee\category\EditCategory$2.class
 com\app\coffee\menu\HeaderPanel$CategoryClickListener.class
 com\app\coffee\dashboard\EndShift$3.class
+com\app\coffee\Login\LoginAccount\VerifyAdmin$6.class
 com\app\coffee\employee\EmployeeManager.class
 com\app\coffee\dashboard\ButtonRenderer.class
 com\app\coffee\employee\EmployeeManager$2.class
