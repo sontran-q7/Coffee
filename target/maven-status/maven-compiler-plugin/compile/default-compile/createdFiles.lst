@@ -126,7 +126,6 @@ com\app\coffee\Login\LoginAccount\SendCode$4.class
 com\app\coffee\product\ProductForm$4.class
 com\app\coffee\category\AddCategory$1.class
 com\app\coffee\dashboard\DashboardPage$1.class
-com\app\coffee\employee\StaffSchedule$8.class
 com\app\coffee\Login\LoginAccount\UserController.class
 com\app\coffee\product\EditProduct$4.class
 com\app\coffee\Login\CustomDialog.class
