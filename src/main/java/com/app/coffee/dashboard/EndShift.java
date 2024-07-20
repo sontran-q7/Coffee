@@ -428,8 +428,10 @@ public class EndShift extends javax.swing.JDialog {
 
 
    private void updateCheckoutPayLabel() {
+     float checkInPayValue = parseCurrency(checkinPay.getText()); 
     float totalSumOfDay = BillDAO.getTotalSumOfDay();
-    checkoutPay.setText(formatCurrency(totalSumOfDay));
+    float totalShift = totalSumOfDay + checkInPayValue;
+    checkoutPay.setText(formatCurrency(totalShift));
 
     updateRevenueLabel();
 }
@@ -444,7 +446,7 @@ private void updateRevenueLabel() {
     try {
         float checkInPayValue = parseCurrency(checkinPay.getText());
         float checkOutPayValue = parseCurrency(checkoutPay.getText());
-        float revenue = checkOutPayValue - checkInPayValue;
+        float revenue = (checkOutPayValue - checkInPayValue);
         revenueField.setText(formatCurrency(revenue));
     } catch (NumberFormatException e) {
         e.printStackTrace();
