@@ -73,6 +73,7 @@ com\app\coffee\dashboard\AddShift$ImageRenderer.class
 com\app\coffee\product\Product.class
 com\app\coffee\menu\InvoiceDAO.class
 com\app\coffee\dashboard\AddShift$4.class
+com\app\coffee\Login\LoginAccount\RegisterAdmin$2.class
 com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class

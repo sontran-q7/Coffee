@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 public class DashboardPage extends javax.swing.JPanel {
     public String userName;
     private int controlId;
+     private Set<String> selectedStaffNamesList;
     /**
      * Creates new form DashboardPage
      */
@@ -47,51 +49,55 @@ public class DashboardPage extends javax.swing.JPanel {
          PanelShift.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
     }
     
-     public void updateStaffPanel(ArrayList<String[]> selectedData) {
-//    PanelShift.removeAll();
+    public void updateStaffPanel(ArrayList<String[]> selectedData) {
+        if (selectedData == null) {
+            System.out.println("selectedData is null");
+            return;
+        }
+        
+       // PanelShift.removeAll();
+        for (String[] rowData : selectedData) {
+            JPanel card = new JPanel();
+            card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+            card.setPreferredSize(new java.awt.Dimension(143, 210)); 
+            card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-    for (String[] rowData : selectedData) {
-        JPanel card = new JPanel();
-        card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-        card.setPreferredSize(new java.awt.Dimension(143, 210)); 
-        card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+            JLabel imageLabel = new JLabel();
+            imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
+            card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
 
-        JLabel imageLabel = new JLabel();
-        imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
-        card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
+            JLabel nameLabelHeader = new JLabel("Name");
+            nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+            card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
 
-        JLabel nameLabelHeader = new JLabel("Name");
-        nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-        card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
+            JLabel nameLabel = new JLabel(rowData[2]);
+            nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            card.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, 20));
 
-        JLabel nameLabel = new JLabel(rowData[2]);
-        nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        card.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, 20));
+            JLabel positionLabelHeader = new JLabel("Position");
+            positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+            card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
 
-        JLabel positionLabelHeader = new JLabel("Position");
-        positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-        card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
+            JLabel positionLabel = new JLabel(rowData[3]);
+            positionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            card.add(positionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 20));
 
-        JLabel positionLabel = new JLabel(rowData[3]);
-        positionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        card.add(positionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 20));
+            JLabel phoneLabelHeader = new JLabel("Phone");
+            phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
+            card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
 
-        JLabel phoneLabelHeader = new JLabel("Phone");
-        phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
-        card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
+            JLabel phoneLabel = new JLabel(rowData[4]);
+            phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
 
-        JLabel phoneLabel = new JLabel(rowData[4]);
-        phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
-
-        PanelShift.add(card);
-    }
-//    PanelShift.revalidate();
-//    PanelShift.repaint();
+            PanelShift.add(card);
+        }
+       // PanelShift.revalidate();
+       // PanelShift.repaint();
 }
 
      public void clearPanelShift() {

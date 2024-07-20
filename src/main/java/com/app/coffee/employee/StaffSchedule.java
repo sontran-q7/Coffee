@@ -48,7 +48,8 @@ public class StaffSchedule extends javax.swing.JPanel {
         timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
-        filterByDate(LocalDate.now());
+        updateFindNameComboBox(controlService.getAllControls()); // Cập nhật comboBox tại đây
+        filterByDateAndName(LocalDate.now(), "All");
         SetColumn();
         
         JTableHeader header = table.getTableHeader();
@@ -119,7 +120,8 @@ public class StaffSchedule extends javax.swing.JPanel {
     }
     
     public void refresh(){
-        filterByDate(LocalDate.now());
+        updateFindNameComboBox(controlService.getAllControls()); // Cập nhật comboBox tại đây
+        filterByDateAndName(LocalDate.now(), "All");
     }
     
     public void GetList() {
@@ -169,7 +171,6 @@ public class StaffSchedule extends javax.swing.JPanel {
                 });
             }
         }
-        updateFindNameComboBox(controlService.getAllControls());
         updateTotal();
     }
     
