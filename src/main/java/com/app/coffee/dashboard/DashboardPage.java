@@ -48,7 +48,7 @@ public class DashboardPage extends javax.swing.JPanel {
     }
     
      public void updateStaffPanel(ArrayList<String[]> selectedData) {
-    PanelShift.removeAll();
+//    PanelShift.removeAll();
 
     for (String[] rowData : selectedData) {
         JPanel card = new JPanel();
@@ -90,8 +90,8 @@ public class DashboardPage extends javax.swing.JPanel {
 
         PanelShift.add(card);
     }
-    PanelShift.revalidate();
-    PanelShift.repaint();
+//    PanelShift.revalidate();
+//    PanelShift.repaint();
 }
 
      public void clearPanelShift() {
@@ -121,9 +121,8 @@ public class DashboardPage extends javax.swing.JPanel {
         AddStaff = new javax.swing.JButton();
         EndShift = new javax.swing.JButton();
         EditShift = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
         PanelShift = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        StaffPanel = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -214,7 +213,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
         jPanel5.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 1190, 290));
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 1190, 290));
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 0));
 
@@ -252,7 +251,7 @@ public class DashboardPage extends javax.swing.JPanel {
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 1190, -1));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 1190, -1));
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -318,15 +317,24 @@ public class DashboardPage extends javax.swing.JPanel {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 1190, 60));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 1190, 60));
 
-        PanelShift.setLayout(new java.awt.BorderLayout());
+        PanelShift.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(242, 242, 242), 2));
 
-        jScrollPane2.setViewportView(StaffPanel);
+        javax.swing.GroupLayout PanelShiftLayout = new javax.swing.GroupLayout(PanelShift);
+        PanelShift.setLayout(PanelShiftLayout);
+        PanelShiftLayout.setHorizontalGroup(
+            PanelShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1202, Short.MAX_VALUE)
+        );
+        PanelShiftLayout.setVerticalGroup(
+            PanelShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 302, Short.MAX_VALUE)
+        );
 
-        PanelShift.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jScrollPane3.setViewportView(PanelShift);
 
-        add(PanelShift, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 1190, 230));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 1190, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
@@ -525,7 +533,6 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JLabel MonthPanel;
     private javax.swing.JPanel PanelShift;
     private javax.swing.JTable PendingBill;
-    private javax.swing.JPanel StaffPanel;
     private javax.swing.JButton finishBill;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
@@ -536,6 +543,6 @@ public class DashboardPage extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

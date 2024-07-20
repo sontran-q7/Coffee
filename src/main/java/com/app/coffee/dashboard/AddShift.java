@@ -98,7 +98,8 @@ public class AddShift extends javax.swing.JDialog {
         }
     });
 }
-
+   
+   
     public class ImageRenderer extends DefaultTableCellRenderer {
 
         @Override
