@@ -9,9 +9,12 @@ import com.app.coffee.Backend.DAO.OrderDetailDAO;
 import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class DashboardPage extends javax.swing.JPanel {
     public String userName;
     private int controlId;
      private Set<String> selectedStaffNamesList;
+       private AddShift addShiftDialog; 
     /**
      * Creates new form DashboardPage
      */
@@ -49,56 +53,97 @@ public class DashboardPage extends javax.swing.JPanel {
          PanelShift.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
     }
     
+       public void setAddShiftDialog(AddShift addShiftDialog) {
+        this.addShiftDialog = addShiftDialog;
+    }
+
     public void updateStaffPanel(ArrayList<String[]> selectedData) {
         if (selectedData == null) {
             System.out.println("selectedData is null");
             return;
         }
-        
-       // PanelShift.removeAll();
+
         for (String[] rowData : selectedData) {
-            JPanel card = new JPanel();
-            card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-            card.setPreferredSize(new java.awt.Dimension(143, 210)); 
-            card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+            if (!isCardAlreadyExists(rowData[2])) { // Kiểm tra card đã tồn tại chưa
+                JPanel card = new JPanel();
+                card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
+                card.setPreferredSize(new java.awt.Dimension(143, 210)); 
+                card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-            JLabel imageLabel = new JLabel();
-            imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
-            card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
+                JLabel imageLabel = new JLabel();
+                imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
+                card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
 
-            JLabel nameLabelHeader = new JLabel("Name");
-            nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-            card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
+                JLabel nameLabelHeader = new JLabel("Name");
+                nameLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                nameLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+                card.add(nameLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
 
-            JLabel nameLabel = new JLabel(rowData[2]);
-            nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            card.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, 20));
+                JLabel nameLabel = new JLabel(rowData[2]);
+                nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                card.add(nameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, 20));
 
-            JLabel positionLabelHeader = new JLabel("Position");
-            positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-            card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
+                JLabel positionLabelHeader = new JLabel("Position");
+                positionLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                positionLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+                card.add(positionLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 120, 20));
 
-            JLabel positionLabel = new JLabel(rowData[3]);
-            positionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            card.add(positionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 20));
+                JLabel positionLabel = new JLabel(rowData[3]);
+                positionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                card.add(positionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, 20));
 
-            JLabel phoneLabelHeader = new JLabel("Phone");
-            phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
-            card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
+                JLabel phoneLabelHeader = new JLabel("Phone");
+                phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
+                card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
 
-            JLabel phoneLabel = new JLabel(rowData[4]);
-            phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
+                JLabel phoneLabel = new JLabel(rowData[4]);
+                phoneLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
 
-            PanelShift.add(card);
+                card.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        int confirm = JOptionPane.showConfirmDialog(null, "Do you want to remove this staff member?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            PanelShift.remove(card);
+                            PanelShift.revalidate();
+                            PanelShift.repaint();
+                            addStaffBackToListName(rowData);
+                        }
+                    }
+                });
+
+                PanelShift.add(card);
+            }
         }
-       // PanelShift.revalidate();
-       // PanelShift.repaint();
-}
+        PanelShift.revalidate();
+        PanelShift.repaint();
+    }
+
+    private boolean isCardAlreadyExists(String staffName) {
+        for (Component component : PanelShift.getComponents()) {
+            if (component instanceof JPanel) {
+                JPanel card = (JPanel) component;
+                for (Component cardComponent : card.getComponents()) {
+                    if (cardComponent instanceof JLabel) {
+                        JLabel label = (JLabel) cardComponent;
+                        if (label.getText().equals(staffName)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void addStaffBackToListName(String[] rowData) {
+        if (addShiftDialog != null) {
+            addShiftDialog.addStaffBackToListName(rowData);
+        }
+    }
 
      public void clearPanelShift() {
         PanelShift.removeAll();
@@ -344,7 +389,7 @@ public class DashboardPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStaffActionPerformed
-          UserSession session = UserSession.getInstance();
+            UserSession session = UserSession.getInstance();
     int controlId = session.getControlId();
     // check shift
     if (controlId != 0 && !session.isShiftEnded()) {
@@ -367,6 +412,8 @@ public class DashboardPage extends javax.swing.JPanel {
             });
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
+
+            setAddShiftDialog(dialog); // Lưu tham chiếu tới dialog AddShift
         }
     });
     }//GEN-LAST:event_AddStaffActionPerformed
@@ -409,33 +456,34 @@ public class DashboardPage extends javax.swing.JPanel {
     }//GEN-LAST:event_finishBillActionPerformed
 
     private void EditShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditShiftActionPerformed
-         UserSession session = UserSession.getInstance();
-    int controlId = session.getControlId();
+            UserSession session = UserSession.getInstance();
+        int controlId = session.getControlId();
 
-    // Kiểm tra xem ca đã được tạo hay chưa
-    if (controlId == 0) {
-        JOptionPane.showMessageDialog(this, "No shift has been created yet.", "ERROR", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Mở lại form AddShift để chỉnh sửa ca hiện tại
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
-            AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this, controlId); // Truyền controlId hiện tại
-            dialog.setUserName(userName);
-
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    dialog.setVisible(false);
-                    dialog.dispose();
-                }
-            });
-            dialog.setLocationRelativeTo(null);
-            dialog.setVisible(true);
+        // Kiểm tra xem ca đã được tạo hay chưa
+        if (controlId == 0) {
+            JOptionPane.showMessageDialog(this, "No shift has been created yet.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-    });
+
+        // Mở lại form AddShift để chỉnh sửa ca hiện tại
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DashboardPage.this);
+                AddShift dialog = new AddShift(parentFrame, true, DashboardPage.this, controlId); // Truyền controlId hiện tại
+                setAddShiftDialog(dialog); // Lưu tham chiếu tới dialog AddShift
+                dialog.setUserName(userName);
+
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.setVisible(false);
+                        dialog.dispose();
+                    }
+                });
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_EditShiftActionPerformed
  
     private void showDetailForm(int orderId) {
