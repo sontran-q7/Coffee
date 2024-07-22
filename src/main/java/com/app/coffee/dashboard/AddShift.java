@@ -5,6 +5,7 @@ import com.app.coffee.Backend.DAO.ControlDAO;
 import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.UsersModel;
 import com.app.coffee.Login.LoginAccount.UserSession;
+import com.app.coffee.virtualKeyBoard.LetterVirtualKeyBoard;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -37,6 +38,15 @@ import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.app.coffee.virtualKeyBoard.NumericVirtualKeyBoard;
+import javax.swing.JDialog;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author anhson
@@ -52,6 +62,9 @@ public class AddShift extends javax.swing.JDialog {
     private HashMap<String, Integer> managerMap;
     private Set<String> selectedStaffNamesList = new HashSet<>();
     private DefaultTableModel model;
+    private NumericVirtualKeyBoard numeric;
+    private JDialog keyboardDialog;
+    
     private void loadBoxShift() {
         String sql = "SELECT * FROM working_time";
         try (Connection conn = ConnectionCoffee.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
@@ -105,9 +118,28 @@ public class AddShift extends javax.swing.JDialog {
                 doClose(RET_CANCEL);
             }
         });
-    }
+        
+          numeric = new NumericVirtualKeyBoard();
+        keyboardDialog = new JDialog(this, "Virtual Keyboard", true);
+        keyboardDialog.add(numeric);
+        keyboardDialog.pack();
+        keyboardDialog.setLocationRelativeTo(null);
 
-     
+        InPayField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showVirtualKeyboard(InPayField);
+            }
+        });
+
+    }
+      
+       private void showVirtualKeyboard(JTextField InPayField) {
+        numeric.setText(InPayField.getText());
+        numeric.setTitle("Virtual Keyboard");
+        keyboardDialog.setVisible(true);
+        InPayField.setText(numeric.getSavedText());
+    }
+        
       public void addStaffBackToListName(String[] rowData) {
         model.addRow(rowData);
         refreshListNameTable();

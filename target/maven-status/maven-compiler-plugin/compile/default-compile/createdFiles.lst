@@ -36,6 +36,7 @@ com\app\coffee\employee\ReturnAccount$4.class
 com\app\coffee\menu\OrderDetailProduct.class
 com\app\coffee\product\ProductForm$6.class
 com\app\coffee\product\ProductDetail.class
+com\app\coffee\dashboard\AddShift$8$1.class
 com\app\coffee\product\EditProduct$2.class
 com\app\coffee\bill\Bill$1.class
 com\app\coffee\Backend\Model\UsersModel.class
@@ -76,7 +77,6 @@ com\app\coffee\Login\LoginAccount\RegisterAdmin$2.class
 com\app\coffee\bill\Bill$2.class
 com\app\coffee\Backend\DAO\OrderDetailDAO.class
 com\app\coffee\product\AddProduct.class
-com\app\coffee\dashboard\AddShift$7$1.class
 com\app\coffee\product\AddProduct$1.class
 com\app\coffee\menu\PrintableInvoice.class
 com\app\coffee\bill\Bill$5.class
@@ -231,6 +231,7 @@ com\app\coffee\product\ImageUtils.class
 com\app\coffee\product\ProductForm$2.class
 com\app\coffee\employee\EmployeeManager$1.class
 com\app\coffee\product\DatabaseConnection.class
+com\app\coffee\dashboard\AddShift$8.class
 com\app\coffee\menu\MenuPanel$3.class
 com\app\coffee\dashboard\DashboardPage$9.class
 com\app\coffee\employee\FormEdit$2.class
