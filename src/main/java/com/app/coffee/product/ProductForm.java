@@ -95,7 +95,7 @@ public class ProductForm extends javax.swing.JPanel {
 //                       
                         ImageIcon imageIcon = (ImageIcon) o;
                         int rowHeight = jtable.getRowHeight();
-                        Image img = imageIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                        Image img = imageIcon.getImage().getScaledInstance(55, 55, Image.SCALE_SMOOTH);
                         JLabel label = new JLabel(new ImageIcon(img));
                         label.setHorizontalAlignment(JLabel.CENTER);
                         label.setOpaque(selected);
@@ -452,7 +452,7 @@ public class ProductForm extends javax.swing.JPanel {
             ImageIcon imageIcon = null;
             if (p.getImage() != null && !p.getImage().isEmpty()) {
                 String imagePath = imageDir + "/" + p.getImage();
-                imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(55, 55, Image.SCALE_SMOOTH));
             }
             model.addRow(new Object[]{
                 stt++,

@@ -88,6 +88,22 @@ public class ProductDao {
         }
         return false;
     }
+    // kiem tra khi edit product
+    public boolean isProductUpdateExists(String productName, int productId) {
+        String sql = "SELECT COUNT(*) FROM Product WHERE product_name = ? AND product_id != ? AND status = 1";
+        try (Connection con = DatabaseConnection.getJDBConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, productName);
+            pstmt.setInt(2, productId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     
     public Integer insertProduct(Product p) {
         Integer productId = null;

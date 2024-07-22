@@ -19,6 +19,7 @@ com\app\coffee\product\ProductForm$7.class
 com\app\coffee\category\CategoryForm$1.class
 com\app\coffee\product\EditProduct$1.class
 com\app\coffee\menu\CategoryDaoMenu.class
+com\app\coffee\Backend\Service\UserService.class
 com\app\coffee\Backend\DAO\UserDAO.class
 com\app\coffee\employee\EmployeeManager$6.class
 com\app\coffee\Login\LoginAccount\SendAdmin$2.class
@@ -46,6 +47,7 @@ com\app\coffee\product\AddProductDetail$3.class
 com\app\coffee\menu\MenuPanel$TextFieldFocusListener$1.class
 com\app\coffee\Login\LoginAccount\VerifyAdmin$3.class
 com\app\coffee\category\AddCategory$3.class
+com\app\coffee\Backend\DAO\UserDAO$RoleDAO.class
 com\app\coffee\Login\LoginAccount\SendAdmin$1.class
 com\app\coffee\dashboard\Dashboard$9.class
 com\app\coffee\dashboard\Dashboard.class
@@ -53,6 +55,7 @@ com\app\coffee\Login\LoginAccount\VerifyCode$2.class
 com\app\coffee\menu\ProductDaoMenu.class
 com\app\coffee\category\EditCategory.class
 com\app\coffee\dashboard\AddShift$5.class
+com\app\coffee\Backend\Model\Role.class
 com\app\coffee\category\CategoryForm$2.class
 com\app\coffee\dashboard\Dashboard$2.class
 com\app\coffee\menu\MenuPanel$8.class

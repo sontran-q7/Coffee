@@ -392,6 +392,7 @@ public class EditProduct extends javax.swing.JPanel {
     }
 
     private boolean checkvalidate() {
+        ProductDao productDao = new ProductDao();
         String imagePath = txtImage.getText();
         String product = txtProduct.getText();
         String description = txtDescription.getText();
@@ -401,6 +402,22 @@ public class EditProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Cannot be empty!");
             return false;
         }
+        
+        String productName = txtProduct.getText();
+        if (productName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Product name cannot be empty");
+            return false;
+        }
+
+        // Kiểm tra tên sản phẩm có trùng với sản phẩm khác trong database, ngoại trừ sản phẩm hiện tại
+        List<Product> products = pd.fillAllProduct();
+        for (Product p : products) {
+            if (p.getProduct_name().equalsIgnoreCase(productName) && p.getProduct_id()!= this.id) {
+                JOptionPane.showMessageDialog(this, "Product name already exists");
+                return false;
+            }
+        }
+        
         if (!isNumeric(priceL) || !isNumeric(priceS)) {
             JOptionPane.showMessageDialog(null, "Price must be numeric!");
             return false;
@@ -409,12 +426,17 @@ public class EditProduct extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Invalid image file! Please provide a valid image.");
             return false;
         }
+        
         try {
             int priceLarge = Integer.parseInt(priceL);
             int priceSmall = Integer.parseInt(priceS);
 
             if (priceLarge <= 0 || priceSmall <= 0) {
                 JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
+                return false;
+            }
+            if (priceLarge <= priceSmall) {
+                JOptionPane.showMessageDialog(null, "The price of size L must be higher than the price of size S");
                 return false;
             }
         } catch (NumberFormatException e) {

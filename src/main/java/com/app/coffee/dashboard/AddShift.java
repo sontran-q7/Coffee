@@ -90,12 +90,12 @@ public class AddShift extends javax.swing.JDialog {
         initShiftMap();
         loadBoxShift();
 
-        model = (DefaultTableModel) ListName.getModel(); // Khởi tạo model ở đây
+        model = (DefaultTableModel) ListName.getModel();
 
         if (controlId != 0) {
-            loadShiftData(controlId); // Tải dữ liệu ca để chỉnh sửa viên đã chọn từ cơ sở dữ liệu
+            loadShiftData(controlId); 
         } else {
-            updateCheckInTimeLabel(); // Cập nhật thời gian check-in mới nếu tạo ca mới
+            updateCheckInTimeLabel(); 
         }
         GetList();
 
