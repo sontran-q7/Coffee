@@ -20,10 +20,11 @@ public class ControlModel {
     private UsersModel account;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String staffList;
 
     public ControlModel() {}
 
-    public ControlModel(int controlId, WorkingTimeModel workingTime, LocalDateTime checkIn, LocalDateTime checkOut, float checkInPay, float checkOutPay, UsersModel account, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ControlModel(int controlId, WorkingTimeModel workingTime, LocalDateTime checkIn, LocalDateTime checkOut, float checkInPay, float checkOutPay, UsersModel account,String staffList, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.controlId = controlId;
         this.workingTime = workingTime;
         this.checkIn = checkIn;
@@ -33,6 +34,7 @@ public class ControlModel {
         this.account = account;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.staffList = staffList;
     }
 
     public int getControlId() {
@@ -90,7 +92,13 @@ public class ControlModel {
     public void setAccount(UsersModel account) {
         this.account = account;
     }
+     public String getStaffList() {
+        return staffList;
+    }
 
+    public void setStaffList(String staffList) {
+        this.staffList = staffList;
+    }
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

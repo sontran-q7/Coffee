@@ -51,7 +51,7 @@ public class AddShift extends javax.swing.JDialog {
     private HashMap<String, Integer> shiftMap;
     private HashMap<String, Integer> managerMap;
     private Set<String> selectedStaffNamesList = new HashSet<>();
-
+    private DefaultTableModel model;
     private void loadBoxShift() {
         String sql = "SELECT * FROM working_time";
         try (Connection conn = ConnectionCoffee.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
@@ -68,21 +68,19 @@ public class AddShift extends javax.swing.JDialog {
     /**
      * Creates new form ListStaff
      */
-    public AddShift(java.awt.Frame parent, boolean modal, DashboardPage dashboardPage, int controlId) {
+      public AddShift(java.awt.Frame parent, boolean modal, DashboardPage dashboardPage, int controlId) {
         super(parent, modal);
         initComponents();
         this.dashboardPage = dashboardPage;
         this.controlId = controlId;
-        this.selectedStaffNamesList = new HashSet<>(); // Đảm bảo khởi tạo
 
         initShiftMap();
         loadBoxShift();
 
+        model = (DefaultTableModel) ListName.getModel(); // Khởi tạo model ở đây
+
         if (controlId != 0) {
-            loadShiftData(controlId); // Tải dữ liệu ca để chỉnh sửa
-            // Load selected staff names
-            selectedStaffNamesList = ControlDAO.getSelectedStaffNames(controlId); // Hàm này sẽ nạp danh sách các tên nhân viên đã chọn từ cơ sở dữ liệu
-            System.out.println("Loaded selected staff names: " + selectedStaffNamesList);
+            loadShiftData(controlId); // Tải dữ liệu ca để chỉnh sửa viên đã chọn từ cơ sở dữ liệu
         } else {
             updateCheckInTimeLabel(); // Cập nhật thời gian check-in mới nếu tạo ca mới
         }
@@ -96,6 +94,7 @@ public class AddShift extends javax.swing.JDialog {
         ListName.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         // ImageRenderer 
         ListName.getColumnModel().getColumn(1).setCellRenderer(new ImageRenderer());
+    
 
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -108,6 +107,15 @@ public class AddShift extends javax.swing.JDialog {
         });
     }
 
+     
+      public void addStaffBackToListName(String[] rowData) {
+        model.addRow(rowData);
+        refreshListNameTable();
+    }
+
+    private void refreshListNameTable() {
+        model.fireTableDataChanged();
+    }
     public class ImageRenderer extends DefaultTableCellRenderer {
 
         @Override
@@ -491,7 +499,7 @@ public class AddShift extends javax.swing.JDialog {
         table.setRowCount(0);
         int count = 1;
         for (UsersModel user : listUser) {
-            if (user.getStatus() == 1 && user.getRole().getRole_id() != 1) {
+            if (user.getStatus() == 1 && user.getRole().getRole_id() != 1 && user.getRole().getRole_id() != 2) {
                 Object[] row = {
                     count++,
                     user.getImage() != null ? user.getImage() : "no-image.png",

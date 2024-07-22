@@ -15,11 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ControlService {
+
     public List<ControlModel> getAllControls() {
         List<ControlModel> controlList = new ArrayList<>();
         String sql = "SELECT c.control_id, c.check_in, c.check_out, c.check_in_pay, c.check_out_pay, c.created_at, c.updated_at, " +
                      "a.account_id, a.username, " +
-                     "w.working_time_id, w.name " +
+                     "w.working_time_id, w.name, " +
+                     "c.staff_list " + // Thêm cột staff_list
                      "FROM control c " +
                      "JOIN account a ON c.account_id = a.account_id " +
                      "JOIN working_time w ON c.working_time_id = w.working_time_id " +
@@ -52,7 +54,10 @@ public class ControlService {
                 workingTimeModel.setWorkingTimeId(workingTimeId);
                 workingTimeModel.setName(workingTimeName);
 
-                ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel, createdAt, updatedAt);
+                String staffList = rs.getString("staff_list"); // Lấy giá trị staff_list
+
+                ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel,staffList, createdAt, updatedAt);
+                controlModel.setStaffList(staffList); // Gán giá trị staff_list
                 controlList.add(controlModel);
             }
         } catch (SQLException e) {
@@ -66,7 +71,8 @@ public class ControlService {
         List<ControlModel> controlList = new ArrayList<>();
         String sql = "SELECT c.control_id, c.check_in, c.check_out, c.check_in_pay, c.check_out_pay, c.created_at, c.updated_at, " +
                      "a.account_id, a.username, " +
-                     "w.working_time_id, w.name " +
+                     "w.working_time_id, w.name, " +
+                     "c.staff_list " + // Thêm cột staff_list
                      "FROM control c " +
                      "JOIN account a ON c.account_id = a.account_id " +
                      "JOIN working_time w ON c.working_time_id = w.working_time_id " +
@@ -101,7 +107,10 @@ public class ControlService {
                     workingTimeModel.setWorkingTimeId(workingTimeId);
                     workingTimeModel.setName(workingTimeName);
 
-                    ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel, createdAt, updatedAt);
+                    String staffList = rs.getString("staff_list"); // Lấy giá trị staff_list
+
+                    ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel,staffList, createdAt, updatedAt);
+                    controlModel.setStaffList(staffList); // Gán giá trị staff_list
                     controlList.add(controlModel);
                 }
             }
@@ -116,7 +125,8 @@ public class ControlService {
         List<ControlModel> controlList = new ArrayList<>();
         String sql = "SELECT c.control_id, c.check_in, c.check_out, c.check_in_pay, c.check_out_pay, c.created_at, c.updated_at, " +
                      "a.account_id, a.username, " +
-                     "w.working_time_id, w.name " +
+                     "w.working_time_id, w.name, " +
+                     "c.staff_list " + // Thêm cột staff_list
                      "FROM control c " +
                      "JOIN account a ON c.account_id = a.account_id " +
                      "JOIN working_time w ON c.working_time_id = w.working_time_id " +
@@ -152,7 +162,10 @@ public class ControlService {
                     workingTimeModel.setWorkingTimeId(workingTimeId);
                     workingTimeModel.setName(workingTimeName);
 
-                    ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel, createdAt, updatedAt);
+                    String staffList = rs.getString("staff_list"); // Lấy giá trị staff_list
+
+                    ControlModel controlModel = new ControlModel(controlId, workingTimeModel, checkIn, checkOut, checkInPay, checkOutPay, userModel,staffList, createdAt, updatedAt);
+                    controlModel.setStaffList(staffList); // Gán giá trị staff_list
                     controlList.add(controlModel);
                 }
             }

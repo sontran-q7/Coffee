@@ -124,7 +124,7 @@ public class StaffSchedule extends javax.swing.JPanel {
         filterByDateAndName(LocalDate.now(), "All");
     }
     
-    public void GetList() {
+     public void GetList() {
         List<ControlModel> controlList = controlService.getAllControls();
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0); 
@@ -136,15 +136,18 @@ public class StaffSchedule extends javax.swing.JPanel {
                 count++,
                 control.getWorkingTime().getName(),
                 control.getAccount().getUserName(), 
+               
                 control.getCheckIn().format(timeFormatter), 
                 control.getCheckOut().format(timeFormatter), 
                 control.getCheckInPay(),
                 control.getCheckOutPay(),              
                 totalDifference,
-                control.getCreatedAt().format(dateFormatter)
+                control.getCreatedAt().format(dateFormatter),
+                control.getStaffList()
+                
             });
         }
-        
+
         updateFindNameComboBox(controlList);
         updateTotal();
     }
@@ -167,7 +170,8 @@ public class StaffSchedule extends javax.swing.JPanel {
                     control.getCheckInPay(),
                     control.getCheckOutPay(),
                     totalDifference,
-                    control.getCreatedAt().format(dateFormatter)
+                    control.getCreatedAt().format(dateFormatter),
+                    control.getStaffList()
                 });
             }
         }
@@ -194,7 +198,8 @@ public class StaffSchedule extends javax.swing.JPanel {
                     control.getCheckInPay(),
                     control.getCheckOutPay(),
                     totalDifference,
-                    control.getCreatedAt().format(dateFormatter)
+                    control.getCreatedAt().format(dateFormatter),
+                    control.getStaffList()
                 });
             }
         }
@@ -222,7 +227,8 @@ public class StaffSchedule extends javax.swing.JPanel {
                     control.getCheckInPay(),
                     control.getCheckOutPay(),
                     totalDifference,
-                    control.getCreatedAt().format(dateFormatter)
+                    control.getCreatedAt().format(dateFormatter),
+                        control.getStaffList()
                 });
             }
         }
@@ -261,7 +267,8 @@ public class StaffSchedule extends javax.swing.JPanel {
                         control.getCheckInPay(),
                         control.getCheckOutPay(),
                         totalDifference,
-                        control.getCreatedAt().format(dateFormatter)
+                        control.getCreatedAt().format(dateFormatter),
+                        control.getStaffList()
                 });
             }
         }
@@ -286,7 +293,8 @@ public class StaffSchedule extends javax.swing.JPanel {
                     control.getCheckInPay(),
                     control.getCheckOutPay(),
                     totalDifference,
-                    control.getCreatedAt().format(dateFormatter)
+                    control.getCreatedAt().format(dateFormatter),
+                    control.getStaffList()
                 });
             }
         }
@@ -457,14 +465,21 @@ public class StaffSchedule extends javax.swing.JPanel {
 
             },
             new String [] {
-                "No", "Shift", "Name", "Arrival time", "Time to leave", "First money", "End money", "Total", "Date"
+                "No", "Shift", "Name", "Arrival time", "Time to leave", "First money", "End money", "Total", "Date", "Staff"
             }
         ));
         table.setRowHeight(30);
         scroll.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setPreferredWidth(10);
-            table.getColumnModel().getColumn(2).setPreferredWidth(100);
+            table.getColumnModel().getColumn(1).setPreferredWidth(30);
+            table.getColumnModel().getColumn(2).setPreferredWidth(40);
+            table.getColumnModel().getColumn(3).setPreferredWidth(40);
+            table.getColumnModel().getColumn(4).setPreferredWidth(40);
+            table.getColumnModel().getColumn(5).setPreferredWidth(40);
+            table.getColumnModel().getColumn(6).setPreferredWidth(40);
+            table.getColumnModel().getColumn(7).setPreferredWidth(40);
+            table.getColumnModel().getColumn(8).setPreferredWidth(40);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
