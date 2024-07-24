@@ -5,12 +5,14 @@
 package com.app.coffee.dashboard;
 
 import com.app.coffee.Backend.DAO.BillDAO;
+import com.app.coffee.Backend.DAO.ControlDAO;
 import com.app.coffee.Backend.DAO.OrderDetailDAO;
 import com.app.coffee.Backend.Model.OrderModel;
 import com.app.coffee.Backend.Model.PendingBill;
 import com.app.coffee.Login.LoginAccount.UserSession;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -67,12 +69,15 @@ public class DashboardPage extends javax.swing.JPanel {
             if (!isCardAlreadyExists(rowData[2])) { // Kiểm tra card đã tồn tại chưa
                 JPanel card = new JPanel();
                 card.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-                card.setPreferredSize(new java.awt.Dimension(143, 210)); 
+                card.setPreferredSize(new java.awt.Dimension(143, 210));
                 card.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
                 JLabel imageLabel = new JLabel();
                 imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                imageLabel.setIcon(new ImageIcon("src/image/" + rowData[1]));
+                ImageIcon icon = new ImageIcon("src/image/" + rowData[1]);
+                Image img = icon.getImage();
+                Image scaledImg = img.getScaledInstance(110, 70, Image.SCALE_SMOOTH);
+                imageLabel.setIcon(new ImageIcon(scaledImg));
                 card.add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 10, 110, 70));
 
                 JLabel nameLabelHeader = new JLabel("Name");
@@ -95,7 +100,7 @@ public class DashboardPage extends javax.swing.JPanel {
 
                 JLabel phoneLabelHeader = new JLabel("Phone");
                 phoneLabelHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); 
+                phoneLabelHeader.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
                 card.add(phoneLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 120, 20));
 
                 JLabel phoneLabel = new JLabel(rowData[4]);
@@ -103,17 +108,30 @@ public class DashboardPage extends javax.swing.JPanel {
                 card.add(phoneLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, 20));
 
                 card.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        int confirm = JOptionPane.showConfirmDialog(null, "Do you want to remove this staff member?", "Confirmation", JOptionPane.YES_NO_OPTION);
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            PanelShift.remove(card);
-                            PanelShift.revalidate();
-                            PanelShift.repaint();
-                            addStaffBackToListName(rowData);
-                        }
-                    }
-                });
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int confirm = JOptionPane.showConfirmDialog(null, "Do you want to remove this staff member?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Lấy thông tin controlId và staffName
+            UserSession session = UserSession.getInstance();
+            int controlId = session.getControlId();
+        
+            String staffName = rowData[2];
+
+            // Xóa nhân viên khỏi database
+            boolean success = ControlDAO.removeStaffFromControl(controlId, staffName);
+            if (success) {
+                // Cập nhật lại giao diện nếu xóa thành công
+                PanelShift.remove(card);
+                PanelShift.revalidate();
+                PanelShift.repaint();
+                addStaffBackToListName(rowData);
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to remove staff member from shift.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+});
 
                 PanelShift.add(card);
             }

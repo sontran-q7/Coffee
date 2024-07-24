@@ -141,19 +141,33 @@ import javax.swing.JOptionPane;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        CategoryDao categoryDao = new CategoryDao();
         String categoryName = txtCategory.getText();
         String description = txtDescription.getText();
 
+        // Validate input
+        if (categoryName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all required information.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Kiểm tra tên sản phẩm có trùng với sản phẩm khác trong database, ngoại trừ sản phẩm hiện tại
+        if (categoryDao.isCategoryUpdateExists(categoryName, categoryId)) {
+        JOptionPane.showMessageDialog(this, "Category name already exists. Please choose a different name.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+        
         // Tạo đối tượng Category mới với thông tin đã chỉnh sửa
         Category category = new Category(categoryId, categoryName, description, "1");
 
         // Cập nhật cơ sở dữ liệu
-        CategoryDao categoryDao = new CategoryDao();
         boolean success = categoryDao.updateCategory(category);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Successfully updated category!");
             categoryForm.refreshCategoryTable();
+            txtCategory.setText("");
+        txtDescription.setText("");
+            
         } else {
             JOptionPane.showMessageDialog(this, "Failed to update category!");
         }

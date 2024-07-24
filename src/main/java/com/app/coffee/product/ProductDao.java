@@ -55,7 +55,7 @@ public class ProductDao {
                     String productName = rs.getString(3);
                     String description = rs.getString(4);
                     String size = rs.getString(5);
-                    int price = rs.getInt(6);
+                    float price = rs.getFloat(6);
                     int idProduct = rs.getInt(7);
                     ProductDetail productDetail = new ProductDetail();
                     productDetail.setPrice(price);
@@ -171,7 +171,7 @@ public class ProductDao {
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     String size = rs.getString(1);
-                    int price = rs.getInt(2);
+                    float price = rs.getFloat(2);
                     ProductDetail pd = new ProductDetail(size, price);
                     listProductDt.add(pd);
 
@@ -197,7 +197,7 @@ public class ProductDao {
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     String size = rs.getString(1);
-                    int price = rs.getInt(2);
+                    float price = rs.getFloat(2);
                     String proName = rs.getString(3);
                     String description = rs.getString(4);
                     String iamge = rs.getString(5);
@@ -297,7 +297,7 @@ public class ProductDao {
 
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    int price = rs.getInt(1);
+                    float price = rs.getFloat(1);
                     ProductDetail pd = new ProductDetail();
                     pd.setPrice(price);
                     listProductD.add(pd);
@@ -319,7 +319,7 @@ public class ProductDao {
 
             try ( ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    int price = rs.getInt(1);
+                    float price = rs.getFloat(1);
                     ProductDetail pd = new ProductDetail();
                     pd.setPrice(price);
                     listProductD.add(pd);
@@ -348,5 +348,23 @@ public class ProductDao {
             e.printStackTrace();
         }
         return row;
+    }
+
+    public Product getProductStatus(int idProduct) {
+        Product product = null;
+        String sql = "SELECT * FROM product WHERE product_id = ?";  // This line likely has the issue
+        try (Connection con = DatabaseConnection.getJDBConnection(); 
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idProduct);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // Assuming Product class has a constructor that takes ResultSet
+                    product = new Product();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 }

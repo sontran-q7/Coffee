@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.UUID;
 import javax.swing.*;
 import org.mindrot.jbcrypt.BCrypt;
-
 import com.app.coffee.Backend.Connect.ConnectionCoffee;
 import com.app.coffee.Backend.Model.UsersModel;
 
@@ -84,7 +83,7 @@ public class FormEdit extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[]{"Manager", "Staff"});
+        positionComboBox = new JComboBox<>(new String[]{"Staff", "Manager"});
         phoneField = new JTextField();
         emailField = new JTextField();
         emailField.setEditable(false);
@@ -148,8 +147,8 @@ public class FormEdit extends JPanel {
         panel.add(label, gbc);
         gbc.gridx = 1;
         panel.add(component, gbc);
-        component.setPreferredSize(new Dimension(300, 40)); // Set preferred height to 40
-        component.setMinimumSize(new Dimension(300, 40)); // Set minimum height to 40
+        component.setPreferredSize(new Dimension(300, 40));
+        component.setMinimumSize(new Dimension(300, 40));
     }
 
     private void initEditComponents() {
@@ -241,11 +240,11 @@ public class FormEdit extends JPanel {
                     ps.setString(3, phone);
                     ps.setInt(4, roleId);
                     ps.setString(5, email);
-                    String imageName = saveImage(selectedImageFile);
+                    String imageName = (selectedImageFile != null) ? saveImage(selectedImageFile) : null;
                     if (imageName != null) {
                         ps.setString(6, imageName);
                     } else {
-                        ps.setNull(6, java.sql.Types.VARCHAR);
+                        ps.setString(6, userModel.getImage());
                     }
                     ps.setInt(7, userModel.getAccount_id());
                     ps.executeUpdate();
@@ -261,11 +260,11 @@ public class FormEdit extends JPanel {
                     ps.setString(2, phone);
                     ps.setInt(3, roleId);
                     ps.setString(4, email);
-                    String imageName = saveImage(selectedImageFile);
+                    String imageName = (selectedImageFile != null) ? saveImage(selectedImageFile) : null;
                     if (imageName != null) {
                         ps.setString(5, imageName);
                     } else {
-                        ps.setNull(5, java.sql.Types.VARCHAR);
+                        ps.setString(5, userModel.getImage());
                     }
                     ps.setInt(6, userModel.getAccount_id());
                     ps.executeUpdate();
@@ -290,7 +289,7 @@ public class FormEdit extends JPanel {
                 String extension = imageFile.getName().substring(imageFile.getName().lastIndexOf("."));
                 String imageName = UUID.randomUUID().toString() + extension;
 
-                if (userModel.getImage() != null && !userModel.getImage().isEmpty()) {
+                if (userModel.getImage() != null && !userModel.getImage().isEmpty() && !imageFile.getName().equals(userModel.getImage())) {
                     File oldImageFile = new File("src/image/" + userModel.getImage());
                     if (oldImageFile.exists()) {
                         oldImageFile.delete();

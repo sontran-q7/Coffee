@@ -164,8 +164,8 @@ public class AddCategory extends javax.swing.JPanel {
             categoryForm.refreshCategoryTable();
         } 
 //        // Xóa dữ liệu trên form
-//        txtCategory.setText("");
-//        txtDescription.setText("");
+        txtCategory.setText("");
+        txtDescription.setText("");
     }//GEN-LAST:event_AddCategoryActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

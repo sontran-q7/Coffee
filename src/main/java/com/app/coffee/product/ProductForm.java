@@ -221,7 +221,7 @@ public class ProductForm extends javax.swing.JPanel {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -254,10 +254,10 @@ public class ProductForm extends javax.swing.JPanel {
             ProductTable.getColumnModel().getColumn(1).setMaxWidth(100);
             ProductTable.getColumnModel().getColumn(2).setMinWidth(150);
             ProductTable.getColumnModel().getColumn(2).setMaxWidth(150);
-            ProductTable.getColumnModel().getColumn(5).setMinWidth(60);
-            ProductTable.getColumnModel().getColumn(5).setMaxWidth(60);
-            ProductTable.getColumnModel().getColumn(6).setMinWidth(100);
-            ProductTable.getColumnModel().getColumn(6).setMaxWidth(100);
+            ProductTable.getColumnModel().getColumn(5).setMinWidth(80);
+            ProductTable.getColumnModel().getColumn(5).setMaxWidth(80);
+            ProductTable.getColumnModel().getColumn(6).setMinWidth(80);
+            ProductTable.getColumnModel().getColumn(6).setMaxWidth(80);
             ProductTable.getColumnModel().getColumn(7).setMinWidth(0);
             ProductTable.getColumnModel().getColumn(7).setPreferredWidth(0);
             ProductTable.getColumnModel().getColumn(7).setMaxWidth(0);

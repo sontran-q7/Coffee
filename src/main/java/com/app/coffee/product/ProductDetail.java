@@ -15,12 +15,12 @@ public class ProductDetail {
     private int product_detail_id;
     private Product product;
     private String size;
-    private Integer price;
+    private float price;
     private boolean status;
     private LocalDateTime created_at;
     private LocalDateTime update_at;
 
-    public ProductDetail(int product_detail_id, Product product, String size, Integer price, boolean status, LocalDateTime created_at, LocalDateTime update_at) {
+    public ProductDetail(int product_detail_id, Product product, String size, float price, boolean status, LocalDateTime created_at, LocalDateTime update_at) {
         this.product_detail_id = product_detail_id;
         this.product = product;
         this.size = size;
@@ -30,13 +30,13 @@ public class ProductDetail {
         this.update_at = update_at;
     }
 
-    public ProductDetail(Product product, String size, Integer price) {
+    public ProductDetail(Product product, String size, float price) {
         this.product = product;
         this.size = size;
         this.price = price;
     }
 
-    public ProductDetail(String size, Integer price) {
+    public ProductDetail(String size, float price) {
         this.size = size;
         this.price = price;
     }
@@ -68,11 +68,11 @@ public class ProductDetail {
         this.size = size;
     }
 
-    public Integer getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

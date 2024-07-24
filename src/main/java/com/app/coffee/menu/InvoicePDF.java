@@ -87,9 +87,9 @@ public class InvoicePDF {
         Paragraph spacingBeforeTable = new Paragraph(10f, " ");
         document.add(spacingBeforeTable);
 
-        PdfPTable table = new PdfPTable(7);
+        PdfPTable table = new PdfPTable(8);  
         table.setWidthPercentage(100);
-        table.setWidths(new float[]{1, 3, 1, 1, 1, 1, 1});
+        table.setWidths(new float[]{1, 2, 1, 1, 1, 1, 2, 1});  
 
         PdfPCell cell = new PdfPCell(new Phrase("No", font));
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -112,6 +112,10 @@ public class InvoicePDF {
         table.addCell(cell);
 
         cell = new PdfPCell(new Phrase("Price", font));
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(cell);
+
+        cell = new PdfPCell(new Phrase("Note", font));
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(cell);
 

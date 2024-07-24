@@ -88,4 +88,17 @@ public class ControlDAO {
         return false;
     }
 }
+ 
+  public static boolean removeStaffFromControl(int controlId, String staffName) {
+        String sql = "UPDATE control SET staff_list = REPLACE(staff_list, ?, '') WHERE control_id = ?";
+        try (Connection conn = ConnectionCoffee.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, staffName);
+            pstmt.setInt(2, controlId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

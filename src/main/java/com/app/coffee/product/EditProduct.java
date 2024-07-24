@@ -38,7 +38,7 @@ public class EditProduct extends javax.swing.JPanel {
         this.id = idProduct;
         initComponents();
         fillComboboxCategory();
-        cboCategory.setEnabled(false);
+//        cboCategory.setEnabled(false);
 
     }
 
@@ -276,6 +276,7 @@ public class EditProduct extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(null, "Edited successfully!");
                         if (productForm != null) {
                             productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
+                            resetFields();
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Add failure!");
@@ -375,18 +376,19 @@ public class EditProduct extends javax.swing.JPanel {
 
     public void getDataTable() {
         ArrayList<ProductDetail> listPD = pd.showDataProductDetail(id);
-        System.out.println("edit:" + id);
 
         for (ProductDetail p : listPD) {
             txtDescription.setText(p.getProduct().getDescription());
             txtImage.setText(p.getProduct().getImage());
             txtProduct.setText(p.getProduct().getProduct_name());
-            cboCategory.setSelectedIndex(1);
+//            cboCategory.setSelectedIndex(1);
+            // Giả sử rằng bạn đã cập nhật combobox category đúng cách
+        cboCategory.setSelectedIndex(findCategoryIndex(p.getProduct().getCategory()));
             if (p.getSize().equals("S")) {
-                txtPriceS.setText(p.getPrice().toString());
+            txtPriceS.setText(String.format("%.2f", p.getPrice()));
             }
             if (p.getSize().equals("L")) {
-                txtPriceL.setText(p.getPrice().toString());
+                txtPriceL.setText(String.format("%.2f", p.getPrice()));
             }
         }
     }
@@ -418,8 +420,8 @@ public class EditProduct extends javax.swing.JPanel {
             }
         }
         
-        if (!isNumeric(priceL) || !isNumeric(priceS)) {
-            JOptionPane.showMessageDialog(null, "Price must be numeric!");
+        if (!isFloat(priceL) || !isFloat(priceS)) {
+            JOptionPane.showMessageDialog(null, "Price must be a valid float number!");
             return false;
         }
         if (!isImageFile(imagePath)) {
@@ -428,8 +430,8 @@ public class EditProduct extends javax.swing.JPanel {
         }
         
         try {
-            int priceLarge = Integer.parseInt(priceL);
-            int priceSmall = Integer.parseInt(priceS);
+            float priceLarge = Float.parseFloat(priceL);
+            float priceSmall = Float.parseFloat(priceS);
 
             if (priceLarge <= 0 || priceSmall <= 0) {
                 JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
@@ -456,12 +458,12 @@ public class EditProduct extends javax.swing.JPanel {
         return false;
     }
     
-    private boolean isNumeric(String str) {
+    private boolean isFloat(String str) {
         if (str == null || str.isEmpty()) {
             return false;
         }
         try {
-            Integer.parseInt(str);
+            Float.parseFloat(str);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -478,12 +480,12 @@ public class EditProduct extends javax.swing.JPanel {
         p.setImage(txtImage.getText());
         p.setProduct_name(txtProduct.getText());
         pDetail.setProduct(p);
-        pDetail.setPrice(Integer.parseInt(txtPriceS.getText()));
-        return pDetail;
+        pDetail.setPrice(Float.parseFloat(txtPriceS.getText()));
+    return pDetail;
     }
 
     public ProductDetail editProductDetailSizeL() {
-        ProductDetail pDetail = new ProductDetail();
+         ProductDetail pDetail = new ProductDetail();
         Product p = new Product();
         p.setProduct_id(id);
         Category selectedCategory = (Category) cboCategory.getSelectedItem();
@@ -492,7 +494,7 @@ public class EditProduct extends javax.swing.JPanel {
         p.setImage(txtImage.getText());
         p.setProduct_name(txtProduct.getText());
         pDetail.setProduct(p);
-        pDetail.setPrice(Integer.parseInt(txtPriceL.getText()));
+        pDetail.setPrice(Float.parseFloat(txtPriceL.getText())); // Chuyển đổi giá thành float
         return pDetail;
     }
 
@@ -504,4 +506,17 @@ public class EditProduct extends javax.swing.JPanel {
         txtDescription.setText("");
         cboCategory.setSelectedIndex(0);
     }
+    
+    
+    //
+    private int findCategoryIndex(Category category) {
+    DefaultComboBoxModel comboModel = (DefaultComboBoxModel) cboCategory.getModel();
+    for (int i = 0; i < comboModel.getSize(); i++) {
+        Category c = (Category) comboModel.getElementAt(i);
+        if (c.getCategory_id() == category.getCategory_id()) {
+            return i;
+        }
+    }
+    return -1; // Không tìm thấy danh mục
+}
 }

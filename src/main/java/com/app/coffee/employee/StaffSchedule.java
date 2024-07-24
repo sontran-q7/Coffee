@@ -468,18 +468,19 @@ public class StaffSchedule extends javax.swing.JPanel {
                 "No", "Shift", "Name", "Arrival time", "Time to leave", "First money", "End money", "Total", "Date", "Staff"
             }
         ));
-        table.setRowHeight(30);
+        table.setRowHeight(35);
         scroll.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
-            table.getColumnModel().getColumn(0).setPreferredWidth(10);
+            table.getColumnModel().getColumn(0).setPreferredWidth(20);
             table.getColumnModel().getColumn(1).setPreferredWidth(30);
-            table.getColumnModel().getColumn(2).setPreferredWidth(40);
-            table.getColumnModel().getColumn(3).setPreferredWidth(40);
-            table.getColumnModel().getColumn(4).setPreferredWidth(40);
-            table.getColumnModel().getColumn(5).setPreferredWidth(40);
-            table.getColumnModel().getColumn(6).setPreferredWidth(40);
-            table.getColumnModel().getColumn(7).setPreferredWidth(40);
-            table.getColumnModel().getColumn(8).setPreferredWidth(40);
+            table.getColumnModel().getColumn(2).setPreferredWidth(30);
+            table.getColumnModel().getColumn(3).setPreferredWidth(30);
+            table.getColumnModel().getColumn(4).setPreferredWidth(30);
+            table.getColumnModel().getColumn(5).setPreferredWidth(30);
+            table.getColumnModel().getColumn(6).setPreferredWidth(30);
+            table.getColumnModel().getColumn(7).setPreferredWidth(30);
+            table.getColumnModel().getColumn(8).setPreferredWidth(30);
+            table.getColumnModel().getColumn(9).setPreferredWidth(100);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -487,9 +488,8 @@ public class StaffSchedule extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 1260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

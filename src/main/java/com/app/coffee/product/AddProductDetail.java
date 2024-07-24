@@ -50,7 +50,25 @@ public class AddProductDetail extends javax.swing.JDialog {
         txtImage.setText(p.getImage());
         txtDescription.setText(p.getDescription());
         txtProduct.setText(p.getProduct_name());
-        comboBoxCategory.setSelectedIndex(1);
+//        comboBoxCategory.setSelectedIndex();
+    // Tìm chỉ số của danh mục
+        Category productCategory = p.getCategory();
+        DefaultComboBoxModel comboModel = (DefaultComboBoxModel) comboBoxCategory.getModel();
+        int selectedIndex = -1;
+
+        for (int i = 0; i < comboModel.getSize(); i++) {
+            Category category = (Category) comboModel.getElementAt(i);
+            if (category.getCategory_id()== productCategory.getCategory_id()) {
+                selectedIndex = i;
+                break;
+            }
+        }
+
+        // Đặt chỉ số đã chọn của combo box
+        if (selectedIndex != -1) {
+            comboBoxCategory.setSelectedIndex(selectedIndex);
+        }
+    
         txtImage.setEnabled(false);
         comboBoxCategory.setEnabled(false);
         txtProduct.setEnabled(false);
@@ -286,7 +304,7 @@ public class AddProductDetail extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, "Add success!");
                     dispose();
                     if (productForm != null) {
-                        productForm.reloadTable(); 
+                        productForm.reloadTable(); // Gọi phương thức reloadTable từ form cha
                     }
                     parent.resetFields();
                 } else {
@@ -324,14 +342,14 @@ public class AddProductDetail extends javax.swing.JDialog {
             return false;
         }
         
-        if (!isNumeric(priceL) || !isNumeric(priceS)) {
-            JOptionPane.showMessageDialog(null, "Price must be numeric!");
+        if (!isFloat(priceL) || !isFloat(priceS)) {
+            JOptionPane.showMessageDialog(null, "Price must be a valid float number!");
             return false;
         }
          
         try {
-            int priceLarge = Integer.parseInt(priceL);
-            int priceSmall = Integer.parseInt(priceS);
+            float priceLarge = Float.parseFloat(priceL);
+            float priceSmall = Float.parseFloat(priceS);
 
             if (priceLarge <= 0 || priceSmall <= 0) {
                 JOptionPane.showMessageDialog(null, "Price must be a positive integer!");
@@ -349,12 +367,12 @@ public class AddProductDetail extends javax.swing.JDialog {
         return true;
     }
 
-    private boolean isNumeric(String str) {
+    private boolean isFloat(String str) {
         if (str == null || str.isEmpty()) {
             return false;
         }
         try {
-            Integer.parseInt(str);
+            Float.parseFloat(str);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -363,7 +381,7 @@ public class AddProductDetail extends javax.swing.JDialog {
 
     public ProductDetail addProductDetailSizeS() {
         ProductDetail pDetail = new ProductDetail();
-        int priceS = Integer.parseInt(txtPriceS.getText());
+        float priceS = Float.parseFloat(txtPriceS.getText());
         Product p = pd.fillAllAddProductDetail(id);
         pDetail.setProduct(p);
         pDetail.setPrice(priceS);
@@ -373,7 +391,7 @@ public class AddProductDetail extends javax.swing.JDialog {
 
     public ProductDetail addProductDetailSizeL() {
         ProductDetail pDetail = new ProductDetail();
-        int priceL = Integer.parseInt(txtPriceL.getText());
+        float priceL = Float.parseFloat(txtPriceL.getText());
         Product p = pd.fillAllAddProductDetail(id);
         pDetail.setProduct(p);
         pDetail.setPrice(priceL);

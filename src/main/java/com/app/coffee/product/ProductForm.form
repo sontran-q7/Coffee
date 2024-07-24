@@ -180,7 +180,7 @@
                           <Data value="null"/>
                           <Data value="null"/>
                         </Column>
-                        <Column editable="true" title="Price S" type="java.lang.Object"/>
+                        <Column editable="false" title="Price S" type="java.lang.Object"/>
                         <Column editable="false" title="Price L" type="java.lang.Object"/>
                         <Column editable="false" title="Title 8" type="java.lang.Object"/>
                       </Table>
@@ -212,12 +212,12 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="60" minWidth="60" prefWidth="-1" resizable="true">
+                        <Column maxWidth="80" minWidth="80" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="100" minWidth="100" prefWidth="-1" resizable="true">
+                        <Column maxWidth="80" minWidth="80" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>

@@ -81,7 +81,7 @@ public class FormAdd extends JPanel {
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
-        positionComboBox = new JComboBox<>(new String[]{"Manager", "Staff"});
+        positionComboBox = new JComboBox<>(new String[]{"Staff", "Manager"});
         phoneField = new JTextField();
         emailField = new JTextField();
         passwordField = new JPasswordField();

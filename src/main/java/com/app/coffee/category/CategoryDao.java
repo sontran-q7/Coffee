@@ -88,7 +88,23 @@ public class CategoryDao {
         }
         return false;
     }
-
+    //kiem tra category edit
+    public boolean isCategoryUpdateExists(String categoryName, int categoryId) {
+        String sql = "SELECT COUNT(*) FROM Category WHERE category_name = ? AND category_id != ? AND status = 1";
+        try (Connection con = DatabaseConnection.getJDBConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, categoryName);
+            pstmt.setInt(2, categoryId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     private boolean isCategoryIdExists(int category_id) {
         String sql = "SELECT COUNT(*) FROM category WHERE category_id = ?";
         try (Connection con = DatabaseConnection.getJDBConnection();

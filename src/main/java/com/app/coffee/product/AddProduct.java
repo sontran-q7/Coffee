@@ -203,7 +203,6 @@ public class AddProduct extends javax.swing.JPanel {
                         idProduct = productId;
                         System.out.println("addPRoduct: " + idProduct);
                         new AddProductDetail(this, productForm, idProduct).setVisible(true);
-
                     }
                 } else {
                     return;
