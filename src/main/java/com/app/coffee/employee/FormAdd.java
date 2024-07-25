@@ -56,7 +56,7 @@ public class FormAdd extends JPanel {
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(255, 102, 0));
         JLabel titleLabel = new JLabel("New Employee", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 12));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.CENTER);
         topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -134,7 +134,7 @@ public class FormAdd extends JPanel {
 
     private JLabel createBoldLabel(String text) {
         JLabel label = new JLabel(text);
-        label.setFont(new Font("Arial", Font.BOLD, 14));
+        label.setFont(new Font("Arial", Font.BOLD, 12));
         return label;
     }
 
