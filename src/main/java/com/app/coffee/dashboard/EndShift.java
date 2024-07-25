@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
@@ -294,7 +295,7 @@ public class EndShift extends javax.swing.JDialog {
         updateCheckOutTimeInDatabase(checkOutTime);
 
         updateControlData();
-        JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "Successfully", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
 
         UserSession session = UserSession.getInstance();
         session.setControlId(0);
@@ -430,7 +431,7 @@ public class EndShift extends javax.swing.JDialog {
    private void updateCheckoutPayLabel() {
      float checkInPayValue = parseCurrency(checkinPay.getText()); 
     float totalSumOfDay = BillDAO.getTotalSumOfDay();
-    float totalShift = totalSumOfDay + checkInPayValue;
+    float totalShift = (totalSumOfDay + checkInPayValue ) - checkInPayValue;
     checkoutPay.setText(formatCurrency(totalShift));
 
     updateRevenueLabel();
@@ -461,7 +462,11 @@ private void updateRevenueLabel() {
     PdfWriter.getInstance(document, baos);
     document.open();
 
-    Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+     String rootPath = Paths.get("").toAbsolutePath().toString();
+
+        FontFactory.register(rootPath + "/src/main/java/com/app/coffee/fonts/Arial.ttf", "Arial Unicode");
+        Font font = FontFactory.getFont("Arial Unicode", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
+        Font titleFont = FontFactory.getFont("Arial Unicode", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 24, Font.BOLD);
     Paragraph title = new Paragraph("End of Shift Summary", titleFont);
     title.setAlignment(Element.ALIGN_CENTER);
     title.setSpacingAfter(20);
@@ -473,28 +478,28 @@ private void updateRevenueLabel() {
     table.setSpacingAfter(10f);
 
     Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-    Font regularFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+    //Font regularFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
 
     table.addCell(createCell("Manager:", boldFont));
-    table.addCell(createCell(managerLable.getText(), regularFont));
+    table.addCell(createCell(managerLable.getText(), font));
 
     table.addCell(createCell("Working Time:", boldFont));
-    table.addCell(createCell(wordTimeLable.getText(), regularFont));
+    table.addCell(createCell(wordTimeLable.getText(), font));
 
     table.addCell(createCell("Start Time:", boldFont));
-    table.addCell(createCell(StartLable.getText(), regularFont));
+    table.addCell(createCell(StartLable.getText(), font));
 
     table.addCell(createCell("End Time:", boldFont));
-    table.addCell(createCell(endLable.getText(), regularFont));
+    table.addCell(createCell(endLable.getText(), font));
 
     table.addCell(createCell("Beginning shift cash:", boldFont));
-    table.addCell(createCell(checkinPay.getText(), regularFont));
+    table.addCell(createCell(checkinPay.getText(), font));
 
     table.addCell(createCell("End shift cash:", boldFont));
-    table.addCell(createCell(checkoutPay.getText(), regularFont));
+    table.addCell(createCell(checkoutPay.getText(), font));
 
     table.addCell(createCell("Revenue shift:", boldFont));
-    table.addCell(createCell(revenueField.getText(), regularFont));
+    table.addCell(createCell(revenueField.getText(), font));
 
     document.add(table);
 

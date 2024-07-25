@@ -9,6 +9,7 @@ import com.app.coffee.Backend.DAO.UserDAO;
 import com.app.coffee.Backend.Model.OrderModel;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -362,7 +363,11 @@ public class Bill extends javax.swing.JPanel {
 
     tableBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
     tableBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
-    TotalBill.setText(" "+String.valueOf(totalBillValue));
+    DecimalFormat df = new DecimalFormat("#.0");
+    String formattedTotalBillValue = df.format(totalBillValue);
+    
+    TotalBill.setText(" " + formattedTotalBillValue);
+
 }
     
     
@@ -387,13 +392,17 @@ public class Bill extends javax.swing.JPanel {
                 button
             };
             defaultTableModel.addRow(row);
-            totalBillValue += list.getTotal();
+            totalBillValue += list.getTotal() ;
             index++;
         }
         tableBill.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
 
         tableBill.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
-        TotalBill.setText(" "+String.valueOf(totalBillValue));
+        DecimalFormat df = new DecimalFormat("#.0");
+        String formattedTotalBillValue = df.format(totalBillValue);
+
+        TotalBill.setText(" " + formattedTotalBillValue);
+
         
     }
 
@@ -436,7 +445,11 @@ public class Bill extends javax.swing.JPanel {
             totalBillValue += order.getTotal();
             index++;
         }
-        TotalBill.setText(" "+String.valueOf(totalBillValue));
+        DecimalFormat df = new DecimalFormat("#.0");
+        String formattedTotalBillValue = df.format(totalBillValue);
+
+        TotalBill.setText(" " + formattedTotalBillValue);
+
 }
     public void refreshListBillByUsernameAndDate(String username, LocalDateTime  fromDate, LocalDateTime  toDate) {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
@@ -462,7 +475,11 @@ public class Bill extends javax.swing.JPanel {
             totalBillValue += order.getTotal();
             index++ ;
         }
-        TotalBill.setText(" "+String.valueOf(totalBillValue));
+        DecimalFormat df = new DecimalFormat("#.0");
+        String formattedTotalBillValue = df.format(totalBillValue);
+
+        TotalBill.setText(" " + formattedTotalBillValue);
+
         
 }
     public void refreshListBillByUsername(String userName) {
@@ -492,7 +509,11 @@ public class Bill extends javax.swing.JPanel {
             totalBillValue += order.getTotal();
              index++ ;
         }       
-         TotalBill.setText(" "+String.valueOf(totalBillValue));
+        DecimalFormat df = new DecimalFormat("#.0");
+        String formattedTotalBillValue = df.format(totalBillValue);
+
+        TotalBill.setText(" " + formattedTotalBillValue);
+
          }
 }   
     // Variables declaration - do not modify//GEN-BEGIN:variables

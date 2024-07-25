@@ -286,7 +286,7 @@ public class MenuPanel extends JPanel {
                         double guestsBrought = Double.parseDouble(guestsBroughtStr);
 
                         double change = guestsBrought - total;
-                        changeTextField.setText(String.format("%.2f", change));
+                        changeTextField.setText(String.format("%.1f", change));
                     } catch (NumberFormatException ex) {
                         changeTextField.setText("0");
                     }
@@ -568,13 +568,13 @@ public class MenuPanel extends JPanel {
                     String productNote = (String) tableModel.getValueAt(i, 6);
                     detail.setNote(productNote);
                     if ("50%".equals(sugar) && productNote != null && !productNote.trim().isEmpty()) {
-                        String productNameWithSugar = productName + " " + size + " 50% đường";
+                        String productNameWithSugar = productName + " " + size + " 50% đường" + " quantity " + quantity;
                         note += "\n" + productNameWithSugar + " - " + productNote;
                     } else if ("100%".equals(sugar) && productNote != null && !productNote.trim().isEmpty()) {
-                        String productNameWithSugar = productName + " " + size + " 100% đường";
+                        String productNameWithSugar = productName + " " + size + " 100% đường"+ " quantity " + quantity;
                         note += "\n" + productNameWithSugar + " - " + productNote;
                     } else if ("50%".equals(sugar)){
-                        String productNameWithSugar = productName + " " + size + " 50% đường";
+                        String productNameWithSugar = productName + " " + size + " 50% đường"+ " quantity " + quantity;
                         note += "\n" + productNameWithSugar;
                     }
 
@@ -604,7 +604,11 @@ public class MenuPanel extends JPanel {
                     }
                 }
 
-                InvoicePDF invoicePdf = new InvoicePDF(textStaff, products, totalAmount, textTable, initialNote, guestsBroughtAmount, changeAmount);
+                String formattedTotalAmount = String.format("%.1f", totalAmount);
+                String formattedGuestsBroughtAmount = String.format("%.1f", guestsBroughtAmount);
+                String formattedChangeAmount = String.format("%.1f", changeAmount);
+                
+                InvoicePDF invoicePdf = new InvoicePDF(textStaff, products, Double.parseDouble(formattedTotalAmount), textTable, initialNote, Float.parseFloat(formattedGuestsBroughtAmount), Float.parseFloat(formattedChangeAmount));
                 invoicePdf.generateInvoicePDF();
 
                 if (Desktop.isDesktopSupported()) {
