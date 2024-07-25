@@ -77,7 +77,7 @@ public class FormAdd extends JPanel {
         JLabel lblPhone = createBoldLabel("Phone:");
         JLabel lblEmail = createBoldLabel("Email:");
         JLabel lblPassword = createBoldLabel("Password:");
-        JLabel lblConfirmPassword = createBoldLabel("Confirm Password:");
+        JLabel lblConfirmPassword = createBoldLabel("Confirm:");
         JLabel lblImage = createBoldLabel("Image:");
 
         nameField = new JTextField();
