@@ -374,7 +374,7 @@ public class Bill extends javax.swing.JPanel {
     public void refreshListBill(){
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         ArrayList<OrderModel> ListBill = orderDetailDAO.selectAll1Bill();
-        
+        ListBill.sort((o1, o2) -> o2.getDay().compareTo(o1.getDay()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd    HH:mm:ss");
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableBill.getModel();
         defaultTableModel.setRowCount(0);

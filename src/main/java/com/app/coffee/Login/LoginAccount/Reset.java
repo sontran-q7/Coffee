@@ -163,6 +163,12 @@ public class Reset extends JPanel  {
         new CustomDialog(null, "Error", "Please enter both new password and confirm password");
         return;
     }
+    
+    if (TxtResetPassword.getText().length() < 8) {
+        new CustomDialog(null, "Error", "Password must be at least 8 characters long");
+        return;
+    }
+
 
     if (!TxtResetPassword.getText().equals(TxtVerResetPassword.getText())) {
         new CustomDialog(null, "Error", "Passwords do not match");

@@ -568,13 +568,13 @@ public class MenuPanel extends JPanel {
                     String productNote = (String) tableModel.getValueAt(i, 6);
                     detail.setNote(productNote);
                     if ("50%".equals(sugar) && productNote != null && !productNote.trim().isEmpty()) {
-                        String productNameWithSugar = productName + " " + size + " 50% đường" + " quantity " + quantity;
+                        String productNameWithSugar = productName + "-" + size + " 50% đường" + " quantity " + quantity;
                         note += "\n" + productNameWithSugar + " - " + productNote;
                     } else if ("100%".equals(sugar) && productNote != null && !productNote.trim().isEmpty()) {
-                        String productNameWithSugar = productName + " " + size + " 100% đường"+ " quantity " + quantity;
+                        String productNameWithSugar = productName + "-" + size  + " 100% đường"+ " quantity " + quantity;
                         note += "\n" + productNameWithSugar + " - " + productNote;
                     } else if ("50%".equals(sugar)){
-                        String productNameWithSugar = productName + " " + size + " 50% đường"+ " quantity " + quantity;
+                        String productNameWithSugar = productName + "-" + size + " 50% đường"+ " quantity " + quantity;
                         note += "\n" + productNameWithSugar;
                     }
 
