@@ -4,71 +4,111 @@
  */
 package com.app.coffee.product;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
+import com.app.coffee.category.Category;
+import java.time.LocalDateTime;
 
-/**
- *
- * @author Acer
- */
 public class Product {
-    
-    private String ID;
-//    private BufferedImage image; // kiểu dữ liệu phù hợp để lưu đường dẫn hoặc thông tin hình ảnh
-    private String image;
-    private String category;
-    private String product;
-    private String size;
-    private String price;
 
-    public Product(String ID, String image, String category, String product, String size, String price) {
-        this.ID = ID;
-        this.image = image;
-        this.category = category;
-        this.product = product;
-        this.size = size;
-        this.price = price;
+    private Integer product_id;
+    private Category category;
+    private String product_name;
+    private String image;
+    private String description;
+    private boolean status;
+    private LocalDateTime created_at;
+    private LocalDateTime update_at;
+    private ProductDetail productDetail;
+
+    public Product() {
     }
 
-    public String getID() {
-        return ID;
+    public Product(Integer product_id, Category category, String product_name, String image, String description) {
+        this.product_id = product_id;
+        this.category = category;
+        this.product_name = product_name;
+        this.image = image;
+        this.description = description;
+    }
+    
+    public Product(Integer product_id, Category category, String product_name, String image, String description, ProductDetail productDetail) {
+        this.product_id = product_id;
+        this.category = category;
+        this.product_name = product_name;
+        this.image = image;
+        this.description = description;
+        this.productDetail = productDetail;
+    }
+
+    public Integer getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
     }
 
     public String getImage() {
         return image;
     }
 
-    public String getCategory() {
-        return category;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getProduct() {
-        return product;
+    public String getDescription() {
+        return description;
     }
 
-    public String getSize() {
-        return size;
-    }
-//    public String getSize() {
-//        // Trả về "s" nếu size là true, ngược lại trả về "l"
-//        return size ? "s" : "l";
-//    }
-
-    public String getPrice() {
-        return price;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "ID='" + ID + '\'' +
-                ", image=" + image +
-                ", category=" + category +
-                ", product='" + product + '\'' +
-                ", size=" + size +
-                ", price=" + price +
-                '}';
+    public boolean isStatus() {
+        return status;
     }
-    
-    
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
+    }
+
+    public LocalDateTime getUpdate_at() {
+        return update_at;
+    }
+
+    public void setUpdate_at(LocalDateTime update_at) {
+        this.update_at = update_at;
+    }
+
+    public ProductDetail getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(ProductDetail productDetail) {
+        this.productDetail = productDetail;
+    }
+
 }

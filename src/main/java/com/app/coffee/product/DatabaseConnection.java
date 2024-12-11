@@ -4,14 +4,14 @@
  */
 package com.app.coffee.product;
 
-import com.app.coffee.Database.AdminAccountManager;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
  *
- * @author Acer
+ * @author anhso
  */
 public class DatabaseConnection {
     public static java.sql.Connection getJDBConnection() {
@@ -34,7 +34,7 @@ public class DatabaseConnection {
         java.sql.Connection connection = getJDBConnection();
          
         if(connection != null){
-            AdminAccountManager.createAdminAccount();
+            
             System.out.println("success");   
         }else{
             System.out.println("false");

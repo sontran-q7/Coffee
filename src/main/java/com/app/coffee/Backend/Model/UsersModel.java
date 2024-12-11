@@ -14,17 +14,19 @@ import java.util.List;
 public class UsersModel {
 	private int account_id;
         private String username;
+        private String image;
         private String password;
-        private int phone;  
+        private String phone;  
         private Role role;
         private int status;
         private String email;
         
 
         
-        public UsersModel(int account_id, String username, String password, int phone,Role role, int status, String email) {
+        public UsersModel(int account_id, String username, String image, String password, String phone,Role role, int status, String email) {
         this.account_id = account_id;
         this.username = username;
+        this.image = image;
         this.password = password;
         this.phone = phone;
         this.role = role;
@@ -33,22 +35,27 @@ public class UsersModel {
         
     }
 
-    public UsersModel(int aInt, String string, String string0, int aInt0, String string1, int aInt1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public UsersModel(String email,String password,Role role) {
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     public UsersModel() {
         this.account_id = 0;
         this.username = "";
         this.password = "";
-        this.phone = 0;
+        this.phone = "";
         this.role = null;
         this.status = 0;
         this.email = "";
     }
        
     
-       
+
+        public String getImage() {
+            return image;
+        }
         public int getAccount_id(){
         return account_id;
         }
@@ -59,7 +66,7 @@ public class UsersModel {
             return password;
         }
         
-        public int getPhone(){
+        public String getPhone(){
             return phone;
         }
         public String getUserName(){
@@ -84,12 +91,16 @@ public class UsersModel {
             return role;
         }
 
-        public void setPhone(int phone){
+        public void setPhone(String phone){
             this.phone = phone;
         }
 
         public void setEmail(String email){
             this.email = email;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
         }
 
     public void setUsername(String username) {

@@ -23,26 +23,26 @@ public class demo extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Set the size of the frame
-        setSize(958, 527);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setSize(958, 527);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         // Center the frame
         setLocationRelativeTo(null);
 
         // Create an instance of demo panel
         EmployeeManager panel = new EmployeeManager();
         //StaffSchedule panel = new StaffSchedule();
+        //ReturnAccount panel = new ReturnAccount();
         // Add the demo panel to the frame
         add(panel);
     }
     
     public static void main(String[] args) {
-        FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
+        //FlatLaf.registerCustomDefaultsSource("com.app.coffee.employee");
         //FlatMacDarkLaf.setup();
-        FlatIntelliJLaf.setup();
+        //FlatIntelliJLaf.setup();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
                 demo frame = new demo();
                 frame.setVisible(true);
             }

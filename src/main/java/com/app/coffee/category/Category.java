@@ -8,25 +8,44 @@ package com.app.coffee.category;/**
  */
 public class Category {
 
-    private String ID;
-    private String category;
+    private int category_id;;
+    private String category_name;
     private String description;
     private String status;
+    
+    public Category() {
+    }
 
-    public Category(String ID, String category, String description, String status) {
-        this.ID = ID;
-        this.category = category;
+    public Category(int category_id, String category_name, String description, String status) {
+        this.category_id = category_id;
+        this.category_name = category_name;
         this.description = description;
         this.status = status;
     }
-
-    public String getID() {
-        
-        return ID;
+    // set
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
-    public String getCategory() {
-        return category;
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    // get
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
     }
 
     public String getDescription() {
@@ -37,10 +56,10 @@ public class Category {
         return status;
     }
 
+    
     @Override
     public String toString() {
-        return "Category{" + "ID=" + ID + ", category=" + category + ", description=" + description + ", status=" + status + '}';
+    return this.category_name; // This will be displayed in the JComboBox
+//        return "Category{" + "category_id=" + category_id + ", category_name=" + category_name + ", description=" + description + ", status=" + status + '}';
     }
-    
-
 }
